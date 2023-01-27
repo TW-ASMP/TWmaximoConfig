@@ -1,0 +1,120 @@
+title: asset
+$id: objectDefs/asset
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+properties:
+  
+  Asset Record Number:
+    type: string
+    description: A system generated serial number to uniquely identify the asset record
+    $comment: >
+      Asset number will be used mostly to identify asset records, not the asset itself.
+      If you are interested in tracking the asset's movement, then it is recommented to either 
+        - use the asset's OEM serial number or 
+        - label the asset with the Asset Number.
+      RULES:
+        1. [] if asset is from GIS, the entity number would be the GIS's FacilityID
+
+
+  Asset Name:
+    type: string
+    description: a auto-generated description field
+    $comment: >
+      RULES:
+        1. [] a auto-generated description field that is the concatenation of 
+            1) "Asset Record Number" property value, 
+            2) assetClassification object "Class Name" property value,
+            3) values of productLine object properties: 
+                manufacturer, 
+                model, 
+                configuration code / catalog nummber,
+                OEM serial number
+  
+  
+  Asset Classification:
+    $ref: objectDefs/assetClassification
+    description: indicates a subclass of asset to which this asset is a member
+
+  
+  Life Status:
+    type: string
+    enum:
+      - planned
+      - operational
+      - decommissioned
+  
+
+  Operating State:
+    type: string
+    nullable: TRUE
+    enum: 
+      - not in use
+      - in use
+      - suspended
+    $comment: >
+      RULES:
+        1 [] 
+          if (LifeStatus.Value != "Operational")
+            value = NULL
+
+
+  Designated System Role:
+    $ref: objectDefs/role
+    nullable: TRUE
+    description: role that the asset is assigned to
+    $comment: >
+      This will not change even if the asset is temporarily removed from installation.
+      RULES:
+        1 [] validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
+
+
+  Installed:
+    type: boolean
+    description: indicates of the asset is currently installed in its role
+    $comment: >
+      RULES:
+        1 [] if "Designated System Role" value is NULL, this property must also be NULL 
+        (and disabled in the interface)
+
+
+  Facility Location:
+    $ref: objectDefs/facilityLocation
+    description: 
+    $comment: >
+      RULES:
+        1 [] if "Installed" = TRUE && role referened , 
+              value must = "Facility Location" value of the system role instance referened by the "Designated System Role" property.
+        2 [] else, 
+  
+
+  Service Address Location:
+
+
+  Maintenance Organization:
+    $ref: objectDefs/organization
+    description: 
+    $comment:
+  
+
+  Tool Usage Organization:
+    $ref: objectDefs/organization
+    description: Indicates the assignment of a tool that does not have a system role
+    $comment: >
+      Valid organization instances include division, section, unit, work areas, or a custom 
+      defined organization.
+      RULES:
+        1. []   
+
+  
+  Year of Manufacture:
+    type: integer
+    description: the year the asset was made
+    $comment: >
+      This is needed to determine the model year of certain asset
+
+  Purchase Value:
+    type: integer
+  
+
+
+
