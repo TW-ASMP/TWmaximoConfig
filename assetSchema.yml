@@ -15,48 +15,47 @@ properties:
       RULES:
         1. [] if asset is from GIS, the entity number would be the GIS's FacilityID
 
-
   Asset Name:
     type: string
     description: a auto-generated description field
     $comment: >
       RULES:
         1. [] a auto-generated description field that is the concatenation of 
-            1) "Asset Record Number" property value, 
-            2) assetClassification object "Class Name" property value,
-            3) values of productLine object properties: 
+            1) assetClassification object "Class Name" property value (e.g. "centrifugal pump"),
+            2) values of productLine object properties: 
                 manufacturer, 
                 model, 
                 configuration code / catalog nummber,
                 OEM serial number
   
-  
   Asset Classification:
     $ref: objectDefs/assetClassification
     description: indicates a subclass of asset to which this asset is a member
 
-  
   Life Status:
-    type: string
+    type:
+      - string
+      - 'null'
     enum:
       - planned
-      - operational
-      - decommissioned
-  
+      - in inventory
+      - removed from inventory
+    $comment: >
+      Debbie: inventory can be conflated with storage
 
   Operating State:
-    type: string
-    nullable: TRUE
+    type: 
+      - string
+      - 'null'
     enum: 
       - not in use
-      - in use
+      - in use / in commission
       - suspended
     $comment: >
       RULES:
         1 [] 
           if (LifeStatus.Value != "Operational")
             value = NULL
-
 
   Designated System Role:
     $ref: objectDefs/role
@@ -66,8 +65,7 @@ properties:
       This will not change even if the asset is temporarily removed from installation.
       RULES:
         1 [] validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
-
-
+  
   Installed:
     type: boolean
     description: indicates of the asset is currently installed in its role
@@ -75,8 +73,7 @@ properties:
       RULES:
         1 [] if "Designated System Role" value is NULL, this property must also be NULL 
         (and disabled in the interface)
-
-
+  
   Facility Location:
     $ref: objectDefs/facilityLocation
     description: 
@@ -86,16 +83,14 @@ properties:
               value must = "Facility Location" value of the system role instance referened by the "Designated System Role" property.
         2 [] else, 
   
-
   Service Address Location:
-
-
+    type: string
+  
   Maintenance Organization:
     $ref: objectDefs/organization
     description: 
     $comment:
   
-
   Tool Usage Organization:
     $ref: objectDefs/organization
     description: Indicates the assignment of a tool that does not have a system role
@@ -104,14 +99,13 @@ properties:
       defined organization.
       RULES:
         1. []   
-
   
   Year of Manufacture:
     type: integer
     description: the year the asset was made
     $comment: >
       This is needed to determine the model year of certain asset
-
+  
   Purchase Value:
     type: integer
   
