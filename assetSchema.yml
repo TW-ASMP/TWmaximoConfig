@@ -3,7 +3,7 @@ $id: objectDefs/asset
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 properties:
-  
+
   Asset Record Number:
     type: string
     description: A system generated serial number to uniquely identify the asset record
@@ -13,7 +13,7 @@ properties:
         - use the asset's OEM serial number or 
         - label the asset with the Asset Number.
       RULES:
-        1. [] if asset is from GIS, the entity number would be the GIS's FacilityID
+        1. [] if asset is from GIS, the entity number would be the GIS'sID
 
   Asset Name:
     type: string
@@ -38,60 +38,61 @@ properties:
       - 'null'
     enum:
       - planned
-      - in inventory
-      - removed from inventory
+      - in possession
+      - eliminated
     $comment: >
-      Debbie: inventory can be conflated with storage
+      an asset can be decommissioned, but still in possession
 
   Operating State:
     type: 
       - string
       - 'null'
     enum: 
+      - in use
+      - suspended from use
       - not in use
-      - in use / in commission
-      - suspended
     $comment: >
+      when an asset is decommissioned, it is "not in use"
+      when an asset is inventoried in a store, it is also "not in use"
+        the fact that it is in the inventory can be determined from its 
       RULES:
         1 [] 
           if (LifeStatus.Value != "Operational")
             value = NULL
 
-  Designated System Role:
+  System Role:
     $ref: objectDefs/role
     nullable: TRUE
-    description: role that the asset is assigned to
+    description: > 
+      role that the asset is presently occupying (if the asset is in possession)
     $comment: >
-      This will not change even if the asset is temporarily removed from installation.
       RULES:
         1 [] validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
-  
-  Installed:
-    type: boolean
-    description: indicates of the asset is currently installed in its role
-    $comment: >
-      RULES:
-        1 [] if "Designated System Role" value is NULL, this property must also be NULL 
-        (and disabled in the interface)
-  
-  Facility Location:
-    $ref: objectDefs/facilityLocation
+
+  Located Within:
+    $ref: objectDefs/Space
     description: 
     $comment: >
       RULES:
-        1 [] if "Installed" = TRUE && role referened , 
-              value must = "Facility Location" value of the system role instance referened by the "Designated System Role" property.
-        2 [] else, 
+        1 [] System Role, Space, and Service Address are mutually exclusive. 
+        (This implies that a asset with Space specification is not installed in a role)
+        (With this rule, we avoid conflicting information between space and system role)
   
-  Service Address Location:
+  Service Address:
     type: string
   
-  Maintenance Organization:
+  Operator:
     $ref: objectDefs/organization
     description: 
+    $comment: >
+      for assets in roles, the role determines the operator
+
+  Maintenance Organization:
+    $ref: objectDefs/organization
+    description: The maintainer if different from the operator
     $comment:
   
-  Tool Usage Organization:
+  Assigned To:
     $ref: objectDefs/organization
     description: Indicates the assignment of a tool that does not have a system role
     $comment: >
@@ -109,6 +110,3 @@ properties:
   Purchase Value:
     type: integer
   
-
-
-
