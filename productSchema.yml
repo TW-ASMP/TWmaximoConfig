@@ -1,61 +1,6 @@
-title: asset
-$id: objectDefs/asset
+title: product
+$id: objectDefs/product
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 properties:
-  Asset Record Number:
-    type: string
-    description: A system generated serial number to uniquely identify the asset record
-    $comment: >
-      Asset number will be used mostly to identify asset records, not the asset itself.
-      If you are interested in tracking the asset's movement, then it is recommented to either 
-        - use the asset's OEM serial number or 
-        - label the asset with the Asset Number.
-      RULES:
-        1. [] if asset is from GIS, the entity number would be the GIS's FacilityID
-  
-  Asset Name:
-    type: string
-    description: a auto-generated description field
-    $comment: >
-      RULES:
-        1. [] a auto-generated description field that is the concatenation of 
-            1) "Asset Record Number" property value, 
-            2) assetClassification object "Class Name" property value,
-            3) values of productLine object properties: 
-                manufacturer, 
-                model, 
-                configuration code / catalog nummber,
-                OEM serial number
 
-  Asset Classification:
-    $ref: objectDefs/assetClassification
-    description: 
-  
-  Assigned To:
-    $ref: objectDefs/organization
-    description: 
-  
-  Current Role:
-    $ref: objectDefs/role
-    description: role that the asset is serving right now
-  
-  Designated Role:
-    $ref: objectDefs/role
-    description: role that the asset is assigned to
-    $comment: >
-      This will not change even if the asset is temporarily removed from installation.
-      the role must an Asset Role or a Asset Collection Role (versus a system
-      role).
-  
-  Facility Location:
-    $ref: objectDefs/facilityLocation
-    description: 
-    $comment:
-      RULES:
-        if an asset presently installed in an Asset Role, the location must be inherited from the role 
-    
-  Service Address Location:
-    $ref: objectDefs/role
-    description: >
-      if asset 
