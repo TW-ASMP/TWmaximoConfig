@@ -85,7 +85,7 @@ properties:
     $ref: objectDefs/organization
     description: 
     $comment: >
-      for assets in roles, the role determines the operator
+      for assets associated with roles, the operator can often be inferred from the role
 
   Maintenance Organization:
     $ref: objectDefs/organization
