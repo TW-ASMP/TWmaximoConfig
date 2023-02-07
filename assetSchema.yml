@@ -2,7 +2,7 @@ title: asset
 $id: objectDefs/asset
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
-properties:
+properties: # TODO: nullables, interaction between Status and State, location information rules
 
   Asset Record Number:
     type: string
@@ -17,7 +17,7 @@ properties:
 
   Asset Name:
     type: string
-    description: a auto-generated description field
+    description: a system generated description field
     $comment: >
       RULES:
         1. [] a auto-generated description field that is the concatenation of 
@@ -28,18 +28,19 @@ properties:
                 configuration code / catalog nummber,
                 OEM serial number
   
-  Asset Classification:
-    $ref: objectDefs/assetClassification
+  Asset Classification Reference:
+    $ref: objectDefs/MaximoAssetClassification
     description: indicates a subclass of asset to which this asset is a member
 
   Life Status:
     type:
       - string
       - 'null'
+    track history: TRUE
     enum:
       - planned
       - in possession
-      - eliminated
+      - removed from TW
     $comment: >
       an asset can be decommissioned, but still in possession
 
@@ -47,6 +48,7 @@ properties:
     type: 
       - string
       - 'null'
+    track history: TRUE
     enum: 
       - in use
       - suspended from use
@@ -54,24 +56,36 @@ properties:
     $comment: >
       when an asset is decommissioned, it is "not in use"
       when an asset is inventoried in a store, it is also "not in use"
-        the fact that it is in the inventory can be determined from its 
+      the fact that it is in the inventory can be determined from its 
       RULES:
         1 [] 
           if (LifeStatus.Value != "Operational")
             value = NULL
 
-  System Role:
-    $ref: objectDefs/role
-    nullable: TRUE
+  Role:
+    $ref: objectDefs/role/role number
     description: > 
       role that the asset is presently occupying (if the asset is in possession)
+    track history: TRUE
     $comment: >
       RULES:
         1 [] validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
 
-  Located Within:
-    $ref: objectDefs/Space
-    description: 
+  Major TW System: # value can be inferred, []ENUM not done
+    type: string
+    enum:
+      - sewer
+      - collection
+      - distribution
+      - 
+    description:
+    $comment: > 
+      the enum value list should match the named systems represents in the 2nd or 3rd level of Toronto Water's top level system hierarchy. 
+
+  Located in Space:
+    $ref: objectDefs/space
+    description:
+    track history: TRUE 
     $comment: >
       RULES:
         1 [] System Role, Space, and Service Address are mutually exclusive. 
@@ -79,9 +93,10 @@ properties:
         (With this rule, we avoid conflicting information between space and system role)
   
   Service Address:
-    type: string
+    $ref: objectDefs/MaximoServiceAddress
+    track history: TRUE
   
-  Operator:
+  Operator Organization:
     $ref: objectDefs/organization
     description: 
     $comment: >
@@ -90,23 +105,53 @@ properties:
   Maintenance Organization:
     $ref: objectDefs/organization
     description: The maintainer if different from the operator
+    track history: TRUE
     $comment:
   
-  Assigned To:
-    $ref: objectDefs/organization
+  Assigned to Person:
+    $ref: objectDefs/person
     description: Indicates the assignment of a tool that does not have a system role
+    track history: TRUE
     $comment: >
       Valid organization instances include division, section, unit, work areas, or a custom 
       defined organization.
       RULES:
         1. []   
   
+  Purchased Under Project:
+    $ref: objectDefs/capProject
+    
+  Date Received:
+    type: string
+    description: the date the asset came on site.
+
   Year of Manufacture:
     type: integer
     description: the year the asset was made
-    $comment: >
-      This is needed to determine the model year of certain asset
+    $comment: This is needed to determine the model year of certain asset
   
-  Purchase Value:
+  Product Identification:
+    $ref: objectDefs/product
+    description: an object that includes the information manufacturer, model, sub-model
+  
+  OEM Catalog / Configuration Code:
+    type: string
+    description: a text the communicates the exact configuration of the asset, within a pre-defined configuration space 
+    $comment: this is not a part of the product object, because there could be too many variation, and it does not add value to the document indexing use-case
+
+  OEM Serial Number:
+    type: string
+
+  Purchase Cost:
     type: integer
   
+  Warranty Expiration Date:
+    type: string
+
+  Additional Description:
+    type: string
+    description: Free text description
+  
+  Additional Data:
+    type: string
+    description: addtional property information in JSON
