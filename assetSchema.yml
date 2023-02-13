@@ -35,7 +35,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
   Life Status:
     type:
       - string
-      - 'null'
+      - null
     track history: TRUE
     enum:
       - planned
@@ -47,7 +47,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
   Operating State:
     type: 
       - string
-      - 'null'
+      - null
     track history: TRUE
     enum: 
       - in use
@@ -57,10 +57,6 @@ properties: # TODO: nullables, interaction between Status and State, location in
       when an asset is decommissioned, it is "not in use"
       when an asset is inventoried in a store, it is also "not in use"
       the fact that it is in the inventory can be determined from its 
-      RULES:
-        1 [] 
-          if (LifeStatus.Value != "Operational")
-            value = NULL
 
   Role:
     $ref: objectDefs/role/role number
@@ -130,7 +126,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
     description: the year the asset was made
     $comment: This is needed to determine the model year of certain asset
   
-  Product Identification:
+  Product:
     $ref: objectDefs/product
     description: an object that includes the information manufacturer, model, sub-model
   
@@ -155,3 +151,19 @@ properties: # TODO: nullables, interaction between Status and State, location in
   Additional Data:
     type: string
     description: addtional property information in JSON
+
+#### RULES ####
+
+  # Rule on dependency between Lift Status and Operating State
+  if:
+    properties:
+      Life Status:
+        anyOf: 
+          - const: "planned"
+          - const: "removed from TW"
+  then: # Operating State must be empty or NULL
+    properties:
+      Operating State:
+        not:
+          type: string
+          minLength: 1
