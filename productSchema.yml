@@ -3,4 +3,9 @@ $id: objectDefs/product
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 properties:
-
+  manufacturer:
+    type: string
+  
+  model:
+    type: array
+  
