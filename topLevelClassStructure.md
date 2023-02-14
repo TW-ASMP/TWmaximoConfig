@@ -1,20 +1,21 @@
 # Top-Level User Classification
 * asset
-    * general purpose discrete asset [^1][^2][^3]
-        * flow control or line element
-        * material storage
-        * driving / rotating
-        * sensing / measurement / control
-        * electrical power function
-        * communication / generic computing
-    * water or wastewater teatment asset
-    * water, wastewater, or stormwater network asset
-    * HVAC asset
-    * safety and hazard prevention asset
-    * physical security asset
-    * building or structure or part asset
-    * transportation asset
-    * lifting asset
+    * water or wastewater teatment term
+    * water, wastewater, or stormwater network term
+    * safety or hazard prevention term
+    * physical security term
+    * building or structural term
+    * HVAC term
+    * transportation or lifting term
+    * lighting term
+    * machine shop term
+    * general purpose asset term [^1][^2][^3]
+        * flow control or linear fn
+        * material storage fn
+        * driving or rotating fn
+        * sensing or measurement, control fn
+        * electrical power fn
+        * communication or generic computing fn
     * set of discrete assets
         * system
             * localized function system
