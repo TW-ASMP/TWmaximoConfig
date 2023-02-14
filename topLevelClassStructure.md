@@ -9,14 +9,14 @@
     * transportation or lifting specific
     * lighting specific
     * shop floor tool specific
-    * general purpose discrete asset [^2][^3]
-        * flow control or conveyance function asset
-        * linear function asset
-        * material storage function asset
-        * driving or rotating function asset
-        * sensing, measurement, or control function asset
-        * electrical power function asset
-        * communication or computing function asset
+    * general purpose discrete [^2][^3]
+        * flow control or conveyance function 
+        * linear function 
+        * material storage function 
+        * driving or rotating function 
+        * sensing, measurement, or control function 
+        * electrical power function 
+        * communication or computing function 
     * set of discrete assets
         * system
             * localized function system
