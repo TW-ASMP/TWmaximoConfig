@@ -32,6 +32,6 @@
     * outdoor
 
 ### Footnotes
-[^1]: Under the categories whose name ends in "term", you will find term denoting assets used in a particular type of system or application, serving a narrow range of human goals.
+[^1]: Under the categories whose name ends in "specific", you will find term denoting assets used in a particular type of system or application, serving a narrow range of human goals.
 [^2]: Under this category, you will find term denoting discrete assets that perform a low-level technical functions, which can be used in a diverse range of systems that achieve a diverse range of human goals.
 [^3]: Sometimes the distinction between "discrete general purpose asset" and "term purpose asset" is not a clear-cut. In these cases, you will a class under both categories.
