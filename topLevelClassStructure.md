@@ -1,22 +1,22 @@
-# Top-Level User Categories
+# Top-Level User Class Structure
 * asset
-    * water or wastewater teatment term [^1]
-    * water, wastewater, or stormwater network term
-    * safety or hazard prevention term
-    * physical security term
-    * building or structural term
-    * HVAC term
-    * transportation or lifting term
-    * lighting term
-    * machine shop term
+    * water or wastewater teatment specific [^1]
+    * water, wastewater, or stormwater network specific
+    * safety or hazard prevention specific
+    * physical security specific
+    * building or structural specific
+    * HVAC specific
+    * transportation or lifting specific
+    * lighting specific
+    * shop floor tool specific
     * general purpose discrete asset [^2][^3]
-        * flow control or conveyance function
-        * linear function
-        * material storage function
-        * driving or rotating function
-        * sensing, measurement, or control function
-        * electrical power function
-        * communication or computing function
+        * flow control or conveyance function asset
+        * linear function asset
+        * material storage function asset
+        * driving or rotating function asset
+        * sensing, measurement, or control function asset
+        * electrical power function asset
+        * communication or computing function asset
     * set of discrete assets
         * system
             * localized function system
@@ -32,6 +32,6 @@
     * outdoor
 
 ### Footnotes
-[^1]: Under the categories whose name ends in "term", you will find terms denoting assets used in a particular type of system or application, serving a narrow range of human goals.
-[^2]: Under this category, you will find terms denoting discrete assets that perform a low-level technical functions, which can be used in a diverse range of systems that achieve a diverse range of human goals.
-[^3]: Sometimes the distinction between "discrete general purpose asset" and "specific purpose asset" is not a clear-cut. In these cases, you will a class under both categories.
+[^1]: Under the categories whose name ends in "term", you will find term denoting assets used in a particular type of system or application, serving a narrow range of human goals.
+[^2]: Under this category, you will find term denoting discrete assets that perform a low-level technical functions, which can be used in a diverse range of systems that achieve a diverse range of human goals.
+[^3]: Sometimes the distinction between "discrete general purpose asset" and "term purpose asset" is not a clear-cut. In these cases, you will a class under both categories.
