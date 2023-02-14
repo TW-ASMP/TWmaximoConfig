@@ -10,12 +10,13 @@
     * lighting term
     * machine shop term
     * general purpose discrete asset [^2][^3]
-        * flow control or linear fn
-        * material storage fn
-        * driving or rotating fn
-        * sensing, measurement, or control fn
-        * electrical power fn
-        * communication or generic computing fn
+        * flow control or conveyance function
+        * linear function
+        * material storage function
+        * driving or rotating function
+        * sensing, measurement, or control function
+        * electrical power function
+        * communication or computing function
     * set of discrete assets
         * system
             * localized function system
@@ -26,6 +27,9 @@
         * route
         * assets of a facility
         * assets of a organization
+* space
+    * indoor
+    * outdoor
 
 ### Footnotes
 [^1]: Under the categories whose name ends in "term", you will find terms denoting assets used in a particular type of system or application, serving a narrow range of human goals.
