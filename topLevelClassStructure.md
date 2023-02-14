@@ -1,6 +1,6 @@
-# Top-Level User Classification
+# Top-Level User Categories
 * asset
-    * water or wastewater teatment term
+    * water or wastewater teatment term [^1]
     * water, wastewater, or stormwater network term
     * safety or hazard prevention term
     * physical security term
@@ -9,11 +9,11 @@
     * transportation or lifting term
     * lighting term
     * machine shop term
-    * general purpose asset term [^1][^2][^3]
+    * general purpose discrete asset [^2][^3]
         * flow control or linear fn
         * material storage fn
         * driving or rotating fn
-        * sensing or measurement, control fn
+        * sensing, measurement, or control fn
         * electrical power fn
         * communication or generic computing fn
     * set of discrete assets
@@ -27,6 +27,6 @@
         * assets of a organization
 
 ### Footnotes
-[^1]: Under this category, you will find terms denoting discrete assets that perform a low-level technical functions, which can be put to use in systems that achieve a more diverse range of human goals 
-[^2]: Under the other sub-categories of asset, you will find terms denoting discrete and collection assets (used in systems) that achieves a narrow and closed range of human goal.
+[^1]: Under the categories whose name ends in "term", you will find terms denoting assets used in a particular type of system or application, serving a narrow range of human goals.
+[^2]: Under this category, you will find terms denoting discrete assets that perform a low-level technical functions, which can be used in a diverse range of systems that achieve a diverse range of human goals.
 [^3]: Sometimes the distinction between "discrete general purpose asset" and "specific purpose asset" is not a clear-cut. In these cases, you will a class under both categories.
