@@ -21,6 +21,7 @@
             * localized function system
             * distributed / distribution system
         * line
+            * simple line
         * system train
         * route
         * assets of a facility
