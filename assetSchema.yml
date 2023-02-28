@@ -1,42 +1,45 @@
+---
 title: asset
-$id: objectDefs/asset
+$id: ./objectDefs/asset
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 properties: # TODO: nullables, interaction between Status and State, location information rules
 
-  Asset Record Number:
+  assetRecordNumber:
     type: string
     description: A system generated serial number to uniquely identify the asset record
     $comment: >
-      Asset number will be used mostly to identify asset records, not the asset itself.
-      If you are interested in tracking the asset's movement, then it is recommented to either 
-        - use the asset's OEM serial number or 
-        - label the asset with the Asset Number.
-      RULES:
-        1. [] if asset is from GIS, the entity number would be the GIS'sID
+      Asset number will be used, mostly, to identify asset records, not the asset itself.
 
-  Asset Name:
-    type: string
-    description: a system generated description field
-    $comment: >
-      RULES:
-        1. [] a auto-generated description field that is the concatenation of 
+  assetName:
+    const: > #"\," sequence represents a comma and a space"
+      ${properties.assetClassification.properties.className}\, 
+      ${properties.product.properties.manufacturer}\,
+      ${properties.product.properties.model}\,
+      ${properties.product.properties.configurationCode}\,
+      ${properties.OEMserialNumber}
+    description: >
+        a system generated description field of auto-generated description field that is the concatenation of 
             1) assetClassification object "Class Name" property value (e.g. "centrifugal pump"),
             2) values of productLine object properties: 
                 manufacturer, 
                 model, 
                 configuration code / catalog nummber,
-                OEM serial number
+            3) OEM serial number
   
-  Asset Classification Reference:
-    $ref: objectDefs/MaximoAssetClassification
-    description: indicates a subclass of asset to which this asset is a member
+  assetClassification:
+    $ref: .objectDefs/MaximoAssetClassification #This is not specified by Toronto Water, by is assumed to exit in Maximo
+    description: indicates a class of asset to which this asset is a member
 
-  Life Status:
-    type:
-      - string
-      - null
-    track history: TRUE
+  mobileAsset:
+    type: boolean
+    comment: >
+      an asset is mobile if while it is in commission, it does not perform its function in a permanent installation
+      instead, it is taken from place to place.
+
+  lifeStatus:
+    type: string
+    trackHistoryFlag: TRUE
     enum:
       - planned
       - in possession
@@ -44,11 +47,9 @@ properties: # TODO: nullables, interaction between Status and State, location in
     $comment: >
       an asset can be decommissioned, but still in possession
 
-  Operating State:
-    type: 
-      - string
-      - null
-    track history: TRUE
+  operatingState:
+    type: string
+    trackHistoryFlag: TRUE
     enum: 
       - in use
       - suspended from use
@@ -58,112 +59,133 @@ properties: # TODO: nullables, interaction between Status and State, location in
       when an asset is inventoried in a store, it is also "not in use"
       the fact that it is in the inventory can be determined from its 
 
-  Role:
-    $ref: objectDefs/role/role number
+  role:
+    $ref: .objectDefs/role/roleNumber
     description: > 
       role that the asset is presently occupying (if the asset is in possession)
-    track history: TRUE
+    trackHistoryFlag: TRUE
     $comment: >
       RULES:
         1 [] validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
 
-  Major TW System: # value can be inferred, []ENUM not done
+  majorTWsystem: # value can be inferred, []ENUM not done
     type: string
     enum:
       - sewer
       - collection
       - distribution
-      - 
     description:
     $comment: > 
       the enum value list should match the named systems represents in the 2nd or 3rd level of Toronto Water's top level system hierarchy. 
 
-  Located in Space:
-    $ref: objectDefs/space
+  locatedInSpace:
+    $ref: .objectDefs/space
     description:
-    track history: TRUE 
+    trackHistoryFlag: TRUE 
     $comment: >
       RULES:
         1 [] System Role, Space, and Service Address are mutually exclusive. 
         (This implies that a asset with Space specification is not installed in a role)
         (With this rule, we avoid conflicting information between space and system role)
   
-  Service Address:
-    $ref: objectDefs/MaximoServiceAddress
-    track history: TRUE
+  serviceAddress:
+    $ref: .objectDefs/MaximoServiceAddress #this is referencing Maximo's native serice address object
+    trackHistoryFlag: TRUE
   
-  Operator Organization:
-    $ref: objectDefs/organization
+  operatorOrganization:
+    $ref: .objectDefs/organization
     description: 
     $comment: >
       for assets associated with roles, the operator can often be inferred from the role
 
-  Maintenance Organization:
-    $ref: objectDefs/organization
+  maintenanceOrganization:
+    $ref: .objectDefs/organization
     description: The maintainer if different from the operator
-    track history: TRUE
+    trackHistoryFlag: TRUE
     $comment:
   
-  Assigned to Person:
-    $ref: objectDefs/person
+  assignedToPerson:
+    $ref: .objectDefs/person
     description: Indicates the assignment of a tool that does not have a system role
-    track history: TRUE
+    trackHistoryFlag: TRUE
     $comment: >
       Valid organization instances include division, section, unit, work areas, or a custom 
       defined organization.
-      RULES:
-        1. []   
   
-  Purchased Under Project:
-    $ref: objectDefs/capProject
+  purchasedUnderProject:
+    type: string
+    description: the project ID
     
-  Date Received:
+  dateReceived:
     type: string
     description: the date the asset came on site.
 
-  Year of Manufacture:
+  yearOfManufacture:
     type: integer
     description: the year the asset was made
     $comment: This is needed to determine the model year of certain asset
   
-  Product:
-    $ref: objectDefs/product
+  product:
+    $ref: .objectDefs/product
     description: an object that includes the information manufacturer, model, sub-model
-  
-  OEM Catalog / Configuration Code:
-    type: string
-    description: a text the communicates the exact configuration of the asset, within a pre-defined configuration space 
-    $comment: this is not a part of the product object, because there could be too many variation, and it does not add value to the document indexing use-case
 
-  OEM Serial Number:
+  OEMserialNumber:
     type: string
 
-  Purchase Cost:
+  purchaseCost:
     type: integer
   
-  Warranty Expiration Date:
+  warrantyExpirationDate:
     type: string
 
-  Additional Description:
+  additionalDescription:
     type: string
     description: Free text description
   
-  Additional Data:
+  additionalData:
     type: string
     description: addtional property information in JSON
 
-#### RULES ####
+#### RULES #####
+required:
+  - assetRecordNumber
+  - assetName
+  - assetClassification
+  - lifeStatus
+  - operatingState
+  # Role is required if the asset is not a tool and belongs to a facility
+  - majorTWsystem
+  - operatorOrganization
+  # assignedToPerson is required if the asset is a tool
 
-  # Rule on dependency between Lift Status and Operating State
-  if:
+allOf: 
+  # either or both locatedInSpace or serviceAddress need to have value
+  - anyOf:
+    - required: locatedInSpace
+    - required: serviceAddress
+
+  # if an asset is mobile, then it must have a role specification
+  - if:
     properties:
-      Life Status:
-        anyOf: 
-          - const: "planned"
-          - const: "removed from TW"
-  then: # Operating State must be empty or NULL
-    properties:
-      Operating State:
-        not:
-          type: string
-          minLength: 1
+      mobileAsset: 
+        - const:TRUE
+    then:
+      required: role
+
+  # dependency between Lift Status and Operating State
+  - if: # lifeStatus property is either "planned" or "removed from TW"
+      properties:
+        lifeStatus:
+          anyOf: 
+            - const: "planned"
+            - const: "removed from TW"
+    then: # Operating State must be empty or NULL i.e. we'd never expect there to be any value
+      properties:
+        operatingState:
+          not:
+            type: string
+            minLength: 1
+
+
+# Additional Rules in English
+# 1. if asset is from GIS, the entity number would be the GIS'sID. This is to be taken care of in the data import process
