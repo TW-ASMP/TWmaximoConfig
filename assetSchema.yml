@@ -13,22 +13,22 @@ properties: # TODO: nullables, interaction between Status and State, location in
 
   assetName:
     const: > #"\," sequence represents a comma and a space"
-      ${properties.assetClassification.properties.className}\, 
+      ${properties.MXassetClassObject.properties.className}\, 
       ${properties.product.properties.manufacturer}\,
       ${properties.product.properties.model}\,
       ${properties.product.properties.configurationCode}\,
       ${properties.OEMserialNumber}
     description: >
         a system generated description field of auto-generated description field that is the concatenation of 
-            1) assetClassification object "Class Name" property value (e.g. "centrifugal pump"),
+            1) MXassetClassObject object "Class Name" property value (e.g. "centrifugal pump"),
             2) values of productLine object properties: 
                 manufacturer, 
                 model, 
                 configuration code / catalog nummber,
             3) OEM serial number
   
-  assetClassification:
-    $ref: .objectDefs/MaximoAssetClassification #This is not specified by Toronto Water, by is assumed to exit in Maximo
+  assetClass:
+    $ref: .objectDefs/MaximoMXassetClassObject #This is not specified by Toronto Water, by is assumed to exit in Maximo
     description: indicates a class of asset to which this asset is a member
 
   mobileAsset:
@@ -88,8 +88,8 @@ properties: # TODO: nullables, interaction between Status and State, location in
         (This implies that a asset with Space specification is not installed in a role)
         (With this rule, we avoid conflicting information between space and system role)
   
-  serviceAddress:
-    $ref: .objectDefs/MaximoServiceAddress #this is referencing Maximo's native serice address object
+  MXserviceAddress:
+    $ref: .objectDefs/MXserviceAddress #this is referencing Maximo's native serice address object
     trackHistoryFlag: TRUE
   
   operatorOrganization:
@@ -150,27 +150,34 @@ properties: # TODO: nullables, interaction between Status and State, location in
 required:
   - assetRecordNumber
   - assetName
-  - assetClassification
+  - assetClass
   - lifeStatus
   - operatingState
-  # Role is required if the asset is not a tool and belongs to a facility
   - majorTWsystem
   - operatorOrganization
-  # assignedToPerson is required if the asset is a tool
 
 allOf: 
-  # either or both locatedInSpace or serviceAddress need to have value
+  # either or both locatedInSpace or MXserviceAddress need to have value
   - anyOf:
     - required: locatedInSpace
-    - required: serviceAddress
+    - required: MXserviceAddress
+
+  # if an asset is installed (not mobile), then it must have a role specification
+  - if:
+    properties:
+      mobileAsset: 
+        - const:FALSE
+    then:
+      required: role
 
   # if an asset is mobile, then it must have a role specification
   - if:
     properties:
       mobileAsset: 
-        - const:TRUE
+        - const: TRUE
     then:
-      required: role
+      required: assignedToPerson
+
 
   # dependency between Lift Status and Operating State
   - if: # lifeStatus property is either "planned" or "removed from TW"
