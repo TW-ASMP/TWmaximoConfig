@@ -64,23 +64,28 @@ properties: # TODO: nullables, interaction between Status and State, location in
     trackHistoryFlag: TRUE
     $comment: >
 
-  majorTWsystem: # value can be inferred, []ENUM not done
+  servingMajorsystem:
     type: string
     enum:
-      - sewer
-      - collection
-      - distribution
+      - Drinking Water Network
+      - Drinking Water Treatment Plants
+      - Waste and Storm Water Network
+      - Wastewater Treatment Plants
+      - Independent Building
+      - Multiple Major Systems
     description:
     $comment: > 
-      many GIS assets 
+      Use-case: many asset from the GIS will not be indexed on the hierarchy, the main use of this datafield is 
+      to identify which linear system that asset belongs to.
+      #[]ASMP-to review value, consider making the list applicable only to GIS asset 
 
   locatedInSpace:
     $ref: .objectDefs/space
     description:
-    trackHistoryFlag: TRUE 
+    trackHistoryFlag: TRUE
 
   serviceAddress:
-    $ref: .objectDefs/MXobject_serviceAddress #this is referencing Maximo's native serice address object
+    $ref: .objectDefs/MXobject_serviceAddress #this is referencing Maximo's native service address object
     trackHistoryFlag: TRUE
   
   operatorOrganization:
@@ -157,12 +162,12 @@ required: # RULE: these data fields that are unconditionally required on every r
   - operatorOrganization
 
 allOf: 
-  # RULE: asset should only have one property indicating its location
+  # RULE: asset should have one and only one property indicating its location.
   - oneOf:
     - required: role
     - required: locatedInSpace
     - required: MXobject_serviceAddress
-    - required: parentAssembly #GG
+    - required: parentAssembly #[]GG
     $comment: >
       These properties pertaining to the location of an asset are mutually exclusive.
       The first two lines say that a asset with locatedInSpace specification is not installed in a role
