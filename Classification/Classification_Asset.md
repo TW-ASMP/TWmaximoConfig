@@ -1,4 +1,4 @@
-# Top-Level Asset Structure
+# Top-Level Asset Classification Hierarchy
 * asset
     * water or wastewater teatment specific [^1]
     * water, wastewater, or stormwater network specific

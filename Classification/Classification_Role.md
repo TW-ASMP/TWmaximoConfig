@@ -1,4 +1,4 @@
-# Top-Level Role Classification Structure
+# Top-Level Role Classification Hierarchy
 
 * role
     * discrete asset role
