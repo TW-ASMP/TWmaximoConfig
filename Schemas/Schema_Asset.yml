@@ -12,8 +12,8 @@ properties: # TODO: nullables, interaction between Status and State, location in
       Asset number will be used, mostly, to identify asset records, not the asset itself.
 
   assetName:
-    const: > #"\," sequence represents a comma and a space"
-      ${properties.MXassetClassObject.properties.className}\, 
+    const: > # note that the "\," sequence represents a comma and a space"
+      ${properties.assetClass.properties.className}\, 
       ${properties.product.properties.manufacturer}\,
       ${properties.product.properties.model}\,
       ${properties.product.properties.configurationCode}\,
@@ -27,8 +27,8 @@ properties: # TODO: nullables, interaction between Status and State, location in
                 configuration code / catalog nummber,
             3) OEM serial number
   
-  assetClass:
-    $ref: .objectDefs/MaximoMXassetClassObject #This is not specified by Toronto Water, by is assumed to exit in Maximo
+  assetClass: #[ ] - can only assign a class object of a certain type of level. 
+    $ref: .objectDefs/MXassetClassObject #This is not specified by Toronto Water, by is assumed to exit in Maximo
     description: indicates a class of asset to which this asset is a member
 
   mobileAsset:
@@ -57,16 +57,12 @@ properties: # TODO: nullables, interaction between Status and State, location in
     $comment: >
       when an asset is decommissioned, it is "not in use"
       when an asset is inventoried in a store, it is also "not in use"
-      the fact that it is in the inventory can be determined from its 
 
   role:
-    $ref: .objectDefs/role/roleNumber
-    description: > 
-      role that the asset is presently occupying (if the asset is in possession)
+    $ref: .objectDefs/role
+    description: role that the asset is presently occupying (if the asset is in possession)
     trackHistoryFlag: TRUE
     $comment: >
-      RULES:
-        1 [] validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
 
   majorTWsystem: # value can be inferred, []ENUM not done
     type: string
@@ -82,12 +78,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
     $ref: .objectDefs/space
     description:
     trackHistoryFlag: TRUE 
-    $comment: >
-      RULES:
-        1 [] System Role, Space, and Service Address are mutually exclusive. 
-        (This implies that a asset with Space specification is not installed in a role)
-        (With this rule, we avoid conflicting information between space and system role)
-  
+
   MXserviceAddress:
     $ref: .objectDefs/MXserviceAddress #this is referencing Maximo's native serice address object
     trackHistoryFlag: TRUE
@@ -146,47 +137,59 @@ properties: # TODO: nullables, interaction between Status and State, location in
     type: string
     description: addtional property information in JSON
 
-#### RULES #####
-required:
+################################## RULES ##################################
+
+required: # data fields that are unconditionally required on every record
   - assetRecordNumber
   - assetName
   - assetClass
   - lifeStatus
-  - operatingState
   - majorTWsystem
   - operatorOrganization
 
-allOf: 
-  # either or both locatedInSpace or MXserviceAddress need to have value
-  - anyOf:
+allOf: # this block contains rules in if-then-else form. 
+
+  # asset should only have one property, indicating its location
+  - oneOf:
+    - required: role
     - required: locatedInSpace
     - required: MXserviceAddress
+    $comment: >
+      These properties pertaining to the location of an asset are mutually exclusive.
+      The first two lines say that a asset with locatedInSpace specification is not installed in a role
+        With this rule, we avoid conflicting location information between present asset's locatedInSpace property 
+        and its roles's locatedInSpace property
 
-  # if an asset is installed (not mobile), then it must have a role specification
+  # if an asset is installed (not mobile) and in-use, then it must have a role specification
   - if:
     properties:
-      mobileAsset: 
-        - const:FALSE
+        mobileAsset: 
+          - const: FALSE
+        operatingState:
+          - const:"in use"
     then:
       required: role
 
-  # if an asset is mobile, then it must have a role specification
+  # if an asset is mobile and it is in use, then it must have a role specification
   - if:
     properties:
       mobileAsset: 
         - const: TRUE
+      operatingState:
+        - const:"in use"
     then:
       required: assignedToPerson
 
 
-  # dependency between Lift Status and Operating State
-  - if: # lifeStatus property is either "planned" or "removed from TW"
+  # if lifeStatus property is either "planned" or "removed from TW",
+  # Operating State must be empty or NULL i.e. we'd never expect there to be any value
+  - if:
       properties:
         lifeStatus:
           anyOf: 
             - const: "planned"
             - const: "removed from TW"
-    then: # Operating State must be empty or NULL i.e. we'd never expect there to be any value
+    then: 
       properties:
         operatingState:
           not:
@@ -194,5 +197,7 @@ allOf:
             minLength: 1
 
 
-# Additional Rules in English
-# 1. if asset is from GIS, the entity number would be the GIS'sID. This is to be taken care of in the data import process
+$comment: >
+  Additional rules in plan English
+    1. if asset is from GIS, the entity number would be the GIS'sID. This is to be taken care of in the data import process.
+    2. validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.

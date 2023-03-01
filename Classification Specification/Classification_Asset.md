@@ -9,8 +9,8 @@
     * transportation or lifting specific
     * lighting specific
     * shop floor tool specific
-    * general purpose discrete [^2][^3]
-        * flow control or conveyance function 
+    * general purpose discrete asset [^2][^3]
+        * flow control or conveyance function
         * linear function 
         * material storage function 
         * driving or rotating function 
