@@ -20,7 +20,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
       ${properties.OEMserialNumber}
     description: >
         a system generated description field of auto-generated description field that is the concatenation of 
-            1) MXassetClassObject object "Class Name" property value (e.g. "centrifugal pump"),
+            1) MXobject_assetClassObject object "Class Name" property value (e.g. "centrifugal pump"),
             2) values of productLine object properties: 
                 manufacturer, 
                 model, 
@@ -28,9 +28,9 @@ properties: # TODO: nullables, interaction between Status and State, location in
             3) OEM serial number
   
   assetClass: #[ ] - can only assign a class object of a certain type of level. 
-    $ref: .objectDefs/MXassetClassObject #This is not specified by Toronto Water, by is assumed to exit in Maximo
+    $ref: .objectDefs/MXobject_assetClassObject #This is not specified by Toronto Water, by is assumed to exit in Maximo
     description: indicates a class of asset to which this asset is a member
-
+  
   mobileAsset:
     type: boolean
     comment: >
@@ -72,7 +72,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
       - distribution
     description:
     $comment: > 
-      the enum value list should match the named systems represents in the 2nd or 3rd level of Toronto Water's top level system hierarchy. 
+      many GIS assets 
 
   locatedInSpace:
     $ref: .objectDefs/space
@@ -80,7 +80,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
     trackHistoryFlag: TRUE 
 
   serviceAddress:
-    $ref: .objectDefs/MXserviceAddress #this is referencing Maximo's native serice address object
+    $ref: .objectDefs/MXobject_serviceAddress #this is referencing Maximo's native serice address object
     trackHistoryFlag: TRUE
   
   operatorOrganization:
@@ -132,6 +132,14 @@ properties: # TODO: nullables, interaction between Status and State, location in
   additionalDescription:
     type: string
     description: Free text description
+
+  parentAssembly:
+    type: string
+    comment: >
+      !!! IMPORTANT !!!
+      This property is not meant to be use for specifying the asset hierarchy parent
+      What we conventionally call "asset hierarchy" in will be build with cascading roles
+      This property is to be used to express that an asset is a part of a trackable assembly, which has physical unity. 
   
   additionalData:
     type: string
@@ -139,7 +147,8 @@ properties: # TODO: nullables, interaction between Status and State, location in
 
 ################################## RULES ##################################
 
-required: # data fields that are unconditionally required on every record
+
+required: # RULE: these data fields that are unconditionally required on every record
   - assetRecordNumber
   - assetName
   - assetClass
@@ -147,20 +156,20 @@ required: # data fields that are unconditionally required on every record
   - majorTWsystem
   - operatorOrganization
 
-allOf: # this block contains rules in if-then-else form. 
-
-  # asset should only have one property, indicating its location
+allOf: 
+  # RULE: asset should only have one property indicating its location
   - oneOf:
     - required: role
     - required: locatedInSpace
-    - required: MXserviceAddress
+    - required: MXobject_serviceAddress
+    - required: parentAssembly #GG
     $comment: >
       These properties pertaining to the location of an asset are mutually exclusive.
       The first two lines say that a asset with locatedInSpace specification is not installed in a role
         With this rule, we avoid conflicting location information between present asset's locatedInSpace property 
         and its roles's locatedInSpace property
 
-  # if an asset is installed (not mobile) and in-use, then it must have a role specification
+  # RULE: if an asset is installed (not mobile) and in-use, then it must have a role specification
   - if:
     properties:
         mobileAsset: 
@@ -170,19 +179,19 @@ allOf: # this block contains rules in if-then-else form.
     then:
       required: role
 
-  # if an asset is mobile and it is in use, then it must have a role specification
+  # RULE: if an asset is mobile and it is in use, then it must have a role specification
   - if:
     properties:
       mobileAsset: 
         - const: TRUE
       operatingState:
-        - const:"in use"
+        - const: "in use"
     then:
       required: assignedToPerson
 
 
-  # if lifeStatus property is either "planned" or "removed from TW",
-  # Operating State must be empty or NULL i.e. we'd never expect there to be any value
+  # RULE: if lifeStatus property is either "planned" or "removed from TW",
+    # Operating State must be empty or NULL i.e. we'd never expect there to be any value
   - if:
       properties:
         lifeStatus:

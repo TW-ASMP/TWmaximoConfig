@@ -1,4 +1,4 @@
-# Top-Level User Class Structure
+# Top-Level Asset Structure
 * asset
     * water or wastewater teatment specific [^1]
     * water, wastewater, or stormwater network specific
@@ -27,9 +27,7 @@
         * route
         * assets of a facility
         * assets of a organization
-* space
-    * indoor
-    * outdoor
+
 
 ### Footnotes
 [^1]: Under the categories whose name ends in "specific", you will find term denoting assets used in a particular type of system or application, serving a narrow range of human goals.
