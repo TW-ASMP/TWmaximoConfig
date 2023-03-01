@@ -79,7 +79,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
     description:
     trackHistoryFlag: TRUE 
 
-  MXserviceAddress:
+  serviceAddress:
     $ref: .objectDefs/MXserviceAddress #this is referencing Maximo's native serice address object
     trackHistoryFlag: TRUE
   
