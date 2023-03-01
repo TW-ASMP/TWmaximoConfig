@@ -7,17 +7,32 @@ $comment: >
   to self: role must have a location
 
 properties:
-  Role Number:
+  roleNumber:
+    type: string
+    description: 
 
-  Role Name:
+  roleName:
+    type: string
+    description: 
 
-  Parent Role:
+  parentRole:
+    type: string
+    description: 
 
-  Role Class:
+  roleClass:
+    type: string
+    description: 
 
-  Located Within:
+  locatedInSpace:
+    type: string
+    description: 
 
-  Service Address:
+  serviceAddress:
+    type: string
+    description: 
 
-  Criticality:
+  criticality:
+    type: string
+    description:
+
     # comment: Silvia is missing the descriptions of the 1 to 5 talk to Pete
