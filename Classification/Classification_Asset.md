@@ -23,10 +23,12 @@
             * distributed / distribution system
         * line
             * simple line
+            * main branch
         * system train
         * route
-        * assets of a facility
+        * facility
         * assets of a organization
+        * defined set of asset
 
 
 ### Footnotes
