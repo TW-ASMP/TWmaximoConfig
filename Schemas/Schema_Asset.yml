@@ -153,7 +153,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
 ################################## RULES ##################################
 
 
-required: # RULE: these data fields that are unconditionally required on every record
+required: # RULE IN ENGLISH: these data fields that are unconditionally required on every record
   - assetRecordNumber
   - assetName
   - assetClass
@@ -162,7 +162,7 @@ required: # RULE: these data fields that are unconditionally required on every r
   - operatorOrganization
 
 allOf: 
-  # RULE: asset should have one and only one property indicating its location.
+  # RULE IN ENGLISH: asset should have one and only one property indicating its location.
   - oneOf:
     - required: role
     - required: locatedInSpace
@@ -174,7 +174,7 @@ allOf:
         With this rule, we avoid conflicting location information between present asset's locatedInSpace property 
         and its roles's locatedInSpace property
 
-  # RULE: if an asset is installed (not mobile) and in-use, then it must have a role specification
+  # RULE IN ENGLISH: if an asset is installed (not mobile) and in-use, then it must have a role specification
   - if:
     properties:
         mobileAsset: 
@@ -184,7 +184,7 @@ allOf:
     then:
       required: role
 
-  # RULE: if an asset is mobile and it is in use, then it must have a role specification
+  # RULE IN ENGLISH: if an asset is mobile and it is in use, then it must have a role specification
   - if:
     properties:
       mobileAsset: 
@@ -195,7 +195,7 @@ allOf:
       required: assignedToPerson
 
 
-  # RULE: if lifeStatus property is either "planned" or "removed from TW",
+  # RULE IN ENGLISH: if lifeStatus property is either "planned" or "removed from TW",
     # Operating State must be empty or NULL i.e. we'd never expect there to be any value
   - if:
       properties:
@@ -213,5 +213,5 @@ allOf:
 
 $comment: >
   Additional rules in plan English
-    1. if asset is from GIS, the entity number would be the GIS'sID. This is to be taken care of in the data import process.
+    1. if asset is from GIS, the asset record ID would be the GIS'sID. This is to be taken care of in the data import process.
     2. validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.

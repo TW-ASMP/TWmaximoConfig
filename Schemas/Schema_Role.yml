@@ -34,5 +34,6 @@ properties:
   criticality:
     type: string
     description:
+    #[]self: criticality criteria
 
     # comment: Silvia is missing the descriptions of the 1 to 5 talk to Pete
