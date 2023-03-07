@@ -11,7 +11,7 @@
     * general purpose discrete asset [^2][^3]
         * flow or pressure control
         * active material conveyance
-        * path of conveyance
+        * discrete linear segment
         * storage
         * driving or rotating
         * sensing, measurement, or control
