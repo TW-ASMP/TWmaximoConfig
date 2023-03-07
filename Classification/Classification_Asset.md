@@ -1,34 +1,37 @@
 # Top-Level Asset Classification Hierarchy
 * asset
-    * water or wastewater teatment specific [^1]
+    * water or wastewater teatment system specific [^1]
     * water, wastewater, or stormwater network specific
     * safety or hazard prevention specific
-    * physical security specific
+    * physical security system specific
     * building or structural specific
-    * HVAC specific
+    * HVAC system specific
     * transportation or lifting specific
-    * lighting specific
+    * lighting system specific
     * shop floor tool specific
     * general purpose discrete asset [^2][^3]
-        * flow control or conveyance function
-        * linear function 
-        * material storage function 
-        * driving or rotating function 
-        * sensing, measurement, or control function 
-        * electrical power function 
-        * communication or computing function 
+        * flow or pressure control function
+        * conveyance function
+        * linear function
+        * storage function
+        * driving or rotating function
+        * sensing, measurement, or control function
+        * electrical power function
+        * communication or computing function
     * set of discrete assets
         * system
             * localized function system
             * distributed / distribution system
         * line
             * simple line
-            * main branch
+            * main path
+        * header
         * system train
-        * route
         * facility
-        * assets of a organization
         * defined set of asset
+            * assets of a organization
+            * route
+
 
 ### Footnotes
 [^1]: Under the categories whose name ends in "specific", you will find term denoting assets used in a particular type of system or application, serving a narrow range of human goals.
