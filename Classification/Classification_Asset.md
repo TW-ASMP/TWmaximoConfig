@@ -1,23 +1,22 @@
 # Top-Level Asset Classification Hierarchy
 * asset
-    * water or wastewater teatment system specific [^1]
+    * water or wastewater treatment system specific [^1]
     * water, wastewater, or stormwater network specific
-    * safety or hazard prevention specific
     * physical security system specific
     * HVAC system specific
-    * other building systems
-    * building or structural specific
+    * structural or building specific
+    * safety or hazard prevention specific
     * transportation or lifting specific
-    * shop floor tool specific
+    * shop and hand tool specific
     * general purpose discrete asset [^2][^3]
-        * flow or pressure control function
-        * material movement function
-        * path of conveyance function
-        * storage function
-        * driving or rotating function
-        * sensing, measurement, or control function
-        * electrical power function
-        * communication or computing function
+        * flow or pressure control
+        * active material conveyance
+        * path of conveyance
+        * storage
+        * driving or rotating
+        * sensing, measurement, or control
+        * electrical power handling
+        * communication or computing
     * set of discrete assets
         * system
             * localized function system
@@ -34,6 +33,6 @@
 
 
 ### Footnotes
-[^1]: Under the categories whose name ends in "specific", you will find term denoting assets used in a particular type of system or for a specific set of purposes, serving a narrow range of human goals.
-[^2]: Under this category, you will find term denoting discrete assets that perform a low-level technical functions, which can be used in a diverse range of systems, in service of a open set of human goals.
+[^1]: Under the categories whose name ends in "specific", you will find term denoting assets that are  used in a particular type of system (such as HVAC or security), or stand-alone assets (not a part of larger system).
+[^2]: Under this category, you will find term denoting discrete assets that perform a low-level technical functions within a diverse range of systems, in service of a open set of human goals.
 [^3]: Sometimes the distinction between "discrete general purpose asset" and "term purpose asset" is not a clear-cut. In these cases, you will a class under both categories.
