@@ -33,6 +33,6 @@
 
 
 ### Footnotes
-[^1]: Under the categories whose name ends in "specific", you will find term denoting assets that are  used in a particular type of system (such as HVAC or security), or stand-alone assets (not a part of larger system).
-[^2]: Under this category, you will find term denoting discrete assets that perform a low-level technical functions within a diverse range of systems, in service of a open set of human goals.
+[^1]: Under the categories whose name ends in "specific", you will find term denoting assets used in a particular type of system (such as HVAC or security for example), or stand-alone assets (not a part of larger system), usually directly applied to achieve its users goal.
+[^2]: Under this category, you will find term denoting discrete assets that perform a low-level technical functions within a diverse range of systems that are in service of a open set of human goals.
 [^3]: Sometimes the distinction between "discrete general purpose asset" and "term purpose asset" is not a clear-cut. In these cases, you will a class under both categories.
