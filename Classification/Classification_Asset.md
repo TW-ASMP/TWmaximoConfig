@@ -17,7 +17,7 @@
         * sensing, measurement, or control
         * electrical power handling
         * communication or computing
-    * set of discrete assets
+    * collection of discrete assets
         * system
             * localized function system
             * distributed / distribution system
