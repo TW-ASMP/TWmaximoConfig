@@ -44,22 +44,25 @@ properties: # TODO: nullables, interaction between Status and State, location in
       - planned
       - in possession
       - removed from TW
+      - abandoned
     $comment: >
       an asset can be decommissioned, but still in possession
+      3/6: 
+        - Annette added abandoned
+        - "In possession" could connote we have it stored somewhere.
 
   operatingState:
     type: string
     trackHistoryFlag: TRUE
-    enum: 
+    enum:
       - in use
       - suspended from use
       - not in use
     $comment: >
-      when an asset is decommissioned, it is "not in use"
       when an asset is inventoried in a store, it is also "not in use"
-
-  role:
-    $ref: .objectDefs/role
+      
+  roleOrCollection:
+    $ref: .objectDefs/roleOrCollection
     description: role that the asset is presently occupying (if the asset is in possession)
     trackHistoryFlag: TRUE
     $comment: >
@@ -117,7 +120,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
     description: the date the asset came on site.
 
   yearOfManufacture:
-    type: integer
+    type: number
     description: the year the asset was made
     $comment: This is needed to determine the model year of certain asset
   
@@ -129,7 +132,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
     type: string
 
   purchaseCost:
-    type: integer
+    type: number
   
   warrantyExpirationDate:
     type: string
@@ -162,7 +165,7 @@ required: # RULE IN ENGLISH: these data fields that are unconditionally required
   - operatorOrganization
 
 allOf: 
-  # RULE IN ENGLISH: asset should have one and only one property indicating its location.
+  # RULE IN ENGLISH: every discrete asset should have one and only one property indicating its location.
   - oneOf:
     - required: role
     - required: locatedInSpace
@@ -174,13 +177,13 @@ allOf:
         With this rule, we avoid conflicting location information between present asset's locatedInSpace property 
         and its roles's locatedInSpace property
 
-  # RULE IN ENGLISH: if an asset is installed (not mobile) and in-use, then it must have a role specification
+  # RULE IN ENGLISH: if a discrete asset is installed (not mobile) and in-use, then it must have a role specification
   - if:
     properties:
-        mobileAsset: 
+        mobileAsset:
           - const: FALSE
         operatingState:
-          - const:"in use"
+          - const: "in use"
     then:
       required: role
 

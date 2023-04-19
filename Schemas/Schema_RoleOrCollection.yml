@@ -1,5 +1,5 @@
 title: role
-$id: objectDefs/role
+$id: objectDefs/roleOrCollection
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
@@ -23,6 +23,10 @@ properties:
     type: string
     description: 
 
+  #clientEntity
+
+  #roleTechnicalRequirementDescription
+  
   locatedInSpace:
     type: string
     description: 
@@ -37,3 +41,21 @@ properties:
     #[]self: criticality criteria
 
     # comment: Silvia is missing the descriptions of the 1 to 5 talk to Pete
+  
+  if:
+  oneOf:
+    - roleClass:
+        properties:
+            className:
+              const: "pumping station"
+    - roleClass:
+        properties:
+            className:
+              const: "water treatment plant"
+    - roleClass:
+        properties:
+            className:
+              const: "large chamber"
+  then:
+    required:
+      - 

@@ -1,6 +1,6 @@
 # Top-Level Asset Classification Hierarchy
 * asset
-    * water or wastewater treatment specific [^1]
+    * water or wastewater treatment specific [^1] 
     * water, wastewater, or stormwater network specific
     * physical security system specific
     * HVAC system specific
