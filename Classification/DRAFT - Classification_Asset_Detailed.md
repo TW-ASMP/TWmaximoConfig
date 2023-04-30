@@ -1,55 +1,102 @@
 # Detailed Asset Classification Hierarchy
 * asset
-    * water or wastewater treatment specific terms [^1]
+    * water or wastewater treatment specific [^1]
     * water, wastewater, or stormwater network specific
         * hydrant unit
+        * backflow preventer
         * hydrant system
         * catch basin
         * manhole
         * underground access chamber
-        * 
-    * security or access control system terms
+    * security or access control system specific
         * motion sensor
         * entry access control unit
         * security camera
-        * controlled lock
-        * controlled barrier ***(person, vehicular))
-    * HVAC system specific terms
+        * controlled door lock
+        * controlled barrier {type: person, vehicular}
+    * HVAC system specific specific
         * air handling unit
-        * air conditioner unit ***(outdoor condensor unit, indoor evaporator unit)
+        * air conditioner unit {part of AC: outdoor condensor unit, indoor evaporator unit}
         * damper
         * damper actuator
         * dehumidifier
-        * heat pump unit ***(outdoor unit, indoor unit)
+        * heat pump unit {part of heat pump: outdoor unit, indoor unit}
         * air filtration unit
         * variable air valve
-        * energy recovery ventilator ****
+        * energy recovery ventilator
         * zone controller unit or thermostat
-    * other building service asset terms
-        * BMS controller unit
+    * other building service specific
+        * BAS controller unit
         * PA system speaker
         * intercom unit
-    * term denoting structure or building
-        * building ***(industrial, office, mixed)
+    * building or structure
+        * building {purpose: industrial, office, mixed}
         * free-standing structure
             * stack
             * tower
         * access ramp
         * tunnel
-        * structural tank
+        * structural process equipment
+            * structural tank
+        * retaining wall
+    * piece of land surface feature
+        * segment of paved road
+        * 
+    * part of building or structure
+        * elevator
+        * fixed ladder
+        * roof
+        * foundation
+        * railing
+        * door
+            * fire door
+            * roll-up door
     * safety or hazard prevention specific
+        * gas detection equipment
+            * personal gas meter
+            * fixed gas detector
+        * chemical protection
+            * emergency eyewash or shower
+            * chemical suit
+        * eletrical protection
+            * rubber insulating gloves
+            * rubber insultaing sleeves
+        * electrical hazard detection equipment
+        * respiratory hazard protection
+            * supplied air respirator
+            * self-contained breathing apparatus (SCBA)
+            * respirator mask
+            * powered air respirator
+        * fall protection equipment
+            * horizontal lifeline
+            * vertical lifeline
+            * self-retractig lifeline
+            * davit arm {mobile, fixed}
+            * fall restricting system {hasParts: }
+            * fall arrest lanyard {sameAs:lanyard}
+            * fall arrest harness
+            * rope or cable grab
+            * full-body harness
+            * anchorage connector
+        * floataion equipment
+            * personal floatation device
+            * life right
+            * life jacket
+        * first-aid equipment
+            * first aid station equipment
+            * first aid room equipment
+            * first aim kit or box
+            * automatic external defibrillator
+        * spill kit
+            * voltage tester
+            * hot stick
     * transportation specific
         * passenger vehicle
         * pickup truck
         * golf cart
-    * lifting specific
-        * 
-        * 
-    * hand tool
-    * large shop floor tool
     * general purpose discrete asset [^2][^3]
         * material flow or pressure control
-            * compressor
+            * compressor {fuel?}
             * valve
             * backflow preventer
             * 
@@ -67,19 +114,28 @@
             * 
         * discrete linear segment
         * storage
-            * fuel tank ***(natural gas, diesel, gasoline)
+            * fuel tank {natural gas, diesel, gasoline}
             * 
         * driving or rotating
             * actuator
             * electrical motor
             * engine
         * sensing, measurement, or control
-        * electrical power handling
+        * electrical generation and distribution
+            * generator
+        * lifting specific
+            * lift
         * panel
-            * control panel ***(contains: BMS controller, process control PLC, lighting controller, ...)
+            * control panel {contains: BMS controller, process control PLC, lighting controller, ...}
             * network or server
             * 
         * communication or computing
+        * general purpose tool
+            * portable ladder
+            * portable scaffolding
+            * scuba equipment
+            * compressed gas cylinder
+            * large floor stationary tool
     * collection of discrete assets
         * facility
             * pumping station
@@ -87,7 +143,6 @@
             * wastewater treatment facility
             * lab
             * yard
-        
         * system
             * localized function system
             * distributed / distribution system
@@ -99,10 +154,9 @@
         * defined set of asset
             * assets of a organization
             * route
+
 ### Working Notes
 
-(***) - will have some attribute associated
-(****) - new
 
 ### Footnotes
 [^1]: Under the categories whose name ends in "specific", you will find term denoting assets used in a particular specialized system (such as HVAC or security for example), or assets designed to support a certain common category of human goal (such as safety).
