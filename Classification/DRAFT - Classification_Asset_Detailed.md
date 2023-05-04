@@ -5,10 +5,10 @@ Note that lower case is use for natural classes and title case is use for define
 * asset
     * Water or Wastewater Treatment Specific [^1]
     * Water, Wastewater, or Stormwater Network Specific [^4]
-        * [hydrant system]()
-        * water service 
+        * [hydrant system](user/repo/TWmaximoConfig/Schemas/Individual_Asset_Class_Schemas/Hydrant.md)
+        * water service
         * sewer service 
-        * sewer weir 
+        * sewer weir
         * water main 
         * sewer main {sewer force main:y/n; sewer gravity main:y/n; ??:storm/sanitary/combined}
             * trunk sewers
