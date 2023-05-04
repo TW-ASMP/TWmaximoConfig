@@ -25,7 +25,7 @@
         * system train
         * line
             * simple line
-            * main path
+            * main path line
         * header
         * defined set of asset
             * assets of a organization
