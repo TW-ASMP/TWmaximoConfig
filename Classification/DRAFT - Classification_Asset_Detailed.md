@@ -4,7 +4,7 @@ In the content section, asset classes name written in lower case represents a na
 
 ## Content
 
-* asset
+* asset "Pete and Steph: BAS is being identified as itself more and more should include in the classes"
     * Distribution and Collection Specific [^1] [^4]
         * hydrant system
         * water service
@@ -26,7 +26,11 @@ In the content section, asset classes name written in lower case represents a na
         * TW Sewer Large Chamber {Note: need to match subtypes to class}
         * TW Sewer Fitting
         * well
-    * HVAC System Specific
+        * wet weather storage
+        * drinking water storage
+            * reservoir
+            * elevated tank
+    * HVAC System Specific "rationale for having this category: (1) the majority of terms in this domain are specialized (2) the domain gets use a lot "
         * air handling unit
         * air conditioner unit {hasPart: outdoor condensor unit, indoor evaporator unit}
             * AC condensor unit
@@ -75,7 +79,7 @@ In the content section, asset classes name written in lower case represents a na
         * segment of paved road
         * piece of lawn
         * planting space
-    * safety or environmental harm prevention
+    * safety or environmental harm prevention "Peter: hazard is better term than harm"
         * hazardous gas monitoring device {subclass: atmospheric gas sensor}
             * personal gas meter
             * fixed gas detector
@@ -123,7 +127,7 @@ In the content section, asset classes name written in lower case represents a na
             * automatic external defibrillator
             * voltage tester
             * hot stick
-        * silencer
+        * silencer "#Pete when is silencer used"
     * transportation device
         * passenger vehicle
         * pickup truck
@@ -132,7 +136,7 @@ In the content section, asset classes name written in lower case represents a na
         * water trailer
     * asset by general function [^2][^3]        
         * material flow or pressure control
-            * compressor {fuel?}
+            * compressor {...}
             * valve
             * backflow preventer
             * gate {type:sluice gate, knife gate,pinch gate, check gate}
@@ -175,7 +179,7 @@ In the content section, asset classes name written in lower case represents a na
                 * evaporator
                 * condenser
         * material processing, mixing, or separation
-            * separator or collector [^6] (Note: the intention of having this level of classification is to be able to apply this class to a new class of ... say separator.)
+            * separator or collector [^6] "Note: the intention of having this level of classification is to be able to apply this class to a new class of ... say separator."
                 * clarification tank    
                 * flocculation tank
                 * classifier
@@ -212,7 +216,7 @@ In the content section, asset classes name written in lower case represents a na
             * demister or air dryer
             * incinerator
             * UV disinfection assembly
-        * material storage and surge supression
+        * material storage and surge supression "Pete: What da heck is "surge suppression"
             * detention tank
             * super pipe
             * pumping wet well
@@ -220,13 +224,13 @@ In the content section, asset classes name written in lower case represents a na
                 * fuel tank {natural gas, diesel, gasoline}
             * gas cylinder
             * lagoon
-        * driving or mechanical energy conversion
+        * motion or mechanical energy conversion "Pete: 'driving' seems off (would ppls conflate with cars?), motion or prime mover may be better"
             * actuator
-            * electrical motor
+            * motor
             * engine
             * combustion turbine
             * generator {fuel type: diesel, natural gas, bi-fuel}
-        * power control, regulation, storage or distribution
+        * electrical power control, regulation, storage or distribution
             * electrical distribution panel
                 * lighting panel
                 * motor control centre
@@ -279,7 +283,7 @@ In the content section, asset classes name written in lower case represents a na
             * dissolved oxygen sensor
             * pH sensor
         * sensor/meter/switch/analyzer, multi-variable
-        * sensor/meter/switch/analyzer, features (Note: added because of 1 to many relationship with an analyzer. But doe we need to know?)
+        * sensor/meter/switch/analyzer, features "added because of 1 to many relationship with an analyzer. But doe we need to know?"
             * industrial network interface  
                 * HART
                 * Ethernet
