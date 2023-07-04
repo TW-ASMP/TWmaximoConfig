@@ -1,0 +1,48 @@
+title: space
+$id: objectDefs/space
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+
+properties:
+  parentSpace:
+    $ref: .objectDefs/space
+    description: This is also known as the "tag number"
+  
+  incrementalName:
+    type: string
+    
+  spaceName:
+    const: >
+      ${properties.parentSpace.spaceName}\\${properties.incrementalName}
+
+  spaceType:
+    type: string
+    enum:
+      - interior
+      - exterior
+      - building
+    # a building space includes the collection of all interior spaces inside the building and the exterior space immediately outside and enveloping the building
+  
+  hazardousLocationClass:
+    type: string
+    enum:
+      - I
+      - II
+      - III
+
+  hazardousLocationDivision:
+    type: string
+    enum:
+      - "1"
+      - "2"
+  
+  hazardousLocationGroup:
+    type: string
+    enum:
+      - A
+      - B
+      - C
+      - D
+      - E
+      - F
+      - G
