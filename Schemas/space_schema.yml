@@ -16,8 +16,8 @@ properties:
       ${properties.parentSpace.spaceName}\\${properties.incrementalName}
 
   "space type":
-    type: string
-    enum:
+    $ref: .IBM_Maximo_object/classifcationObject # This is not specified by Toronto Water, by is assumed to exit in Maximo
+    description: >
       - interior
       - exterior
       - building
