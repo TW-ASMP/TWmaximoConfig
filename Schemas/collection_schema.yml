@@ -1,21 +1,26 @@
-title: asset collection
-$id: objectDefs/assetCollection
+title: collection
+$id: objectDefs/collection
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
-
-  name:
+  "name":
     type: string
     description: A system generated serial number to uniquely identify the record
     $comment: 
   
-  assetClass:
+  "asset class in the collection":
     $ref: .IBM_Maximo_object/classificationObject
     description: indicates a class of asset to which this asset is a member
 
-  collectionDefinition:
+  "collection definition":
     type: string
   
-  servingCommonClient:
+  "parent entity":
+
+  "collectively serving client":
+
+  "collectively located in":
+
+  
   

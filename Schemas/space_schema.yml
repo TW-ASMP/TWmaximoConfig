@@ -4,18 +4,18 @@ $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
-  parentSpace:
+  "parent space":
     $ref: .objectDefs/space
     description: This is also known as the "tag number"
   
-  incrementalName:
+  "incremental name":
     type: string
     
-  spaceName:
+  "space name":
     const: >
       ${properties.parentSpace.spaceName}\\${properties.incrementalName}
 
-  spaceType:
+  "space type":
     type: string
     enum:
       - interior
@@ -23,20 +23,20 @@ properties:
       - building
     # a building space includes the collection of all interior spaces inside the building and the exterior space immediately outside and enveloping the building
   
-  hazardousLocationClass:
+  "hazardous location class":
     type: string
     enum:
       - I
       - II
       - III
 
-  hazardousLocationDivision:
+  "hazardous location division":
     type: string
     enum:
       - "1"
       - "2"
   
-  hazardousLocationGroup:
+  "hazardous location group":
     type: string
     enum:
       - A

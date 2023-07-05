@@ -3,14 +3,16 @@ $id: objectDefs/product
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 properties:
-  manufacturer:
+  "manufacturer":
     $ref: MXobject_organization
     $comment: >
       []EMA: should organization be used here?
-  model:
-    type: array
   
-  OEM Catalog / Configuration Code:
+  "model":
+    type: array
+    description:
+    
+  "OEM Catalog / Configuration Code":
     type: string, null
     description: a text the communicates the exact configuration of the asset, within a pre-defined configuration space 
     $comment: this is not a part of the product object, because there could be too many variation, and it does not add value to the document indexing use-case

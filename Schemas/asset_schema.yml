@@ -1,43 +1,46 @@
 ---
+# TODO: 
+#   nullables, interaction between Status and State, location information rules
+
 title: asset
 $id: ./objectDefs/asset
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
-properties: # TODO: nullables, interaction between Status and State, location information rules
+properties: 
 
-  assetRecordNumber:
+  "record number":
     type: string
-    description: A system generated serial number to uniquely identify the asset record
+    description: A system generated serial number to uniquely identify the record
     $comment: >
-      Asset number will be used, mostly, to identify asset records, not the asset itself.
+      used to identify asset records not the asset itself
 
-  assetName:
-    const: > # note that the "\," sequence represents a comma and a space"
-      ${properties.assetClass.properties.className}\, 
-      ${properties.product.properties.manufacturer}\,
-      ${properties.product.properties.model}\,
-      ${properties.product.properties.configurationCode}\,
+  "asset name":
+    const: >
+      ${properties.assetClass.properties.className};
+      ${properties.product.properties.manufacturer};
+      ${properties.product.properties.model};
+      ${properties.product.properties.configurationCode};
       ${properties.OEMserialNumber}
     description: >
         a system generated description field of auto-generated description field that is the concatenation of 
-            1) MXobject_assetClassObject object "Class Name" property value (e.g. "centrifugal pump"),
+            1) .IBM_Maximo_object/classificationObject object "Class Name" property value (e.g. "centrifugal pump"),
             2) values of productLine object properties: 
                 manufacturer, 
                 model, 
                 configuration code / catalog nummber,
             3) OEM serial number
   
-  assetClass: #[ ] - can only assign a class object of a certain type of level. 
-    $ref: .objectDefs/MXobject_assetClassObject #This is not specified by Toronto Water, by is assumed to exit in Maximo
+  "asset class":
+    $ref: .IBM_Maximo_object/classificationObject
     description: indicates a class of asset to which this asset is a member
   
-  mobileAsset:
+  "mobile asset":
     type: boolean
     comment: >
       an asset is mobile if while it is in commission, it does not perform its function in a permanent installation
       instead, it is taken from place to place.
 
-  lifeStatus:
+  "life status":
     type: string
     trackHistoryFlag: TRUE
     enum:
@@ -51,7 +54,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
         - Annette added abandoned
         - "In possession" could connote we have it stored somewhere.
 
-  operatingState:
+  "operating state":
     type: string
     trackHistoryFlag: TRUE
     enum:
@@ -61,13 +64,13 @@ properties: # TODO: nullables, interaction between Status and State, location in
     $comment: >
       when an asset is inventoried in a store, it is also "not in use"
       
-  roleOrCollection:
-    $ref: .objectDefs/roleOrCollection
+  "role":
+    $ref: .objectDefs/role
     description: role that the asset is presently occupying (if the asset is in possession)
     trackHistoryFlag: TRUE
     $comment: >
 
-  servingMajorsystem:
+  "major system":
     type: string
     enum:
       - Drinking Water Network
@@ -82,28 +85,28 @@ properties: # TODO: nullables, interaction between Status and State, location in
       to identify which linear system that asset belongs to.
       #[]ASMP-to review value, consider making the list applicable only to GIS asset 
 
-  locatedInSpace:
+  "located in space":
     $ref: .objectDefs/space
     description:
     trackHistoryFlag: TRUE
 
-  serviceAddress:
-    $ref: .objectDefs/MXobject_serviceAddress #this is referencing Maximo's native service address object
+  "service address":
+    $ref: .IBM_Maximo_object/serviceAddress #this is referencing Maximo's native service address object
     trackHistoryFlag: TRUE
   
-  operatorOrganization:
+  "operator organization":
     $ref: .objectDefs/organization
     description: 
     $comment: >
       for assets associated with roles, the operator can often be inferred from the role
 
-  maintenanceOrganization:
+  "maintenance organization":
     $ref: .objectDefs/organization
     description: The maintainer if different from the operator
     trackHistoryFlag: TRUE
     $comment:
   
-  assignedToPerson:
+  "assigned to person":
     $ref: .objectDefs/person
     description: Indicates the assignment of a tool that does not have a system role
     trackHistoryFlag: TRUE
@@ -111,37 +114,37 @@ properties: # TODO: nullables, interaction between Status and State, location in
       Valid organization instances include division, section, unit, work areas, or a custom 
       defined organization.
   
-  purchasedUnderProject:
+  "purchased under project":
     type: string
     description: the project ID
     
-  dateReceived:
+  "date received":
     type: string
     description: the date the asset came on site.
 
-  yearOfManufacture:
+  "year of manufacture":
     type: number
     description: the year the asset was made
     $comment: This is needed to determine the model year of certain asset
   
-  product:
+  "product":
     $ref: .objectDefs/product
     description: an object that includes the information manufacturer, model, sub-model
 
-  OEMserialNumber:
+  "OEM serial number":
     type: string
 
-  purchaseCost:
+  "purchase cost":
     type: number
   
-  warrantyExpirationDate:
+  "warranty expiration date":
     type: string
 
-  additionalDescription:
+  "additional description":
     type: string
     description: Free text description
 
-  parentAssembly:
+  "parent assembly":
     type: string
     comment: >
       !!! IMPORTANT !!!
@@ -149,7 +152,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
       What we conventionally call "asset hierarchy" in will be build with cascading roles
       This property is to be used to express that an asset is a part of a trackable assembly, which has physical unity. 
   
-  additionalData:
+  "additional data":
     type: string
     description: addtional property information in JSON
 
@@ -157,7 +160,7 @@ properties: # TODO: nullables, interaction between Status and State, location in
 
 
 required: # RULE IN ENGLISH: these data fields that are unconditionally required on every record
-  - assetRecordNumber
+  - recordNumber
   - assetName
   - assetClass
   - lifeStatus

@@ -8,7 +8,7 @@
         - {Spaces in Storage of Drinking Water}  
     - {Spaces in Waste and Storm Water System}
         - {Spaces in Pumping Stations in Sewer Network}
-        - {Spaces in Chambers in Sewer Network}  
+        - {Spaces in Chambers in Sewer Network}
         - {Spaces in Storages of Wet Whether Flow}
         - {Spaces in Wastewater Treatment Plants}
     - {Spaces in Yards}

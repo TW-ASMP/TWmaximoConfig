@@ -2,7 +2,7 @@
     * inspect
     * check
     * test & analysis
-* sample or data dollection
+* sample or data collection
 * investigate cause
 * repair or service [^1]
     * calibrated
