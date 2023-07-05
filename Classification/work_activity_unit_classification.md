@@ -1,3 +1,5 @@
+# Work Activity Unit Classification
+
 * evaluate
     * inspect
     * check
@@ -10,7 +12,7 @@
     * exercise
     * replace part
     * flush
-    * ... REST OF D&C categories can go in here
+    * ...
 * replace or move
     * install
     * remove

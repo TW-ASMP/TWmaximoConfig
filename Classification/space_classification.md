@@ -1,4 +1,4 @@
-# Top-Level Space Classification Hierarchy
+# Top-Level Space Classification
 
 * space
     * indoor space

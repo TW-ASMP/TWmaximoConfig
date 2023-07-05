@@ -1,4 +1,4 @@
-# Detailed Asset Classification Hierarchy
+# Asset Classification
 ## Introductory Notes
 In the content section, asset classes name written in lower case represents a natural classes, and asset classes name written title case is a coined term, define usually with respect to one or more natural classes. 
 
