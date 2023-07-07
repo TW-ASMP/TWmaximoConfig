@@ -169,7 +169,7 @@ In the content section, asset classes name written in lower case represents a na
                     * scissors lift
             * crane [^6] {fixed?, type: type: jib, gantry, davit, bridge}
             * elevator
-        * Tracked Tool
+        * Tool
             * portable ladder
             * infrared camera
             * power washer
@@ -185,8 +185,20 @@ In the content section, asset classes name written in lower case represents a na
             * material distribution panel
             * electrical distribution panel
             * network (acccess) panel
-    * Assets by Function
+    * Assets by Function Emily: most people see function classified by outcome not the principle of operation e.g. disinfection, and odour control.
         * Material or Energy Handling Asset [^2] [^3]
+            * 
+            * solids separation
+            * disinfection
+                * ozonzation
+                * 
+            * biological treatment
+            * chemical - Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
+                * chemical dosing (or feed)
+                * chemical storage
+            * New: backwash treatment - has settling tank, solids removal, chemical 
+
+            ----
             * material flow control or pressure control
                 * pump
                 * conveyor [^6]
@@ -208,13 +220,12 @@ In the content section, asset classes name written in lower case represents a na
                 * chiller component
                     * evaporator
                     * condenser
-            * physical processing
-                * separator [^6]
+            * physical processing  Emily: more typical way it is described in water processing is "solid separation" 
+                * separator [^6] Emily: separation in wastewater and water treatment connotes with removal of water from solids (solids does not inlcude grit - these are landfill, solids are repurposed and useful). Another solids separation is in water - treating the backwash, removing the alum before it goes back into the lake
                     * centrifuge
                     * clarification tank
-                    * coagulation/flocculation tank
-                    * classifier
-                    * vortex or cyclone separator
+                    * classifier Emily: you are just cleaning the grit, outcome: clean grit dirty water, no separation. We would call it "grit removal" "screening"
+                    * vortex or cyclone separator 
                     * screw press
                 * filter [^6]  
                     * water treatment filter 
@@ -222,19 +233,19 @@ In the content section, asset classes name written in lower case represents a na
                     * aerobic filter 
                         * !COMMENT: Note: used instead of "biofilter", typically refers to aerobic #Emily
                     * anaerobic filter
-                    * bar screen
+                    * bar screen Emily: we would never call it filters. We call granular media filters filters. 
                     * air treatment filter
                     * replaceable filter medium
-                * collector [^6] 
+                * collector [^6] Emily: I did not what this term meant
                     * dust collector unit
                     * gas collector 
-                    * chain and flight assembly
+                    * chain and flight assembly Emily: we call these scrappery, and they send the stuff to a channel "collectors"
                     * traveling screen assembly 
                     * traveling bridge assembly
                 * mixer or agitator [^6]
-                    * sliding frame agitator assembly
+                    * sliding frame agitator assembly #
                         * COMMENT: through this is a part of a larger asset, it has its own lifecycle and is not a consumable, like tires
-                    * vortex mixer
+                    * vortex mixer Emily:What are you calling oxygen diffusers in the aeration tank (oxygenation is the primary function and diffusion and mixing is secondary)?  
                     * mixing tank
                 * grinder or comminutor [^6]
                 * compactor
@@ -243,26 +254,28 @@ In the content section, asset classes name written in lower case represents a na
                 * UV disinfection assembly EMILY: could this be a part of a class of tank?
             * biological or chemical reaction
                 * chemical reactor [^6]
-                    * coagulation/flocculation tank
+                    * coagulation / flocculation tank
                 * biological reactor [^6]
                     * aeration tank
                     * digester tank
+                * biological filtraion
+                * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
             * storage
                 * wastewater detention tank
                 * super pipe
                 * pumping wet well
                 * storage tank [^6]
                     * fuel tank {natural gas, diesel, gasoline}
-                * lagoon
+                * lagoon Emily: referring to the ash lagoon - post incernation - where the ash is stored. 
                 * gas cylinder
-            * material dosing ro addition
+            * material dosing or addition
                 * dosing system [^6]
                     * chlorinator system
                     * ozonator system
                     * sulphonator system
                 * ozone generator {subclassof:chemical reactor}
                 * dosing pump {subclassof:pump}
-                * injector or eductor 
+                * injector or eductor Emily: gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
             * motion or mechanical energy conversion
                 * COMMENTS:
                     * "Pete: 'driving' seems off (would ppls conflate with cars?), motion or prime mover may be better"
@@ -393,7 +406,7 @@ In the content section, asset classes name written in lower case represents a na
         * line
             * simple line
             * main path line
-        * junction/header
+        * junction/header/flow equalization (from Emily)
         * defined set of asset
             * assets of a organization
             * route
