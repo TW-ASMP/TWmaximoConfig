@@ -7,7 +7,7 @@ type: object
 #   [] self: role must have a location
 
 "properties":
-  "Role Number":
+  "role number":
     type: string
     description: This is also known as the "tag number"
 
