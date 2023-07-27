@@ -40,31 +40,41 @@ properties:
       an asset is mobile if while it is in commission, it does not perform its function in a permanent installation
       instead, it is taken from place to place.
 
-  "life status":
+  "status":
     type: string
     trackHistoryFlag: TRUE
     enum:
       - planned
       - in possession
+      - abandoned in place
       - removed from TW
-      - abandoned
     $comment: >
       an asset can be decommissioned, but still in possession
       3/6: 
         - Annette added abandoned
         - "In possession" could connote we have it stored somewhere.
+      7/25:
+        - in convesation with Debbi: agreed abondoned is a subset of in possession
+        - decommission (& will never be used again) == abandoned OR removed from TW
 
   "operating state":
     type: string
     trackHistoryFlag: TRUE
     enum:
-      - in use
-      - suspended from use
-      - not in use
+      - up / available
+      - down / unavailable
+      - not assigned for operation
     $comment: >
-      when an asset is inventoried in a store, it is also "not in use"
-      
-  "role":
+      - when an asset is inventoried in a store, it would be "not assigned"
+      - 7/25: 
+        - when an asset is "not assigned", it may neither be assigned to a role, a operations group, nor a operator person.
+        - when an asset is NOT "not assigned", it must either be assigned to a role, a operations group, a operator person, or a combination thereof. 
+        - current values changed from the following
+          - in use
+          - suspended from use
+          - not in use
+  
+  "assigned to role":
     $ref: .objectDefs/role
     description: role that the asset is presently occupying (if the asset is in possession)
     trackHistoryFlag: TRUE
@@ -80,10 +90,9 @@ properties:
       - Independent Building
       - Multiple Major Systems
     description:
-    $comment: > 
-      Use-case: many asset from the GIS will not be indexed on the hierarchy, the main use of this datafield is 
-      to identify which linear system that asset belongs to.
-      #[]ASMP-to review value, consider making the list applicable only to GIS asset 
+    $comment: >
+      Note that this field is populated automatically, and not available for user to edit. 
+      Use-case: asset from the GIS will not be indexed on the hierarchy. The main use of this datafield is to provide a simple handle term, when one needs to summarize the collection of all assets imported from the GIS.
 
   "located in space":
     $ref: .objectDefs/space
@@ -93,39 +102,43 @@ properties:
   "service address":
     $ref: .IBM_Maximo_object/serviceAddress #this is referencing Maximo's native service address object
     trackHistoryFlag: TRUE
-  
-  "operator organization":
-    $ref: .objectDefs/organization
-    description: 
-    $comment: >
-      for assets associated with roles, the operator can often be inferred from the role
 
-  "maintenance organization":
+  "maintenance group":
     $ref: .objectDefs/organization
     description: The maintainer if different from the operator
     trackHistoryFlag: TRUE
-    $comment:
+    $comment: >
+      Aside from the example DOS maintaining asset operated by the plant. It is prudent to differentiate the maintnenance group from the operations group. We can imagine that in the next re-organization, there could be an operation department and a maintenance department in each plant. And each department could have its own workAreas / crews. 
   
-  "assigned to person":
-    $ref: .objectDefs/person
+  "assigned to operations group":
+    $ref: .objectDefs/organization
+    description:
+    $comment: >
+      IMPORTANT: 
+      we often think of operator should be an business unit, but it would be more optimal if we can assign a smaller group, such as a work area or a crew that is under a business unit in the org chart - essentially at the level of direct responsibility over the asset. Now this would only work well if we have a organization chart built into Maximo.
+      For assets associated with roles, the operator can often be inferred from the role
+  
+  "assigned to operator person":
+    $ref: .IBM_Maximo_object/person
     description: Indicates the assignment of a tool that does not have a system role
     trackHistoryFlag: TRUE
     $comment: >
-      Valid organization instances include division, section, unit, work areas, or a custom 
-      defined organization.
+      This is useful field to keep track of tools.
   
   "purchased under project":
     type: string
     description: the project ID
     
-  "date received":
+  "first day of operation":
     type: string
     description: the date the asset came on site.
+    $comment: >
+      7/24: changed to "first day of operation" from "date received". As it is much easier to collect the first day of operation from mandatory work order transaction that captures commissioning / asset turnover or beginning of operation. This is also a more important date for gauging when warranty begins.
 
   "year of manufacture":
     type: number
     description: the year the asset was made
-    $comment: This is needed to determine the model year of certain asset
+    $comment: This is needed to determine the model year of certain asset.
   
   "product":
     $ref: .objectDefs/product
@@ -148,13 +161,10 @@ properties:
     type: string
     comment: >
       !!! IMPORTANT !!!
-      This property is not meant to be use for specifying the asset hierarchy parent
-      What we conventionally call "asset hierarchy" in will be build with cascading roles
+      This property is not meant to be use for specifying the asset hierarchy parent.
+      What we conventionally call "asset hierarchy" in will be build with cascading roles.
       This property is to be used to express that an asset is a part of a trackable assembly, which has physical unity. 
   
-  "additional data":
-    type: string
-    description: addtional property information in JSON
 
 ################################## RULES ##################################
 
