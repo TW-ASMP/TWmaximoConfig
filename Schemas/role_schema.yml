@@ -9,13 +9,13 @@ type: object
 "properties":
   "role number":
     type: string
-    description: This is also known as the "tag number"
+    description: This is also known as the "tag number", if it is an asset role.
 
   "role name":
     const: >
-      ${properties.roleClass.properties.className};
-      childOf: ${properties.parentRole.properties.roleNumber};
-      serving: ${properties.clientRoleServed.properties.roleNumber};
+      ${properties."role class".properties."class name"};
+      childOf: ${properties."parent entity".properties."role number"};
+      serving: ${properties."client role served".properties."role number"};
     description: A description of the role, in terms of its relations to its parent role and the roles that it presently serves
     # MT []: would you like me to move this into individual roles?
 
@@ -39,15 +39,19 @@ type: object
     description: >
       A free text description of the performance requirements of the role. 
       For example, weight in kg for a lifting device.
-    # Eventually, this should be formalized as properties of the specificat role class.
-    # For now, this can be entered as key value pairs
+    # Eventually, this should be formalized as properties of the specific role class. For example horsepower for motor class
+    # For now, this can be entered as a free text
     # AK []: would you like me to move this into individual roles?
   
   "located in space":
     $ref: .objectDefs/space
     description: 
 
-  "service address":
+  "operator group"
+    $ref: .IBM_Maximo_object/group
+    description: group responsible for the operation of the asset, serving in this role
+
+  "service address or coordinate":
     $ref: .IBM_Maximo_object/serviceAddress
     description: x and y coordinate, or the street address
 
@@ -87,3 +91,5 @@ type: object
     required:
       - 
 #There could be more specialized roles, such as sensor roles [monitoring] breaker roles [tie-breaker]
+#To be represented
+# - each role can only be occupied by a single asset, unless it is a collection

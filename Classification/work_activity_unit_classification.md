@@ -15,8 +15,8 @@
     * ...
 * replace or move
     * install
-    * remove
-    * relocate
+    * remove / decommission
+    * move
     * replace
 * modify
     * setpoint modification
@@ -32,4 +32,4 @@
     * asset record valiation
 * travel
 
-[^1] at 2023, the vertical facilities will only need to see as far as this level.
+[^1]: at 2023, the vertical facilities will only need to see as far as this level.

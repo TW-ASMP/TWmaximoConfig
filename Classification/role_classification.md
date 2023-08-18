@@ -1,5 +1,7 @@
 # Top-Level Role Classification
 
-* role
+* collection of roles
+* individual role
     * discrete asset role
     * system role
+    

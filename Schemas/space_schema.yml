@@ -14,6 +14,7 @@ properties:
   "space name":
     const: >
       ${properties.parentSpace.spaceName}\\${properties.incrementalName}
+    $comment: 
 
   "space type":
     $ref: .IBM_Maximo_object/classifcationObject # This is not specified by Toronto Water, by is assumed to exit in Maximo

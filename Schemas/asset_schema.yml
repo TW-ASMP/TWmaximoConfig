@@ -16,10 +16,10 @@ properties:
 
   "asset name":
     const: >
-      ${properties.assetClass.properties.className};
-      ${properties.product.properties.manufacturer};
-      ${properties.product.properties.model};
-      ${properties.product.properties.configurationCode};
+      ${properties."asset class".properties."class name"};
+      ${properties."product".properties."manufacturer"};
+      ${properties."product".properties."model"};
+      ${properties."product".properties."catalog configuration code"};
       ${properties.OEMserialNumber}
     description: >
         a system generated description field of auto-generated description field that is the concatenation of 
@@ -49,13 +49,13 @@ properties:
       - abandoned in place
       - removed from TW
     $comment: >
-      an asset can be decommissioned, but still in possession
+      Decommissioned is not being used as a state because it is an ambiguous term. An asset can be decommissioned (i.e. having gone through a decommissioning process) and then sent for reburbishment or stored as a spare. As such decommissioning should be represented as a process (i.e. work type) instead of decommissioned as a status. 
       3/6: 
         - Annette added abandoned
-        - "In possession" could connote we have it stored somewhere.
-      7/25:
-        - in convesation with Debbi: agreed abondoned is a subset of in possession
-        - decommission (& will never be used again) == abandoned OR removed from TW
+        - Note "In possession" could connote that it is operating or stored somewhere.
+      7/25 clarifications:
+        - in convesation with Debbie: agreed abondoned is a subset of in possession
+        - decommissioned & will never be used again == abandoned OR removed from TW
 
   "operating state":
     type: string
@@ -67,14 +67,14 @@ properties:
     $comment: >
       - when an asset is inventoried in a store, it would be "not assigned"
       - 7/25: 
-        - when an asset is "not assigned", it may neither be assigned to a role, a operations group, nor a operator person.
-        - when an asset is NOT "not assigned", it must either be assigned to a role, a operations group, a operator person, or a combination thereof. 
         - current values changed from the following
           - in use
           - suspended from use
           - not in use
+        - when an asset is "not assigned...", it may neither be assigned to a role, a operations group, nor a operator person.
+        - when an asset is NOT "not assigned", it must either be assigned to a role, a operations group, a operator person, or a combination thereof. 
   
-  "assigned to role":
+  "assigned to role or collection":
     $ref: .objectDefs/role
     description: role that the asset is presently occupying (if the asset is in possession)
     trackHistoryFlag: TRUE
@@ -99,31 +99,38 @@ properties:
     description:
     trackHistoryFlag: TRUE
 
-  "service address":
-    $ref: .IBM_Maximo_object/serviceAddress #this is referencing Maximo's native service address object
+  "service address": 
+    $ref: .IBM_Maximo_object/serviceAddress
+    $comment: this is referencing Maximo's native service address object
     trackHistoryFlag: TRUE
 
-  "maintenance group":
-    $ref: .objectDefs/organization
+  "tool maintenance group":
+    $ref: .IBM_Maximo_object/group
     description: The maintainer if different from the operator
     trackHistoryFlag: TRUE
     $comment: >
       Aside from the example DOS maintaining asset operated by the plant. It is prudent to differentiate the maintnenance group from the operations group. We can imagine that in the next re-organization, there could be an operation department and a maintenance department in each plant. And each department could have its own workAreas / crews. 
-  
-  "assigned to operations group":
-    $ref: .objectDefs/organization
+      - 7/27: 
+        added "tool.." to name,see today's comment for "assigned to user group"
+
+  "assigned to user group":
+    $ref: .IBM_Maximo_object/group
     description:
     $comment: >
       IMPORTANT: 
       we often think of operator should be an business unit, but it would be more optimal if we can assign a smaller group, such as a work area or a crew that is under a business unit in the org chart - essentially at the level of direct responsibility over the asset. Now this would only work well if we have a organization chart built into Maximo.
       For assets associated with roles, the operator can often be inferred from the role
+      - 7/27: 
+        changed "..operator group" to "user group", because this field should only be use, if the asset is a tool. If it is not a tool, it should be in a role, and the role should have a "operators group" associated with it. 
   
-  "assigned to operator person":
+  "assigned to user person":
     $ref: .IBM_Maximo_object/person
     description: Indicates the assignment of a tool that does not have a system role
     trackHistoryFlag: TRUE
     $comment: >
       This is useful field to keep track of tools.
+      7/27: 
+        see today's comment for "assigned to user group"
   
   "purchased under project":
     type: string
@@ -170,12 +177,12 @@ properties:
 
 
 required: # RULE IN ENGLISH: these data fields that are unconditionally required on every record
-  - recordNumber
-  - assetName
-  - assetClass
-  - lifeStatus
-  - majorTWsystem
-  - operatorOrganization
+  - record number
+  - asset name
+  - asset class
+  - status
+  - major system
+  - operator organization
 
 allOf: 
   # RULE IN ENGLISH: every discrete asset should have one and only one property indicating its location.
