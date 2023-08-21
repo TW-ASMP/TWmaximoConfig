@@ -20,7 +20,7 @@ properties:
       ${properties."product".properties."manufacturer"};
       ${properties."product".properties."model"};
       ${properties."product".properties."catalog configuration code"};
-      ${properties.OEMserialNumber}
+      ${properties."OEM serial number"}
     description: >
         a system generated description field of auto-generated description field that is the concatenation of 
             1) .IBM_Maximo_object/classificationObject object "Class Name" property value (e.g. "centrifugal pump"),
@@ -37,15 +37,14 @@ properties:
   "mobile asset":
     type: boolean
     comment: >
-      an asset is mobile if while it is in commission, it does not perform its function in a permanent installation
-      instead, it is taken from place to place.
+      an asset is mobile if while it is in commission, it does not perform its function in a permanent installation. Instead, it is taken from place to place.
 
   "status":
     type: string
     trackHistoryFlag: TRUE
     enum:
       - planned
-      - in possession
+      - in hand / usable
       - abandoned in place
       - removed from TW
     $comment: >
@@ -53,9 +52,13 @@ properties:
       3/6: 
         - Annette added abandoned
         - Note "In possession" could connote that it is operating or stored somewhere.
-      7/25 clarifications:
+      7/25: clarifications:
         - in convesation with Debbie: agreed abondoned is a subset of in possession
         - decommissioned & will never be used again == abandoned OR removed from TW
+      8/21: 
+        abandoned in place asset may still require work
+        [ ]RULE PROPOSAL: when asset is abondoned-in-place, it should retain its last known location, inherited from the role.
+
 
   "operating state":
     type: string
@@ -89,24 +92,27 @@ properties:
       - Wastewater Treatment Plants
       - Independent Building
       - Multiple Major Systems
-    description:
     $comment: >
       Note that this field is populated automatically, and not available for user to edit. 
-      Use-case: asset from the GIS will not be indexed on the hierarchy. The main use of this datafield is to provide a simple handle term, when one needs to summarize the collection of all assets imported from the GIS.
+      Use-case: asset from the GIS will not be indexed on the hierarchy. The main use of this datafield is to provide a simple handle term, when one needs to summarize the collection of all assets imported from a certain layer(s) the GIS.
+      Aug 17th: 
+        - we could choose to NOT display the information
+  
+  "GIS object ID":
+    type: string
+    description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link. 
 
   "located in space":
     $ref: .objectDefs/space
-    description:
     trackHistoryFlag: TRUE
 
-  "service address": 
+  "service address or coordinate": 
     $ref: .IBM_Maximo_object/serviceAddress
     $comment: this is referencing Maximo's native service address object
     trackHistoryFlag: TRUE
 
   "tool maintenance group":
     $ref: .IBM_Maximo_object/group
-    description: The maintainer if different from the operator
     trackHistoryFlag: TRUE
     $comment: >
       Aside from the example DOS maintaining asset operated by the plant. It is prudent to differentiate the maintnenance group from the operations group. We can imagine that in the next re-organization, there could be an operation department and a maintenance department in each plant. And each department could have its own workAreas / crews. 
@@ -115,7 +121,6 @@ properties:
 
   "assigned to user group":
     $ref: .IBM_Maximo_object/group
-    description:
     $comment: >
       IMPORTANT: 
       we often think of operator should be an business unit, but it would be more optimal if we can assign a smaller group, such as a work area or a crew that is under a business unit in the org chart - essentially at the level of direct responsibility over the asset. Now this would only work well if we have a organization chart built into Maximo.
@@ -176,21 +181,21 @@ properties:
 ################################## RULES ##################################
 
 
-required: # RULE IN ENGLISH: these data fields that are unconditionally required on every record
-  - record number
-  - asset name
-  - asset class
-  - status
-  - major system
-  - operator organization
 
 allOf: 
+  - required: # RULE IN ENGLISH: these data fields that are unconditionally required on every record
+    - "record number"
+    - "asset name"
+    - "asset class"
+    - "status"
+    - "major system"
+    - "operator organization"
   # RULE IN ENGLISH: every discrete asset should have one and only one property indicating its location.
   - oneOf:
-    - required: role
-    - required: locatedInSpace
-    - required: MXobject_serviceAddress
-    - required: parentAssembly #[]GG
+    - required: "assigned to role or collection"
+    - required: "located in space"
+    - required: "service address or coordinate"
+    - required: "parent assembly" #[]GG
     $comment: >
       These properties pertaining to the location of an asset are mutually exclusive.
       The first two lines say that a asset with locatedInSpace specification is not installed in a role
@@ -205,7 +210,7 @@ allOf:
         operatingState:
           - const: "in use"
     then:
-      required: role
+      required: "assigned to role or collection"
 
   # RULE IN ENGLISH: if an asset is mobile and it is in use, then it must have a role specification
   - if:
@@ -215,7 +220,9 @@ allOf:
       operatingState:
         - const: "in use"
     then:
-      required: assignedToPerson
+      oneOf:
+        - required: "assigned to user person"
+        - required: "assigned to user group"
 
 
   # RULE IN ENGLISH: if lifeStatus property is either "planned" or "removed from TW",
