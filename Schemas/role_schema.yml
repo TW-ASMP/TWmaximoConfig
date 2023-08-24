@@ -32,26 +32,30 @@ type: object
         * generator role
           * emergenecy generator role
           * backup generator role
-      8/24:
-        [ ]TH: idea to be taken up with DM and GI. If idea is good, need to add new classification
   
   "status":
     type: string
     trackHistoryFlag: TRUE
     enum:
-      - planned
-      - realized
-      - eliminated
+      - "specified"
+      - "realized"
+      - "eliminated"
     $comment: >
-      this field allows the user to specify whether the role is merely a concept in the design stage -i.e., "planned", or whether the system around it and supports for it have been contructed, and it is occupieable by an asset - i.e. "realized".
+      This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
+      Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
-
+  "created by mistake":
+    type: boolean
+    trackHistoryFlag: TRUE
+    description: a record that was created in a data system, but it is (later) determined that no referenct object had ever existed in reality.
+    $comment: >
+      Usually, a record is found to be created by mistake during an field verification.
+      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
   "client role served":
     $ref: .objectDefs/role
     description: >
       Specifies the role (more precisely the asset serving in the role), that this role is serving
       Form example, if the present role is that of a valve, then its client may be a pump.
-    # If we have a valve role, the client that it serves may be a pump role.
 
   "role technical requirement description":
     ref: string
@@ -97,6 +101,8 @@ type: object
     description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link. 
 
   ################################## RULES ##################################
+  
+  # 
   if:
     oneOf:
       - roleClass:
@@ -112,9 +118,11 @@ type: object
               className:
                 const: "large chamber"
   then:
-    required:
-      - 
-#There could be more specialized roles, such as sensor roles [monitoring] breaker roles [tie-breaker]
-#To be represented
-# - each role can only be occupied by a single asset, unless it is a collection
-# commissioning date should be written into the record of the equipment and the role. 
+    required: "GIS object ID"
+
+$comment: >
+  [ ] Rules and processes to be transcribed from English:
+    - each role can only be occupied by a single asset
+    - commissioning date should be written into the record of the asset and the role.
+    - certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
+    - when a building is removed

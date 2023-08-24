@@ -38,15 +38,17 @@ properties:
     type: boolean
     comment: >
       an asset is mobile if while it is in commission, it does not perform its function in a permanent installation. Instead, it is taken from place to place.
+      8/24:
+        [ ] TH Q: is this equivalent to tool 
 
   "status":
     type: string
     trackHistoryFlag: TRUE
     enum:
-      - planned
-      - in hand / usable
-      - abandoned in place
-      - removed from TW
+      - "specifed"
+      - "in hand / usable"
+      - "abandoned in place"
+      - "removed from TW"
     $comment: >
       Decommissioned is not being used as a state because it is an ambiguous term. An asset can be decommissioned (i.e. having gone through a decommissioning process) and then sent for reburbishment or stored as a spare. As such decommissioning should be represented as a process (i.e. work type) instead of decommissioned as a status. 
       3/6: 
@@ -56,9 +58,9 @@ properties:
         - in convesation with Debbie: agreed abondoned is a subset of in possession
         - decommissioned & will never be used again == abandoned OR removed from TW
       8/21: 
-        abandoned in place asset may still require work
-        [ ]RULE PROPOSAL: when asset is abondoned-in-place, it should retain its last known location, inherited from the role.
-
+        - abandoned in place asset may still require work
+        - [ ]RULE PROPOSAL: when asset is abondoned-in-place, it should retain its last known location, inherited from the role.
+        - Debbie: removed from TW equates to Maximo's notion of decommissioned = disposed and will never be worked on again.
 
   "operating state":
     type: string
@@ -76,8 +78,17 @@ properties:
           - not in use
         - when an asset is "not assigned...", it may neither be assigned to a role, a operations group, nor a operator person.
         - when an asset is NOT "not assigned", it must either be assigned to a role, a operations group, a operator person, or a combination thereof. 
+
+  "created by mistake":
+    type: boolean
+    trackHistoryFlag: TRUE
+    description: a record that was created in a data system, but it is (later) determined that no referenct object had ever existed in reality.
+    $comment: >
+      This field probably should not be visible
+      Usually, a record is found to be created by mistake during an field verification.
+      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
   
-  "assigned to role or collection":
+  "assigned to role":
     $ref: .objectDefs/role
     description: role that the asset is presently occupying (if the asset is in possession)
     trackHistoryFlag: TRUE
@@ -165,10 +176,6 @@ properties:
   "warranty expiration date":
     type: string
 
-  "additional description":
-    type: string
-    description: Free text description
-
   "parent assembly":
     type: string
     comment: >
@@ -176,6 +183,7 @@ properties:
       This property is not meant to be use for specifying the asset hierarchy parent.
       What we conventionally call "asset hierarchy" in will be build with cascading roles.
       This property is to be used to express that an asset is a part of a trackable assembly, which has physical unity. 
+      The should 
   
 
 ################################## RULES ##################################
@@ -183,13 +191,15 @@ properties:
 
 
 allOf: 
-  - required: # RULE IN ENGLISH: these data fields that are unconditionally required on every record
+  # RULE IN ENGLISH: these data fields that are unconditionally required on every record
+  - required: 
     - "record number"
     - "asset name"
     - "asset class"
     - "status"
     - "major system"
     - "operator organization"
+  
   # RULE IN ENGLISH: every discrete asset should have one and only one property indicating its location.
   - oneOf:
     - required: "assigned to role or collection"
@@ -242,6 +252,42 @@ allOf:
 
 
 $comment: >
-  Additional rules in plan English
-    1. if asset is from GIS, the asset record ID would be the GIS'sID. This is to be taken care of in the data import process.
-    2. validation role: RoleClassification must be "Unit Asset" or "Asset Collection", and must not be a system role.
+  [ ] Rules and processes to be transcribed from English:
+    
+    - Process: if asset is from GIS, the asset record ID would be the GIS'sID. This is to be taken care of in the data import process.
+    
+    - Process: ususally WO are issued against roles, but it must also be easy to issued against tools other rotating assets (even if they are in storage)
+    
+    - validation role associated with an asset: Role Classification must be "Discrete Asset Role", and must not be a "collection of roles".
+    
+    - Process for adding new asset records: all new asset, role, and space records are added and their status set by one of two processes streams
+        - Stream 1 
+          - specification 
+            - process by which we created the record for role or asset
+          - OPTIONAL: approval 
+            - for role or asset
+          - OPTIONAL: receiving 
+            - for asset only; 
+            - (only makes sense if we have robust and transparent inventory and project inventory; set status="in hand / usable")
+          - OPTIONAL: realization 
+            - for asset or space only
+            - set status = "realized"
+          - OPTIONAL: installation 
+            - for asset only 
+            - set status = "in hand / usable"
+          - commmissioning/test
+            - for role-asset together or separately
+            - NOT for space, 
+            - set role status = "realized"
+            - set asset's (either independent or occupying the role) status = "in hand / usable" 
+        - Stream 2
+          - data reconciliation 
+            - (meaning the record is added much later, in a effort to make corrections to reflect the reality)
+      a (series of) work order(s) should be recorded for each processes stream, to collect information on people and other things involved in the processes
+    
+    - Cannot issue work order to an asset unless it's status is "in hand / usable"
+    - Cannot issue work order to a role or a space unless it's status is "realized"
+
+     - All new asset, role, and space records are removed by one of two processes streams
+      [] TBD
+

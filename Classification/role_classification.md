@@ -2,7 +2,9 @@
 
 * collection of roles
     * system role
+    * defined set of roles
 * discrete asset role
-    * breaker role
-    
+    * generator role
+        * backup generator role
+        * emergency generator role
     

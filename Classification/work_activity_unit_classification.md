@@ -12,7 +12,7 @@
     * exercise
     * replace part
     * flush
-    * ...
+    * etc...
 * replace or move
     * install
     * remove / decommission
