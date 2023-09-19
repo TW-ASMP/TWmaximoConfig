@@ -154,7 +154,38 @@ In the content section, asset classes name written in lower case represents a na
                 * strainer
                 * trap priming device
                 * valve
-        * Water or Wastewater Treatment
+        * Major Water or Wastewater Treatment Asset
+            * screen unit
+                * bar screen unit
+                * traveling screen unit
+            * classifier unit
+            * dewatering centrifuge
+            * clarification tank
+            * vortex separator 
+            * screw press
+            * sedimentation tank
+            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                * biological treatment filter unit
+                    * aerobic filter unit 
+                    * anaerobic filter unit
+                * mechanical treatment filter unit
+            * disinfection tank
+            * UV disinfection assembly
+            * part of UV disinfection assembly
+            * aeration tank
+            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                * biological treatment filter unit
+                    * aerobic filter unit 
+                    * anaerobic filter unit
+                * mechanical treatment filter unit
+            * a portion of filter medium
+            * digester tank
+            * coagulation / flocculation tank
+            * sludge incinerator
+            * comminutor [^6]
+            * Emily: New: backwash treatment - has settling tank, solids removal, chemical
+            * ash lagoon
+            --- consider either above or below ---
             * solid separation
                 * dewatering centrifuge
                 * clarification tank
