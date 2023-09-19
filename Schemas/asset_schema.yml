@@ -86,7 +86,7 @@ properties:
     $comment: >
       This field probably should not be visible
       Usually, a record is found to be created by mistake during an field verification.
-      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
+      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions.
   
   "assigned to role":
     $ref: .objectDefs/role
@@ -285,7 +285,7 @@ $comment: >
             - (meaning the record is added much later, in a effort to make corrections to reflect the reality)
       a (series of) work order(s) should be recorded for each processes stream, to collect information on people and other things involved in the processes
     
-    - Cannot issue work order to an asset unless it's status is "in hand / usable"
+    - Cannot issue work order to an asset unless it's status is "in hand / usable" or "abondoned in place"
     - Cannot issue work order to a role or a space unless it's status is "realized"
 
      - All new asset, role, and space records are removed by one of two processes streams

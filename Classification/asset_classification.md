@@ -255,14 +255,14 @@ In the content section, asset classes name written in lower case represents a na
                     * fuel tank {natural gas, diesel, gasoline}
                 * lagoon
                 * gas cylinder
-            * material dosing ro addition
+            * material dosing or addition
                 * dosing system [^6]
                     * chlorinator system
                     * ozonator system
                     * sulphonator system
                 * ozone generator {subclassof:chemical reactor}
                 * dosing pump {subclassof:pump}
-                * injector or eductor 
+                * injector or eductor
             * motion or mechanical energy conversion
                 * COMMENTS:
                     * "Pete: 'driving' seems off (would ppls conflate with cars?), motion or prime mover may be better"
