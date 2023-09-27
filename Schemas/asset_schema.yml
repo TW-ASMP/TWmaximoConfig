@@ -158,10 +158,12 @@ properties:
     $comment: >
       7/24: changed to "first day of operation" from "date received". As it is much easier to collect the first day of operation from mandatory work order transaction that captures commissioning / asset turnover or beginning of operation. This is also a more important date for gauging when warranty begins.
 
-  "year of manufacture":
+  "year built":
     type: number
     description: the year the asset was made
-    $comment: This is needed to determine the model year of certain asset.
+    $comment: > 
+      This is needed to determine the model year of certain asset.
+      09/18: changed from "year of manufacture" to "year built", in order to cover construted asssets, like building.
   
   "product":
     $ref: .objectDefs/product
