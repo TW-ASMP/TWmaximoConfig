@@ -5,7 +5,7 @@ In the content section, asset classes name written in lower case represents a na
 ## Content
 
 * Asset
-    * Classes by Domain [^1] [^4]
+    * Classes by Domain [^1] [^4] #'review naming"
         * Distribution and Collection Network
             * hydrant system {subclass: localized primary function system}
             * valve
@@ -85,7 +85,7 @@ In the content section, asset classes name written in lower case represents a na
                 * controlled barrier {type: person, vehicular}
             * BAS controller
             * Lighting
-        * Land Surface Feature
+        * Land Surface Feature #TH:review naming
             * COMMENT: "Pete: ask AK about green infrastructure assets"
             * segment of paved road
             * piece of lawn
@@ -137,7 +137,7 @@ In the content section, asset classes name written in lower case represents a na
                 * first aid room equipment
                 * first aid kit
                 * automatic external defibrillator
-            * silencer "#Pete when is silencer used"
+            * silencer #Peter:where is silencer used
         * Facility Piping or Material Distibution
             * pipe section
             * air duct section
@@ -239,7 +239,7 @@ In the content section, asset classes name written in lower case represents a na
             * golf cart
             * boat
             * water trailer
-        * lifting
+        * Lifting
             * mobile lift [^6]
                 * forklift
                 * manlift [^6]
@@ -302,7 +302,7 @@ In the content section, asset classes name written in lower case represents a na
                 * engine
                 * combustion turbine
                 * generator {fuel type: diesel, natural gas, bi-fuel}
-        * Instrumentation or Information Handling Asset
+        * Instrumentation or Information Handling Asset #TH:"review naming"
             * instrumentation, single-variable {hasAnalyzer, hasSensorElement, has...}
                 * flowmeter {venturi, magmeter, ...}
                 * level instrumentation {...}
@@ -411,29 +411,7 @@ In the content section, asset classes name written in lower case represents a na
             * material distribution panel
             * electrical distribution panel
             * network (acccess) panel
-    * Collection of Discrete Assets
-        * facility
-            * pumping station
-            * water treatment facility
-            * wastewater treatment facility
-            * lab
-            * yard
-        * system
-            * hierarchal system 'used to be: localized primary function system
-            * network system 'used to be: distributed primary function system
-                * industrial control network
-                * eletrical distribution network
-                * material distribution network
-                    * water distribution network
-                    * water collection network
-        * system train
-        * line
-            * simple line
-            * main path line
-        * junction/header/flow equalization (from Emily)
-        * defined set of asset
-            * assets of a organization
-            * route
+    * #NOTE:classificaion of assets,composed of a collection of assets are included in the role classifcation file. 
 
 
 ## Working Notes
