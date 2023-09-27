@@ -3,52 +3,81 @@ $id: objectDefs/role
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
-# To thinkin about
-#   [] self: role must have a location
-
 "properties":
-  roleNumber:
+  "role number":
     type: string
-    description: This is also known as the "tag number"
+    description: This is also known as the "tag number", if it is an asset role.
 
   "role name":
     const: >
-      ${properties.roleClass.properties.className};
-      childOf: ${properties.parentRole.properties.roleNumber};
-      serving: ${properties.clientRoleServed.properties.roleNumber};
+      ${properties."role class".properties."class name"};
+      childOf: ${properties."parent entity".properties."role number"};
+      serving: ${properties."client role served".properties."role number"};
     description: A description of the role, in terms of its relations to its parent role and the roles that it presently serves
     # MT []: would you like me to move this into individual roles?
 
-  "parent entity":
+  "parent":
     $ref: .objectDefs/role
     description: the parent role
 
   "role class":
-    $ref: .IBM_Maximo_object/classifcationObject # This is not specified by Toronto Water, by is assumed to exit in Maximo
-    description: 
+    $ref: .IBM_Maximo_object/classifcationObject
+    description: this field specifies the class of asset that is suppose to occupy this role
+    $comment: >
+      this field allow the user to specify what the equipment does in the system instead of what the equipment is. For example, for generators, instead of 
+        * generator
+          * diesel generator
+          * natural gas generator
+      we would have
+        * generator role
+          * emergenecy generator role
+          * backup generator role
+  
+  "status":
+    type: string
+    trackHistoryFlag: TRUE
+    enum:
+      - "specified"
+      - "realized"
+      - "eliminated"
+    $comment: >
+      This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
+      Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
+  "created by mistake":
+    type: boolean
+    trackHistoryFlag: TRUE
+    description: a record that was created in a data system, but it is (later) determined that no referenct object had ever existed in reality.
+    $comment: >
+      Usually, a record is found to be created by mistake during an field verification.
+      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
   "client role served":
     $ref: .objectDefs/role
     description: >
       Specifies the role (more precisely the asset serving in the role), that this role is serving
       Form example, if the present role is that of a valve, then its client may be a pump.
-    # If we have a valve role, the client that it serves may be a pump role.
 
   "role technical requirement description":
     ref: string
     description: >
       A free text description of the performance requirements of the role. 
       For example, weight in kg for a lifting device.
-    # Eventually, this should be formalized as properties of the specificat role class.
-    # For now, this can be entered as key value pairs
+    # Eventually, this should be formalized as properties of the specific role class. For example horsepower for motor class
+    # For now, this can be entered as a free text
     # AK []: would you like me to move this into individual roles?
   
   "located in space":
     $ref: .objectDefs/space
-    description: 
+    trackHistoryFlag: TRUE
 
-  "service address":
+  "operator group":
+    $ref: .IBM_Maximo_object/group
+    trackHistoryFlag: TRUE
+    description: group responsible for the operation of the asset, serving in this role
+
+  "service address or coordinate":
     $ref: .IBM_Maximo_object/serviceAddress
+    trackHistoryFlag: TRUE
     description: x and y coordinate, or the street address
 
   "operational criticality":
@@ -59,7 +88,6 @@ type: object
       - "3"
       - "4"
       - "5"
-    description:
 
   "hazard criticality":
     type: string
@@ -67,8 +95,14 @@ type: object
       - "1"
       - "2"
       - "3"
+  
+  "GIS object ID":
+    type: string
+    description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link. 
 
   ################################## RULES ##################################
+  
+  # 
   if:
     oneOf:
       - roleClass:
@@ -84,6 +118,11 @@ type: object
               className:
                 const: "large chamber"
   then:
-    required:
-      - 
-#There could be more specialized roles, such as sensor roles [monitoring] breaker roles [tie-breaker]
+    required: "GIS object ID"
+
+$comment: >
+  [ ] Rules and processes to be transcribed from English:
+    - each role can only be occupied by a single asset
+    - commissioning date should be written into the record of the asset and the role.
+    - certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
+    - when a building is removed

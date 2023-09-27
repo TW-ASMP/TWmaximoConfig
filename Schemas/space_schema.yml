@@ -14,14 +14,32 @@ properties:
   "space name":
     const: >
       ${properties.parentSpace.spaceName}\\${properties.incrementalName}
+    $comment: 
 
   "space type":
-    $ref: .IBM_Maximo_object/classifcationObject # This is not specified by Toronto Water, by is assumed to exit in Maximo
-    description: >
-      - interior
-      - exterior
-      - building
-    # a building space includes the collection of all interior spaces inside the building and the exterior space immediately outside and enveloping the building
+    $ref: .IBM_Maximo_object/classifcationObject
+    $comment: >
+      see space_classification.md file
+
+  "status":
+    type: string
+    trackHistoryFlag: TRUE
+    enum:
+      - "specifed"
+      - "realized"
+      - "eliminated"
+    $comment: >
+      This field allows the user to specify whether the space is merely planned, or whether the boundary enclosing the space have been contructed (or alternatively, the fiat property / or area boundary around is formally established and approved.) - i.e. "exists".
+      Note that an "obliterate" space should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions.
+      The term "obliterated" is chosen to indicate that space disappear by the fact that object bound or defined the space, such as wall, ceilings, or property lines are removed. 
+
+  "created by mistake":
+    type: boolean
+    trackHistoryFlag: TRUE
+    description: a record that was created in a data system, but it is (later) determined that no referenct object had ever existed in reality.
+    $comment: >
+      Usually, a record is found to be created by mistake during an field verification.
+      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
   
   "hazardous location class":
     type: string
