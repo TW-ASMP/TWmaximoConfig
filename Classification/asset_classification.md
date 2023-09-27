@@ -5,7 +5,7 @@ In the content section, asset classes name written in lower case represents a na
 ## Content
 
 * Asset
-    * Assets by Domain [^1] [^4]
+    * Classes by Domain [^1] [^4] #'review naming"
         * Distribution and Collection Network
             * hydrant system {subclass: localized primary function system}
             * valve
@@ -50,17 +50,14 @@ In the content section, asset classes name written in lower case represents a na
                 * strucural storage stank
             * retaining wall
             * culvert
-            * part of building or structure 
-                * COMMENT: "Pete: this cat. being under Building and Structure is more intuitive more normal ppl"
-                * elevator
-                * fixed ladder
-                * roof
-                * railing
-                * loading dock
-                * door
-                    * fire door
-                    * roll-up door
-                * manhole [^5]
+        * Part of Building or Structure 
+            * elevator
+            * fixed ladder
+            * loading dock
+            * door
+                * fire door
+                * roll-up door
+            * manhole [^5]
         * Building Service or Grounds Service
             * HVAC System 
                 * "rationale for having this category: (1) the majority of terms in this domain are specialized (2) the domain gets use a lot "
@@ -87,8 +84,8 @@ In the content section, asset classes name written in lower case represents a na
                 * controlled door access
                 * controlled barrier {type: person, vehicular}
             * BAS controller
-            * Lighting 'STEPHEN: did CREM take over lighting?
-        * Land Surface Feature
+            * Lighting
+        * Land Surface Feature #TH:review naming
             * COMMENT: "Pete: ask AK about green infrastructure assets"
             * segment of paved road
             * piece of lawn
@@ -140,7 +137,7 @@ In the content section, asset classes name written in lower case represents a na
                 * first aid room equipment
                 * first aid kit
                 * automatic external defibrillator
-            * silencer "#Pete when is silencer used"
+            * silencer #Peter:where is silencer used
         * Facility Piping or Material Distibution
             * pipe section
             * air duct section
@@ -157,19 +154,75 @@ In the content section, asset classes name written in lower case represents a na
                 * strainer
                 * trap priming device
                 * valve
-        * Transportation or Lifting
-            * passenger vehicle
-            * pickup truck
-            * golf cart
-            * boat
-            * water trailer
-            * mobile lift [^6]
-                * forklift
-                * manlift [^6]
-                    * scissors lift
-            * crane [^6] {fixed?, type: type: jib, gantry, davit, bridge}
-            * elevator
-        * Tracked Tool
+        * Major Water or Wastewater Treatment Asset
+            * screen unit
+                * bar screen unit
+                * traveling screen unit
+            * classifier unit
+            * dewatering centrifuge
+            * clarification tank
+            * vortex separator 
+            * screw press
+            * sedimentation tank
+            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                * biological treatment filter unit
+                    * aerobic filter unit 
+                    * anaerobic filter unit
+                * mechanical treatment filter unit
+            * disinfection tank
+            * UV disinfection assembly
+            * part of UV disinfection assembly
+            * aeration tank
+            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                * biological treatment filter unit
+                    * aerobic filter unit 
+                    * anaerobic filter unit
+                * mechanical treatment filter unit
+            * a portion of filter medium
+            * digester tank
+            * coagulation / flocculation tank
+            * sludge incinerator
+            * comminutor [^6]
+            * Emily: New: backwash treatment - has settling tank, solids removal, chemical
+            * ash lagoon
+            --- consider either above or below ---
+            * solid separation
+                * dewatering centrifuge
+                * clarification tank
+                * vortex separator 
+                * screw press
+                * sedimentation tank
+            * filtering
+                * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                    * biological treatment filter unit
+                        * aerobic filter unit 
+                        * anaerobic filter unit
+                    * mechanical treatment filter unit
+                * a portion of filter medium
+            * screening and removal
+                * classifier unit
+                * bar screen unit
+                * traveling screen unit
+            * disinfection
+                * disinfection tank
+                * UV disinfection assembly EMILY: could this be a part of a class of tank?
+                * part of UV disinfection assembly
+                * ...
+            * biological treatment
+                * aeration tank
+                * biological filter unit
+                    * aerobic filter unit {structuralTank?}
+                    * anaerobic filter unit {structuralTank?}
+                * digester tank
+                * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
+            * chemical treatment - Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
+                * coagulation / flocculation tank
+            * sludge incinerator
+            * comminutor [^6]
+            * New: backwash treatment - has settling tank, solids removal, chemical
+            * storage
+                * ash lagoon
+        * Common Tool
             * portable ladder
             * infrared camera
             * power washer
@@ -179,13 +232,19 @@ In the content section, asset classes name written in lower case represents a na
             * vacuum cleaner
             * pipette
             * stationary machine tool
-        * Enclosure or Panel
-            * control panel
-            * local control panel
-            * material distribution panel
-            * electrical distribution panel
-            * network (acccess) panel
     * Assets by Function
+        * Transportation
+            * passenger vehicle
+            * pickup truck
+            * golf cart
+            * boat
+            * water trailer
+        * Lifting
+            * mobile lift [^6]
+                * forklift
+                * manlift [^6]
+                    * scissors lift
+            * crane [^6] {fixed?, type: type: jib, gantry, davit, bridge}
         * Material or Energy Handling Asset [^2] [^3]
             * material flow control or pressure control
                 * pump
@@ -209,51 +268,23 @@ In the content section, asset classes name written in lower case represents a na
                     * evaporator
                     * condenser
             * physical processing
-                * separator [^6]
+                * material separation and removal
                     * centrifuge
-                    * clarification tank
-                    * coagulation/flocculation tank
-                    * classifier
-                    * vortex or cyclone separator
-                    * screw press
-                * filter [^6]  
-                    * water treatment filter 
-                    * biofilter EMILY:fair as a bio reactor? Also, could the filters be a part of a class of tank?
-                    * aerobic filter 
-                        * !COMMENT: Note: used instead of "biofilter", typically refers to aerobic #Emily
-                    * anaerobic filter
-                    * bar screen
-                    * air treatment filter
-                    * replaceable filter medium
-                * collector [^6] 
                     * dust collector unit
-                    * gas collector 
-                    * chain and flight assembly
-                    * traveling screen assembly 
-                    * traveling bridge assembly
-                * mixer or agitator [^6]
-                    * sliding frame agitator assembly
-                        * COMMENT: through this is a part of a larger asset, it has its own lifecycle and is not a consumable, like tires
-                    * vortex mixer
+                    * air scrubber
+                * filtering
+                    * air filter unit
+                    * replaceable filter medium {for: air/oil/...}
+                * mixer or agitator
+                    * vortex mixer Emily:What are you calling oxygen diffusers in the aeration tank (oxygenation is the primary function and diffusion and mixing is secondary)?  
                     * mixing tank
-                * grinder or comminutor [^6]
                 * compactor
+                * grinder
                 * demister or air dryer
-                * incinerator
-                * UV disinfection assembly EMILY: could this be a part of a class of tank?
-            * biological or chemical reaction
-                * chemical reactor [^6]
-                    * coagulation/flocculation tank
-                * biological reactor [^6]
-                    * aeration tank
-                    * digester tank
+                * processing tank
             * storage
-                * wastewater detention tank
-                * super pipe
-                * pumping wet well
                 * storage tank [^6]
                     * fuel tank {natural gas, diesel, gasoline}
-                * lagoon
                 * gas cylinder
             * material dosing or addition
                 * dosing system [^6]
@@ -262,7 +293,7 @@ In the content section, asset classes name written in lower case represents a na
                     * sulphonator system
                 * ozone generator {subclassof:chemical reactor}
                 * dosing pump {subclassof:pump}
-                * injector or eductor
+                * injector or eductor Emily: gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
             * motion or mechanical energy conversion
                 * COMMENTS:
                     * "Pete: 'driving' seems off (would ppls conflate with cars?), motion or prime mover may be better"
@@ -271,28 +302,7 @@ In the content section, asset classes name written in lower case represents a na
                 * engine
                 * combustion turbine
                 * generator {fuel type: diesel, natural gas, bi-fuel}
-            * electrical power control, storage, or distribution
-                * electrical distribution panel
-                    * lighting panel
-                    * motor control centre
-                    * switchgear panel
-                * capacitor
-                * breaker
-                * cable section
-                * electrical conduit section
-                * eletrical duct bank section
-                * disconnect switch
-                    * load break switch
-                * harmonic filter
-                * motor starter
-                * motor drive or VFD
-                * transformer
-                * transfer switch
-                * welding receptacle
-                * uninterrupted power supply
-                * battery bank
-                * battery charger
-        * Instrumentation or Information Handling Asset
+        * Instrumentation or Information Handling Asset #TH:"review naming"
             * instrumentation, single-variable {hasAnalyzer, hasSensorElement, has...}
                 * flowmeter {venturi, magmeter, ...}
                 * level instrumentation {...}
@@ -374,29 +384,34 @@ In the content section, asset classes name written in lower case represents a na
                 * intercom unit
             * control panel
                 * {contains: BMS controller, process control PLC, lighting controller, ...}
-    * Collection of Discrete Assets
-        * facility
-            * pumping station
-            * water treatment facility
-            * wastewater treatment facility
-            * lab
-            * yard
-        * system
-            * hierarchal system 'used to be: localized primary function system
-            * network system 'used to be: distributed primary function system
-                * industrial control network
-                * eletrical distribution network
-                * material distribution network
-                    * water distribution network
-                    * water collection network
-        * system train
-        * line
-            * simple line
-            * main path line
-        * junction/header
-        * defined set of asset
-            * assets of a organization
-            * route
+        * Electrical Power Control, Storage, or Distribution
+            * electrical distribution panel
+                * lighting panel
+                * motor control centre
+                * switchgear panel
+            * capacitor
+            * breaker
+            * cable section
+            * electrical conduit section
+            * eletrical duct bank section
+            * disconnect switch
+                * load break switch
+            * harmonic filter
+            * motor starter
+            * motor drive or VFD
+            * transformer
+            * transfer switch
+            * welding receptacle
+            * uninterrupted power supply
+            * battery bank
+            * battery charger
+        * Enclosure or Panel
+            * control panel
+            * local control panel
+            * material distribution panel
+            * electrical distribution panel
+            * network (acccess) panel
+    * #NOTE:classificaion of assets,composed of a collection of assets are included in the role classifcation file. 
 
 
 ## Working Notes
@@ -406,6 +421,8 @@ In the content section, asset classes name written in lower case represents a na
 * TSD controls all value lists, and control the data field in the domain but not the attributes. We can control the classification record attribute data fields with the caveat that we can't control the value lists that go into them.
 * we can control want classes can be applied to a record, and what only serves a a "path" name. 
 * We can specify many specs to a single asset.  THis will be useful for the case: a sensor has pressure sensing and temperature sensing and multiple communication protocols. 
+### Conversation with Emily
+* Notes found in Base version from discussion with Emly: https://github.com/TW-ASMP/TWmaximoConfig/commit/e7416c7b69751d5573506bf536a08ce595d7f26c
     
 
 ### To Think Through

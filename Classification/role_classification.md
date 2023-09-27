@@ -1,5 +1,4 @@
 # Top-Level Role Classification
-
 * Discrete Asset Role
     * generator role
         * backup generator role
