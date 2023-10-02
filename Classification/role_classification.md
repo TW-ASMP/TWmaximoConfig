@@ -11,8 +11,8 @@
         * lab
         * yard
     * System
-        * hierarchal system 'used to be: localized primary function system #TH:"review naming"
-        * network system 'used to be: distributed primary function system #TH:"review naming"
+        * hierarchal system 'used to be: localized primary function system - #TH: review naming
+        * network system 'used to be: distributed primary function system - #TH: review naming
             * industrial control network
             * eletrical distribution network
             * material distribution network

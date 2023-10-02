@@ -5,7 +5,7 @@ In the content section, asset classes name written in lower case represents a na
 ## Content
 
 * Asset
-    * Classes by Domain [^1] [^4] #'review naming"
+    * Assets by Domain [^1] [^4] - #TH:review naming
         * Distribution and Collection Network
             * hydrant system {subclass: localized primary function system}
             * valve
@@ -37,6 +37,67 @@ In the content section, asset classes name written in lower case represents a na
             * drinking water storage
                 * reservoir
                 * elevated tank
+        * Water or Wastewater Treatment
+            * screen unit
+                * bar screen unit
+                * traveling screen unit
+            * classifier unit
+            * dewatering centrifuge
+            * clarification tank
+            * vortex separator 
+            * screw press
+            * sedimentation tank
+            * treatment filter medium {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                * biological treatment filter medium
+                    * aerobic filter medium
+                    * anaerobic filter medium
+                * mechanical treatment filter medium
+            * disinfection tank
+            * UV disinfection assembly
+            * part of UV disinfection assembly
+            * aeration tank
+            * a portion of filter medium
+            * digester tank
+            * coagulation / flocculation tank
+            * sludge incinerator
+            * comminutor [^6]
+            * Emily: New: backwash treatment - has settling tank, solids removal, chemical
+            * ash lagoon
+            --- consider either above or below ---
+            * solid separation
+                * dewatering centrifuge
+                * clarification tank
+                * vortex separator 
+                * screw press
+                * sedimentation tank
+            * filtering
+                * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                    * biological treatment filter unit
+                        * aerobic filter unit 
+                        * anaerobic filter unit
+                    * mechanical treatment filter unit
+                * a portion of filter medium
+            * screening and removal
+                * classifier unit
+                * bar screen unit
+                * traveling screen unit
+            * disinfection
+                * disinfection tank
+                * UV disinfection assembly EMILY: could this be a part of a class of tank?
+                * part of UV disinfection assembly
+                * ...
+            * biological treatment
+                * aeration tank
+                * biological filter unit
+                    * aerobic filter unit {structuralTank?}
+                    * anaerobic filter unit {structuralTank?}
+                * digester tank
+                * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
+            * chemical treatment - Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
+                * coagulation / flocculation tank
+            * sludge incinerator
+            * comminutor [^6]
+            * New: backwash treatment - has settling tank, solids removal, chemical
         * Building or Structure
             * building {purpose: industrial, office, mixed}
             * free-standing structure
@@ -50,7 +111,7 @@ In the content section, asset classes name written in lower case represents a na
                 * strucural storage stank
             * retaining wall
             * culvert
-        * Part of Building or Structure 
+        * A Part of Building or Structure  - #TH: I revived this category
             * elevator
             * fixed ladder
             * loading dock
@@ -59,8 +120,7 @@ In the content section, asset classes name written in lower case represents a na
                 * roll-up door
             * manhole [^5]
         * Building Service or Grounds Service
-            * HVAC System 
-                * "rationale for having this category: (1) the majority of terms in this domain are specialized (2) the domain gets use a lot "
+            * HVAC System
                 * air handling unit
                 * air conditioner unit {hasPart: outdoor condensor unit, indoor evaporator unit}
                     * AC condensor unit
@@ -85,8 +145,7 @@ In the content section, asset classes name written in lower case represents a na
                 * controlled barrier {type: person, vehicular}
             * BAS controller
             * Lighting
-        * Land Surface Feature #TH:review naming
-            * COMMENT: "Pete: ask AK about green infrastructure assets"
+        * Land Surface Feature - #TH:review naming #PL:ask AK about green infrastructure assets
             * segment of paved road
             * piece of lawn
             * planting space
@@ -154,74 +213,6 @@ In the content section, asset classes name written in lower case represents a na
                 * strainer
                 * trap priming device
                 * valve
-        * Major Water or Wastewater Treatment Asset
-            * screen unit
-                * bar screen unit
-                * traveling screen unit
-            * classifier unit
-            * dewatering centrifuge
-            * clarification tank
-            * vortex separator 
-            * screw press
-            * sedimentation tank
-            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
-                * biological treatment filter unit
-                    * aerobic filter unit 
-                    * anaerobic filter unit
-                * mechanical treatment filter unit
-            * disinfection tank
-            * UV disinfection assembly
-            * part of UV disinfection assembly
-            * aeration tank
-            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
-                * biological treatment filter unit
-                    * aerobic filter unit 
-                    * anaerobic filter unit
-                * mechanical treatment filter unit
-            * a portion of filter medium
-            * digester tank
-            * coagulation / flocculation tank
-            * sludge incinerator
-            * comminutor [^6]
-            * Emily: New: backwash treatment - has settling tank, solids removal, chemical
-            * ash lagoon
-            --- consider either above or below ---
-            * solid separation
-                * dewatering centrifuge
-                * clarification tank
-                * vortex separator 
-                * screw press
-                * sedimentation tank
-            * filtering
-                * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
-                    * biological treatment filter unit
-                        * aerobic filter unit 
-                        * anaerobic filter unit
-                    * mechanical treatment filter unit
-                * a portion of filter medium
-            * screening and removal
-                * classifier unit
-                * bar screen unit
-                * traveling screen unit
-            * disinfection
-                * disinfection tank
-                * UV disinfection assembly EMILY: could this be a part of a class of tank?
-                * part of UV disinfection assembly
-                * ...
-            * biological treatment
-                * aeration tank
-                * biological filter unit
-                    * aerobic filter unit {structuralTank?}
-                    * anaerobic filter unit {structuralTank?}
-                * digester tank
-                * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
-            * chemical treatment - Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
-                * coagulation / flocculation tank
-            * sludge incinerator
-            * comminutor [^6]
-            * New: backwash treatment - has settling tank, solids removal, chemical
-            * storage
-                * ash lagoon
         * Common Tool
             * portable ladder
             * infrared camera
@@ -232,77 +223,83 @@ In the content section, asset classes name written in lower case represents a na
             * vacuum cleaner
             * pipette
             * stationary machine tool
-    * Assets by Function
-        * Transportation
-            * passenger vehicle
-            * pickup truck
-            * golf cart
-            * boat
-            * water trailer
-        * Lifting
-            * mobile lift [^6]
-                * forklift
-                * manlift [^6]
-                    * scissors lift
-            * crane [^6] {fixed?, type: type: jib, gantry, davit, bridge}
-        * Material or Energy Handling Asset [^2] [^3]
-            * material flow control or pressure control
-                * pump
-                * conveyor [^6]
-                    * screw conveyor (Note:define a new class, instead of using just attribute, when you are likely to collect different set of data)
-                * blower or fan
-                * compressor {...}
-                * valve
-                * backflow preventer
-                * gate {type:sluice gate, knife gate,pinch gate, check gate}
-                * drain EMILY:how is this term used
-            * heating or cooling
-                * boiler
-                * heater
-                * heat exchanger
-                * cooling tower {structural?}
-                * chiller [^6]
-                    * absorption chiller
-                    * vapour compression chiller
-                * chiller component
-                    * evaporator
-                    * condenser
-            * physical processing
-                * material separation and removal
-                    * centrifuge
-                    * dust collector unit
-                    * air scrubber
-                * filtering
-                    * air filter unit
-                    * replaceable filter medium {for: air/oil/...}
-                * mixer or agitator
-                    * vortex mixer Emily:What are you calling oxygen diffusers in the aeration tank (oxygenation is the primary function and diffusion and mixing is secondary)?  
-                    * mixing tank
-                * compactor
-                * grinder
-                * demister or air dryer
-                * processing tank
-            * storage
-                * storage tank [^6]
-                    * fuel tank {natural gas, diesel, gasoline}
-                * gas cylinder
-            * material dosing or addition
-                * dosing system [^6]
-                    * chlorinator system
-                    * ozonator system
-                    * sulphonator system
-                * ozone generator {subclassof:chemical reactor}
-                * dosing pump {subclassof:pump}
-                * injector or eductor Emily: gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
-            * motion or mechanical energy conversion
-                * COMMENTS:
-                    * "Pete: 'driving' seems off (would ppls conflate with cars?), motion or prime mover may be better"
-                * actuator
-                * motor
-                * engine
-                * combustion turbine
-                * generator {fuel type: diesel, natural gas, bi-fuel}
-        * Instrumentation or Information Handling Asset #TH:"review naming"
+    * Assets by General Function [^2] [^3]
+        * Material Flow or Pressure Control
+            * pump
+            * conveyor [^6]
+                * screw conveyor (Note:define a new class, instead of using just attribute, when you are likely to collect different set of data)
+            * blower or fan
+            * compressor {...}
+            * valve
+            * backflow preventer
+            * gate {type:sluice gate, knife gate,pinch gate, check gate}
+            * drain EMILY:how is this term used
+        * Material Heating or Cooling
+            * boiler
+            * heater
+            * heat exchanger
+            * cooling tower {structural?}
+            * chiller [^6]
+                * absorption chiller
+                * vapour compression chiller
+            * chiller component
+                * evaporator
+                * condenser
+        * Material Physical Processing
+            * Material Separation and Removal
+                * centrifuge
+                * dust collector unit
+                * air scrubber
+            * Filtering
+                * air filter unit
+                * replaceable filter medium {for: air/oil/...}
+            * mixer or agitator
+                * vortex mixer Emily:What are you calling oxygen diffusers in the aeration tank (oxygenation is the primary function and diffusion and mixing is secondary)?  
+                * mixing tank
+            * compactor
+            * grinder
+            * demister or air dryer
+            * processing tank
+        * Material Addition or Dosing
+            * dosing system [^6]
+                * chlorinator system
+                * ozonator system
+                * sulphonator system
+            * ozone generator {subclassof:chemical reactor}
+            * dosing pump {subclassof:pump}
+            * injector or eductor #EZ:gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
+        * Material Storage
+            * storage tank [^6]
+                * fuel tank {natural gas, diesel, gasoline}
+            * gas cylinder
+        * Mechanical Energy and Motion
+            * actuator
+            * motor
+            * engine
+            * combustion turbine
+        * Electrical Energy Control, Storage, or Distribution
+            * electrical distribution panel
+                * lighting panel
+                * motor control centre
+                * switchgear panel
+            * capacitor
+            * breaker
+            * cable section
+            * electrical conduit section
+            * eletrical duct bank section
+            * disconnect switch
+                * load break switch
+            * harmonic filter
+            * motor starter
+            * motor drive or VFD
+            * transformer
+            * transfer switch
+            * welding receptacle
+            * uninterrupted power supply
+            * battery bank
+            * battery charger
+            * generator {fuel type: diesel, natural gas, bi-fuel}
+        * Information Handling incl. Instrumentation - #TH:review naming
             * instrumentation, single-variable {hasAnalyzer, hasSensorElement, has...}
                 * flowmeter {venturi, magmeter, ...}
                 * level instrumentation {...}
@@ -360,7 +357,7 @@ In the content section, asset classes name written in lower case represents a na
                     * dry contact interface
                     * analog transmitter interface                
             * information recording and storage
-                * recorder 'Pete: most of these are paper recorder; Steph: there are power recorder" EMILY: what do you think?
+                * recorder #PL:most of these are paper recorder #SB:there are power recorder #TH:EZ,what do you think?
             * information processing and control
                 * remote terminal unit (RTU) "To PCS is this a glorified terminal block or processing features too"
                 * programmable logic controller (PLC)
@@ -384,34 +381,25 @@ In the content section, asset classes name written in lower case represents a na
                 * intercom unit
             * control panel
                 * {contains: BMS controller, process control PLC, lighting controller, ...}
-        * Electrical Power Control, Storage, or Distribution
-            * electrical distribution panel
-                * lighting panel
-                * motor control centre
-                * switchgear panel
-            * capacitor
-            * breaker
-            * cable section
-            * electrical conduit section
-            * eletrical duct bank section
-            * disconnect switch
-                * load break switch
-            * harmonic filter
-            * motor starter
-            * motor drive or VFD
-            * transformer
-            * transfer switch
-            * welding receptacle
-            * uninterrupted power supply
-            * battery bank
-            * battery charger
         * Enclosure or Panel
             * control panel
             * local control panel
             * material distribution panel
             * electrical distribution panel
             * network (acccess) panel
-    * #NOTE:classificaion of assets,composed of a collection of assets are included in the role classifcation file. 
+        * Transportation
+            * passenger vehicle
+            * pickup truck
+            * golf cart
+            * boat
+            * water trailer
+        * Lifting
+            * mobile lift [^6]
+                * forklift
+                * manlift [^6]
+                    * scissors lift
+            * crane [^6] {fixed?, type: type: jib, gantry, davit, bridge}
+    * #TH: Classificaion of assets,composed of a collection of assets are specified in the role classifcation file. 
 
 
 ## Working Notes
