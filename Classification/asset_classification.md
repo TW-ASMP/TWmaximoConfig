@@ -5,46 +5,47 @@ In the content section, asset classes name written in lower case represents a na
 ## Content
 
 * Asset
-    * Assets by Domain [^1] [^4] - #TH:review naming
-        * Distribution and Collection Network
-            * hydrant system {subclass: localized primary function system}
+    * CAT: Assets by Domain [^1] [^4] - #TH:review naming
+        * CAT: Distribution and Collection Network Asset
+            * easement
+            * hydrant system #TH subclass: localized primary function system
+            * hyrdant
             * valve
-            * water service {subclass: localized primary function system}
-            * sewer service {subclass: localized primary function system}
-            * weir
-            * water main {force main?}
-            * sewer main {Q: should we have subclasses? or just attributes?} {force main?}
-                * trunk sewers
-                * local sewers
-            * treatment devices
-                * oil gas separator
+            * water service connection #TH subclass: localized primary function system
+            * sewer service connection #TH subclass: localized primary function system
+            * storm service connection #TH subclass: localized primary function system; #Tom: nothing but a pipe a lot of the times.
+            * weir structure
+            * watermain
+            * manufactured treatment devices
+                * oil grease separator
                 * filter
             * pond
-            * detention tank
-            * superpipe
-            * underground access chamber
+            * sewer  #TH:Type:{pressurized, gravity}
+            * sewer storage element #Tom: active/passive{active-automatic, passive, activie-manual}. inline/offline:{inline, offline}. Note:we may not need to capture the terms superpipe and detention tank, they can be inferred by active vs passive, inline vs offline.
+                * superpipe #Tom: always inline, always passive
+                * detention tank #Tom: always offline, nearly always active (memorial parks tank - eg. where it is passive)
+            * infiltration trench
+            * chamber
             * manhole [^5]
-                * TW Sewer Manhole {Note: remove this and map to a manhole+attribute}
-            * outfall
-            * pipe fitting
+            * outfall or discharge point
             * backflow preventer
-            * Sewer Inlet or Catch Basin
-            * TW Water Fitting [^5] {Note: remove this and map to a pipe fitting + attribute}
-            * TW Sewer Large Chamber {Note: need to match subtypes to class}
-            * TW Sewer Fitting
+            * catch basin
+            * fitting [^5] #TH: meant to cover assets on "Sewer Fitting" and "Water Fitting" layers in the GIS
+            * TW sewer large chamber #TH: need to match subtypes to class
             * well
+            * culvert
             * wet weather storage
             * drinking water storage
                 * reservoir
                 * elevated tank
-        * Water or Wastewater Treatment
+        * CAT: Water or Wastewater Treatment Asset
             * screen unit
                 * bar screen unit
                 * traveling screen unit
             * classifier unit
             * dewatering centrifuge
             * clarification tank
-            * vortex separator 
+            * vortex separator
             * screw press
             * sedimentation tank
             * treatment filter medium {medium:sand/membrane/charcoal...; structuralTank?}[^6]
@@ -64,6 +65,14 @@ In the content section, asset classes name written in lower case represents a na
             * Emily: New: backwash treatment - has settling tank, solids removal, chemical
             * ash lagoon
             --- consider either above or below ---
+            * Material Addition or Dosing #TH: how much of this should be in domain specific side?
+                * dosing system [^6]
+                    * chlorinator system
+                    * sulphonator system
+                * ozonator system
+                * ozone generator {subclassof:chemical reactor}
+                * dosing pump {subclassof:pump}
+                * injector or eductor #EZ:gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
             * solid separation
                 * dewatering centrifuge
                 * clarification tank
@@ -83,14 +92,14 @@ In the content section, asset classes name written in lower case represents a na
                 * traveling screen unit
             * disinfection
                 * disinfection tank
-                * UV disinfection assembly EMILY: could this be a part of a class of tank?
+                * UV disinfection unit #EZ: could this be a part of a class of tank?
                 * part of UV disinfection assembly
                 * ...
             * biological treatment
-                * aeration tank
+                * aeration tank #TH: here, are you refering to the tank or the filter?
                 * biological filter unit
-                    * aerobic filter unit {structuralTank?}
-                    * anaerobic filter unit {structuralTank?}
+                    * aerobic filter unit #TH: here, are you refering to the tank or the filter?
+                    * anaerobic filter unit
                 * digester tank
                 * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
             * chemical treatment - Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
@@ -98,29 +107,25 @@ In the content section, asset classes name written in lower case represents a na
             * sludge incinerator
             * comminutor [^6]
             * New: backwash treatment - has settling tank, solids removal, chemical
-        * Building or Structure
-            * building {purpose: industrial, office, mixed}
-            * free-standing structure
-                * stack
-                * tower
-            * access ramp
+        * CAT: Building or Structural Asset
+            * building #TH:{purpose: industrial, office, mixed}
+            * stack
+            * tower
+            * bridge
             * tunnel
             * fence section
-            * structural process equipment
-                * structural processing tank
-                * strucural storage stank
+            * structural tank
             * retaining wall
             * culvert
-        * A Part of Building or Structure  - #TH: I revived this category
+        * CAT: Part of Building or Structure  #TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND . 
             * elevator
+            * roof
             * fixed ladder
             * loading dock
-            * door
-                * fire door
-                * roll-up door
-            * manhole [^5]
-        * Building Service or Grounds Service
-            * HVAC System
+            * fire door
+            * roll-up door
+        * CAT: Building Service or Grounds Service Asset
+            * CAT: HVAC System Asset
                 * air handling unit
                 * air conditioner unit {hasPart: outdoor condensor unit, indoor evaporator unit}
                     * AC condensor unit
@@ -135,8 +140,8 @@ In the content section, asset classes name written in lower case represents a na
                 * air exchange unit [^6]
                     * energy recovery ventilator
                 * zone controller unit or thermostat
-            * Security or Access Control
-                * camera
+            * CAT: Security or Access Control Asset
+                * security camera
                 * motion sensor
                 * entry access control unit [^6]
                     * card reader
@@ -145,12 +150,13 @@ In the content section, asset classes name written in lower case represents a na
                 * controlled barrier {type: person, vehicular}
             * BAS controller
             * Lighting
-        * Land Surface Feature - #TH:review naming #PL:ask AK about green infrastructure assets
+        * CAT: Land Surface Feature - #TH:review naming #PL:ask AK about green infrastructure assets
             * segment of paved road
             * piece of lawn
             * planting space
-            * soil cell 
-        * Safety or Environmental Harm Prevention
+            * soil cell
+            * culvert
+        * CAT: Safety or Environmental Harm Prevention Asset
             * hazardous gas monitoring device {subclass: atmospheric gas sensor}
                 * personal gas meter
                 * fixed gas detector
@@ -196,8 +202,7 @@ In the content section, asset classes name written in lower case represents a na
                 * first aid room equipment
                 * first aid kit
                 * automatic external defibrillator
-            * silencer #Peter:where is silencer used
-        * Facility Piping or Material Distibution
+        * CAT: Facility Piping or Material Distibution Asset
             * pipe section
             * air duct section
             * air channel section
@@ -213,7 +218,35 @@ In the content section, asset classes name written in lower case represents a na
                 * strainer
                 * trap priming device
                 * valve
-        * Common Tool
+        * CAT: Electrical Power System Asset
+            * electrical distribution panel
+                * lighting panel
+                * motor control centre
+                * switchgear panel
+            * capacitor
+            * breaker
+            * cable section
+            * electrical conduit section
+            * eletrical duct bank section
+            * disconnect switch
+                * load break switch
+            * power harmonic filter
+            * motor starter
+            * motor drive or VFD
+            * transformer
+            * transfer switch
+            * welding receptacle
+            * uninterrupted power supply
+            * battery bank
+            * battery charger
+            * generator {fuel type: diesel, natural gas, bi-fuel}
+        * CAT: Transportation Asset
+            * passenger vehicle
+            * pickup truck
+            * golf cart
+            * boat
+            * water trailer        
+        * CAT: Common Tool
             * portable ladder
             * infrared camera
             * power washer
@@ -223,18 +256,16 @@ In the content section, asset classes name written in lower case represents a na
             * vacuum cleaner
             * pipette
             * stationary machine tool
-    * Assets by General Function [^2] [^3]
-        * Material Flow or Pressure Control
+    * CAT: Assets by Generic Industrial Function [^2] [^3]
+        * CAT: Material Flow or Pressure Control Function
             * pump
-            * conveyor [^6]
-                * screw conveyor (Note:define a new class, instead of using just attribute, when you are likely to collect different set of data)
             * blower or fan
             * compressor {...}
             * valve
             * backflow preventer
             * gate {type:sluice gate, knife gate,pinch gate, check gate}
             * drain EMILY:how is this term used
-        * Material Heating or Cooling
+        * CAT: Material Heating or Cooling Function
             * boiler
             * heater
             * heat exchanger
@@ -245,7 +276,7 @@ In the content section, asset classes name written in lower case represents a na
             * chiller component
                 * evaporator
                 * condenser
-        * Material Physical Processing
+        * CAT: Material Physical Processing Function
             * Material Separation and Removal
                 * centrifuge
                 * dust collector unit
@@ -260,46 +291,16 @@ In the content section, asset classes name written in lower case represents a na
             * grinder
             * demister or air dryer
             * processing tank
-        * Material Addition or Dosing
-            * dosing system [^6]
-                * chlorinator system
-                * ozonator system
-                * sulphonator system
-            * ozone generator {subclassof:chemical reactor}
-            * dosing pump {subclassof:pump}
-            * injector or eductor #EZ:gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
-        * Material Storage
+        * CAT: Material Storage Function
             * storage tank [^6]
                 * fuel tank {natural gas, diesel, gasoline}
             * gas cylinder
-        * Mechanical Energy and Motion
+        * CAT: Mechanical Energy and Motion Function
             * actuator
             * motor
             * engine
             * combustion turbine
-        * Electrical Energy Control, Storage, or Distribution
-            * electrical distribution panel
-                * lighting panel
-                * motor control centre
-                * switchgear panel
-            * capacitor
-            * breaker
-            * cable section
-            * electrical conduit section
-            * eletrical duct bank section
-            * disconnect switch
-                * load break switch
-            * harmonic filter
-            * motor starter
-            * motor drive or VFD
-            * transformer
-            * transfer switch
-            * welding receptacle
-            * uninterrupted power supply
-            * battery bank
-            * battery charger
-            * generator {fuel type: diesel, natural gas, bi-fuel}
-        * Information Handling incl. Instrumentation - #TH:review naming
+        * CAT: Instrumentation and Information Handling Function - #TH:review naming
             * instrumentation, single-variable {hasAnalyzer, hasSensorElement, has...}
                 * flowmeter {venturi, magmeter, ...}
                 * level instrumentation {...}
@@ -381,25 +382,23 @@ In the content section, asset classes name written in lower case represents a na
                 * intercom unit
             * control panel
                 * {contains: BMS controller, process control PLC, lighting controller, ...}
-        * Enclosure or Panel
-            * control panel
-            * local control panel
+        * CAT: Enclosure Function
+            * process control panel
+                * instrument air or pneumatic control panel
+            * equipment local control panel
             * material distribution panel
-            * electrical distribution panel
-            * network (acccess) panel
-        * Transportation
-            * passenger vehicle
-            * pickup truck
-            * golf cart
-            * boat
-            * water trailer
-        * Lifting
+            * electrical distribution or motor control panel
+            * network panel (access closet)
+        * CAT: Lifting or Transport Function
+            * conveyor [^6]
+                * screw conveyor (Note:define a new class, instead of using just attribute, when you are likely to collect different set of data)
             * mobile lift [^6]
                 * forklift
                 * manlift [^6]
                     * scissors lift
-            * crane [^6] {fixed?, type: type: jib, gantry, davit, bridge}
-    * #TH: Classificaion of assets,composed of a collection of assets are specified in the role classifcation file. 
+            * crane [^6] #TH fixed{yes, no}, type:{jib, gantry, davit, bridge}
+
+
 
 
 ## Working Notes
@@ -424,6 +423,11 @@ In the content section, asset classes name written in lower case represents a na
 [ ] - We should add parts of assets that experience very different life-cycle curve from the whole. E.g. sludge collector on a sedimentation tank or agitator in a digester
 
 [ ] - need to incorporate logseq://graph/LogSeq?block-id=646b90ee-6b09-48e3-bec5-9fccfb6bd8d8
+
+[ ] Classificaion of assets,composed of a collection of assets are specified in the role classifcation file. 
+[ ] what about
+    * watercourse - what is the parent CATegory? 
+    * easement
 
 ### Arguments to Corp
 - This structure is always changing, new classes and necessary fields are constainly being added or changed. How do we keep track of changes and data collection forms in multiple applications (GIS, WMS, capital data collection spreadsheet)?
