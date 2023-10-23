@@ -5,8 +5,8 @@ In the content section, asset classes name written in lower case represents a na
 ## Content
 
 * Asset
-    * CAT: Assets by Domain [^1] [^4] - #TH:review naming
-        * CAT: Distribution and Collection Network Asset
+    * DOM: By Domain [^1] [^4] - #TH:review naming
+        * DOM: Distribution and Collection Network Asset
             * easement
             * hydrant system #TH subclass: localized primary function system
             * hyrdant
@@ -38,7 +38,7 @@ In the content section, asset classes name written in lower case represents a na
             * drinking water storage
                 * reservoir
                 * elevated tank
-        * CAT: Water or Wastewater Treatment Asset
+        * DOM: Water or Wastewater Treatment Asset {Division 46}
             * screen unit
                 * bar screen unit
                 * traveling screen unit
@@ -64,7 +64,7 @@ In the content section, asset classes name written in lower case represents a na
             * comminutor [^6]
             * Emily: New: backwash treatment - has settling tank, solids removal, chemical
             * ash lagoon
-            --- consider either above or below ---
+            * --- consider either above or below ---
             * Material Addition or Dosing #TH: how much of this should be in domain specific side?
                 * dosing system [^6]
                     * chlorinator system
@@ -107,7 +107,7 @@ In the content section, asset classes name written in lower case represents a na
             * sludge incinerator
             * comminutor [^6]
             * New: backwash treatment - has settling tank, solids removal, chemical
-        * CAT: Building or Structural Asset
+        * DOM: Building or Structural Asset 
             * building #TH:{purpose: industrial, office, mixed}
             * stack
             * tower
@@ -117,15 +117,15 @@ In the content section, asset classes name written in lower case represents a na
             * structural tank
             * retaining wall
             * culvert
-        * CAT: Part of Building or Structure  #TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND . 
+        * DOM: Part of Building or Structure  #TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND . 
             * elevator
             * roof
             * fixed ladder
+            * fire-rated door
             * loading dock
-            * fire door
             * roll-up door
-        * CAT: Building Service or Grounds Service Asset
-            * CAT: HVAC System Asset
+        * DOM: Building Service or Grounds Service Asset
+            * DOM: HVAC System Asset {Divsion 23}
                 * air handling unit
                 * air conditioner unit {hasPart: outdoor condensor unit, indoor evaporator unit}
                     * AC condensor unit
@@ -140,7 +140,7 @@ In the content section, asset classes name written in lower case represents a na
                 * air exchange unit [^6]
                     * energy recovery ventilator
                 * zone controller unit or thermostat
-            * CAT: Security or Access Control Asset
+            * DOM: Security or Access Control Asset {Divsion 28}
                 * security camera
                 * motion sensor
                 * entry access control unit [^6]
@@ -150,13 +150,13 @@ In the content section, asset classes name written in lower case represents a na
                 * controlled barrier {type: person, vehicular}
             * BAS controller
             * Lighting
-        * CAT: Land Surface Feature - #TH:review naming #PL:ask AK about green infrastructure assets
+        * DOM: Land Surface Feature - #TH:review naming #PL:ask AK about green infrastructure assets
             * segment of paved road
             * piece of lawn
             * planting space
             * soil cell
             * culvert
-        * CAT: Safety or Environmental Harm Prevention Asset
+        * DOM: Safety or Environmental Harm Prevention Asset
             * hazardous gas monitoring device {subclass: atmospheric gas sensor}
                 * personal gas meter
                 * fixed gas detector
@@ -202,13 +202,13 @@ In the content section, asset classes name written in lower case represents a na
                 * first aid room equipment
                 * first aid kit
                 * automatic external defibrillator
-        * CAT: Facility Piping or Material Distibution Asset
+        * DOM: Facility Piping or Material Distibution Asset {Divsion 22, 23, 40}
             * pipe section
             * air duct section
             * air channel section
             * material distribution panel
             * pipe manifold
-            * Piping System Component
+            * CAT: Piping System Component
                 * condensate trap
                 * pipe fitting
                 * pulsation dampener
@@ -218,7 +218,7 @@ In the content section, asset classes name written in lower case represents a na
                 * strainer
                 * trap priming device
                 * valve
-        * CAT: Electrical Power System Asset
+        * DOM: Electrical Power System Asset {Division 26, 48}
             * electrical distribution panel
                 * lighting panel
                 * motor control centre
@@ -240,23 +240,20 @@ In the content section, asset classes name written in lower case represents a na
             * battery bank
             * battery charger
             * generator {fuel type: diesel, natural gas, bi-fuel}
-        * CAT: Transportation Asset
+        * DOM: Transportation Asset
             * passenger vehicle
             * pickup truck
             * golf cart
             * boat
             * water trailer        
-        * CAT: Common Tool
+        * DOM: Common Tool
             * portable ladder
-            * infrared camera
-            * power washer
             * portable scaffolding
-            * scuba equipment
-            * compressed gas cylinder
+            * power washer
             * vacuum cleaner
             * pipette
             * stationary machine tool
-    * CAT: Assets by Generic Industrial Function [^2] [^3]
+    * CAT: By Generic Industrial Function [^2] [^3]
         * CAT: Material Flow or Pressure Control Function
             * pump
             * blower or fan
@@ -294,7 +291,7 @@ In the content section, asset classes name written in lower case represents a na
         * CAT: Material Storage Function
             * storage tank [^6]
                 * fuel tank {natural gas, diesel, gasoline}
-            * gas cylinder
+            * compressed gas cylinder
         * CAT: Mechanical Energy and Motion Function
             * actuator
             * motor
@@ -311,6 +308,7 @@ In the content section, asset classes name written in lower case represents a na
                 * gas instrumentation {...}
                 * weight scale
                 * camera
+                    * infrared camera
                 * vibration instrumentation
                 * counter
                 * turbidity meter
@@ -401,6 +399,8 @@ In the content section, asset classes name written in lower case represents a na
 
 
 
+
+
 ## Working Notes
 ### Creator's intentions
 ### Conversation with Debbie
@@ -421,8 +421,6 @@ In the content section, asset classes name written in lower case represents a na
 [ ] - Think throught the implication of considering every type of asset as a potential part of another type of asset
 
 [ ] - We should add parts of assets that experience very different life-cycle curve from the whole. E.g. sludge collector on a sedimentation tank or agitator in a digester
-
-[ ] - need to incorporate logseq://graph/LogSeq?block-id=646b90ee-6b09-48e3-bec5-9fccfb6bd8d8
 
 [ ] Classificaion of assets,composed of a collection of assets are specified in the role classifcation file. 
 [ ] what about

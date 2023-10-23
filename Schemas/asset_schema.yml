@@ -66,9 +66,9 @@ properties:
     type: string
     trackHistoryFlag: TRUE
     enum:
-      - up / available
-      - down / unavailable
-      - not assigned for operation
+      - "up / available"
+      - "down / unavailable"
+      - "not assigned for operation"
     $comment: >
       - when an asset is inventoried in a store, it would be "not assigned"
       - 7/25: 
