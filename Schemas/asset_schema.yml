@@ -46,9 +46,10 @@ properties:
     trackHistoryFlag: TRUE
     enum:
       - "specifed"
-      - "in hand / usable"
+      - "in hand for use"
       - "abandoned in place"
       - "removed from TW"
+      - "lost"
     $comment: >
       Decommissioned is not being used as a state because it is an ambiguous term. An asset can be decommissioned (i.e. having gone through a decommissioning process) and then sent for reburbishment or stored as a spare. As such decommissioning should be represented as a process (i.e. work type) instead of decommissioned as a status. 
       3/6: 
@@ -61,6 +62,7 @@ properties:
         - abandoned in place asset may still require work
         - [ ]RULE PROPOSAL: when asset is abondoned-in-place, it should retain its last known location, inherited from the role.
         - Debbie: removed from TW equates to Maximo's notion of decommissioned = disposed and will never be worked on again.
+      11/01: Lost is added 
 
   "operating state":
     type: string

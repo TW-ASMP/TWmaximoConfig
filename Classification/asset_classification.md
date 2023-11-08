@@ -5,264 +5,256 @@ In the content section, asset classes name written in lower case represents a na
 ## Content
 
 * Asset
-    * DOM: By Domain [^1] [^4] - #TH:review naming
-        * DOM: Distribution and Collection Network Asset
-            * easement
-            * hydrant system #TH subclass: localized primary function system
-            * hyrdant
-            * valve
-            * water service connection #TH subclass: localized primary function system
-            * sewer service connection #TH subclass: localized primary function system
-            * storm service connection #TH subclass: localized primary function system; #Tom: nothing but a pipe a lot of the times.
-            * weir structure
-            * watermain
-            * manufactured treatment devices
-                * oil grease separator
-                * filter
-            * pond
-            * sewer  #TH:Type:{pressurized, gravity}
-            * sewer storage element #Tom: active/passive{active-automatic, passive, activie-manual}. inline/offline:{inline, offline}. Note:we may not need to capture the terms superpipe and detention tank, they can be inferred by active vs passive, inline vs offline.
-                * superpipe #Tom: always inline, always passive
-                * detention tank #Tom: always offline, nearly always active (memorial parks tank - eg. where it is passive)
-            * infiltration trench
-            * chamber
-            * manhole [^5]
-            * outfall or discharge point
-            * backflow preventer
-            * catch basin
-            * fitting [^5] #TH: meant to cover assets on "Sewer Fitting" and "Water Fitting" layers in the GIS
-            * TW sewer large chamber #TH: need to match subtypes to class
-            * well
-            * culvert
-            * wet weather storage
-            * drinking water storage
-                * reservoir
-                * elevated tank
-        * DOM: Water or Wastewater Treatment Asset {Division 46}
-            * screen unit
-                * bar screen unit
-                * traveling screen unit
-            * classifier unit
-            * dewatering centrifuge
+    * Distribution and Collection Network Asset
+        * easement
+        * hydrant system
+        * hyrdant
+        * water service connection
+        * sewer service connection
+        * storm service connection
+        * weir structure
+        * watermain
+        * manufactured treatment device
+            * oil grease separator MTD
+            * filter MTD
+        * pond
+        * sewer
+        * wet weather flow storage
+            * super-pipe
+            * detention tank
+        * infiltration trench
+        * chamber
+        * manhole [^5]
+        * outfall or discharge point
+        * backflow preventer
+        * catch basin
+        * pipe fitting
+        * TW Sewer Large Chamber
+        * well
+        * valve
+        * culvert
+        * wet weather storage
+        * drinking water storage
+            * reservoir
+            * elevated tank
+    * Specialized Water or Wastewater Treatment 
+        * Material Addition or Dosing [^9]
+            * dosing injector
+            * dosing eductor 
+            * dosing pump
+            * ozone generator {subclassof:chemical reactor}
+            * dosing pump {subclassof:pump}
+            * assembled dosing system [^6] [^10]
+        * solid separation
+            * centrifuge
             * clarification tank
-            * vortex separator
+            * vortex separator 
             * screw press
             * sedimentation tank
-            * treatment filter medium {medium:sand/membrane/charcoal...; structuralTank?}[^6]
-                * biological treatment filter medium
-                    * aerobic filter medium
-                    * anaerobic filter medium
-                * mechanical treatment filter medium
-            * disinfection tank
-            * UV disinfection assembly
-            * part of UV disinfection assembly
-            * aeration tank
-            * a portion of filter medium
-            * digester tank
-            * coagulation / flocculation tank
-            * sludge incinerator
-            * comminutor [^6]
-            * Emily: New: backwash treatment - has settling tank, solids removal, chemical
-            * ash lagoon
-            * --- consider either above or below ---
-            * Material Addition or Dosing #TH: how much of this should be in domain specific side?
-                * dosing system [^6]
-                    * chlorinator system
-                    * sulphonator system
-                * ozonator system
-                * ozone generator {subclassof:chemical reactor}
-                * dosing pump {subclassof:pump}
-                * injector or eductor #EZ:gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator, evaporator, 
-            * solid separation
-                * dewatering centrifuge
-                * clarification tank
-                * vortex separator 
-                * screw press
-                * sedimentation tank
-            * filtering
-                * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
-                    * biological treatment filter unit
-                        * aerobic filter unit 
-                        * anaerobic filter unit
-                    * mechanical treatment filter unit
-                * a portion of filter medium
-            * screening and removal
-                * classifier unit
-                * bar screen unit
-                * traveling screen unit
-            * disinfection
-                * disinfection tank
-                * UV disinfection unit #EZ: could this be a part of a class of tank?
-                * part of UV disinfection assembly
-                * ...
-            * biological treatment
-                * aeration tank #TH: here, are you refering to the tank or the filter?
-                * biological filter unit
-                    * aerobic filter unit #TH: here, are you refering to the tank or the filter?
+        * filtering
+            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+                * biological treatment filter unit
+                    * aerobic filter unit 
                     * anaerobic filter unit
-                * digester tank
-                * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
-            * chemical treatment - Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
-                * coagulation / flocculation tank
-            * sludge incinerator
-            * comminutor [^6]
-            * New: backwash treatment - has settling tank, solids removal, chemical
-        * DOM: Building or Structural Asset 
-            * building #TH:{purpose: industrial, office, mixed}
-            * stack
-            * tower
-            * bridge
-            * tunnel
-            * fence section
-            * structural tank
-            * retaining wall
-            * culvert
-        * DOM: Part of Building or Structure  #TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND . 
-            * elevator
-            * roof
-            * fixed ladder
-            * fire-rated door
-            * loading dock
-            * roll-up door
-        * DOM: Building Service or Grounds Service Asset
-            * DOM: HVAC System Asset {Divsion 23}
-                * air handling unit
-                * air conditioner unit {hasPart: outdoor condensor unit, indoor evaporator unit}
-                    * AC condensor unit
-                    * AC evaporator unit
-                * air damper
-                * damper actuator
-                * dehumidifier {subclass: demister or air dryer}
-                * condensate trap
-                * heat pump unit {hasPart: outdoor unit, indoor unit}
-                * air filtration unit {hasPart: air filter}
-                * variable air volumn unit
-                * air exchange unit [^6]
-                    * energy recovery ventilator
-                * zone controller unit or thermostat
-            * DOM: Security or Access Control Asset {Divsion 28}
-                * security camera
-                * motion sensor
-                * entry access control unit [^6]
-                    * card reader
-                * security camera
-                * controlled door access
-                * controlled barrier {type: person, vehicular}
-            * BAS controller
-            * Lighting
-        * DOM: Land Surface Feature - #TH:review naming #PL:ask AK about green infrastructure assets
-            * segment of paved road
-            * piece of lawn
-            * planting space
-            * soil cell
-            * culvert
-        * DOM: Safety or Environmental Harm Prevention Asset
-            * hazardous gas monitoring device {subclass: atmospheric gas sensor}
-                * personal gas meter
-                * fixed gas detector
-            * explosion prevention equipment
-                * flame arrestor
-                * rupture disk
-            * emergency eyewash or shower
-            * chemical protection
-                * chemical suit
-                * spill kit
-            * electrical safety
-                * rubber insulating gloves
-                * rubber insultaing sleeves
-                * voltage surge suppressor
-                * protection relay
-                * grounding equipment
-                * high voltage stick
-                * high volatge tester
-                * switchgear ground and test device
-            * respiratory hazard protection
-                * supplied air respirator
-                * self-contained breathing apparatus (SCBA)
-                * respirator mask
-                * powered air respirator
-                * air scrubber
-            * fall protection equipment
-                * horizontal lifeline
-                * vertical lifeline
-                * self-retractig lifeline
-                * davit arm {subclass: lift; isMobile:mobile, fixed}
-                * fall restricting system {hasParts: }
-                * fall arrest lanyard {sameAs:lanyard}
-                * fall arrest harness
-                * rope or cable grab
-                * full-body harness
-                * anchorage connector
-            * floataion equipment
-                * personal floatation device
-                * life right
-                * life jacket
-            * first-aid equipment
-                * first aid station equipment
-                * first aid room equipment
-                * first aid kit
-                * automatic external defibrillator
-        * DOM: Facility Piping or Material Distibution Asset {Divsion 22, 23, 40}
-            * pipe section
-            * air duct section
-            * air channel section
-            * material distribution panel
-            * pipe manifold
-            * CAT: Piping System Component
-                * condensate trap
-                * pipe fitting
-                * pulsation dampener
-                * quencher
-                * sampling point
-                * steam trap
-                * strainer
-                * trap priming device
-                * valve
-        * DOM: Electrical Power System Asset {Division 26, 48}
-            * electrical distribution panel
-                * lighting panel
-                * motor control centre
-                * switchgear panel
-            * capacitor
-            * breaker
-            * cable section
-            * electrical conduit section
-            * eletrical duct bank section
-            * disconnect switch
-                * load break switch
-            * power harmonic filter
-            * motor starter
-            * motor drive or VFD
-            * transformer
-            * transfer switch
-            * welding receptacle
-            * uninterrupted power supply
-            * battery bank
-            * battery charger
-            * generator {fuel type: diesel, natural gas, bi-fuel}
-        * DOM: Transportation Asset
-            * passenger vehicle
-            * pickup truck
-            * golf cart
-            * boat
-            * water trailer        
-        * DOM: Common Tool
-            * portable ladder
-            * portable scaffolding
-            * power washer
-            * vacuum cleaner
-            * pipette
-            * stationary machine tool
-    * CAT: By Generic Industrial Function [^2] [^3]
-        * CAT: Material Flow or Pressure Control Function
+                * mechanical treatment filter unit
+            * a portion of filter medium
+        * screening and removal
+            * classifier unit
+            * bar screen unit
+            * traveling screen unit
+        * disinfection
+            * disinfection tank
+            * UV disinfection unit #EZ: could this be a part of a class of tank?
+            * part of UV disinfection assembly
+            * ...
+        * biological treatment
+            * aeration tank #TH: here, are you refering to the tank or the filter?
+            * biological filter unit
+                * aerobic filter unit #TH: here, are you refering to the tank or the filter?
+                * anaerobic filter unit
+            * digester tank
+            * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
+        * chemical treatment
+            * #Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
+            * coagulation / flocculation tank
+        * sludge incinerator
+        * comminutor [^6]
+        * ash lagoon
+        * New: backwash treatment - has settling tank, solids removal, chemical
+    * HVAC, Building, or Grounds Service Asset
+        * HVAC System Asset
+            * air handling unit
+            * air conditioner unit {hasPart: outdoor condensor unit, indoor evaporator unit}
+                * AC condensor unit
+                * AC evaporator unit
+            * air damper
+            * damper actuator
+            * dehumidifier {subclass: demister or air dryer}
+            * condensate trap
+            * heat pump unit {hasPart: outdoor unit, indoor unit}
+            * air filtration unit {hasPart: air filter}
+            * variable air volumn unit
+            * air exchange unit [^6]
+                * energy recovery ventilator
+            * zone controller unit or thermostat
+            * boiler
+        * Security or Access Control Asset {Divsion 28}
+            * security camera
+            * motion sensor
+            * entry access control unit [^6]
+                * card reader
+            * security camera
+            * controlled door access
+            * controlled barrier {type: person, vehicular}
+        * building automation system controller
+        * Lighting Unit
+        * road segment
+    * Green Infrastructure Asset
+        * piece of lawn
+        * planting space
+        * soil cell
+    * Safety or Environmental Harm Prevention Asset
+        * hazardous gas monitoring device {subclass: atmospheric gas sensor}
+            * personal gas meter
+            * fixed gas detector
+        * explosion prevention equipment
+            * flame arrestor
+            * rupture disk
+        * emergency eyewash or shower
+        * chemical protection
+            * chemical suit
+            * spill kit
+        * electrical safety
+            * rubber insulating gloves
+            * rubber insultaing sleeves
+            * voltage surge suppressor
+            * protection relay
+            * grounding equipment
+            * high voltage stick
+            * high volatge tester
+            * switchgear ground and test device
+        * respiratory hazard protection
+            * supplied air respirator
+            * self-contained breathing apparatus (SCBA)
+            * respirator mask
+            * powered air respirator
+            * air scrubber
+        * fall protection equipment
+            * horizontal lifeline
+            * vertical lifeline
+            * self-retractig lifeline
+            * davit arm {subclass: lift; isMobile:mobile, fixed}
+            * fall restricting system {hasParts: }
+            * fall arrest lanyard {sameAs:lanyard}
+            * fall arrest harness
+            * rope or cable grab
+            * full-body harness
+            * anchorage connector
+        * floataion equipment
+            * personal floatation device
+            * life right
+            * life jacket
+        * first-aid equipment
+            * first aid station equipment
+            * first aid room equipment
+            * first aid kit
+            * automatic external defibrillator
+    * Electrical Asset or Component
+        * generator {fuel type: diesel, natural gas, bi-fuel}
+        * lighting panel
+        * motor control centre
+        * switchgear distribution bus
+        * battery bank
+        * uninterrupted power supply
+        * welding receptacle
+        * battery charger
+        * breaker
+        * capacitor
+        * cable section
+        * electrical conduit section
+        * eletrical duct bank section
+        * disconnect switch
+            * load break switch
+        * power harmonic filter
+        * motor starter
+        * motor drive or VFD
+        * transformer
+        * transfer switch
+    * Building or Structure
+        * building #TH:{purpose: industrial, office, mixed}
+        * stack
+        * tower
+        * bridge
+        * tunnel
+        * fence section
+        * structural tank
+        * retaining wall
+        * culvert
+    * Part of Building or Structure [^8] 
+        * elevator
+        * roof
+        * fixed ladder
+        * fire-rated door
+        * loading dock
+        * roll-up door
+    * Part of Process Piping
+        * pipe section
+        * material distribution panel
+        * pipe manifold
+        * condensate trap
+        * pipe fitting
+        * expansion joint
+        * pulsation dampener
+        * quencher
+        * sampling point
+        * steam trap
+        * strainer
+        * trap priming device
+        * valve
+    * Mechanical Component
+        * bearing
+        * belt
+        * seal or gasket
+        * air filter medium
+        * motor
+        * mechanical fitting
+        * mechanical assembly
+    * General Networking Asset
+        * network switch
+        * network router
+        * wireless access point
+        * server appliance
+    * Common Tool
+        * portable ladder
+        * portable scaffolding
+        * portable gas detector
+        * power washer
+        * vacuum cleaner
+        * pipette
+        * stationary machine tool
+        * wrench
+    * Road Vehicle or Transportation Tool
+        * passenger vehicle
+        * pickup truck
+        * golf cart
+        * boat
+        * water trailer
+    * GENERIC CROSS-DOMAIN ASSET [^2] [^3]
+        * Material Flow or Pressure Control
             * pump
             * blower or fan
-            * compressor {...}
+            * compressor
             * valve
+            * air damper
             * backflow preventer
-            * gate {type:sluice gate, knife gate,pinch gate, check gate}
-            * drain EMILY:how is this term used
-        * CAT: Material Heating or Cooling Function
+            * gate
+                * #TH:{type enum:sluice gate, knife gate,pinch gate, check gate}
+        * Path of Material Flow
+            * pipe segment
+            * air duct segment
+            * segment of watercourse
+            * open channel segment
+        * Material Processing, Heating, or Cooling
             * boiler
             * heater
             * heat exchanger
@@ -270,10 +262,8 @@ In the content section, asset classes name written in lower case represents a na
             * chiller [^6]
                 * absorption chiller
                 * vapour compression chiller
-            * chiller component
-                * evaporator
-                * condenser
-        * CAT: Material Physical Processing Function
+            * chiller evaporator
+            * chiller condenser
             * Material Separation and Removal
                 * centrifuge
                 * dust collector unit
@@ -286,19 +276,25 @@ In the content section, asset classes name written in lower case represents a na
                 * mixing tank
             * compactor
             * grinder
-            * demister or air dryer
-            * processing tank
-        * CAT: Material Storage Function
-            * storage tank [^6]
+            * air dryer
+            * reactor tank
+        * Material Storage or Surge Suppression
+            * storage tank or vessel [^6]
+                * water storage tank
+                * chemical storage tank
                 * fuel tank {natural gas, diesel, gasoline}
+            * surge tank
+                * pump wet well
             * compressed gas cylinder
-        * CAT: Mechanical Energy and Motion Function
+        * Mechanical Energy and Motion
             * actuator
             * motor
             * engine
             * combustion turbine
-        * CAT: Instrumentation and Information Handling Function - #TH:review naming
-            * instrumentation, single-variable {hasAnalyzer, hasSensorElement, has...}
+        * Sensing (Information Capture)
+            * single-variable instrumentation
+                * #TH: {component enum: hasAnalyzer, hasSensorElement, has...}
+                * #TH: {interface enum: HART, Ethernet, dry contact interface, analog transmitter interface} 
                 * flowmeter {venturi, magmeter, ...}
                 * level instrumentation {...}
                 * temperature instrumentation {...}
@@ -317,77 +313,45 @@ In the content section, asset classes name written in lower case represents a na
                 * residual chlorine instrumentation
                 * dissolved oxygen instrumentation
                 * pH instrumentation
-            * instrumentation, multi-variable
-            * functional part of instrumentation
-                * industrial network interface
-                    * HART
-                    * Ethernet
-                * analog interface
-                    * dry contact interface
-                    * analog transmitter interface
-                * analyzer [^6]
-                    * vibration analyzer
-                    * pH analyzer
-                    * turbidity analyzer
-                    * conductivity analyzer
-                    * dissolved chemical analyzer
-                        * dissolved oxygen analyzer
-                        * nitrate / nitrite analyzer
-                        * phosphate analyzer
-                        * chlorine analyzer
-                        * heavy mental analyzer
-                    * EMILY: Are these valid? What else need to be here?
-                * sensor
-                    * level instrumentation {...}
-                    * temperature sensor {...}
-                    * position sensor
-                    * flame or combustion sensor
-                    * pressure sensor {...}
-                    * gas sensor {...}
-                    * disolved chemical sensor
-                    * vibration sensor
-                    * residual chlorine instrumentation
-                    * dissolved oxygen instrumentation
-                    * pH sensor
-                * industrial network interface
-                    * HART
-                    * Ethernet
-                * analog interface
-                    * dry contact interface
-                    * analog transmitter interface                
-            * information recording and storage
-                * recorder #PL:most of these are paper recorder #SB:there are power recorder #TH:EZ,what do you think?
-            * information processing and control
+            * multi-variable instrumentation
+                * #TH: {component enum: hasAnalyzer, hasSensorElement, has...}
+                * #TH: {interface enum: HART, Ethernet, dry contact interface, analog transmitter interface} 
+        * Information Processing and Analysis
+            * analyzer [^6]
+                * vibration analyzer
+                * pH analyzer
+                * turbidity analyzer
+                * conductivity analyzer
+                * dissolved chemical analyzer
+                    * #TH: EMILY: Are these valid? What else need to be here?
+                    * dissolved oxygen analyzer
+                    * nitrate / nitrite analyzer
+                    * phosphate analyzer
+                    * chlorine analyzer
+                    * heavy mental analyzer
+            * controller
                 * remote terminal unit (RTU) "To PCS is this a glorified terminal block or processing features too"
                 * programmable logic controller (PLC)
-                * controller
-                * computer {Operator Interface Terminal}
-            * general networking device
-                * COMMENTS:
-                    * "Pete: we may want to make this in the separate cat."
-                * network switch
-                * network router
-                * wireless access point
-                * server
-                    * application server appliance
-                    * network storage appliance
-            * display, indication, or alarm
-                * gauge
-                * display
-                * alarm
-                * PA system speaker "should conssider this to be a part of building system"
-                * Annunciator
-                * intercom unit
-            * control panel
-                * {contains: BMS controller, process control PLC, lighting controller, ...}
-        * CAT: Enclosure Function
+            * computer
+                * application server appliance
+                * network storage appliance
+        * Information Recording or Storage
+            * recorder #PL:most of these are paper recorder #SB:there are power recorder #TH:EZ,what do you think?
+        * Information Output
+            * gauge
+            * display
+            * alarm
+            * PA system speaker "should conssider this to be a part of building system"
+            * Annunciator
+            * intercom unit
+        * Enclosure
             * process control panel
                 * instrument air or pneumatic control panel
             * equipment local control panel
             * material distribution panel
             * electrical distribution or motor control panel
             * network panel (access closet)
-        * CAT: Lifting or Transport Function
+        * Material Lifting or Transport
             * conveyor [^6]
                 * screw conveyor (Note:define a new class, instead of using just attribute, when you are likely to collect different set of data)
             * mobile lift [^6]
@@ -395,6 +359,7 @@ In the content section, asset classes name written in lower case represents a na
                 * manlift [^6]
                     * scissors lift
             * crane [^6] #TH fixed{yes, no}, type:{jib, gantry, davit, bridge}
+        
 
 
 
@@ -438,3 +403,6 @@ In the content section, asset classes name written in lower case represents a na
 [^5]: an class that appears in multiple places on this classification hierarchy
 [^6]: though not a lowest level class, can be instantiated as an asset class
 [^7]: AK: should we inlcude for future?
+[^8]: TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND .
+[^9]: #EZ:gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator
+[^10]: not distinguishing chlorintor, sulphinator, or other type of dosing, 

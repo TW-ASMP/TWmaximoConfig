@@ -1,18 +1,18 @@
 # Toronto Water Highest Level Hierarchy
 
 ## The Hierarchy
-- [Toronto Water System]  
-	- [Drinking Water Network]  
-		- {Pumping Stations for Drinking Water} [^2] 
-	- {Drinking Water Treatment Plants} [^1]
-		- {Storage Assets in Drinking Water Supply Network} [^3]  
-	- [Waste and Storm Water Network]  
-		- {Pumping Stations in Sewer Network} [^4]
-		- {Chambers in Sewer Network}  
-		- {Storages of Wet Whether Flow} [^5]
-	- {Wastewater Treatment Plants} [^6]
-	- {Yards}
-	- {Independent Buildings}
+- Toronto Water System
+	- Drinking Water Network
+		- Pumping Stations for Drinking Water [^2] 
+	- Drinking Water Treatment Plants [^1]
+		- Storage Assets in Drinking Water Supply Network [^3]  
+	- Waste and Storm Water Network
+		- Pumping Stations in Sewer Network [^4]
+		- Chambers in Sewer Network
+		- Storages of Wet Whether Flow [^5]
+	- Wastewater Treatment Plants [^6]
+	- Yards
+	- Independent Buildings
 
 
 ## Notation Usage

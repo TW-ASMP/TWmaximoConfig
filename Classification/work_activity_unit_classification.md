@@ -15,7 +15,7 @@
     * etc...
 * replace or move
     * install
-    * remove / decommission
+    * remove / decommission [^2]
     * move
     * replace
 * modify
@@ -33,3 +33,5 @@
 * travel
 
 [^1]: at 2023, the vertical facilities will only need to see as far as this level.
+[^2]: MUST indicate if asset is removed from site or abondoned.
+
