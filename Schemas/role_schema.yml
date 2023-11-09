@@ -4,7 +4,8 @@ $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 "properties":
-  "role number":
+
+  "role ID":
     type: string
     description: This is also known as the "tag number", if it is an asset role.
 
@@ -44,21 +45,14 @@ type: object
       This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
       Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
-  "created by mistake":
-    type: boolean
-    trackHistoryFlag: TRUE
-    description: a record that was created in a data system, but it is (later) determined that no referenct object had ever existed in reality.
-    $comment: >
-      Usually, a record is found to be created by mistake during an field verification.
-      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
+
   "client role served":
     $ref: .objectDefs/role
     description: >
-      Specifies the role (more precisely the asset serving in the role), that this role is serving
-      Form example, if the present role is that of a valve, then its client may be a pump.
+      Specifies the role (more precisely the asset serving in the role), that this role is serving. Form example, if the present role is that of a valve, then its client may be a pump.
 
   "role technical requirement description":
-    ref: string
+    type: string
     description: >
       A free text description of the performance requirements of the role. 
       For example, weight in kg for a lifting device.
@@ -95,10 +89,49 @@ type: object
       - "1"
       - "2"
       - "3"
+      - "4"
+      - "5"
   
   "GIS object ID":
     type: string
     description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link. 
+
+  ##### compliance #####
+
+  role guarantees regulated parameter:
+    type: Boolean
+  
+  "regulated parameter(s)":
+    type: array
+    items:
+      title: documented regulated parameter
+      type: object
+      properties:
+        parameter name:
+          type: string
+        regulatory document and section:
+          type: array
+      required:
+        - parameter name
+        - regulatory document and section
+
+
+  ##### information of retired record #####
+
+  "record retired":
+    type: Boolean
+    trackHistoryFlag: TRUE
+    hidden: TRUE
+
+  "record retirement reason":
+    type: string
+    hidden: TRUE
+    trackHistoryFlag: TRUE
+    enum:
+      - "existing role eliminated"
+      - "planned role never realized"
+      - "record created by mistake"
+  
 
   ################################## RULES ##################################
   

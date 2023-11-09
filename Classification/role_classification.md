@@ -3,6 +3,9 @@
     * generator role
         * backup generator role
         * emergency generator role
+    * breaker role
+        * feeder breaker role
+        * tie-breaker role
 * defined collection of roles
     * facility
         * pumping station
@@ -23,3 +26,4 @@
         * simple line
         * main path line
     * junction/header/flow equalization
+    * route

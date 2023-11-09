@@ -4,3 +4,4 @@
     * indoor space
     * outdoor space
     * space inside vehicle
+* defined collection of spaces

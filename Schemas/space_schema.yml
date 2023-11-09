@@ -36,17 +36,10 @@ properties:
       - "realized"
       - "eliminated"
     $comment: >
-      This field allows the user to specify whether the space is merely planned, or whether the boundary enclosing the space have been contructed (or alternatively, the fiat property / or area boundary around is formally established and approved.) - i.e. "exists".
-      Note that an "obliterate" space should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions.
-      The term "obliterated" is chosen to indicate that space disappear by the fact that object bound or defined the space, such as wall, ceilings, or property lines are removed. 
+      This field allows the user to specify whether the space is merely specified, or whether the boundary enclosing the space have been contructed (or alternatively, the fiat property / or area boundary around is formally established and approved.) - i.e. "exists".
+      Note that an "eliminated" space should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions.
+      The term "eliminated" is chosen to indicate that space disappear by the fact that object bound or defined the space, such as wall, ceilings, or property lines are removed. 
 
-  "created by mistake":
-    type: boolean
-    trackHistoryFlag: TRUE
-    description: a record that was created in a data system, but it is (later) determined that no referenct object had ever existed in reality.
-    $comment: >
-      Usually, a record is found to be created by mistake during an field verification.
-      Note that a record deemed as created by mistake should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
   "confined space":
     type: boolean
@@ -74,3 +67,19 @@ properties:
       - E
       - F
       - G
+  
+  ##### information of retired record #####
+
+  "record retired":
+    type: Boolean
+    trackHistoryFlag: TRUE
+    hidden: TRUE
+
+  "record retirement reason":
+    type: string
+    hidden: TRUE
+    trackHistoryFlag: TRUE
+    enum:
+      - "existing space eliminated"
+      - "planned space never realized"
+      - "record created by mistake"

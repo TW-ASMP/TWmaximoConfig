@@ -14,7 +14,7 @@ In the content section, asset classes name written in lower case represents a na
         * storm service connection
         * weir structure
         * watermain
-        * manufactured treatment device
+        * manufactured treatment device (MTD)
             * oil grease separator MTD
             * filter MTD
         * pond
@@ -29,22 +29,25 @@ In the content section, asset classes name written in lower case represents a na
         * backflow preventer
         * catch basin
         * pipe fitting
-        * TW Sewer Large Chamber
         * well
         * valve
         * culvert
         * wet weather storage
+        * pump wet well
         * drinking water storage
             * reservoir
-            * elevated tank
+            * water tower / elevated tank
     * Specialized Water or Wastewater Treatment 
         * Material Addition or Dosing [^9]
             * dosing injector
-            * dosing eductor 
+            * dosing eductor
+            * oxidation diffuser
+            * oxidation diffuser grid assembly 
+            * dosing or metering pump
+            * ozone generator [^12]
             * dosing pump
-            * ozone generator {subclassof:chemical reactor}
-            * dosing pump {subclassof:pump}
-            * assembled dosing system [^6] [^10]
+            * assembled dosing system[^10]
+                * #comment: note, we are not distinguishing chlorintor, sulphinator, or other type of dosing systems
         * solid separation
             * centrifuge
             * clarification tank
@@ -52,11 +55,17 @@ In the content section, asset classes name written in lower case represents a na
             * screw press
             * sedimentation tank
         * filtering
-            * treatment filter unit {medium:sand/membrane/charcoal...; structuralTank?}[^6]
+            * treatment filter unit 
+                * #properties:
+                    * medium: sand/membrane/charcoal... 
+                    * structuralTank: yes/no
                 * biological treatment filter unit
-                    * aerobic filter unit 
+                    * aerobic filter unit
                     * anaerobic filter unit
                 * mechanical treatment filter unit
+            * treatment filter bank assembly
+                * #comment:
+                    * see example: https://www.istockphoto.com/photo/interior-of-reverse-osmosis-water-purification-plant-gm157396373-7912728?phrase=reverse+osmosis+plant
             * a portion of filter medium
         * screening and removal
             * classifier unit
@@ -67,16 +76,25 @@ In the content section, asset classes name written in lower case represents a na
             * UV disinfection unit #EZ: could this be a part of a class of tank?
             * part of UV disinfection assembly
             * ...
-        * biological treatment
-            * aeration tank #TH: here, are you refering to the tank or the filter?
-            * biological filter unit
-                * aerobic filter unit #TH: here, are you refering to the tank or the filter?
-                * anaerobic filter unit
+        * reactor assembly
+            * #Properties:
+                * Type ():
+                    * Continuous Stirred-Tank Reactor (CSTR)
+                    * Plug Flow Reactor (PFR)
+                    * Contact tank
+                    * Sequencing Batch Reactors (SBRs)
+                    * Fluidized Bed Reactors (FBRs)
+                    * Membrane Bioreactors (MBRs)
+                    * 
+            * aeration tank
             * digester tank
-            * membrane aerated biofilm reactor Emily: being piloted at North Toronto - biofilm grows on the membrane. 
-        * chemical treatment
-            * #Emily: chemical don't really always go in to a reactor tank unless reaction is required. Fer
+            * membrane aerated biofilm reactor 
+                * #comment: 
+                    * Emily: piloted at North Toronto - biofilm grows on the membrane. 
+            * #comment: 
+                * Emily:chemical don't really always go in to a reactor tank unless reaction is required
             * coagulation / flocculation tank
+            * ozone generator
         * sludge incinerator
         * comminutor [^6]
         * ash lagoon
@@ -240,6 +258,7 @@ In the content section, asset classes name written in lower case represents a na
         * boat
         * water trailer
     * GENERIC CROSS-DOMAIN ASSET [^2] [^3]
+        * assembled unit [^11]
         * Material Flow or Pressure Control
             * pump
             * blower or fan
@@ -260,8 +279,6 @@ In the content section, asset classes name written in lower case represents a na
             * heat exchanger
             * cooling tower {structural?}
             * chiller [^6]
-                * absorption chiller
-                * vapour compression chiller
             * chiller evaporator
             * chiller condenser
             * Material Separation and Removal
@@ -279,13 +296,11 @@ In the content section, asset classes name written in lower case represents a na
             * air dryer
             * reactor tank
         * Material Storage or Surge Suppression
-            * storage tank or vessel [^6]
-                * water storage tank
-                * chemical storage tank
+            * storage tank @Tony:{open to air, closed}, structure?, medium type?
                 * fuel tank {natural gas, diesel, gasoline}
-            * surge tank
-                * pump wet well
-            * compressed gas cylinder
+                * compressed gas cylinder
+            * processor tank @Tony:{open, closed}
+            * surge tank @Tony:{open, closed}
         * Mechanical Energy and Motion
             * actuator
             * motor
@@ -405,4 +420,6 @@ In the content section, asset classes name written in lower case represents a na
 [^7]: AK: should we inlcude for future?
 [^8]: TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND .
 [^9]: #EZ:gas chlorine dosing system has a lot complexity - not just eductor - see chlorinator
-[^10]: not distinguishing chlorintor, sulphinator, or other type of dosing, 
+[^10]: note, we are not distinguishing chlorintor, sulphinator, or other type of dosing
+[^11]: Could be a large processing tank or a substation on a skid.
+[^12]: {subclassof:chemical reactor}

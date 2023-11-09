@@ -3,26 +3,22 @@
 ## The Hierarchy
 - Toronto Water System
 	- Drinking Water Network
-		- Pumping Stations for Drinking Water [^2] 
-	- Drinking Water Treatment Plants [^1]
+		- Drinking Water Treatment Plants [^1]
+		- Distribution Pumping Stations [^2] 
 		- Storage Assets in Drinking Water Supply Network [^3]  
 	- Waste and Storm Water Network
-		- Pumping Stations in Sewer Network [^4]
+		- Collection Pumping Stations [^4]
 		- Chambers in Sewer Network
 		- Storages of Wet Whether Flow [^5]
-	- Wastewater Treatment Plants [^6]
+		- Wastewater Treatment Plants [^6]
 	- Yards
 	- Independent Buildings
 
 
-## Notation Usage
+## The Significance in the Usage of Plurals
+- Where a plural noun is used. For example: Drinking Water Treatment Plants, the entity represents a set of things. In the case of the example - the set of drinkin water treatment plants in TW. 
 
-- {x}  
-	- set of all x  
-	- e.g. {WTR-PLANT} set of all water treatment plants  
-- [x]  
-	- a system (or more precisely a fn structure) named x  
-	- e.g. [TAB-AER] - TAB secondary aeration system  
+## Notes
 
   [^1]: i.e. {[FCL]}, {[FIS]}, {[FHO]}, {[FHA]}
   [^2]: the set of 18 pumping stations
