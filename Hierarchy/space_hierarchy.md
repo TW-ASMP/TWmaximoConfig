@@ -3,7 +3,7 @@
 ## The Hierarchy
 - Spaces in Toronto Water
     - Spaces in Drinking Water System
-        - Spaces in Drinking Water Treatment Plants
+        - Spaces in Drinking Water Treatment
         - Spaces in Distribution Pumping Stations
         - Spaces in Storage of Drinking Water
     - Spaces in Waste and Storm Water System

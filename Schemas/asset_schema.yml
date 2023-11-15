@@ -45,11 +45,12 @@ properties:
     type: string
     trackHistoryFlag: TRUE
     enum:
-      - "specifed"
-      - "in hand for use"
+      - "specifed or planned"
+      - "in possession of TW"
       - "abandoned in place"
       - "removed from TW"
       - "missing"
+      - "lost"
     $comment: >
       Decommissioned is not being used as a state because it is an ambiguous term. An asset can be decommissioned (i.e. having gone through a decommissioning process) and then sent for reburbishment or stored as a spare. As such decommissioning should be represented as a process (i.e. work type) instead of decommissioned as a status. 
       3/6: 
@@ -63,13 +64,14 @@ properties:
         - [ ]RULE PROPOSAL: when asset is abondoned-in-place, it should retain its last known location, inherited from the role.
         - Debbie: removed from TW equates to Maximo's notion of decommissioned = disposed and will never be worked on again.
       11/01: Lost is added
+      11/14: selecting removed from TW, missing or lost will trigger a process of retiring the record
 
   "operating state":
     type: string
     trackHistoryFlag: TRUE
     enum:
-      - "up / available"
-      - "down / unavailable"
+      - "up / available for work"
+      - "down / unavailable for work"
       - "not assigned for operation"
     $comment: >
       - when an asset is inventoried in a store, it would be "not assigned"
@@ -195,6 +197,8 @@ properties:
       - "planned asset never received"
       - "record created by mistake"
     comment: >
+      11/14:
+      While most of these reasons mirror the the states of the record. "record created by mistake" does not.  When this value is selected, we are saying that the record does not reflect a asset, existent, past, or planned. 
 
   
 
