@@ -1,6 +1,6 @@
 # Asset Classification
 ## Introductory Notes
-In the content section, asset classes name written in lower case represents a natural classes, and asset classes name written title case isA coined term, define usually with respect to one or more natural classes. 
+In the content section, asset classes name written in lower case represents a natural classes, and asset classes name written title case is a coined term, define usually with respect to one or more natural classes. 
 
 ## Content
 
@@ -10,7 +10,7 @@ In the content section, asset classes name written in lower case represents a na
         * hydrant system
         * hydrant [^3]
         * water service connection [^3]
-        * sewer service connection 
+        * sewer service connection
         * storm service connection 
         * weir structure
         * watermain [^3]
@@ -18,15 +18,29 @@ In the content section, asset classes name written in lower case represents a na
             * oil grease separator MTD
             * filter MTD
         * pond
+            * wet pond
+                * #Properties:
+                    * has flow balancing system:
+                        * type: Boolean
+            * dry pond
         * sewer
         * wet weather flow storage
-            * super-pipe
+            * wastewater storage pipe
                 * #necessaryProperties:
-                    * InlineOfPipe: Yes
+                    * inline of pipe: Yes
+                    * require active pumping: highly unlikely
+                * #altLabel:
+                    * superpipe
+                    * storage tunnel
+                        * #comment: tunnel often connotes accessibility to human. 
             * detention tank
                 * #necessaryProperties:
-                    * isA: surge tank [^3]
-                    * InlineOfPipe: No 
+                    * is a: surge tank [^3]
+                    * in line of pipe: No
+                    * require active pumping: highly likely
+                * #altLabel:
+                    * combined sewer overflow (CSO) tank
+                    * wastewater storage shaft
         * infiltration trench
         * chamber
         * manhole [^5]
@@ -37,7 +51,6 @@ In the content section, asset classes name written in lower case represents a na
         * well
         * valve
         * culvert
-        * wet weather storage
         * pump wet well
         * drinking water storage
             * reservoir
@@ -45,7 +58,7 @@ In the content section, asset classes name written in lower case represents a na
     * Water or Wastewater Treatment 
         * Material Addition or Dosing [^9]
             * #properties:
-                * dosedMaterial:
+                * Dosed Material:
                     * enum:
                         * oxygen
                         * chlorine
@@ -72,26 +85,29 @@ In the content section, asset classes name written in lower case represents a na
             * screw press
             * polymer mixing tank
         * Solids Separation
-            * vortex separator
             * clarification tank
+                * #necessaryProperties:
+                    * has part: structural tank part of assembly
             * sedimentation tank
-            * classifier
-            * bar screen unit
-            * traveling screen unit
+                * #necessaryProperties:
+                    * has part: structural tank part of assembly
+            * grit classifier
+            * bar screen
+                * traveling screen
         * Filtration
             * treatment filter unit
                 * #properties:
                     * filterMedium:
-                    * type: array
-                    * open list: yes
-                    * enum:
-                        * sand
-                        * charcoal
-                        * membrane
+                        * type: array
+                        * open list: yes
+                        * enum:
+                            * sand
+                            * charcoal
+                            * membrane
             * treatment filter bank
                 * #comment:
                     * see example: https://www.istockphoto.com/photo/interior-of-reverse-osmosis-water-purification-plant-gm157396373-7912728?phrase=reverse+osmosis+plant
-            * a loose portion of granular filterMedium
+            * loose portion of granular filter medium
                 * #properties:
                     * filterMedium:
                     * type: array
@@ -99,28 +115,38 @@ In the content section, asset classes name written in lower case represents a na
                     * enum:
                         * sand
                         * charcoal
-            * filtration tank assembly
+            * filtration tank
+                * #necessaryProperties:
+                    * has part: tank component of assembly
         * Named Biological or Chemical Treatment
             * #necessaryProperties:
-                * isA: reactor
+                * is a: reactor
             * disinfection tank
+                * #necessaryProperties:
+                    * has part: tank component of assembly
+            * coagulation or flocculation tank
+                * #necessaryProperties:
+                    * has part: tank component of assembly
+            * aeration reactor tank
+                * #necessaryProperties:
+                    * has part: tank component of assembly
+            * digester reactor tank
+                * #necessaryProperties:
+                    * has part: tank component of assembly
             * UV disinfection assembly
             * UV disinfection lamp unit
-            * coagulation or flocculation tank
-            * aeration reactor tank
-            * digester reactor tank
             * ozone generator
-        * Other Unnamed Types of Reactor
-            * reactor
-                * #properties:
-                    * actively mixed: type: boolean
-                    * aerated: type: boolean
-                    * #oneOf:
-                        * Packed bed reactor: type: boolean
-                        * Fluidized Bed Reactors (FBRs): type: boolean
-                    * Sequencing Batch Reactors (SBRs): type: boolean
-                    * Membrane Bioreactors (MBRs): type: boolean
-        * incinerator
+        * reactor (other unnamed types)
+            * #properties:
+                * actively mixed: type: boolean
+                * aerated: type: boolean
+                * #oneOf:
+                    * packed bed reactor: type: boolean
+                    * fluidized Bed Reactors (FBRs): type: boolean
+                * sequencing batch reactors (SBRs): type: boolean
+                * membrane bioreactors (MBRs): type: boolean
+        * sludge incinerator assembly
+        * pelletizer assembly
         * ash lagoon
         * grinder or comminutor [^6]
     * HVAC, Building, or Grounds Service Asset
@@ -134,7 +160,7 @@ In the content section, asset classes name written in lower case represents a na
                 * AC condenser unit
                     * #comment: technically a heat exchanger [^3]
                 * AC evaporator unit
-                * AC packaged unit 
+                * packaged AC unit 
                 * AC system
                     * #necessaryProperties:
                         * hasPart: SOME (AC condensor unit)
@@ -146,7 +172,7 @@ In the content section, asset classes name written in lower case represents a na
             * condensate trap
             * dehumidifier 
                 * #necessaryProperties:
-                    * isA: demister or air dryer
+                    * is a: demister or air dryer
             * heat pump unit
                 * #necessaryProperties:
                     * hasPart: outdoor unit
@@ -173,7 +199,7 @@ In the content section, asset classes name written in lower case represents a na
     * Safety or Environmental Harm Prevention Asset
         * Hazardous Gas Monitoring Device 
             * #necessaryProperties:
-                * isA: gas instrumentation 
+                * is a: gas instrumentation
             * personal gas meter [^6]
             * fixed gas detector
         * Explosion Prevention Equipment
@@ -206,7 +232,7 @@ In the content section, asset classes name written in lower case represents a na
             * self-retractig lifeline
             * fall arrest davit arm [^3]
                 * #necessaryProperties:
-                    * isA: lift
+                    * is a: lift
                     * isMobile: yes
             * fall restricting system
             * fall arrest lanyard
@@ -216,7 +242,7 @@ In the content section, asset classes name written in lower case represents a na
             * anchorage connector
         * Floatation Equipment
             * personal floatation device
-            * life right
+            * life ring
             * life jacket
         * First-aid Equipment
             * first aid station equipment
@@ -231,7 +257,7 @@ In the content section, asset classes name written in lower case represents a na
                     * natural gas 
                     * bi-fuel
         * lighting panel
-        * motor control centre
+        * electrical distribution or motor control panel
         * switchgear distribution bus
         * battery bank
         * uninterrupted power supply
@@ -240,7 +266,7 @@ In the content section, asset classes name written in lower case represents a na
         * breaker
         * protection relay
             * #necessaryProperties:
-                * isA: electrical current instrumentation [^3]
+                * is a: electrical current instrumentation [^3]
         * capacitor [^1] [^2]
         * cable section
         * fuse [^1]
@@ -254,7 +280,7 @@ In the content section, asset classes name written in lower case represents a na
         * motor drive or VFD
         * transformer
         * transfer switch
-    * Building or Structure
+    * Building, Achitectural or Structure
         * building
             * #properties
                 * useOfBuilding: enum: {industrial, office, mixed}
@@ -266,15 +292,15 @@ In the content section, asset classes name written in lower case represents a na
         * structural tank
         * retaining wall
         * culvert
-    * Part of Building or Structure
-        * #comment:
-            * TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND .
-        * elevator
-        * roof
-        * fixed ladder
-        * fire-rated door
-        * loading dock
-        * roll-up door
+        * Part of Building or Structure
+            * #comment:
+                * TH: I have included assets that are (1) independently replaceable AND (2) has a different (shorter) life-cycle compared the structure itself (e.g.roof) OR must be tracked at inidividual level for compliance reasons (e.g. fire door, fixed ladder), BUT NOT the assets that satisfies (1) and (2) above, but isn't the object of a a regular inspection or maintenance work order AND .
+            * elevator
+            * roof
+            * fixed ladder
+            * fire-rated door
+            * loading dock
+            * roll-up door
     * Part of Process Piping
         * pipe section
         * material distribution panel
@@ -319,10 +345,10 @@ In the content section, asset classes name written in lower case represents a na
         * golf cart
         * boat
         * water trailer
-    * GENERIC CROSS-DOMAIN ASSET TERMS
+    * GENERIC CROSS-DOMAIN ASSET
         * #comment: 
-            * For some classes, you may not be able to clearly distinguish whether it isA "discrete general purpose asset" class or "specific" application asset class. An example is the class *pressure relieve valve*, you may recognize it as a *safety or hazard prevention specific* or a *general purpose discrete asset > flow or pressure control* asset. In cases like this, you will find the class under more than one branch of the tree. Under this category, you will find term denoting discrete assets that perform a low-level technical functions within a diverse range of systems that are in service of a open set of human goals.
-        * Material Flow or Pressure Control
+            * For some classes, you may not be able to clearly distinguish whether it is a "discrete general purpose asset" class or "specific" application asset class. An example is the class *pressure relieve valve*, you may recognize it as a *safety or hazard prevention specific* or a *general purpose discrete asset > flow or pressure control* asset. In cases like this, you will find the class under more than one branch of the tree. Under this category, you will find term denoting discrete assets that perform a low-level technical functions within a diverse range of systems that are in service of a open set of human goals.
+        * Flow or Pressure Control
             * pump
             * blower or fan
             * compressor
@@ -331,40 +357,55 @@ In the content section, asset classes name written in lower case represents a na
             * backflow preventer
             * gate
                 * #TH:{type enum:sluice gate, knife gate,pinch gate, check gate}
-        * Path of Material Flow
+        * Conveyance of Flow
+            * pump
+            * blower or fan
+            * compressor
+        * Linear Function Asset (Path of Flow)
             * pipe segment
             * air duct segment
-            * segment of watercourse
             * open channel segment
-        * Material Processing, Heating, or Cooling
+            * cable segment
+        * Heating or Cooling
             * boiler
+            * burner
             * heater
             * heat exchanger
+            * furnace
             * cooling tower
             * chiller
             * chiller evaporator
             * chiller condenser
+        * Processing of Material
             * centrifuge
-            * dust collector unit
-            * air scrubber
-            * air filter unit
-            * mixer or agitator
-                * vortex mixer Emily:What are you calling oxygen diffusers in the aeration tank (oxygenation is the primary function and diffusion and mixing is secondary)?  
-                * mixing tank
-            * compactor
-            * grinder
+            * burner
+            * separator
+                * classifier
+                * cyclone separator
+            * dryer
             * air dryer
-        * Material Storage or Surge Suppression
+            * scrubber
+            * air filter unit
+            * electrostatic precipitator
+            * press
+            * compactor
+            * mixer or agitator
+            * grinder
+            * dust collector
+        * Supply of Material
+            * feeder or hopper
+            * conveyor
+            * injector
+        * Storage and Surge Suppression
             * #properties:
-                * containedMaterial: enum: {...}
+                * contained material: enum: {water,...}
             * storage tank
                 * fuel storage tank 
                     * #properties:
-                        * fuelType: enum: {natural gas, diesel, gasoline}
-            * surge tank
-            * tank component [^1]
-                * necessaryProperties:
-                    * isPartOf: ONLY (OR(storage tank, reactor, surge tank))
+                        * contained material: enum: {natural gas, diesel, gasoline}
+            * surge suppression tank
+            * tank part of assembly [^1]
+                * structural tank part of assembly
             * compressed gas cylinder
                 * #properties:
                     * containedMaterial: enum: {...}
@@ -374,16 +415,19 @@ In the content section, asset classes name written in lower case represents a na
             * engine [^1]
             * combustion turbine [^1]
         * Sensing (Information Capture)
-            * single-variable instrumentation
+            * common instrumentation
+                * temperature switch
+                * temperature transmitter
+                * pressure switch
+                * pressure transmitter
+            * single-parameter instrumentation
+                * #comment: 
+                    * for instrumentation, reshould rely on PCS' equipment code to tell us if it is a switch or analyzer
                 * #properties:
                     * hasAnalyzer: type: boolean 
                     * hasSensorElement: type: boolean
-                    * hasInstrumentationComponent:
-                        * type: array
-                        * items:
-                            * $ref: "objectDefs/asset"
-                    * hasInterfaceComponent: enum: {HART, Ethernet, dry contact, analog transmitter} 
-                * flowmeter {venturi, magmeter, ...}
+                    * hasInterfaceComponent: enum: {HART, Ethernet, dry contact, analog transmitter}
+                * flow instrumentation {venturi, magmeter, ...}
                 * level instrumentation {...}
                 * temperature instrumentation {...}
                 * position instrumentation
@@ -403,8 +447,13 @@ In the content section, asset classes name written in lower case represents a na
                 * pH instrumentation
                 * electrical current instrumentation
                 * voltage instrumentation
-            * multi-variable instrumentation
-                * #TH: {component enum: hasAnalyzer, hasSensorElement, has...}
+            * multi-parameter instrumentation
+                * #properties:
+                    * hasInstrumentationComponent:
+                        * type: array
+                        * items:
+                            * $ref: "objectDefs/asset" 
+                    * hasInterfaceComponent: enum: {HART, Ethernet, dry contact, analog transmitter}hasSensorElement, has...}
                 * #TH: {interface enum: HART, Ethernet, dry contact interface, analog transmitter interface} 
         * Information Processing and Analysis
             * analyzer [^6]
@@ -420,7 +469,7 @@ In the content section, asset classes name written in lower case represents a na
                     * chlorine analyzer
                     * heavy mental analyzer
             * controller
-                * remote terminal unit (RTU) "To PCS is thisA glorified terminal block or processing features too"
+                * remote terminal unit (RTU) "To PCS is this a glorified terminal block or processing features too"
                 * programmable logic controller (PLC)
             * computer
                 * application server appliance
@@ -441,14 +490,23 @@ In the content section, asset classes name written in lower case represents a na
             * material distribution panel
             * electrical distribution or motor control panel
             * network panel (access closet)
-        * Material Lifting or Transport
-            * conveyor [^6]
-                * screw conveyor (Note:define a new class, instead of using just attribute, when you are likely to collect different set of data)
+        * Lifting or Transport
+            * conveyor
             * mobile lift
+                * #necessaryProperties:
+                    * isMobile: yes
                 * forklift
                 * manlift
                     * scissors lift
-            * crane #TH fixed{yes, no}, type:{jib, gantry, davit, bridge}
+            * crane
+                * #necessaryProperties:
+                    * isMobile: no
+                * #properties:
+                    * fixed: type: boolean
+                jib crane 
+                gantry crane 
+                davit crane 
+                bridge crame
         
 
 
@@ -469,7 +527,7 @@ In the content section, asset classes name written in lower case represents a na
 
 ### To Think Through
 
-[ ] - consider removal of certain domain-specific terms for classes, because (1) peopele woudld search by the more generic class name anyways (2) the location in the system communicates what it is (e.g. camera in a security system isA security camera) (3) we don't care about the convenience of pulling out just that specific class of assets e.g. air filter
+[ ] - consider removal of certain domain-specific terms for classes, because (1) peopele woudld search by the more generic class name anyways (2) the location in the system communicates what it is (e.g. camera in a security system is a security camera) (3) we don't care about the convenience of pulling out just that specific class of assets e.g. air filter
         * dry polymer separation unit
         * grit classifier
 
@@ -483,12 +541,12 @@ In the content section, asset classes name written in lower case represents a na
     * easement
 
 ### Arguments to Corp
-- This structure isAlways changing, new classes and necessary fields are constainly being added or changed. How do we keep track of changes and data collection forms in multiple applications (GIS, WMS, capital data collection spreadsheet)?
+- This structure is always changing, new classes and necessary fields are constainly being added or changed. How do we keep track of changes and data collection forms in multiple applications (GIS, WMS, capital data collection spreadsheet)?
 
 ### List of Properties used
 * hasPart
 * isPartOf
-* isA
+* is a
 * dosedMaterial
 * containedMaterial
 * filterMedium
@@ -517,3 +575,6 @@ In the content section, asset classes name written in lower case represents a na
 [^6]: NOT_LOWEST: Example of a class that can be used on an asset record, but not at the lowest level of the classification
 
 [^10]: INTERESTING: an example of something interesting. 
+
+
+   * GENERIC CROSS-DOMAIN ASSET, flow or pressure control, pump

@@ -67,12 +67,15 @@ properties:
       11/14: selecting removed from TW, missing or lost will trigger a process of retiring the record
 
   "operating state":
-    type: string
+    type: 
+      - string
+      - NULL
     trackHistoryFlag: TRUE
     enum:
       - "up / available for work"
       - "down / unavailable for work"
-      - "not assigned for operation"
+      - "not assigned / not in commission"
+      - "not applicable"
     $comment: >
       - when an asset is inventoried in a store, it would be "not assigned"
       - 7/25: 
@@ -82,6 +85,11 @@ properties:
           - not in use
         - when an asset is "not assigned...", it may neither be assigned to a role, a operations group, nor a operator person.
         - when an asset is NOT "not assigned", it must either be assigned to a role, a operations group, a operator person, or a combination thereof. 
+      - 12/11:
+        - the option of "not applicable" value is added. This option applies when the asset is not present at Toronto Water.
+        - added the possibility of having null value. NULL (or blank) value will generally by use to communicate "no knowledge". 
+      - 12/13:
+        - item "not assigned for operation" changed to "not assigned / not in commission"
   
   "assigned to role":
     $ref: .objectDefs/role

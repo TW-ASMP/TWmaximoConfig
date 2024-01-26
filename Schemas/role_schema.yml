@@ -45,6 +45,15 @@ type: object
       This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
       Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
+  "duty standby designation":
+    type: 
+      - string
+      - NULL
+    enum:
+      - "duty"
+      - "standby"
+      - "duty assist"
+      - "NONE"
 
   "client role served":
     $ref: .objectDefs/role
