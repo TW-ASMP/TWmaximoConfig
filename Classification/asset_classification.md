@@ -48,7 +48,7 @@ In the content section, asset classes name written in lower case represents a na
                 * #altLabel:
                     * combined sewer overflow (CSO) tank
                     * wastewater storage shaft
-        * infiltration trench
+        * infiltration trenchwas
         * chamber
         * manhole [^5]
         * outfall or discharge point
@@ -94,10 +94,10 @@ In the content section, asset classes name written in lower case represents a na
         * Solids Separation
             * clarification tank
                 * #necessaryProperties:
-                    * has part: structural tank part of assembly
+                    * has part: structural tank component
             * sedimentation tank
                 * #necessaryProperties:
-                    * has part: structural tank part of assembly
+                    * has part: structural tank component
             * grit classifier
             * bar screen
                 * traveling screen
@@ -411,8 +411,8 @@ In the content section, asset classes name written in lower case represents a na
                     * #properties:
                         * contained material: enum: {natural gas, diesel, gasoline}
             * surge suppression tank
-            * tank part of assembly [^1]
-                * structural tank part of assembly
+            * tank component [^1]
+                * structural tank component
             * compressed gas cylinder
                 * #properties:
                     * containedMaterial: enum: {...}

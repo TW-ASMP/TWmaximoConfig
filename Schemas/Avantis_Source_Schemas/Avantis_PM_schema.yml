@@ -4,10 +4,11 @@ $id: ./objectDefs/AvantisPM
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 $comment: >
-  
+
 properties:
   "PM Job #":
     type: string
-    AvantisTable: MC.PMJOB
-    AvantisTableField: ci_cnc_date
+    AvTbl: MC.PMJOB
+    AvTblCol: ci_cnc_date
+    
   
