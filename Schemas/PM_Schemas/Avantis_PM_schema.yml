@@ -1,3 +1,8 @@
+### Questions
+
+# Where are all the attachments found?
+
+
 ---
 title: 'Avantis PM'
 $id: ./objectDefs/AvantisPM
@@ -6,9 +11,72 @@ type: object
 $comment: >
 
 properties:
-  "PM Job #":
+  "PM Job Number":
     type: string
     AvTbl: MC.PMJOB
-    AvTblCol: ci_cnc_date
-    
+    AvTblCol: id
+  "PM Job Title":
+    type: string
+    AvTbl: MC.PMJOB
+    AvTblCol: aenm
   
+  #-----------Task-----------#
+  "Tasks":
+    type: array
+    items:
+      type: object
+      title: Task
+      properties:
+        "Title":
+          type: string
+        "Work Type":      #SA: should there be any safety PMs?
+          type: string
+          enum: >
+            - Breakdown
+            - Predictive
+            - Preventive
+            - Safety
+        "Usual Planner":
+          type: string
+          enum: >
+            - ...
+            - ...
+        "Usual Supervisor":
+          type: string
+          enum: >
+            - ...
+            - ...
+        "Priority":
+        
+        "Part or Tool Reference":
+        ""
+
+        "Trades":
+        #-----------Procedure and Safety-----------#
+        "Procedures":
+          type: array
+          items:
+            type: object
+            title: procedure
+            properties:
+              "Number":
+                type: string
+              "Title":
+                type: string
+              "Description":
+                type: string
+
+#-----------Other Referenced Object-----------#
+definitions:
+  "Non-catalog Part or Service":
+    type: object
+  "Catalog Part or Service":
+    type: object
+  "Inventory Part":
+    type: object
+
+            
+
+
+
+        
