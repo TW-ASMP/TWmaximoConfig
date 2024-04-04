@@ -143,15 +143,16 @@ In the content section, asset classes name written in lower case represents a na
             * UV disinfection assembly
             * UV disinfection lamp unit
             * ozone generator
-        * reactor (other unnamed types)
+        * treatment reactor
             * #properties:
-                * actively mixed: type: boolean
-                * aerated: type: boolean
-                * #oneOf:
-                    * packed bed reactor: type: boolean
-                    * fluidized Bed Reactors (FBRs): type: boolean
-                * sequencing batch reactors (SBRs): type: boolean
-                * membrane bioreactors (MBRs): type: boolean
+                * actively mixed; type: boolean
+                * aerated; type: boolean
+                * sequencing batch reactors (SBRs); type: boolean
+                * #mutuallyExclusive:
+                    * packed bed reactor; type: boolean
+                    * fluidized Bed Reactors (FBRs); type: boolean
+                * bioreactor; type: boolean; 
+                * membrane bioreactors (MBRs); type: boolean
         * sludge incinerator assembly
         * pelletizer assembly
         * ash lagoon
@@ -364,10 +365,6 @@ In the content section, asset classes name written in lower case represents a na
             * backflow preventer
             * gate
                 * #TH:{type enum:sluice gate, knife gate,pinch gate, check gate}
-        * Conveyance of Flow
-            * pump
-            * blower or fan
-            * compressor
         * Linear Function Asset (Path of Flow)
             * pipe segment
             * air duct segment
@@ -384,21 +381,20 @@ In the content section, asset classes name written in lower case represents a na
             * chiller evaporator
             * chiller condenser
         * Processing of Material
-            * centrifuge
-            * burner
-            * separator
+            * centrifuge v
+            * burner v
+            * separator v
                 * classifier
                 * cyclone separator
-            * dryer
-            * air dryer
-            * scrubber
-            * air filter unit
-            * electrostatic precipitator
-            * press
-            * compactor
-            * mixer or agitator
-            * grinder
-            * dust collector
+            * dryer v
+            * air dryer v
+            * scrubber v
+            * air filter unit v
+            * electrostatic precipitator v
+            * compactor v
+            * mixer or agitator v
+            * grinder v
+            * dust collector v
         * Supply of Material
             * feeder or hopper
             * conveyor
@@ -434,26 +430,26 @@ In the content section, asset classes name written in lower case represents a na
                     * hasAnalyzer: type: boolean 
                     * hasSensorElement: type: boolean
                     * hasInterfaceComponent: enum: {HART, Ethernet, dry contact, analog transmitter}
-                * flow instrumentation {venturi, magmeter, ...}
-                * level instrumentation {...}
-                * temperature instrumentation {...}
-                * position instrumentation
+                * flow instrumentation {venturi, magmeter, ...} v
+                * level instrumentation {...} v
+                * temperature instrumentation {...} v
+                * position instrumentation v
                 * flame or combustion instrumentation
-                * pressure instrumentation {...}
-                * gas instrumentation {...}
-                * weight scale
-                * camera
+                * pressure instrumentation {...} v
+                * gas instrumentation {...} v
+                * weight scale v
+                * camera 
                     * infrared camera
-                * vibration instrumentation
-                * counter
-                * turbidity meter
-                * total suspended solids instrumentation
-                * total dissolved solids instrumentation
-                * residual chlorine instrumentation
-                * dissolved oxygen instrumentation
-                * pH instrumentation
-                * electrical current instrumentation
-                * voltage instrumentation
+                * vibration instrumentation v
+                * counter v
+                * turbidity meter v
+                * total suspended solids instrumentation v
+                * total dissolved solids instrumentation v
+                * residual chlorine instrumentation v
+                * dissolved oxygen instrumentation 
+                * pH analyzer v
+                * electrical current instrumentation v
+                * voltage instrumentation v
             * multi-parameter instrumentation
                 * #properties:
                     * hasInstrumentationComponent:
