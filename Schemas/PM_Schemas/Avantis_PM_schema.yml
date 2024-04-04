@@ -1,9 +1,24 @@
-### Questions
-
-# Where are all the attachments found?
-
-
 ---
+#########################################################
+# DEVELOPMENT QUESTIONS
+#########################################################
+
+# [] Q4 SS: Where are all the attachments found?
+  # we have URLs and attachments
+  # attached at entity, task, or activity level. 
+  # some are used for mobile.  
+  # the ones most used in PMs are attached to tasks
+    # can we standardize? before migration?
+  # should we keep the forms? SS: we should digitize SA: they are not controlled
+  # SA/SS: we need to start with "what" information are there and "where" are they residing
+  # [] need separate discussion on this.
+# [] TODO: Test out: https://stackoverflow.com/questions/60673675/apply-addtional-constraints-to-a-refered-definition-in-json-schema
+
+
+#########################################################
+# PM Definition
+#########################################################
+
 title: 'Avantis PM'
 $id: ./objectDefs/AvantisPM
 $schema: 'http://json-schema.org/draft-07/schema'
@@ -13,68 +28,193 @@ $comment: >
 properties:
   "PM Job Number":
     type: string
-    AvTbl: MC.PMJOB
-    AvTblCol: id
+    AV_DB_Loc: MC.PMJOB id
   "PM Job Title":
     type: string
-    AvTbl: MC.PMJOB
-    AvTblCol: aenm
+    AV_DB_Loc: MC.PMJOB aenm
   
-  #-----------Task-----------#
+  #-----------PM Task------------#
+  
   "Tasks":
     type: array
     items:
       type: object
-      title: Task
       properties:
+        
         "Title":
           type: string
-        "Work Type":      #SA: should there be any safety PMs?
+        
+        "Work Type":      
+          # [] Q4 SA: should there be any safety PMs? Or is that considered to be incompliant? should only be Pred or Prev
           type: string
           enum: >
-            - Breakdown
             - Predictive
             - Preventive
-            - Safety
+
         "Usual Planner":
-          type: string
-          enum: >
-            - ...
-            - ...
+          - $ref: ./objectDefs/AvantisPM/employee
+          # RULE: 
+          # the person must carry a role of planner or scheduler
+          - properties:
+              "role assignment":
+                type: array
+                contains:
+                  oneOf:
+                    - const: "PLANNER"
+                    - const: "SCHEDULER"
+
         "Usual Supervisor":
-          type: string
-          enum: >
-            - ...
-            - ...
+          - $ref: ./objectDefs/AvantisPM/employee
+          - properties:
+              "role assignment":
+                type: array
+                contains:
+                    const: "SUPERVIOR"
+                    
+        "Crew":
+          $ref: ./objectDefs/AvantisPM/Crew
+          # [] Discussion 4 ALL: need to discuss how a crew is going to be represented under the organization hierarchy. 
+          
         "Priority":
-        
-        "Part or Tool Reference":
-        ""
+          type: number
+          pattern: "^[1-7]$" # number inclusive between 1 and 8
+          # [] Q4 ALL / SA: should we move over the priority specifications in Avantis? Or should we review how Maximo does priority (i.e., no imposing the system that we are not using anyways in Avantis), and start afresh there. 
+          # Ans from SS: we have anothe schema in Maximo, for our purpose only need to map the number, and decide the conversion to maximo schema in the mapping script
+            # Current values of (mc.PRIORITY.priorid) in Avantis  
+              # mc.PRIORITY.priooi | mc.PRIORITY.priorid 
+              # 32050 | 1 Immediate (< 16 Hours)
+              # 32051 | 2 High (< 24 Hours)
+              # 32053 | 4 Medium (< 1 week)
+              # 32054 | 5 Low (< 4 weeks)
+              # 32056 | 3 Medium-High (<5 days)
+              # 32057 | 6 Low (< 3 months)
+              # 32058 | 7 Low (< 1 Year)
+              # 32060 | 8 Low (2 months)
+              # 32061 | 1 Immediate (<16 Hours) for PT
 
-        "Trades":
-        #-----------Procedure and Safety-----------#
-        "Procedures":
+        "Trades Requirement":
           type: array
-          items:
-            type: object
-            title: procedure
-            properties:
-              "Number":
-                type: string
-              "Title":
-                type: string
-              "Description":
-                type: string
+          $ref: ./objectDefs/AvantisPM/tradeSpecification
 
-#-----------Other Referenced Object-----------#
-definitions:
-  "Non-catalog Part or Service":
-    type: object
-  "Catalog Part or Service":
-    type: object
-  "Inventory Part":
-    type: object
+        "Tool or Part Requirement":
+          type: array
+          $ref: ./objectDefs/AvantisPM/partSpecification
+        
+        #-----------Procedure and Safety-----------#
+        "Entity Link":
+          type: object
+          properties:
+            "Procedures":
+              type: array
+              items:
+                type: object
+                properties:
+                  "Number":
+                    type: string
+                  "Title":
+                    type: string
+                  "Description":
+                    type: string
 
+
+#########################################################
+# Definitions of Referenced Objects
+#########################################################
+# 3/13: this section models objects that the Avantis PM structure makes reference to. Not all properties in Avantis are included in the model, only those deemed to have an influence the behaviour of PMs 
+$defs:
+  #-----------employee-----------#
+
+  "Employee":
+    $id: ./objectDefs/AvantisPM/employee
+    type: object
+    properties:
+      
+      "employee name":
+        type: string
+        AV_DB_Loc: MC.EMPLOYEE aenm
+      
+      "employee number":
+        type: number
+      
+      "role assignments":  #[] Addison: How is role assignment linked to employee name?
+        type: array  # employee may have multiple role assignments
+        items:
+          type: string
+          enum:
+            - "USER"
+            - "BUYER"
+            - "PLANNER"
+            - "SCHEDULER"
+            - "SUPERVISOR"
+            - "TRADESPERS"
+            - "CONTRACTOR"
+            - "REQUESTER"
+
+      
+  #-----------trade specification-----------#
+  
+  "Trade Specification on Task":
+    $id: ./objectDefs/AvantisPM/tradeSpecification
+    type: object
+    properties:
+      
+      "Trade":
+        $ref: ./objectDefs/AvantisPM/trade
+      
+      "Quantity":
+        type: number
+        pattern: ^[1-9]\d*$  #regular expression for positive integer
+      
+      "Time Required":
+        type: number
+      
+      "Time UoM":
+        type: string
+        enum:
+          - "hr"
+          - 'min'  #[] TODO:check if this is correct - is it just hour?
+    
+    
+  #-----------trade-----------#
+  #[] Q4 DM: Regarding how Maximo captures labour cost, does it also assign an hourly cost for each trade? If yes, we will need to map that data over. 
+  
+  "Trade":
+    $id: ./objectDefs/AvantisPM/trade
+    type: object
+    properties: 
+      ""
+
+  #-----------part assignment-----------#
+  
+  "Part Specification on Task":
+    $id: ./objectDefs/AvantisPM/partSpecification
+    type: object
+    properties:
+      #[] Q4 GG: 
+      "part type": 
+        type: string
+        enum: >
+          - Non-catalog Part or Service
+          - Catalog Part or Service
+          - Inventory Part
+
+  #-----------part or service-----------#
+
+  "Part":
+    $id: ./objectDefs/AvantisPM/part
+    type: object
+     #[] Q4 GG: which attributes of a part did you guys fill in for the purpose of DRM? 
+
+  #------------crew-------------#
+
+  "Crew":
+    $id: ./objectDefs/AvantisPM/Crew
+    type: object
+    AV_DB_LocCol: MC.CREW crewid
+    properties:
+      "Crew Name":
+      "Crew Abbreviation":
+      "Applies To": #Addison[]: how is this expressed in the schema
             
 
 
