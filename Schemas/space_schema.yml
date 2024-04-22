@@ -30,7 +30,7 @@ properties:
 
   "status":
     type: string
-    trackHistoryFlag: TRUE
+    track: TRUE
     enum:
       - "specifed"
       - "realized"
@@ -72,13 +72,13 @@ properties:
 
   "record retired":
     type: Boolean
-    trackHistoryFlag: TRUE
+    track: TRUE
     hidden: TRUE
 
   "record retirement reason":
     type: string
     hidden: TRUE
-    trackHistoryFlag: TRUE
+    track: TRUE
     enum:
       - "existing space eliminated"
       - "planned space never realized"

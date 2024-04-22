@@ -1,4 +1,4 @@
-- ## Note Elements
+## Note Elements
 	- [[👩🏻‍⚖️decision]]
 	- [[💡insight]]
 	  :LOGBOOK:

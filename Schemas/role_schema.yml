@@ -8,7 +8,8 @@ type: object
   "role ID":
     type: string
     description: This is also known as the "tag number", if it is an asset role.
-
+    Mx_DB_Loc:
+    
   "role name":
     const: >
       ${properties."role class".properties."class name"};
@@ -36,7 +37,7 @@ type: object
   
   "status":
     type: string
-    trackHistoryFlag: TRUE
+    track: TRUE
     enum:
       - "specified"
       - "realized"
@@ -71,16 +72,16 @@ type: object
   
   "located in space":
     $ref: .objectDefs/space
-    trackHistoryFlag: TRUE
+    track: TRUE
 
   "operator group":
     $ref: .IBM_Maximo_object/group
-    trackHistoryFlag: TRUE
+    track: TRUE
     description: group responsible for the operation of the asset, serving in this role
 
   "service address or coordinate":
     $ref: .IBM_Maximo_object/serviceAddress
-    trackHistoryFlag: TRUE
+    track: TRUE
     description: x and y coordinate, or the street address
 
   "operational criticality":
@@ -129,13 +130,13 @@ type: object
 
   "record retired":
     type: Boolean
-    trackHistoryFlag: TRUE
+    track: TRUE
     hidden: TRUE
 
   "record retirement reason":
     type: string
     hidden: TRUE
-    trackHistoryFlag: TRUE
+    track: TRUE
     enum:
       - "existing role eliminated"
       - "planned role never realized"

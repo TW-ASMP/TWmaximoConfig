@@ -1,0 +1,29 @@
+# created with the intention to specify the IRI from the ontology
+
+title: asset classification object
+$id: .IBM_Maximo_object/assetClassificationObject
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+
+properties:
+  "class name":
+    type: string
+  
+  "parent class":
+    $ref: .IBM_Maximo_object/assetClassificationObject
+
+  "class description":
+    type: string
+  
+  "TWONTO IRI":
+    type: string
+
+  "non-manufactured":
+    type: [boolean, null]
+
+  "mobile asset":
+    type: [boolean, null]
+
+  "tool":
+    type: [boolean, null]
+    
