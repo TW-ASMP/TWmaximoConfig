@@ -18,7 +18,7 @@ properties:
   "TWONTO IRI":
     type: string
 
-  "non-manufactured":
+  "manufactured asset":
     type: [boolean, null]
 
   "mobile asset":

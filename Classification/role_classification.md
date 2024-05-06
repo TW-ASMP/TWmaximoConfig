@@ -1,11 +1,13 @@
 # Top-Level Role Classification
 * discrete asset role
     * generator role
-        * backup generator role
-        * emergency generator role
+        * backup generator
+        * emergency generator
     * breaker role
-        * feeder breaker role
-        * tie-breaker role
+        * bus feeder breaker
+        * line feeder breaker
+        * load breaker
+        * tie-breaker
 * defined collection of roles
     * facility
         * pumping station

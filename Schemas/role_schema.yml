@@ -1,3 +1,4 @@
+---
 title: role
 $id: objectDefs/role
 $schema: 'http://json-schema.org/draft-07/schema'
@@ -8,9 +9,11 @@ type: object
   "role ID":
     type: string
     description: This is also known as the "tag number", if it is an asset role.
-    Mx_DB_Loc:
+
+#========================
     
   "role name":
+    type: string
     const: >
       ${properties."role class".properties."class name"};
       childOf: ${properties."parent entity".properties."role number"};
@@ -18,9 +21,13 @@ type: object
     description: A description of the role, in terms of its relations to its parent role and the roles that it presently serves
     # MT []: would you like me to move this into individual roles?
 
+#========================
+
   "parent":
     $ref: .objectDefs/role
     description: the parent role
+
+#========================
 
   "role class":
     $ref: .IBM_Maximo_object/classifcationObject
@@ -34,7 +41,16 @@ type: object
         * generator role
           * emergenecy generator role
           * backup generator role
+
+#========================
   
+  "discrete asset role":
+    type: boolean
+    inferred: true
+    $comment: this field is update by the system (i.e., properties.inferred is true). The value is true, if the class value is a sub-class of discrete asset role in the role classification hierarchy. 
+
+#========================
+
   "status":
     type: string
     track: TRUE
@@ -46,6 +62,8 @@ type: object
       This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
       Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
+#========================
+
   "duty standby designation":
     type: 
       - string
@@ -56,35 +74,53 @@ type: object
       - "duty assist"
       - "NONE"
 
-  "client role served":
+#========================
+
+  "serves role":
     $ref: .objectDefs/role
     description: >
       Specifies the role (more precisely the asset serving in the role), that this role is serving. Form example, if the present role is that of a valve, then its client may be a pump.
 
+#========================
+
+  "serves space":
+    $ref: .objectDefs/space
+    description: >
+
+#========================
+
   "role technical requirement description":
     type: string
-    description: >
+    $comment: >
       A free text description of the performance requirements of the role. 
       For example, weight in kg for a lifting device.
-    # Eventually, this should be formalized as properties of the specific role class. For example horsepower for motor class
-    # For now, this can be entered as a free text
-    # AK []: would you like me to move this into individual roles?
+      Eventually, this should be formalized as properties of the specific role class. For example horsepower for motor class
+      # For now, this can be entered as a free text
+      # AK []: would you like me to move this into individual roles?
+
+#========================
   
   "located in space":
     $ref: .objectDefs/space
     track: TRUE
+
+#========================
+  
+  "service address or coordinate":
+    $ref: .IBM_Maximo_object/serviceAddress
+    track: TRUE
+    description: x and y coordinate, or the street address
+
+#========================
 
   "operator group":
     $ref: .IBM_Maximo_object/group
     track: TRUE
     description: group responsible for the operation of the asset, serving in this role
 
-  "service address or coordinate":
-    $ref: .IBM_Maximo_object/serviceAddress
-    track: TRUE
-    description: x and y coordinate, or the street address
+#========================
 
-  "operational criticality":
+  "criticality":
     type: string
     enum:
       - "1"
@@ -93,18 +129,13 @@ type: object
       - "4"
       - "5"
 
-  "hazard criticality":
-    type: string
-    enum:
-      - "1"
-      - "2"
-      - "3"
-      - "4"
-      - "5"
+#========================
   
   "GIS object ID":
     type: string
-    description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link. 
+    description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link.
+
+#========================
 
   ##### compliance #####
 
@@ -125,6 +156,7 @@ type: object
         - parameter name
         - regulatory document and section
 
+#========================
 
   ##### information of retired record #####
 
@@ -132,6 +164,8 @@ type: object
     type: Boolean
     track: TRUE
     hidden: TRUE
+
+#========================
 
   "record retirement reason":
     type: string
@@ -141,27 +175,31 @@ type: object
       - "existing role eliminated"
       - "planned role never realized"
       - "record created by mistake"
+
+
+  "duplicate record of": #should be an array?
+    oneOf: [$ref: .objectDefs/role, type: null]
   
 
   ################################## RULES ##################################
   
-  # 
-  if:
-    oneOf:
-      - roleClass:
-          properties:
-              className:
-                const: "pumping station"
-      - roleClass:
-          properties:
-              className:
-                const: "water treatment plant"
-      - roleClass:
-          properties:
-              className:
-                const: "large chamber"
-  then:
-    required: "GIS object ID"
+  allOf:
+    - if:
+      oneOf:
+        - roleClass:
+            properties:
+                className:
+                  const: "pumping station"
+        - roleClass:
+            properties:
+                className:
+                  const: "water treatment plant"
+        - roleClass:
+            properties:
+                className:
+                  const: "large chamber"
+      then:
+        required: "GIS object ID"
 
 $comment: >
   [ ] Rules and processes to be transcribed from English:

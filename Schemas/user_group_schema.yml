@@ -1,0 +1,16 @@
+title: user group
+$id: objectDefs/userGroup
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+
+"properties":
+
+  "ID":
+    type: string
+    description:
+    
+  "name":
+    type: string
+
+  "location": #should this be service address
+    type: string
