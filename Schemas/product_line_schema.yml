@@ -5,22 +5,30 @@ type: object
 
 properties:
   "complete business name":
+  
   "other common names":
+  
   "former business name":
     type: string
+  
   "parent business":
     $ref: .objectDefs/productMakerBusiness
+  
   "former parent business":
     $ref: .objectDefs/productMakerBusiness
+  
   "former component businesses before the last merger":
     $ref: .objectDefs/productMakerBusiness
   
   "model or product series name":
     type:string
+  
   "maker of model or product series":
     $ref: .objectDefs/productMakerBusiness
+  
   "parent model or product series":
     $ref: .objectDefs/productModel
+  
   "model version or year":
     type:string
 

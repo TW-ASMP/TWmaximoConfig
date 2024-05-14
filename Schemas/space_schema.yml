@@ -27,6 +27,11 @@ properties:
     $ref: .IBM_Maximo_object/classifcationObject
     $comment: >
       see space_classification.md file
+  
+  "service address or coordinate": 
+    oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
+    $comment: this is referencing Maximo's native service address object
+    track: true
 
   "status":
     type: string
@@ -83,3 +88,5 @@ properties:
       - "existing space eliminated"
       - "planned space never realized"
       - "record created by mistake"
+
+  #[]Need to add service address

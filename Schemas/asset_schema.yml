@@ -2,11 +2,27 @@
 # TODO: 
 #   NULL  # allowing the possibility of no knowledgeables, interaction between Status and State, location information rules
 
+$schema: 'http://json-schema.org/draft-07/schema'
+definitions:
+  "condition rating":
+    type: object
+    properties:
+      "rating":
+      "description":
+  "operational criticality rating":
+    type: object
+    properties:
+      "rating":
+      "description":
+  "harm criticality rating":
+    type: object
+    properties:
+      "rating":
+      "description":
+
 title: asset
 $id: ./objectDefs/asset
-$schema: 'http://json-schema.org/draft-07/schema'
 type: object
-
 properties:
   "asset ID":
     type: string
@@ -15,7 +31,7 @@ properties:
       #PROCESS: UUID
         Upon the creation of a new asset record, insert UUID Version 4 value
       #PROCESS: GIS UID
-        Upon the creation of a new asset record brought over from the GIS, use the unique GIS ID.
+        Upn the creation of a new asset record brought over from the TWAG, use the unique TWAG "Facility ID".
       --  
       Notes to TW: 
       - UUID has a distinct advantage over a simple serial number - we do not need a script to check for repetition. For instance, when we are onboarding an asset in GIS, we don't need to check the WMS to see if the ID was already taken.
@@ -44,16 +60,30 @@ properties:
           
         #IN CODE:
           # - This rule is not expressible in standard JSON SCHEMA. If necessary, TW will write custom validation logic.
+#========================
 
-      #PROCESS: 
-        # -  
+  "TWAG asset":
+    type: boolean
+    description: When true, indicates that this record is a copy of an asset record from TWAG. 
 
-          then the value must be typed in by the user. 
+#========================
+
+  "privately owned":
+    type: boolean
+    description: When true, indicate that the asset is either owned a private citizen or a private organization
+    $comment: >
+      
+
+#========================
+
+  "asset owner organization":
+    $ref: .objectDefs/org
+    description: indicates a class to which this asset is an instance
 
 #========================
 
   "asset class":
-    $ref: .IBM_Maximo_object/assetClassificationObject
+    $ref: .objectDefs/assetClassificationObject
     description: indicates a class to which this asset is an instance
   
 #========================
@@ -89,7 +119,7 @@ properties:
         
 #========================
 
-  "status":
+  "physical status":
     type: string
     description: Status indicates whether the asset is present at the City, and more precisely, its working location. It also indicates when the knowledge of the asset's presence is missing (i.e., it is missing or lost).
     track: true
@@ -99,7 +129,7 @@ properties:
       - "installed"
       - "abandoned in place"
       - "removed from possession"
-      - "missing"
+      - "missing" 
       - "lost"
     $comment: >
       This data field is not nullable becauase the lack of knowledge is explicitly expressed as "missing" or "lost", and the non-existence is expressed as "planned" or "removed from possession".
@@ -110,6 +140,7 @@ properties:
         - "abandoned in place"
         - "missing"
         - "lost"
+      5/7/24: Annette changed from "status" to "physical status"
 
 #========================
 
@@ -118,8 +149,8 @@ properties:
     description: Indicates whether the asset is available for doing the work that it is assigned at any moment. Only applies to asset that is assigned to a role, user-group, or user.
     track: true
     enum:
-      - "available (up)"
-      - "unavailable (down)"
+      - "available (up)" # 
+      - "unavailable (down)"  # Temporarily out of service.
       - "not applicable"
     comment: >
       Not applicable is being represented explicitly in the value list, because when we are reporting on equipment uptime, we need to know about the periods in which the operating state is not applicable.
@@ -157,7 +188,7 @@ properties:
   "assigned to user group":
     oneOf: [$ref: .IBM_Maximo_object/group, type: null]
     track: true
-    description: A group of people, such as a facility, work area, or crew to whom the asset is assigned for use.
+    description: A group of people, such as a facility, work area, or crew to whom the asset is assigned for use. Indicates the assignment of asset (usually mobile tools) that does not have a system role.
 
 #------------
 
@@ -166,15 +197,6 @@ properties:
     track: true
     description: Indicates the assignment of asset (usually mobile tools) that does not have a system role.
 
-#------------
-
-  "assigned to vehicle": #considered for addition
-
-#------------
-
-  "assigned to a space": #considered for addition
-
-
 #========================
 
   "maintenance group":
@@ -182,20 +204,15 @@ properties:
     track: true
     $comment: >
       Note to TW: useful for scenario like DOS being the maintenance group of certain TAB assets.
-
-#========================
-  
-  "GIS object ID":
-    oneOf: [type: string, type: null]
-    description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link.
-    $comment: >
-      For asset from the GIS, the value of this property should be the same as the value in the "asset ID" property. However, a record of an asset could be in the WMS already before another record for the same asset came over from the GIS.  The original WMS record could have different values in the "record ID" property and this property.
+      [ ] - For D&C, there may be be multiple groups responsible for different aspects of the asset's maintenance or repair. The groupd that is listed in this field, could be considered as the triage of issue outside what's listed.
 
 #========================
 
   "located in space":
     oneOf: [$ref: .objectDefs/space, type: null]
     track: true
+    $comment: >
+      This also covers the use-case of vehicle assignment of tools.
 
 #========================
 
@@ -211,6 +228,12 @@ properties:
     track: true
     $comment: >
       This property is not meant to be use for specifying the asset hierarchy parent. This property is to be used to express that an asset is a part of a trackable assembly.
+
+#========================
+
+  "condition":
+    oneOf: [$ref: "#/definitions/condition", type: null]
+    track: true
 
 #========================
   
@@ -260,6 +283,12 @@ properties:
 
 #========================
 
+  "applicable requirement":
+    type: array
+    $ref: 
+
+#========================
+
   "record retired":
     type: Boolean
     track: true
@@ -304,7 +333,6 @@ properties:
       - Multiple Major Systems
     $comment: >
       Note that this property is populated automatically, and not available for user to edit. Use-case: asset from the GIS will not be indexed on the hierarchy. The main use of this property is to provide a simple handle term, when one needs to summarize the collection of all assets imported from a certain layer(s) the GIS.
-
   
 ##################################################################################
 # DATA INTEGRITY RULES
@@ -459,24 +487,83 @@ allOf:
 #==========================
 
 $comment: >
-  Rules yet to be expressed:
-    [] - a general requirement to print error messages
-    [] #RULE: if from GIS then populate GeoID
-
-  To do:
-    [] 1) Ask: is there cases in which the asset do not have a role, may be something like a fire door, or a motion sensor, which we are tracking by the space they are in. 2) how should we treat these. 
-    
-  Final Reviews:
+  TASKS:
     [] For every property's enum, make sure their spellings are consistent everything
     [] Review Track: fields
     [] Review NULL assignment
+    [] review .IBM_Maximo_object in object reference
+    [] update the list of required fields to inlcude newly added ones
   
-  Comments from Small Group Reviews
-    April 26 Review:
-      [] How do we name "non-manufactured" assets? 
-        PL: follow what PCS stand is doing. TH: structural asset is the majority and they can be named like a role. 
-      [] reflect condition in the schema
-      [] assigned to a vehicle is missing - this is a satellite storeroom - GI: assign to a certain space (). 
+  =========================================
+
+  OPEN ITEMS:
+
+    [] - Need to incorporate information about ownership from TWAG (whether it is City, private,)
+    
+    [] RULE: check only one asset can be assigned to a role
+    
+    [] RULE: (May 10 Review) rule suggestion: an asset going into storage should not be assigned to any role or any one.
+
+    [] - OPEN ISSUE from Debbie: How to characterized the criticality of a role / asset? (We do not have to unpack all dimensions of criticality, but the dimensions that will influence the planning or work)
+
+    [] - Is there cases in which an installed asset do not have a role, may be something like a fire door, or a motion sensor. One reason that we do not role is that we do not need to track the replacement of these assets. If assets do not have role, we would be tracking them by space are in, the space they serve, or by the group or person that they are assigned to. 
+    
+    
+    [] - Need to have a different set of data entry (i.e. what is nullable) requirement for Linear assets
+
+    [] (April 26 Review) How do we name "non-manufactured" assets? 
+          PL: follow what PCS stand is doing. TH: structural asset is the majority and they can be named like a role. 
+    
+    [] (April 26 Review) reflect condition in the schema
+    
+    [] (April 26 Review) assigned to a vehicle is missing - this is a satellite storeroom
+          ANS: May 6th: TH: I am covering this with the existing property "located in space"
+  
+    [] RULE: a general requirement to print error messages
+
+  ================================================
+
+  REVIEW ITEMS (incl completed open items:):
+    
+    [V] RULE: if from GIS then populate GeoID
+      datafield "TWAG asset" is added for this purpose
+    
+    []
+    
+    [v] I separated "privately owned" as its own datafield, with the intent to avoid the confusion
+    
+    [?] Candice: what does private ownership mean? It is owned by a private citizen or organization or both?
+
+    [?] - OPEN ISSUE from Debbie: Will true “safety” be identified on an asset record (hazards, precautions, loto)?
+      Consider adding the one of the following sub-schema the the asset schema. Note the all fields would be populated by the legislative compliance reasoner.
+        definitions:
+            "EHS requirement (granular version)":
+              type: object
+              properties:
+                "document number":
+                "document name":
+                "document publisher":
+                "document link":
+                "secton name":
+                "section number":
+                "requirement detail":
+                "risk type":
+                  type: string
+                  enum: ["safety", "environmental", "both"]
+                "requirement type":
+                  type: string
+                  enum: ["legislative", "corporate policy", "professional recommendation"]
+            "EHS requirement":
+              type: object
+              properties:
+                "required action":
+                "source of requirement":
+                "risk type":
+                  type: string
+                  enum: ["safety", "environmental", "both"]
+                "requirement type":
+                  type: string
+                  enum: ["legislative", "corporate policy", "professional recommendation"]
 
   
   

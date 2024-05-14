@@ -26,4 +26,6 @@ properties:
 
   "tool":
     type: [boolean, null]
+
+  "can be applied to asset":
     

@@ -29,7 +29,7 @@
     * formal work report
     * system design or redesign
     * PM review and revision
-    * asset record valiation
+    * asset record validation
 * travel
 
 [^1]: at 2023, the vertical facilities will only need to see as far as this level.

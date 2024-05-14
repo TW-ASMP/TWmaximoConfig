@@ -57,6 +57,8 @@ In the content section, asset classes name written in lower case represents a na
         * pipe fitting
         * well
         * valve
+            * TWAS CLASS: sewer network valve
+            * 
         * culvert
         * pump wet well
         * drinking water storage

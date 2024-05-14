@@ -3,5 +3,5 @@
 * space
     * indoor space
     * outdoor space
-    * space inside vehicle
+    * vehicle interior
 * defined collection of spaces

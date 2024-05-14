@@ -79,7 +79,7 @@ type: object
   "serves role":
     $ref: .objectDefs/role
     description: >
-      Specifies the role (more precisely the asset serving in the role), that this role is serving. Form example, if the present role is that of a valve, then its client may be a pump.
+      Specifies the role (more precisely the asset serving in the role), that this role is serving. For example, if the present role is that of a valve, then its client may be a pump.
 
 #========================
 
@@ -207,3 +207,4 @@ $comment: >
     - commissioning date should be written into the record of the asset and the role.
     - certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
     - when a building is removed
+  [ ] Need to add service address, which can be inherited from.

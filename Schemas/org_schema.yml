@@ -1,5 +1,5 @@
-title: user group
-$id: objectDefs/userGroup
+title: organization
+$id: objectDefs/org
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
@@ -11,6 +11,12 @@ type: object
     
   "name":
     type: string
+
+  "parent organization":
+    track: true
+  
+  "leader":
+    track: true
 
   "location": #should this be service address
     type: string
