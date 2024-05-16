@@ -156,6 +156,7 @@ properties:
       Not applicable is being represented explicitly in the value list, because when we are reporting on equipment uptime, we need to know about the periods in which the operating state is not applicable.
     
 #========================
+#Assignment Group
 
   "assignment type":
     type: [string, null]
@@ -207,21 +208,21 @@ properties:
       [ ] - For D&C, there may be be multiple groups responsible for different aspects of the asset's maintenance or repair. The groupd that is listed in this field, could be considered as the triage of issue outside what's listed.
 
 #========================
+#Location Group
 
   "located in space":
     oneOf: [$ref: .objectDefs/space, type: null]
     track: true
     $comment: >
-      This also covers the use-case of vehicle assignment of tools.
-
-#========================
+      This also covers the use-case of vehicle assignment of 
+#------------------
 
   "service address or coordinate": 
     oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
     $comment: this is referencing Maximo's native service address object
     track: true
 
-#========================
+#------------------
   
   "parent assembly":
     oneOf: [$ref: ./objectDefs/asset, type: null]
@@ -475,6 +476,12 @@ allOf:
             "discrete asset role": # property defined in the role schema
               const: true
       errorMessage: "An asset can only occupy a discrete asset role"
+tools.
+
+#==========================
+
+      #RULE:
+          IN COMMON LANGUAGE: once the asset is installed, we must know its location
 
 #==========================
  #RULE:
@@ -528,7 +535,7 @@ $comment: >
     [V] RULE: if from GIS then populate GeoID
       datafield "TWAG asset" is added for this purpose
     
-    []
+    [] 
     
     [v] I separated "privately owned" as its own datafield, with the intent to avoid the confusion
     
