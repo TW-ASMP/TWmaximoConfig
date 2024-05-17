@@ -1,63 +1,41 @@
 # Work Activity Unit Classification
 
-* evaluate
+* observe and evaluate
+    * quick check
     * inspect
-    * check
-    * test & analysis
-* sample or data collection
+    * test and analysis
+* physial sample collection
 * investigate cause
 * repair or service [^1]
-    * calibrated
+    * calibrate
     * clean
     * exercise
     * replace part
-    * flush
-    * etc...
-* replace or move
+* move or replace
     * install
-    * remove / decommission [^2]
-    * move
+    * move [^3]
     * replace
+    * remove from posession [^2]
 * modify
     * setpoint modification
     * physical design modification
 * preparation or safety
     * coordinate or notify
-    * setup or takedown
     * safety preparation
+    * setup
+    * take down of setup
 * informational
     * formal work report
     * system design or redesign
-    * PM review and revision
-    * asset record validation
+    * record validation
+    * information collection
+    * record information revision
 * travel
 
 [^1]: at 2023, the vertical facilities will only need to see as far as this level.
-[^2]: MUST indicate if asset is removed from site or abondoned in place.
+[^2]: must indicate if asset is removed from site or abondoned in place.
+[^3]: should have the option to specify if the asset is being moved into a store
 
-## Work in Progress
-To consider the following proposing for using work processes to manage asset records. 
-    - Process for adding new asset records: all new asset, role, and space records are added and their status set by one of two processes streams
-        - Stream 1 
-          - specification 
-            - process by which we created the record for role or asset
-          - OPTIONAL: approval 
-            - for role or asset
-          - OPTIONAL: receiving 
-            - for asset only; 
-            - (only makes sense if we have robust and transparent inventory and project inventory; set status="in hand / usable")
-          - OPTIONAL: realization 
-            - for asset or space only
-            - set status = "realized"
-          - OPTIONAL: installation 
-            - for asset only 
-            - set status = "in hand / usable"
-          - commmissioning/test
-            - for role-asset together or separately
-            - NOT for space, 
-            - set role status = "realized"
-            - set asset's (either independent or occupying the role) status = "in hand / usable" 
-        - Stream 2
-          - data reconciliation 
-            - (meaning the record is added much later, in a effort to make corrections to reflect the reality)
-      a (series of) work order(s) should be recorded for each processes stream, to collect information on people and other things involved in the processes
+# OPEN ITEMS:
+  [] Need to specify at least one class of activity as a function, which take a certain state of the world S1 (for example, the property of a certain asset) and transforms to another state S2. 
+  [] Specify which parent classes should be selectable

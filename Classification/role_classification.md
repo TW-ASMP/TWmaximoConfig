@@ -1,4 +1,5 @@
 # Top-Level Role Classification
+
 * discrete asset role
     * generator role
         * backup generator
@@ -8,7 +9,7 @@
         * line feeder breaker
         * load breaker
         * tie-breaker
-* defined collection of roles
+* collection of discrete roles
     * facility
         * pumping station
         * water treatment facility
@@ -16,16 +17,21 @@
         * lab
         * yard
     * system
-        * hierarchal system
+        * regionalized system
+        * system on a skid
         * network system
             * industrial control network
-            * eletrical distribution network
-            * material distribution network
-                * water distribution network
-                * water collection network
+            * electrical distribution system
+            * material distribution or collection system
     * system train
     * line
         * simple line
         * main path line
-    * junction/header/flow equalization
-    * route
+    * junction/header
+    * defined set of roles
+
+
+## OPEN AND TODO ITEMS:
+
+    [] only allow certain roles to be chosen
+  

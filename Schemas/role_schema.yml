@@ -6,11 +6,15 @@ type: object
 
 "properties":
 
+  #==========================================================
+  #   Properties Visible on the Record 
+  #==========================================================
+
   "role ID":
     type: string
     description: This is also known as the "tag number", if it is an asset role.
 
-#========================
+  #========================
     
   "role name":
     type: string
@@ -21,13 +25,13 @@ type: object
     description: A description of the role, in terms of its relations to its parent role and the roles that it presently serves
     # MT []: would you like me to move this into individual roles?
 
-#========================
+  #========================
 
   "parent":
     $ref: .objectDefs/role
     description: the parent role
 
-#========================
+  #=======================
 
   "role class":
     $ref: .IBM_Maximo_object/classifcationObject
@@ -42,14 +46,14 @@ type: object
           * emergenecy generator role
           * backup generator role
 
-#========================
+  #========================
   
   "discrete asset role":
     type: boolean
     inferred: true
     $comment: this field is update by the system (i.e., properties.inferred is true). The value is true, if the class value is a sub-class of discrete asset role in the role classification hierarchy. 
 
-#========================
+  #========================
 
   "status":
     type: string
@@ -62,7 +66,7 @@ type: object
       This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
       Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
 
-#========================
+  #========================
 
   "duty standby designation":
     type: 
@@ -74,20 +78,20 @@ type: object
       - "duty assist"
       - "NONE"
 
-#========================
+  #========================
 
   "serves role":
     $ref: .objectDefs/role
     description: >
       Specifies the role (more precisely the asset serving in the role), that this role is serving. For example, if the present role is that of a valve, then its client may be a pump.
 
-#========================
+  #========================
 
   "serves space":
     $ref: .objectDefs/space
     description: >
 
-#========================
+  #========================
 
   "role technical requirement description":
     type: string
@@ -98,27 +102,27 @@ type: object
       # For now, this can be entered as a free text
       # AK []: would you like me to move this into individual roles?
 
-#========================
+  #========================
   
   "located in space":
     $ref: .objectDefs/space
     track: TRUE
 
-#========================
+  #========================
   
   "service address or coordinate":
     $ref: .IBM_Maximo_object/serviceAddress
     track: TRUE
     description: x and y coordinate, or the street address
 
-#========================
+  #========================
 
   "operator group":
-    $ref: .IBM_Maximo_object/group
+    $ref: .objectDefst/group
     track: TRUE
     description: group responsible for the operation of the asset, serving in this role
 
-#========================
+  #========================
 
   "criticality":
     type: string
@@ -129,13 +133,13 @@ type: object
       - "4"
       - "5"
 
-#========================
+  #========================
   
   "GIS object ID":
     type: string
     description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link.
 
-#========================
+  #========================
 
   ##### compliance #####
 
@@ -156,7 +160,7 @@ type: object
         - parameter name
         - regulatory document and section
 
-#========================
+  #========================
 
   ##### information of retired record #####
 
@@ -165,7 +169,7 @@ type: object
     track: TRUE
     hidden: TRUE
 
-#========================
+  #=======================
 
   "record retirement reason":
     type: string
@@ -180,9 +184,14 @@ type: object
   "duplicate record of": #should be an array?
     oneOf: [$ref: .objectDefs/role, type: null]
   
+  #==========================================================
+  #   Background Properties Populated Automatically
+  #==========================================================
 
-  ################################## RULES ##################################
-  
+
+#############################################################
+# 2. DATA INTEGRITY RULES
+#############################################################
   allOf:
     - if:
       oneOf:
@@ -200,11 +209,22 @@ type: object
                   const: "large chamber"
       then:
         required: "GIS object ID"
+  
+  #RULE:
+  # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned to role" property).
+
+
 
 $comment: >
-  [ ] Rules and processes to be transcribed from English:
-    - each role can only be occupied by a single asset
-    - commissioning date should be written into the record of the asset and the role.
-    - certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
-    - when a building is removed
-  [ ] Need to add service address, which can be inherited from.
+  OPEN AND TODO ITEMS:
+    [] explicitly specify an unoccupied asset
+    
+    [] expression of role equivalence
+  
+    [] expression of central role in a system
+  
+    []  - commissioning date should be written into the record of the asset and the role.
+
+    []  - certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
+  
+    [] Discrete asset role cannot be the parent of a collection of roles. 

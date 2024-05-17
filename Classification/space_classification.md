@@ -1,7 +1,7 @@
 # Top-Level Space Classification
 
-* space
+* discrete space
     * indoor space
     * outdoor space
     * vehicle interior
-* defined collection of spaces
+* defined set of spaces
