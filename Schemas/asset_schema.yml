@@ -164,7 +164,8 @@ properties:
     comment: >
       Not applicable is being represented explicitly in the value list, because when we are reporting on equipment uptime, we need to know about the periods in which the operating state is not applicable.
     
-  #========================
+#========================
+#Assignment Group
 
   "assignment type":
     type: [string, null]
@@ -218,22 +219,22 @@ properties:
       In cases in which, multiple internal groups are responsible for the asset's maintenance or repair, the field may contain the higher-level encompassing group, such D&C, instead  D&C-PM or D&C-Central Services. 
 
 
-  #========================
+#========================
+#Location Group
 
   "located in space":
     oneOf: [$ref: .objectDefs/space, type: null]
     track: true
     $comment: >
-      This also covers the use-case of vehicle assignment of tools.
-
-  #========================
+      This also covers the use-case of vehicle assignment of 
+#------------------
 
   "service address or coordinate": 
     oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
     $comment: this is referencing Maximo's native service address object
     track: true
 
-  #========================
+#------------------
   
   "parent assembly":
     oneOf: [$ref: ./objectDefs/asset, type: null]
@@ -487,6 +488,12 @@ allOf:
             "discrete asset role": # property defined in the role schema
               const: true
       errorMessage: "An asset can only occupy a discrete asset role"
+tools.
+
+#==========================
+
+      #RULE:
+          IN COMMON LANGUAGE: once the asset is installed, we must know its location
 
 #==========================
  #RULE:
