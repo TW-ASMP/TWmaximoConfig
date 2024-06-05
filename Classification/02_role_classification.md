@@ -34,4 +34,5 @@
 ## OPEN AND TODO ITEMS:
 
     [] only allow certain roles to be chosen
+    [] Debbie: possible to narrow the selection of a role based on the class chosen? E.g. when breaker is chosen for asset class, then only present breaker roles as the option?
   

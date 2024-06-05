@@ -1,0 +1,23 @@
+title: role classification object
+$id: .IBM_Maximo_object/roleClassificationObject
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+
+properties:
+  "class name":
+    type: string
+  
+  "parent class":
+    $ref: .IBM_Maximo_object/roleClassificationObject
+
+  "class description":
+    type: string
+  
+  "TWONTO IRI":
+    type: string
+
+  "appliable":
+    $comment: if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any role.  e.g. a class named "linear system role"
+  
+  "discrete asset role":
+      $comment: this may seem redundant, but is added in case recursive rules (i.e. asset can only occupy subclasses of discrete asset role) is hard to write in Maximo.

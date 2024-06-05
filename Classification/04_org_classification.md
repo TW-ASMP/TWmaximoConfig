@@ -1,15 +1,15 @@
 # Top-Level Org/Group Classification
 
-* level of government
+* LEVEL OF GOVERNMENT
     * provincial government
     * regional government
     * minicipal government
-* group in the City of Toronto
+* GROUP IN THE CITY
     * cluster
     * division
     * section
     * unit
-    * group in Toronto Water
+    * GROUP IN TORONTO WATER
         * work area
         * crew
 * government agency

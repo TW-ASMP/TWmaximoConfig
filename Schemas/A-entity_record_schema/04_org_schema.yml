@@ -16,7 +16,7 @@ type: object
     track: true
   
   "leader":
-    track: true
+    # do not need "track: true" as this information should be tracked in the metadata DB
 
   "location": #should this be service address
     type: string

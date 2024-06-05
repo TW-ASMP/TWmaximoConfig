@@ -69,25 +69,20 @@ properties:
     $comment: >
       The value private is taken out of asset owner organization datafield because it is possibile and unambiguous to say that an asset is private asset that is located York Region.
 
-  # # OPTION 1  
-  # "asset owner organization":
-  #   type: string
-  #   enum: >
-  #     - City of Toronto
-  #     - Region of Durham
-  #     - York Region
-  #     - Peel Region
-  #     - Province of Ontario
-  #     - Metrolinx
-  #     - TRCA
-  #   description: This value denotes the organization that owns the asset
 
-  # OPTION 2
   "asset owner organization":
     oneOf: [$ref: .objectDefst/group, type: null]  #referring to an object
     description: This value denotes the organization that owns the asset
-    comment: >
-      #RULE: The options presented to the user should be the first level of the organization hierarchy. 
+    $comment: >
+      #RULE:
+       # IN COMMON LANGUAGE:
+        - Preface: the user must be able to view the organization hierarchy and select an entry from the hierarchy. 
+        - Rule Text: the user must see and be able to select organization entries on (a. the first level of the organization hierarchy) AND (b. down the third level of the hierarchy, under the first level entry "City of Toronto")
+
+      # [v] - 5/17: During meeting AK: we will be linking this data field to organization object, instead of a text value. 
+      # [v] - 5/17: During meeting AK: we will likely go down to divisions
+        - #5/30 TH: This had been added as a rule
+        - #TH[]: quick question: why the divisioin level?
 
   #========================
 
@@ -158,14 +153,15 @@ properties:
     description: Indicates whether the asset is available for doing the work that it is assigned at any moment. Only applies to asset that is assigned to a role, user-group, or user.
     track: true
     enum:
-      - "available (up)" # 
-      - "unavailable (down)"  # Temporarily out of service.
+      - "available (up)" 
+      - "unavailable (down)"  
       - "not applicable"
     comment: >
       Not applicable is being represented explicitly in the value list, because when we are reporting on equipment uptime, we need to know about the periods in which the operating state is not applicable.
     
-#========================
-#Assignment Group
+
+  #Assignment Group
+  #========================
 
   "assignment type":
     type: [string, null]
@@ -218,55 +214,59 @@ properties:
       Note that a contractor is usually not a valid value in this field. Instead, the field should contain an owner's group, responsible for planning, arranging, overseeing the contractor's work.  An contractor could be a valid, however, it is responsible for all of the functions above.
       In cases in which, multiple internal groups are responsible for the asset's maintenance or repair, the field may contain the higher-level encompassing group, such D&C, instead  D&C-PM or D&C-Central Services. 
 
+  #Location Group of Properties
+  #========================
 
-#========================
-#Location Group
 
   "located in space":
     oneOf: [$ref: .objectDefs/space, type: null]
     track: true
     $comment: >
       This also covers the use-case of vehicle assignment of 
-#------------------
+  #------------------
 
   "service address or coordinate": 
     oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
-    $comment: this is referencing Maximo's native service address object
     track: true
+    $comment: >
+      this is referencing Maximo's native service address object
+      [] 5/17: Still need to understand the current use-case better. Review the BRD requirement, and review what information can be added on the service address object in Maximo
 
-#------------------
+  #------------------
   
   "parent assembly":
     oneOf: [$ref: ./objectDefs/asset, type: null]
     track: true
     description: >
-      The value in this property denotes the larger asset, to which this asset is a part of. NOTE: this property is not meant to be used for specifying the system hierarchy parent. That property is found on the role record, not the asset record. 
+      The value in this property denotes the larger discrete asset, to which this asset is a part of.  NOTE: this property is not meant to be used for specifying the system hierarchy parent. That property is found on the role record, not the asset record. 
+    $comment: >
+      This field is commonly used when the asset is a part of a skid, structural tank, or switchgear cabinet, in which the asset parent in the system hierarchy should be the line entity. As such we will using this field to track that the asset is also a part of a phyical assembly.  We would also be using this field to capture a serialized rotating component as a part of another discrete asset.
 
-  #========================
-
-  "condition":
-    oneOf: [$ref: "#/definitions/condition", type: null]
-    track: true
+      [v] 5/17 in all day review meeting: Review if this should be removd. I forgot the justification for this one.
+        ANS: no this field should be left alone. Description for the field is updated. 
 
   #========================
   
-  "delivered under project":
+  "construction contract number":
     type: [string, null]
-    description: the project ID
+    description: The construction contract number assigned by Toronto Water
+    # [V] 5/17:this should be the contract number. Ans: renamed to construction contract number
 
   #========================
 
-  "first day of operation":
+  "commissioning date":
     type: [string, null]
-    description: The date that asset started to perform useful work for Toronto Water, regardless of whether it is being operated by Toronto Water or a contractor
+    #[]5/17: need to consider when this date becomes mandatory.
+
 
   #========================
 
-  "year built":
-    type: [number, null]
-    description: the year the asset was made
-    $comment: > 
-      This is needed to determine the model year of certain asset.
+  # "year built":
+  #   type: [number, null]
+  #   description: the year the asset was made
+  #   $comment: > 
+  #     This is needed to determine the model year of certain asset.
+  #     [V] 5/17 meeting: will remove this field because the burden it present. Will use the installation date to infer the model year. 
   
   #========================
 
@@ -280,9 +280,10 @@ properties:
     type: [string, null]
     description: The serial number, affixed on the asset, designated by the manufacturer.
   
-  "does not have a OEM serial?":
-    type: [boolean, null]
-    $comment: If the serial number is missing, this piece of information qualifies the reason - whether the serial number is not present on the asset (true value) or we don't know (null value)
+  # "does not have a OEM serial?":
+  #   type: [boolean, null]
+  #   $comment: If the serial number is missing, this piece of information qualifies the reason - whether the serial number is not present on the asset (true value) or we don't know (null value)
+  #   # [V] 5/17: decided to remove this field. Instead we need to set a rule for what defined classes of assets that require serial number. Within this set, it is very unlikely that they won't have a serial.  
 
   #========================
 
@@ -298,6 +299,11 @@ properties:
 
   "asset photos":
     type: array
+    items:
+      oneOf: >
+        - string
+          "contentMediaType": "image/png"
+        - type: null
 
   #========================
 
@@ -313,8 +319,8 @@ properties:
     hidden: true
     track: true
     enum: >
-      - "existing asset removed"
       - "missing asset confirmed as lost"
+      - "existing asset removed"
       - "planned asset never received"
       - "record created by mistake"
       - "duplicate record"
@@ -323,18 +329,21 @@ properties:
         If the user selects "deplicate record", before committing the value, ask the user to enter the value for "duplicate record of" property. 
       --
       11/14/23: While most of these reasons mirror the the states of the record. "record created by mistake" does not.  When this value is selected, we are saying that the record does not reflect a asset, existent, past, or planned. 
-      04/10/24: 
+      
+      [] 05/17: Does Debbie know if Maximo has a list of built in reasons?
+      [] 05/17:  Rule is missing to tie this to physical status.
+
+
+#==========================================================
+#   Background Properties Populated Automatically
+#==========================================================
 
   "duplicate record of":
     type: array
     items:
       oneOf: [$ref: .objectDefs/asset, type: null]
 
-#==========================================================
-#   Background Properties Populated Automatically
-#==========================================================
-
-  "major TW asset group":
+  "TW Asset Group":
     type: [string, null]
     invisible: true
     inferred: true
@@ -347,6 +356,17 @@ properties:
       - Multiple Major Systems
     $comment: >
       Note that this property is populated automatically, and not available for user to edit. Use-case: asset from the GIS will not be indexed on the hierarchy. The main use of this property is to provide a simple handle term, when one needs to summarize the collection of all assets imported from a certain layer(s) the GIS.
+      
+  
+    #========================
+
+  "condition":
+    oneOf: [$ref: "#/definitions/condition", type: null]
+    track: true
+    $comment: >
+      [] 5/17: Note during meeting: This field on the overall condition of the asset is parked for addition. The focus will be to collect condition from individual observations. When will add this field when there is a use-case for driving work related ativities. 
+      The same discussion for "performance"
+
   
 #############################################################
 # 2. DATA INTEGRITY RULES
@@ -360,7 +380,6 @@ allOf:
   #RULE bOqnNS:
   # IN COMMON LANGUAGE: If the asset is a manufactured asset, then the information on product and OEM serial is required.
    # IN CODE:
-
   - if:
       properties:
         "manufactured asset":
@@ -488,12 +507,11 @@ allOf:
             "discrete asset role": # property defined in the role schema
               const: true
       errorMessage: "An asset can only occupy a discrete asset role"
-tools.
 
 #==========================
 
-      #RULE:
-          IN COMMON LANGUAGE: once the asset is installed, we must know its location
+#RULE:
+  # IN COMMON LANGUAGE: once the asset is installed, we must know its location
 
 #==========================
  #RULE:
@@ -540,15 +558,16 @@ $comment: >
   =========================================
 
   OPEN AND TODO ITEMS:
-    [] - RULE bOqnNS may be incorrect: for smaller assets, we may not need mfr or serial, but we may still need the asset record to keep track of condition.
-
-    [] - specify field photos
+    [] - RULE bOqnNS this may be incorrect: for smaller assets, we may not need mfr or serial, but we may still need the asset record to keep track of condition.
 
     [] - rule on location inheritance from role
 
+    [] - rule Every manufactured asset in Maximo must have manufacturer-make-and-model information. (Even a 3 inch valve. This is however, not the case for assets) 
+      Rule endorsed by AK and PL on 5/24
+
     [] - OPEN ISSUE from Debbie: How to characterized the criticality of a role / asset? (We do not have to unpack all dimensions of criticality, but the dimensions that will influence the planning or work)
 
-    [] - Is there cases in which an installed asset do not have a role, may be something like a fire door, or a motion sensor. One reason that we do not role is that we do not need to track the replacement of these assets. If assets do not have role, we would be tracking them by space are in, the space they serve, or by the group or person that they are assigned to. 
+    [] - Is there cases in which an installed asset do not have a role, may be something like a door, or a motion sensor - i.e. small but not legislative. One reason that we do not need a role is that we do not need to track the replacement of these assets. If assets do not have role, we would be tracking them by space are in, the space they serve, or by the group or person that they are assigned to. 
     
     [] - Need to have a different set of data entry (i.e. what is nullable) requirement for Linear assets
     
@@ -562,6 +581,9 @@ $comment: >
   ================================================
 
   REVIEW ITEMS (incl completed open items:):
+    
+    [v] - specify field photos
+      AK also supports this
 
     [N/A] Discussion intention: 
       - for the implementation, we need to fully realize at least one type of activity as a transaction (or pure function) that changes the state of a property of a record. I suggest configuring the following:
@@ -595,7 +617,7 @@ $comment: >
             Do we need to have the year in which it is constructed. I think so, in reporting, it helps to identify the identify of the asset, among a series in history serving in the same role. 
 
     [?] - OPEN ISSUE from Debbie: Will true “safety” be identified on an asset record (hazards, precautions, loto)?
-      Consider adding the one of the following sub-schema the the asset schema. Note the all fields would be populated by the legislative compliance reasoner.
+      Consider adding the one of the following sub-schema to the asset schema. Note the all fields would be populated by the legislative compliance reasoner.
         definitions:
             "EHS requirement (granular version)":
               type: object

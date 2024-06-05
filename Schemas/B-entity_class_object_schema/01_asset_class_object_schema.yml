@@ -18,6 +18,9 @@ properties:
   "TWONTO IRI":
     type: string
 
+  "appliable":
+    $comment: if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any asset.  e.g. a class named "linear system asset" 
+
   "manufactured asset":
     type: [boolean, null]
 
@@ -27,5 +30,4 @@ properties:
   "tool":
     type: [boolean, null]
 
-  "can be applied to asset":
     

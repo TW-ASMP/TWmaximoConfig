@@ -1,5 +1,3 @@
-WORK IN PROGRESS - for idea demonstration purpose only
-
 * Region of Durham
 * York Region
 * Peel Region
@@ -9,12 +7,10 @@ WORK IN PROGRESS - for idea demonstration purpose only
 * City of Toronto
     * Toronto Water
         * Distribution & Collection Section
+            * DOS
+            * WASP
             * Central Services
-                * Crew x
-                * Crew y
             * Program Maintenance
-                * Crew u
-                * Crew v
         * Water Treatment & Supply Section
         * Wastewater Treatment Section
             * Ashbridge's Bay Wastewater Treatment Plant

@@ -14,6 +14,8 @@
 	- Yards
 	- Independent Buildings
 
+# [] 5/17 AK: Erosion control structures do not have a proper category. 
+
 
 ## The Significance in the Usage of Plurals
 - Where a plural noun is used. For example: Drinking Water Treatment Plants, the entity represents a set of things. In the case of the example - the set of drinkin water treatment plants in TW. 

@@ -46,12 +46,6 @@ type: object
           * emergenecy generator role
           * backup generator role
 
-  #========================
-  
-  "discrete asset role":
-    type: boolean
-    inferred: true
-    $comment: this field is update by the system (i.e., properties.inferred is true). The value is true, if the class value is a sub-class of discrete asset role in the role classification hierarchy. 
 
   #========================
 
@@ -60,11 +54,12 @@ type: object
     track: TRUE
     enum:
       - "specified"
-      - "realized"
+      - "realized" #should it be "active"
       - "eliminated"
     $comment: >
       This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
       Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
+      [] - how should we handled naming of retired roles? Automatically.
 
   #========================
 
@@ -77,6 +72,7 @@ type: object
       - "standby"
       - "duty assist"
       - "NONE"
+      #[] - Work with Peter to get the new values.
 
   #========================
 
@@ -217,8 +213,9 @@ type: object
 
 $comment: >
   OPEN AND TODO ITEMS:
+    [] To have discussion on what we put in for criticality
     [] explicitly specify an unoccupied asset
-    
+
     [] expression of role equivalence
   
     [] expression of central role in a system
