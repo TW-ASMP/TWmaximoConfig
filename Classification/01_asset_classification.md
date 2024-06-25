@@ -4,4 +4,3 @@
 >
 > To view the contents of the file as a hierarchy, save it to you computer, and open it with the desktop version of [Stanford Protege](https://protege.stanford.edu/software.php).
 
-The file can be found at https://webprotege.stanford.edu/#projects/d8ba5c4d-7173-4fc5-92b3-16c09dabdb34/edit/Classes

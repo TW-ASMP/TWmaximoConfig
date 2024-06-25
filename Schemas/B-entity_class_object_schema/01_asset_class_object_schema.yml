@@ -8,18 +8,22 @@ type: object
 properties:
   "class name":
     type: string
+
+  "class name synonyms":
   
   "parent class":
     $ref: .IBM_Maximo_object/assetClassificationObject
 
   "class description":
     type: string
-  
-  "TWONTO IRI":
+      
+  "TW IRI":
     type: string
-
+    
   "appliable":
-    $comment: if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any asset.  e.g. a class named "linear system asset" 
+    type: boolean
+    $comment: >
+      if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any asset.  e.g. a class named "linear system asset" 
 
   "manufactured asset":
     type: [boolean, null]
@@ -29,5 +33,15 @@ properties:
 
   "tool":
     type: [boolean, null]
+
+  "retired":
+    type: boolean
+    $comment: >
+      []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 
+
+  $comment: >
+    Comm[] added 06/07: 
+      - [] with Debbie: removal of TW IRI, we keep track of the primary key of the classification object in the datahub instead. 
+      
 
     

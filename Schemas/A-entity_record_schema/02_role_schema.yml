@@ -32,7 +32,7 @@ type: object
     description: the parent role
 
   #=======================
-
+  
   "role class":
     $ref: .IBM_Maximo_object/classifcationObject
     description: this field specifies the class of asset that is suppose to occupy this role
@@ -46,6 +46,16 @@ type: object
           * emergenecy generator role
           * backup generator role
 
+  #========================
+
+  "inferred class":
+    type: array
+    items:
+      oneOf: [type: string, type: null]
+    $comment: >
+      This field will be populated by a rule processor, either inside Maximo, or operating outside with integration to Maximo. The values are strings, instead of a classification object, because the inferred classes will not be in Maximos asset classfication. It is only found in the ontology. An example of the inferred class is "high pressure boiler". 
+      
+      #[]REQ 41Vru1Rrxe: This data field should be visible to the users, but should not be editable by the user
 
   #========================
 
@@ -54,12 +64,18 @@ type: object
     track: TRUE
     enum:
       - "specified"
-      - "realized" #should it be "active"
+      - "active"
       - "eliminated"
     $comment: >
-      This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the it have been contructed - i.e. "realized".
-      Note that an "eliminated" role should be removed from the hierarchy, and should not be visible for users conducting maintenance, reliability, planning and scheduling functions. 
-      [] - how should we handled naming of retired roles? Automatically.
+      This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the role have been contructed and "realized".
+      
+      #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the decendents of the role in the hierarachy must also be eliminated. 
+        comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
+
+      #[]RULE VygDC0Frxl: When a role is "eliminated", it must no longer be visible in any view of the role hierarchy. (Its entire branch must not be available either, because all of its decendents would be eliminated as well.)
+        []Review with To ASMP: with this rule, we no longer need to have a hierarchy branched for retired roles.   
+
+      #[]RULE EkP5qy5Sxl: If change auditing cannot be turned on, then when a role record status is "eliminated", all the specification in the record's datafields must be frozen.
 
   #========================
 
@@ -70,22 +86,7 @@ type: object
     enum:
       - "duty"
       - "standby"
-      - "duty assist"
       - "NONE"
-      #[] - Work with Peter to get the new values.
-
-  #========================
-
-  "serves role":
-    $ref: .objectDefs/role
-    description: >
-      Specifies the role (more precisely the asset serving in the role), that this role is serving. For example, if the present role is that of a valve, then its client may be a pump.
-
-  #========================
-
-  "serves space":
-    $ref: .objectDefs/space
-    description: >
 
   #========================
 
@@ -94,29 +95,44 @@ type: object
     $comment: >
       A free text description of the performance requirements of the role. 
       For example, weight in kg for a lifting device.
-      Eventually, this should be formalized as properties of the specific role class. For example horsepower for motor class
-      # For now, this can be entered as a free text
-      # AK []: would you like me to move this into individual roles?
+      Eventually, this information should be replaced by formalized properties associated with specific role class. For example horsepower for motor class role, there would be a requirement a minimum amount of horsepower or torque. 
 
   #========================
   
   "located in space":
-    $ref: .objectDefs/space
+    oneOf: [$ref: .objectDefs/space, type: null]
     track: TRUE
 
   #========================
   
   "service address or coordinate":
-    $ref: .IBM_Maximo_object/serviceAddress
+    oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
     track: TRUE
     description: x and y coordinate, or the street address
 
   #========================
 
   "operator group":
-    $ref: .objectDefst/group
+    oneOf: [$ref: .objectDefs/group, type: null]
     track: TRUE
     description: group responsible for the operation of the asset, serving in this role
+    $comment: >
+      []RULE EJ6sBXhBlx: #process
+        name: Option to Apply Same Value to Decendent Roles
+        description: When a operator group value is specified in a role, the user must be given the option to replicate the same specification in the records of all decendents of the roles in hierarchy. 
+  
+  #========================
+
+  "maintenance group":
+    oneOf: [$ref: .objectDefs/group, type: null]
+    track: true
+    description: >
+      The value in this field denotes the group responsible for the overall maintenance of the asset in the role. For example, a Work Area that is responsible for the preventive maintenance and reactive maintenance (i.e., repair) of a given asset (and the larger system that contains the asset). 
+    $comment: >  
+      See RULE N1dcgm2Bgx
+      []RULE NkqbmQnHgl: #process
+        name: Option to Apply Same Value to Decendent Roles
+        description: When a maintenance group value is specified in a role, the user must be given the option to replicate the same specification in the records of all decendents of the roles in hierarchy. 
 
   #========================
 
@@ -139,22 +155,20 @@ type: object
 
   ##### compliance #####
 
-  role guarantees regulated parameter:
-    type: Boolean
-  
-  "regulated parameter(s)":
-    type: array
-    items:
-      title: documented regulated parameter
-      type: object
-      properties:
-        parameter name:
-          type: string
-        regulatory document and section:
-          type: array
-      required:
-        - parameter name
-        - regulatory document and section
+  "Highest known EHS or quality requirement level":
+    type: string
+    enum:
+      - legislative
+      - corporate policy
+      - professional recommendation
+
+  "EHS or quality requirement detail":
+    type: string
+    $comment: >
+      The contents of this field can be update manually, it can also be populated by an external application through an API. The content will likely take the following shape:
+        "required action":
+        "source of requirement":
+        "risk type":
 
   #========================
 
@@ -206,22 +220,18 @@ type: object
       then:
         required: "GIS object ID"
   
-  #RULE:
+  #[]RULE:
   # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned to role" property).
 
 
 
 $comment: >
   OPEN AND TODO ITEMS:
-    [] To have discussion on what we put in for criticality
+    [x] To have discussion on what we put in for criticality
     [] explicitly specify an unoccupied asset
 
     [] expression of role equivalence
   
     [] expression of central role in a system
-  
-    []  - commissioning date should be written into the record of the asset and the role.
 
-    []  - certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
-  
-    [] Discrete asset role cannot be the parent of a collection of roles. 
+    [] certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles

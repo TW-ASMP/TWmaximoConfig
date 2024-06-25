@@ -27,6 +27,15 @@ properties:
     $ref: .IBM_Maximo_object/classifcationObject
     $comment: >
       see space_classification.md file
+
+  "inferred class":
+    type: array
+    items:
+      oneOf: [type: string, type: null]
+    $comment: >
+      This field will be populated by a rule processor, either inside Maximo, or operating outside with integration to Maximo. The value will be a string, instead of a classification object, because the inferred classes will not be in Maximos asset classfication. (It is only found in the ontology.)
+      
+      #[]REQ 41Vru1Rrxe: This data field should be visible to the users, but should not be editable by the user
   
   "service address or coordinate": 
     oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]

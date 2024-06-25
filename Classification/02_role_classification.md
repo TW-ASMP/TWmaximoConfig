@@ -1,38 +1,40 @@
-# Top-Level Role Classification
+## Top-Level Role Classification
 
-* discrete asset role
+* Discrete Asset Role*
     * generator role
-        * backup generator
-        * emergency generator
+        * backup generator role
+        * emergency generator role
     * breaker role
-        * bus feeder breaker
-        * line feeder breaker
-        * load breaker
-        * tie-breaker
-* collection of discrete roles
-    * facility
-        * pumping station
-        * water treatment facility
-        * wastewater treatment facility
-        * lab
-        * yard
-    * system
-        * regionalized system
-        * system on a skid
-        * network system
-            * industrial control network
-            * electrical distribution system
-            * material distribution or collection system
-    * system train
-    * line
-        * simple line
-        * main path line
-    * junction/header
-    * defined set of roles
+        * bus feeder breaker role
+        * line protection breaker role
+        * load breaker role
+        * tie-breaker role
+* Collection of Assets role*
+    * functional structural role
+        * facility role
+            * pumping station role
+            * water treatment facility role
+            * wastewater treatment facility role
+            * lab role
+            * yard role
+        * system block role
+        * system train role
+        * Linear Functional Structure Role*
+            * line role
+                * simple line role
+                * primary path line role
+            * junction role
+    * Defined Set of Roles*
+        * defined set of discrete asset roles
+        * defined set of functional structure roles
 
 
-## OPEN AND TODO ITEMS:
+## Requirements for Implementer
 
-    [] only allow certain roles to be chosen
-    [] Debbie: possible to narrow the selection of a role based on the class chosen? E.g. when breaker is chosen for asset class, then only present breaker roles as the option?
-  
+* []REQ Nyh7RPjEgl #IMP "classes names specified in title-case and with an asterik symbol shall have the appliable property, found in the class object, set to false"
+
+## Notes
+
+* []TODO #TW: the following should be moved to the asset classification. 
+    * system on a skid 
+    * system of standardized modular parts

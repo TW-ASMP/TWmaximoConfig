@@ -7,20 +7,21 @@ properties:
   "class name":
     type: string
   
+  "class name synonyms":
+  
   "parent class":
     $ref: .IBM_Maximo_object/AWU_classificationObject
 
   "class description":
     type: string
   
-  "TWONTO IRI":
+  "TW IRI":
     type: string
-
+    
   "appliable":
     $comment: if false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any work unit.
 
-  "work on asset":
-    $comment: if true,
-
-  "work on asset information":
-    $comment: if true, ...
+  "retired":
+    type: boolean
+    $comment: >
+      []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 

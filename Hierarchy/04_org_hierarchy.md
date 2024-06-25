@@ -1,3 +1,7 @@
+# Organizations in TW and Interact with TW
+
+## The Hierarchy
+
 * Region of Durham
 * York Region
 * Peel Region
@@ -18,3 +22,5 @@
                 * Work Area 1
                 * Work Area 2
             
+## Notes
+* the portion of this hierarchy under Toronto Water is not complete; it will be completed before Phase 3 of implementation is complete. 

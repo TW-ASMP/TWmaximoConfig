@@ -7,6 +7,8 @@ properties:
 
   "item type":
 
+  "asset classification":
+
   "manufacturer business name":
 
   "other common business names":
@@ -15,9 +17,6 @@ properties:
   "parent business":
     #nullable
     $ref: .objectDefs/productMakerBusiness
-
-  "IRI":
-    #nullable
 
   "product series and model name":
     type: string
@@ -38,8 +37,6 @@ properties:
   "spares and parts doc":
 
   "product specification doc":
-
-
 
   required: 
     "model or product series name"
