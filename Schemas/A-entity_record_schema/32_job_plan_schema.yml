@@ -1,0 +1,19 @@
+  
+  
+  #========================
+    ##### compliance #####
+
+  "Highest known EHS or quality requirement level":
+    type: string
+    enum:
+      - legislative
+      - corporate policy
+      - professional recommendation  
+
+  "EHS or quality requirement detail":
+    type: string
+    $comment: |
+      The contents of this field can be update manually, it can also be populated by an external application through an API. The content will likely take the following shape:
+        "required action":
+        "source of requirement":
+        "risk type":

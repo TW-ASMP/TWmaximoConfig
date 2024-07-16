@@ -19,27 +19,29 @@ properties:
       
   "TW IRI":
     type: string
-    
+
   "appliable":
     type: boolean
-    $comment: >
+    $comment: |
       if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any asset.  e.g. a class named "linear system asset" 
 
   "manufactured asset":
     type: [boolean, null]
 
-  "mobile asset":
-    type: [boolean, null]
-
   "tool":
     type: [boolean, null]
 
+  "mobile tool":
+    type: [boolean, null]
+
+   # 6/25: [] clarify the definition of tools again
+
   "retired":
     type: boolean
-    $comment: >
+    $comment: |
       []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 
 
-  $comment: >
+  $comment: |
     Comm[] added 06/07: 
       - [] with Debbie: removal of TW IRI, we keep track of the primary key of the classification object in the datahub instead. 
       

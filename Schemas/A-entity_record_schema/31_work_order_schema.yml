@@ -1,4 +1,4 @@
-    $comment: >
+    $comment: |
       WORK IN PROGRESS
       ususally WO are issued against roles, but it must also be easy to issued against tools other rotating assets (even if they are in storage)
       - Cannot issue work order to an asset unless it's status is "in hand / usable" or "abondoned in place"

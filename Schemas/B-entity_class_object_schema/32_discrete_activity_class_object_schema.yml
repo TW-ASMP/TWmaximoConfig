@@ -23,5 +23,5 @@ properties:
 
   "retired":
     type: boolean
-    $comment: >
+    $comment: |
       []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 

@@ -1,0 +1,33 @@
+title: role classification object
+$id: .IBM_Maximo_object/orgClassificationObject
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+
+properties:
+  "class name":
+    type: string
+  
+  "class name synonyms":
+  
+  "parent class":
+    $ref: .IBM_Maximo_object/orgClassificationObject
+
+  "class description":
+    type: string
+
+  "TW IRI":
+    type: string
+
+  "appliable":
+    $comment: if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any role.  e.g. a class named "linear system role"
+  
+  "retired":
+    type: boolean
+    $comment: |
+      []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 
+
+  "group type":
+    type: string
+    enum: >
+      - operational
+      - support

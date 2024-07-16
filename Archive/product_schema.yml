@@ -5,7 +5,7 @@ type: object
 properties:
   "manufacturer":
     $ref: MXobject_organization
-    $comment: >
+    $comment: |
       []Debbie: should organization be used here?
   
   "model":

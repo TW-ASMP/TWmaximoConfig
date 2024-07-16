@@ -16,9 +16,10 @@ properties:
     type: string
 
   "TW IRI":
+    type: string
   
   "compatible occupant classes":
-    $comment: >
+    $comment: |
       []RULE NJQ6BwsVee: A asset must be an instance of one of classes listed in this field to be allowed to occupy a role under this class. 
 
   "appliable":
@@ -30,6 +31,9 @@ properties:
   
   "retired":
     type: boolean
-    $comment: >
+    $comment: |
       []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 
+  
+  $comment: |
+    [] - GI: in the UI for class selection, it would be nice to see the parent class.
   

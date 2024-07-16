@@ -17,3 +17,13 @@ When we remove an asset record, we need to set the value reason for removal. The
       - "record created by mistake"*
       - "duplicate record"*
 If the record is a duplication of other record, it must be specified
+
+When we remove an role record, we need to set the value reason for removal. These can come from "record retirement reason", formally on the asset specification
+    enum:
+      - "existing role eliminated"
+      - "planned role never realized"
+      - "record created by mistake"
+
+
+  "duplicate record of": #should be an array?
+    oneOf: [$ref: .objectDefs/role, type: null]

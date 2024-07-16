@@ -9,24 +9,25 @@
         * line protection breaker role
         * load breaker role
         * tie-breaker role
-* Collection of Assets role*
-    * functional structural role
-        * facility role
-            * pumping station role
-            * water treatment facility role
-            * wastewater treatment facility role
-            * lab role
-            * yard role
-        * system block role
-        * system train role
+* Collection of Assets Role*
+    * functional structure role
+        * system block
+        * facility
+            * pumping station
+            * water treatment facility
+            * wastewater treatment facility
+            * lab
+            * yard
+        * process
         * Linear Functional Structure Role*
+            * system train role 
             * line role
                 * simple line role
                 * primary path line role
             * junction role
     * Defined Set of Roles*
-        * defined set of discrete asset roles
-        * defined set of functional structure roles
+        * defined set of discrete assets
+        * defined set of functional structures
 
 
 ## Requirements for Implementer

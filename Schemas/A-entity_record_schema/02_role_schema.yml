@@ -4,131 +4,112 @@ $id: objectDefs/role
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
-"properties":
+properties:
 
   #==========================================================
   #   Properties Visible on the Record 
   #==========================================================
 
-  "role ID":
+  role ID:
     type: string
-    description: This is also known as the "tag number", if it is an asset role.
+    description: Also known as the "tag number" or "entity number" in Avantis's vocabulary. (Avantis is the a WMS).
+    #[] to do role ID for pumping stations an chambers will be from the GIS. 
+    TW_rule: 
+      - name: ID of Linear Assets Represented as Role in Maximo
+        id: Vku-67dDxx
+        type: triggered action
+        trigger description: replication creation of assetY record from the TWAG
+        action description: apply Facility ID from TWAG as asset ID 
+        rule implementation status: false
 
   #========================
     
-  "role name":
+  role name:
     type: string
-    const: >
+    description: A structured and ideally unique description of the role.
+    const: > #[]
       ${properties."role class".properties."class name"};
       childOf: ${properties."parent entity".properties."role number"};
       serving: ${properties."client role served".properties."role number"};
-    description: A description of the role, in terms of its relations to its parent role and the roles that it presently serves
     # MT []: would you like me to move this into individual roles?
 
   #========================
 
-  "parent":
+  parent:
     $ref: .objectDefs/role
-    description: the parent role
+    description: References the role that is served by the larger asset, which physically subsumes the asset serving this role.
 
   #=======================
   
-  "role class":
+  role class:
     $ref: .IBM_Maximo_object/classifcationObject
-    description: this field specifies the class of asset that is suppose to occupy this role
-    $comment: >
-      this field allow the user to specify what the equipment does in the system instead of what the equipment is. For example, for generators, instead of 
-        * generator
-          * diesel generator
-          * natural gas generator
-      we would have
-        * generator role
-          * emergenecy generator role
-          * backup generator role
+    description: The role class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
   #========================
 
-  "inferred class":
-    type: array
+  inferred class names:
+    oneOf: [type: null, type: array]
     items:
-      oneOf: [type: string, type: null]
-    $comment: >
-      This field will be populated by a rule processor, either inside Maximo, or operating outside with integration to Maximo. The values are strings, instead of a classification object, because the inferred classes will not be in Maximos asset classfication. It is only found in the ontology. An example of the inferred class is "high pressure boiler". 
-      
+      type: string
+    description: Additional role class memberships inferred through a reasoning process.
+    TW_rule: |
       #[]REQ 41Vru1Rrxe: This data field should be visible to the users, but should not be editable by the user
-
+    $comment: |
+      This field will be populated by a rule processor, either inside Maximo or operating outside with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification. It is only found in the ontology. 
+      
   #========================
 
-  "status":
+  status:
     type: string
-    track: TRUE
     enum:
-      - "specified"
-      - "active"
-      - "eliminated"
-    $comment: >
-      This field allows the user to specify whether the role is merely a concept in the design stage -i.e., equivalent to "planned" for assets, or whether the system around the role and supports for asset occupying the role have been contructed and "realized".
-      
+      - specified
+      - active
+      - eliminated
+    description: This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
+    TW_rule: |
       #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the decendents of the role in the hierarachy must also be eliminated. 
-        comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
-
+        $comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
       #[]RULE VygDC0Frxl: When a role is "eliminated", it must no longer be visible in any view of the role hierarchy. (Its entire branch must not be available either, because all of its decendents would be eliminated as well.)
         []Review with To ASMP: with this rule, we no longer need to have a hierarchy branched for retired roles.   
-
       #[]RULE EkP5qy5Sxl: If change auditing cannot be turned on, then when a role record status is "eliminated", all the specification in the record's datafields must be frozen.
 
   #========================
 
-  "duty standby designation":
-    type: 
-      - string
-      - NULL
-    enum:
-      - "duty"
-      - "standby"
-      - "NONE"
-
-  #========================
-
-  "role technical requirement description":
+  role technical requirement description:
     type: string
-    $comment: >
-      A free text description of the performance requirements of the role. 
-      For example, weight in kg for a lifting device.
-      Eventually, this information should be replaced by formalized properties associated with specific role class. For example horsepower for motor class role, there would be a requirement a minimum amount of horsepower or torque. 
+    description: A free text description of the role's performance requirements that must be satisfied by the asset. For example, the lifting capacity in kilograms for a crane.
+    $comment: |
+      Eventually, this information should be replaced by formalized properties associated with specific role classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
 
   #========================
   
-  "located in space":
+  located in space:
     oneOf: [$ref: .objectDefs/space, type: null]
-    track: TRUE
+    description: References the space in which the asset serving the role would be installed.
 
   #========================
   
-  "service address or coordinate":
+  service address or coordinate:
     oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
-    track: TRUE
-    description: x and y coordinate, or the street address
+    description: A geo-coordinate or the nearest street address of the asset.
 
   #========================
 
-  "operator group":
+  operator group:
     oneOf: [$ref: .objectDefs/group, type: null]
-    track: TRUE
-    description: group responsible for the operation of the asset, serving in this role
-    $comment: >
+    description: Group responsible for the operation of the asset serving in this role.
+    TW_rule: |
       []RULE EJ6sBXhBlx: #process
         name: Option to Apply Same Value to Decendent Roles
         description: When a operator group value is specified in a role, the user must be given the option to replicate the same specification in the records of all decendents of the roles in hierarchy. 
   
   #========================
 
-  "maintenance group":
+  maintenance group:
     oneOf: [$ref: .objectDefs/group, type: null]
-    track: true
     description: >
-      The value in this field denotes the group responsible for the overall maintenance of the asset in the role. For example, a Work Area that is responsible for the preventive maintenance and reactive maintenance (i.e., repair) of a given asset (and the larger system that contains the asset). 
-    $comment: >  
+      Group responsible for the preventive and reactive maintenance of the asset in the role. For example, a unit, work area, or crew. 
+    TW_rule: |  
       See RULE N1dcgm2Bgx
       []RULE NkqbmQnHgl: #process
         name: Option to Apply Same Value to Decendent Roles
@@ -136,62 +117,52 @@ type: object
 
   #========================
 
-  "criticality":
-    type: string
-    enum:
-      - "1"
-      - "2"
-      - "3"
-      - "4"
-      - "5"
+  operational criticality:
+    oneOf: [$ref:'#/definitions/criticality rating definition', type: null] # see section 3. MINOR OBJECT DEFINITION 
+    description: A role bears high operational criticality if the loss of the asset in the role will either reduce throughput or product quality (but not product safety) of the larger system.
+
+  protective function criticality:
+    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: null] # see section 3. MINOR OBJECT DEFINITION
+    description: A role bears protective function criticality if the loss of one of its protective functions (i.e., regulatory/control/protection or containment function) will either result in a consequential release of hazard or the loss of a capability to mitigate a greater level hazard.
 
   #========================
-  
-  "GIS object ID":
-    type: string
-    description: This is the ID of the equivalent object (asset or role) in GIS. Having this value suggests that the original record was created in GIS and was copied over to WMS through the data integration link.
+  # REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
+  # GIS object ID:
+  #   type: string
+  #   description: This is the ID of the equivalent object (asset or role) in GIS. This value suggests the original record was created in GIS and copied to WMS through the data integration link.
 
-  #========================
-
-  ##### compliance #####
-
-  "Highest known EHS or quality requirement level":
-    type: string
-    enum:
-      - legislative
-      - corporate policy
-      - professional recommendation
-
-  "EHS or quality requirement detail":
-    type: string
-    $comment: >
-      The contents of this field can be update manually, it can also be populated by an external application through an API. The content will likely take the following shape:
-        "required action":
-        "source of requirement":
-        "risk type":
 
   #========================
 
   ##### information of retired record #####
 
-  "record retired":
+  record retired:
     type: Boolean
-    track: TRUE
     hidden: TRUE
 
   #=======================
 
-  "record retirement reason":
+  record retirement reason:
     type: string
     hidden: TRUE
-    track: TRUE
     enum:
-      - "existing role eliminated"
-      - "planned role never realized"
-      - "record created by mistake"
+      - existing role eliminated
+      - planned role never realized
+      - record created by mistake
+    $comment: |
+      This field is updated through the record retirement procedure.
 
+  #========================
 
-  "duplicate record of": #should be an array?
+  record created by mistake:
+    type: Boolean
+    hidden: true
+
+  record is a duplicate:
+    type: Boolean
+    hidden: true
+
+  duplicate record of:
     oneOf: [$ref: .objectDefs/role, type: null]
   
   #==========================================================
@@ -208,24 +179,46 @@ type: object
         - roleClass:
             properties:
                 className:
-                  const: "pumping station"
+                  const: pumping station
         - roleClass:
             properties:
                 className:
-                  const: "water treatment plant"
+                  const: water treatment plant
         - roleClass:
             properties:
                 className:
-                  const: "large chamber"
+                  const: large chamber
       then:
-        required: "GIS object ID"
+        required: GIS object ID
   
   #[]RULE:
   # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned to role" property).
 
+#############################################################
+# 3. MINOR OBJECT DEFINITION
+#############################################################
 
+definitions:
+  criticality rating definition:
+    type: object
+    properties:
+      rating:
+        type: integer
+      description:
+        type: string
+    enum:
+      - rating: 1
+        description: TBD
+      - rating: 2
+        description: TBD
+      - rating: 3
+        description: TBD
+      - rating: 4
+        description: TBD
+      - rating: 5
+        description: TBD
 
-$comment: >
+$comment: |
   OPEN AND TODO ITEMS:
     [x] To have discussion on what we put in for criticality
     [] explicitly specify an unoccupied asset

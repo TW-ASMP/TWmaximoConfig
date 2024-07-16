@@ -23,7 +23,7 @@ title: 'Avantis PM'
 $id: ./objectDefs/AvantisPM
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
-$comment: >
+$comment: |
 
 properties:
   "PM Job Number":
@@ -40,7 +40,6 @@ properties:
     items:
       type: object
       properties:
-        
         "Title":
           type: string
         

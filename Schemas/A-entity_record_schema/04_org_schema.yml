@@ -1,22 +1,28 @@
-title: organization
+title: asset organization
 $id: objectDefs/org
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
-"properties":
+properties:
 
-  "ID":
+  organization ID:
     type: string
     description:
     
-  "name":
+  organization name:
     type: string
 
-  "parent organization":
-    track: true
+  alias name(s):
   
-  "leader":
+  
+  other names:
+
+
+  parent organization:
+  
+
+  leader:
     # do not need "track: true" as this information should be tracked in the metadata DB
 
-  "location": #should this be service address
+  location: #should this be service address
     type: string
