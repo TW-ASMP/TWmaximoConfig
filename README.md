@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The data model in this repository is a comprehensive envisioning of the information structure pertaining to assets, roles, space, etc., and the relations between them.  We developed this data model in response to the need for a coherent framework - big picture view - of the future state of our WMS.  
+The data model in this repository represents a comprehensive WMS information structure, covering assets, roles, space, etc., and the relations between them.  We developed this data model in response to the need for a coherent framework - big picture view - of the future state of our WMS.  
 
-Beyond entity and relation definitions, we also incorporate a set of precise and internally consistent metadata fused into the model in the form of class and state values. This set of information has been developed and refined over the last couple of years to address asset and work management challenges (or "use-cases" in the context of solution implementation).
+Beyond the big pictre, a set of precisely formulated and internally consistent metadata is fused into the model, in the form of class definitions and dropdown values. This set of information has been developed and refined over the last couple of years to address actual asset and work management challenges (or "use-cases" in the context of solution implementation).
 
 ## Overview of Content
 
