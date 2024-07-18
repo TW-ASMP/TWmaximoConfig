@@ -1,14 +1,15 @@
-  
-  
-  #========================
-    ##### compliance #####
+# TBD
 
+Notes:
+  # compliance requirement fragments
   "Highest known EHS or quality requirement level":
     type: string
     enum:
       - legislative
       - corporate policy
       - professional recommendation  
+
+  "service contract line item":
 
   "EHS or quality requirement detail":
     type: string

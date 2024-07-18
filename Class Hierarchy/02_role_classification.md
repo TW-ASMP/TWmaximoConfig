@@ -32,7 +32,7 @@
 
 ## Requirements for Implementer
 
-* []REQ Nyh7RPjEgl #IMP "classes names specified in title-case and with an asterik symbol shall have the appliable property, found in the class object, set to false"
+* []REQ Nyh7RPjEgl #IMP "classes names specified in title-case and with an asterik symbol shall have the appliable to individual property, found in the class object, set to false"
 
 ## Notes
 

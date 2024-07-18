@@ -1,3 +1,4 @@
+## Top-Level Discrete Activity Classification
 * Condition Evaluation*
   * quick check
   * inspection and evaluation
@@ -18,8 +19,9 @@
   * asset part replacement
   * asset hand-over
 * Life Event Process*
-  * asset commissioning 
-  * final decommissioning 
+  * asset commissioning
+  * asset hand-over 
+  * final asset decommissioning 
 * Asset Modification*
   * modify asset setpoint
   * physical modification to asset
@@ -36,12 +38,13 @@
   * removal of existing role
 * Informational*
   * add or correct record info
+  * record retirement
 
 
 
 ## Requirements for Implementer
 
-[]REQ Nyh7RPjEgl #IMP "classes names specified in camel-case and with an asterik symbol shall have the appliable property, found in the class object, set to false"
+[]REQ Nyh7RPjEgl #IMP "classes names specified in camel-case and with an asterik symbol shall have the appliable to individual property, found in the class object, set to false"
 
 
 ## Notes

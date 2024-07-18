@@ -1,7 +1,7 @@
-# Toronto Water Highest Level Spatial Hierarchy
+# TW Highest Level Spatial Hierarchy
 
 ## The Hierarchy
-- Spaces in Toronto Water
+- Spaces in TW
     - Spaces in Drinking Water System
         - Spaces in Drinking Water Treatment
         - Spaces in Distribution Pumping Stations

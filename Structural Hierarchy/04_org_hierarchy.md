@@ -9,7 +9,7 @@
 * Metrolinx
 * TRCA
 * City of Toronto
-    * Toronto Water
+    * TW
         * Distribution & Collection Section
             * DOS
             * WASP
@@ -23,4 +23,4 @@
                 * Work Area 2
             
 ## Notes
-* the portion of this hierarchy under Toronto Water is not complete; it will be completed before Phase 3 of implementation is complete. 
+* the portion of this hierarchy under TW is not complete; it will be completed before Phase 3 of implementation is complete. 

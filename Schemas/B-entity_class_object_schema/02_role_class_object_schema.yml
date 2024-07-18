@@ -1,39 +1,64 @@
 title: role classification object
-$id: .IBM_Maximo_object/roleClassificationObject
+$id: roleClassObject
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
+#############################################################
+# 1. Properties
+#############################################################
+
 properties:
-  "class name":
-    type: string
-  
-  "class name synonyms":
-  
-  "parent class":
-    $ref: .IBM_Maximo_object/roleClassificationObject
 
-  "class description":
-    type: string
+  allOf:
+    - $ref: genericClassObject
+    #inherit the defintions and rules from th genericClassObject
 
-  "TW IRI":
-    type: string
-  
-  "compatible occupant classes":
+  parent class:
+    $ref: roleClassObject
+    sort order: 1-30
+
+  a discrete asset role:
+    oneOf: [type: boolean, type: null]
+    updated by system: true
+    description: a role that can be occupied by a single discrete asset.
+
+  a functional structure role: 
+    oneOf: [type: boolean, type: null]
+    updated by system: true
+    description: a role that cannot be occupied any discrete asset, but can be the parent to other roles.
+
+  a defined set of roles:
+    oneOf: [type: boolean, type: null]
+    updated by system: true  
+    description: a role that can be occupied by a collection of descrete assets. 
+
+  compatible asset occupant class(s):
+    oneOf: 
+      - type: array
+        items:
+          $ref: assetObject
+      - type: null
     $comment: |
       []RULE NJQ6BwsVee: A asset must be an instance of one of classes listed in this field to be allowed to occupy a role under this class. 
 
-  "appliable":
-    $comment: if appliable = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any role.  e.g. a class named "linear system role"
-  
-  "discrete asset role":
-    description: any role classified as a subclass of Discrete Asset Role. 
-    $comment: this may seem redundant, but is added in case recursive rules (i.e. asset can only occupy subclasses of discrete asset role) is hard to write in Maximo.
-  
-  "retired":
-    type: boolean
-    $comment: |
-      []req VyJoYy0Hel: a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable" value must be false. 
-  
-  $comment: |
-    [] - GI: in the UI for class selection, it would be nice to see the parent class.
-  
+#############################################################
+# 2. High level rules
+#############################################################
+
+TW_rule:
+  - name: Is an asset role, functional structure role, or defined set of roles       
+    id: NyD4XGbuex
+    specification: |
+      if roleClassX is a decendent of "Discrete Asset Role" in the role classification hierarchy:
+        set roleClassX.properties."a discrete asset role" to TRUE
+        set roleClassX.properties."a functional structure role" to FALSE
+        set roleClassX.properties."a defined ser of role" to FALSE
+      elif roleClassX is a decendent of "functional structure role" in the role classification hierarchy: 
+        set roleClassX.properties."a discrete asset role" to FALSE
+        set roleClassX.properties."a functional structure role" to TRUE
+        set roleClassX.properties."a defined ser of role" to FALSE
+      elif roleClassX is a decendent of "Defined Set of Roles" in the role classification hierarchy:
+        set roleClassX.properties."a discrete asset role" to FALSE
+        set roleClassX.properties."a functional structure role" to FALSE
+        set roleClassX.properties."a defined ser of role" to TRUE        
+    status: specified

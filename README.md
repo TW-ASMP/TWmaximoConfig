@@ -1,32 +1,20 @@
-# TWmaximoConfig Repository
+# TW Maximo Data Model 
 
-A repository containing
-* Maximo object configurations expressed in JSON-SCHEMA / YAML format
-* An outline of asset classification hierarchy in Markdown format
+## Introduction
 
-Draft Content Note
-* see JSON schema for rule syntax
-* not all class values are filled in, focus is to establish the structure first.
-* we align with Bentley's data standard
-* we are in the middle of data transformation, delay by the inflexibility of Avantis. In summary, we are interested in implementing the schema and rules, full suite of metadata will come later
-* This spells out what the data can be exported to look like, it is agnostic to the underlying schema.
-    e.g.
-          "primary function criticality":
-            type: [$ref: criticalityVal, type: null]
-            enum:
-            - "rating": 1
-                "description": "TBD"
-            - "rating": 2
-                "description": "TBD"
-            - "rating": 3
-                "description": "TBD"
-            - "rating": 4
-                "description": "TBD"
-            - "rating": 5
-                "description": "TBD"
-* Implementer is encourages to fit the data field onto Maximo's existing data field.
-* Data field audit on by default, unless mentioned otherwise
-* Format of rule specification
-* Interpretation of NULL values
-* Rule Types: validation, implication, process
-* Difference between lack of knowledge and non-existence known and how NULL, none, and other variables are used to specify these. 
+The data model in this repository is a comprehensive envisioning of the information structure pertaining to assets, roles, space, etc., and the relations between them.  We developed this data model in response to the need for a coherent framework - big picture view - of the future state of our WMS.  
+
+Beyond entity and relation definitions, we also incorporate a set of precise and internally consistent metadata fused into the model in the form of class and state values. This set of information has been developed and refined over the last couple of years to address asset and work management challenges (or "use-cases" in the context of solution implementation).
+
+## Overview of Content
+
+The following diagram illustrates the key pieces of the data model definition as of July 2024. More pieces will be added to the data model progressively throughout 2024. 
+
+## Comments on Information Format
+
+The schema portions of the data model is documented in JSON-Schema serialized in YAML format. The entity classification trees and structural hierarchy are documented in Markdown format. We chose Markdown because it is simple to manipulate and enables multi-party change tracking and real-time sharing over Github.  We chose JSON-Schema and YAML instead of a Word document on one hand or an entity-relational schema on the other for the following reasons.
+
+* [standardized syntax](https://json-schema.org/overview/what-is-jsonschema) for precise descriptions - useful for deep references to other parts of the schema and logical expressions - while preserving human readability
+* specification in a JSON document can be extracted as data - for example, business rules specified across the schema files
+* a direct foundation of test script development
+* **critically**, a direct foundation for data migration mapping scripts from the current WMS'

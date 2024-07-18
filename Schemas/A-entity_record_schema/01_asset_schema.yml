@@ -1,14 +1,10 @@
----
-# TODO: 
-#   NULL  # allowing the possibility of no knowledgeables, interaction between Status and State, location information rules
-
 $schema: 'http://json-schema.org/draft-07/schema'
 title: asset
-$id: ./objectDefs/asset
+$id: assetObject
 type: object
 
 #############################################################
-# 1. OBJECT DEFINITION
+# 1. LOCAL OBJECT DEFINITION
 #############################################################
 
 properties:
@@ -23,15 +19,17 @@ properties:
       - name: Vertical Asset ID
         id: 41JeoQuvex 
         type: triggered action
-        trigger: upon the creation of a new vertical facility asset record
-        action: generate UUID Ver4 value as asset ID
-        rule implementation status: not started
+        specification:
+          trigger: upon the creation of a new vertical facility asset record
+          action: generate UUID Ver4 value as asset ID
+        status: not started
       - name: Linear Asset ID
         id: Vku-67dDxx
         type: triggered action
-        trigger: the creation of a new asset record, corresponding to an asset record in TWAG, through the Maximo-TWAG integration 
-        action: copy the TWAG asset record's "Facility ID" value into the "asset ID" 
-        rule implementation status: not started
+        specification:
+          trigger: the creation of a new asset record, corresponding to an asset record in TWAG, through the Maximo-TWAG integration 
+          action: copy the TWAG asset record's "Facility ID" value into the "asset ID" 
+        status: not started
     $comment: |
       UUID has a distinct advantage over a simple serial number - we do not need a script to check for repetition. For instance, when onboarding assets from another system or a spreadsheet, we don't need to check the WMS to see if the ID was already taken.
 
@@ -44,7 +42,7 @@ properties:
       - name: Asset Naming
         id: 4ykh0m_Dle
         type: implication
-        description: | #description gives a rule in text or pseudocode.
+        specification: | #description gives a rule in text or pseudocode.
           if: assetX.properties."manufactured asset" = TRUE
           then:  
             assetX.properties."asset name" value is the semi-colon ("; ") delimited concatenation of the following property values:
@@ -60,8 +58,7 @@ properties:
             - "built by: " + properties."delivered under project"
             - "built on: " + properties."year built"
             - properties."assigned to role".properties."role name"
-        rule implementation status: false 
-    
+        status: false 
     $comment: |
         Assumption: anything non-manufactured as built on site for a specific purpose.
 
@@ -81,7 +78,7 @@ properties:
 
 
   asset owner organization:
-    oneOf: [$ref: .objectDefst/group, type: null]  #referring to an object
+    oneOf: [$ref: orgGroupObject, type: null]  #referring to an object
     description: Denotes the organization that owns the asset.
     $comment: |
       []RULE:
@@ -92,26 +89,34 @@ properties:
   #========================
 
   asset class:
-    $ref: .objectDefs/assetItemClassificationObject
+    $ref: assetItemToolClassObject
     description: Indicates the primitive asset class to which this asset is an instance.
+    TW_rule:
+    - name: Asset classification list does not include parts 
+      id: V15NNHZuxl
+      specification: |
+        Asset classification list include all class instances of assetItemToolClassObject, except ones whose properties."never a stand-alone asset" value is TRUE
+      status: specified
 
   #========================
 
   inferred class name(s):
-    oneOf: [type: null, type: array]
-    items:
-      type: string
-    TW_rule: |
-      []REQ 41Vru1Rrxe This data field should be visible to the users, but should not be editable by the user
+    oneOf: 
+      - type: array
+        items:
+          type: string
+      - type: null
+    updated by system: TRUE
     description: Indicates the complex classes to which this asset is an instance. A complex class is defined with reference to a primitive class plus other attributes. An example of a complex class is the TSSA high-pressure boiler class.    
+    TW_rule:
+      specification:
+        DRAFT: This data field should be visible to the users, but should not be editable by the user
     $comment: |
       This field will be populated by a rule processor, either inside Maximo or operating outside with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification. It is only found in the ontology. 
 
-      
-  
   #========================
 
-  is a manufactured asset:
+  manufactured asset:
     type: boolean # No null value allowed becuase this information is self-evident
     description: A manufacturered asset is one that is made under a commercial product of a commercial entity.
     $comment: |
@@ -127,13 +132,23 @@ properties:
         This value drives the automatic name generation of properties."asset name".
   
   #========================
-
+  
   tool:
     type: boolean
-    description: An tool is used to enable or enhance the performance of certain maintenance or repair work. Will need to be associated with a generic tool ID, which will then make the asset become a "rotating tool"
-  
-  tool ID:
+    description: An tool is used by a person to enable or enhance the performance of certain maintenance or repair work.
+    TW_rule:
+      - name: Inherit tool designation from asset classification
+        id: E13GAeWulg
+        specification: 
+        status: started
+      - name: If designated as tool, asset become rotating tool
+        id: EyXyDI-dxg
+        specification: 
+        status: started
     
+  tool record:
+    oneOf: [type: toolObject, type: null]
+    description:
 
   mobile tool: 
     type: boolean
@@ -179,7 +194,7 @@ properties:
   #========================
 
   assignment type:
-    oneof: [type: string, type:null]
+    oneOf: [type: string, type: null]
     description:
     enum:
       - to a role
@@ -200,25 +215,25 @@ properties:
   #------------
 
   assigned to role:
-    oneOf: [$ref: .objectDefs/role, type: null]
+    oneOf: [$ref: roleObject, type: null]
     description: Role that the asset is designated to play. This value persists even if the asset is temporarily removed from the location of the role (for reasons such as repair).
         
   #------------
 
   assigned to user group:
-    oneOf: [$ref: .objectDefst/group, type: null]
+    oneOf: [$ref: orgGroupObject, type: null]
     description: A group of people, such as a facility, work area, or crew to whom the asset is assigned for use. Indicates the assignment of asset (usually mobile tools) that does not have a system role.
 
   #------------
 
   assigned to user:
-    oneOf: [$ref: .IBM_Maximo_object/person, type: null]
+    oneOf: [$ref: userObject, type: null]
     description: Indicates the assignment of asset (usually mobile tools) that does not have a system role.
 
   #========================
 
   maintenance group:
-    oneOf: [$ref: .objectDefs/group, type: null]
+    oneOf: [$ref: orgGroupObject, type: null]
     description: >
       Group responsible for the overall maintenance of the asset. For example, a unit, work area, or crew. 
     $comment: | 
@@ -229,29 +244,29 @@ properties:
   #========================
 
   located in space:
-    oneOf: [$ref: .objectDefs/space, type: null]
+    oneOf: [$ref: spaceObject, type: null]
 
   #========================
   
   is a part of the larger asset:
-    oneOf: [$ref: .objectDefs/asset, type: null]
-    userEditable: false
+    oneOf: [$ref: assetObject, type: null]
+    updated by system: true
     $comment: |
-      Though it is more elegant to represent the location of a part as the space of a larger asset, this would involve setting up a rule to automatically create a spatial location entity.  Though this is achievable in the work management system, it is no in every other system where we enter assets (e.g. EIW). Also, to always says that the asset is located in a space of a larger asset is not semantically correct. Sometimes, the asset is not so much "in" another asset then being "a part of" it.
+      Though it is more elegant to represent the location of a part as the space of a larger asset, this would involve setting up a rule to automatically create a spatial location entity.  Though this is achievable in the work management system, it is not in every other system where we enter assets (e.g. EIW). Also, to always says that the asset is located in a space of a larger asset is not semantically correct. Sometimes, the asset is not so much "in" another asset then being "a part of" it.
 
       []RULE VkcDoPILgl #inference: This field is to be filled in by a script. The script should fill in the value of properties."asset name" value of the highest-level <discrete asset>, which this asset is a part of.
 
   #------------------
 
   service address or coordinate: 
-    oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
+    oneOf: [$ref: serviceAddress, type: null]
     $comment: |
       this is referencing Maximo's native service address object
 
   #------------------
   
   parent asset:
-    oneOf: [$ref: ./objectDefs/asset, type: null]
+    oneOf: [$ref: assetObject, type: null]
     description: >
       The value in this property denotes the larger discrete asset or defined collection of assets, to which this asset is a part of.  NOTE: this property is not meant to be used for specifying the system hierarchy parent. That property is found on the role record, not the asset record. 
     $comment: |
@@ -260,7 +275,7 @@ properties:
   #========================
   
   construction contract number:
-    oneOf: [type: string, type:null]
+    oneOf: [type: string, type: null]
     description: The construction contract number assigned by the City
 
   #=======================
@@ -268,32 +283,30 @@ properties:
     # if properties."operating state" = "available (up)", then one or both of the data fields "first date of City operation" and "warranty start date" will need to have value (i.e., not null).
 
   first day of City operation:
-    oneof: [type: string, type:null]
+    oneOf: [type: string, type: null]
     $comment: |
       This usually coincides with "warranty start date".  However, if the asset is not delivered through a project, "warranty start date" may be empty. 
 
   warranty start date:
-    oneOf: [type: string, type:null]
+    oneOf: [type: string, type: null]
 
   warranty expiration date:
-    oneOf: [type: string, type:null]
+    oneOf: [type: string, type: null]
 
   #========================
 
-  commercial product:
-    oneOf: [$ref: .objectDefs/item, type: null]
+  commercial product item:
+    oneOf: [$ref: itemObject, type: null]
     description: 
     # [] should only accept the subset of items that define a commercial product 
 
-  tool commercial product: 
-
-  # you can't plan to use an asset on a job, for anything that is a tool-asset, it behaves just like a assets, you are simplying tracking its movement(transaction)
+  # , it behaves just like a assets, you are simplying tracking its movement(transaction)
   
 
   #========================
 
   OEM serial:
-    oneof: [type: string, type:null]
+    oneOf: [type: string, type: null]
     description: The serial number, affixed on the asset, designated by the manufacturer.
     $comment: |
       Outcome of TH's discussion within ASMP: The serial number is only populated when an asset experiences a movement (except for movement for removal), or when it is being check into a storeroom.
@@ -301,43 +314,29 @@ properties:
     
   #========================
 
-  purchase cost (CAD):
-    oneof: [type: number, type:null]
+  unit cost (CAD):
+    oneOf: [type: number, type: null]
 
   #========================
 
   asset photo(s):
-    oneOf: [type: array, type: null]
-    items:
-      type: string
-      contentMediaType: image/png
-
+    oneOf: 
+      - type: array
+        items:
+          type: string
+          contentMediaType: image/png
+      - type: null
+  
   #========================
 
-  record retired:
-    type: Boolean
-    hidden: true
-    #[] cannot be on work order, should not show on hierarchy or search result
-
-  record created by mistake:
-    type: Boolean
-    hidden: true
-
-  record is a duplicate:
-    type: Boolean
-    hidden: true
-
-  duplicate record of:
-    oneOf: [type: array, type: null]
-    items:
-      type: object
-      $ref: .objectDefs/asset
+  allOf:
+    - $ref: genericEntityObject
 
 #==========================================================
 #   Background Properties Populated Automatically
 #==========================================================
   TW Asset Group:
-    oneof: [type: string, type:null]
+    oneOf: [type: string, type: null]
     invisible: true
     inferred: true
     enum:
@@ -360,7 +359,7 @@ allOf:
   - required: ["asset ID", "asset name", "asset class", "manufactured asset", "mobile tool", "status", "operating state", "assignment type", "assigned to role", "assigned to user group", "assigned to user", "maintenance group", "GIS object ID", "located in space", "service address or coordinate", "parent assembly", "delivered under project", "first day of operation", "year built", "commercial product", "does not have a OEM serial?", "OEM serial", "purchase cost", "warranty expiration date", "record retired", "record retirement reason", "major TW asset group"]
 
   #[]RULE bOqnNS:
-    #description: If the asset is a manufactured asset, then the information on product and OEM serial is required.
+    #description: If the asset manufactured asset, then the information on product and OEM serial is required.
     #code:
   - if:
       properties:
@@ -375,7 +374,7 @@ allOf:
           - properties: 
               OEM serial:
                 const: null
-      errorMessage: "If the asset is a manufactured asset, then the information on product and OEM serial is required."
+      errorMessage: "If the asset manufactured asset, then the information on product and OEM serial is required."
 
   #[]RULE 5aIf1K:
     #description: An asset may either be assigned to a role, user group, a user, or it could be unassigned. 
@@ -471,7 +470,7 @@ allOf:
 
 #==========================
  #[]RULE E17jxVhSeg: #validation
-  #description: an asset can only occupy a discrete asset role (i.e. a role that is classfied as a subclass of the discrete asset role class).
+  #description: an asset can only be assigned to a discrete asset role (i.e. a role that is classfied as a subclass of the discrete asset role class).
   #code:
   - if:
       properties:
@@ -483,7 +482,7 @@ allOf:
           properties:
             discrete asset role: # property defined in the role schema
               const: true
-      errorMessage: An asset can only occupy a discrete asset role
+      errorMessage: An asset can only be assigned to a discrete asset role
 
 #==========================
 
@@ -497,7 +496,7 @@ allOf:
 
 
 #############################################################
-# 3. SUPPORTING MINOR OBJECT DEFINITION
+# 3. SUPPORTING LOCAL OBJECT DEFINITION
 #############################################################
 
 
@@ -510,9 +509,6 @@ $comment: |
 
     []  - add RULE: asset can be assigned to an asset collection and a group or a person at the same time (though it cannot be assigned to a discrete asset role and a group at the same time)
 
-    [] - rule on location inheritance from role
-
-    [v] - rules on what role, and assets, can be the child of what others. 
 
 
     [] - Need to have a different set of data entry (i.e. what is nullable) requirement for Linear assets
@@ -521,50 +517,11 @@ $comment: |
     [] (April 26 Review) assigned to a vehicle is missing - this is a satellite storeroom
           ANS: May 6th: TH: I am covering this with the existing property "located in space"
   
-    [] RULE: a general requirement to print error messages
 
 
   ================================================
 
-  REVIEW ITEMS (incl completed open items:):
-    
-    [v] - specify field photos
-      AK also supports this
 
-    [N/A] Discussion intention: 
-      - for the implementation, we need to fully realize at least one type of activity as a transaction (or pure function) that changes the state of a property of a record. I suggest configuring the following:
-        - given the completion of any activity, present the options to change the condition and the availability state of the asset.
-        - given the completion of an subclasse of "move and replace" activity, the asset's location and/or physical State should be changed by the transaction
-      
-    [N/A] Disucussion:
-      - Do we want the option to have separate groups being represented for routine maintenace vs reactive maintnenace. Like in D&C. 
-
-    [OPEN] RULE: (May 10 Review) rule suggestion: an asset going into storage should not be assigned to any role or any one.
-      [?] Annette,
-        Would you want to impmement a) spaces designated for storage or b) real maximo store rooms. Note that option a) seems simple, but involves some complexity for representing assets that are used inside a storage space. (Despite the fact they are inside the storage spaces, they may still be assigned to a role or someone and may still need to be maintained.)
-
-    [V] RULE: check only one asset can be assigned to a role
-    
-    [?] - Need to incorporate information about ownership from TWAG (whether it is City, private,)
-      [] Tony to engage feedback: 
-        - Review the two options for "asset owner organization"
-        - To take up the proposal of using universal metadata for the value list.
-    
-    [V] RULE: if from GIS then populate GeoID
-      datafield "TWAG asset" is added for this purpose
-    
-    [V] I separated "privately owned" as its own datafield, with the intent to avoid the confusion
-    
-    [?] Candice: what does private ownership mean? It is owned by a private citizen or organization or both?
-
-    [V] (April 26 Review) How do we name "non-manufactured" assets? 
-          PL: follow what PCS stand is doing. TH: structural asset is the majority and they can be named like a role.
-          [] lets review: 
-            Do we need to have the year in which it is constructed. I think so, in reporting, it helps to identify the identify of the asset, among a series in history serving in the same role. 
-
-    [?] - OPEN ISSUE from Debbie: Will true “safety” be identified on an asset record (hazards, precautions, loto)?
-      Consider adding the one of the following sub-schema to the asset schema. Note the all fields would be populated by the legislative compliance reasoner.
-        definitions:
 
 
   

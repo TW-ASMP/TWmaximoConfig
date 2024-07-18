@@ -1,14 +1,14 @@
 ---
 title: role
-$id: objectDefs/role
+$id: roleObject
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
 
-  #==========================================================
-  #   Properties Visible on the Record 
-  #==========================================================
+#==========================================================
+#   Properties Visible on the Record 
+#==========================================================
 
   role ID:
     type: string
@@ -18,9 +18,10 @@ properties:
       - name: ID of Linear Assets Represented as Role in Maximo
         id: Vku-67dDxx
         type: triggered action
-        trigger description: replication creation of assetY record from the TWAG
-        action description: apply Facility ID from TWAG as asset ID 
-        rule implementation status: false
+        specification:
+          trigger: replication creation of assetY record from the TWAG
+          action: apply Facility ID from TWAG as asset ID 
+        status: false
 
   #========================
     
@@ -36,36 +37,43 @@ properties:
   #========================
 
   parent:
-    $ref: .objectDefs/role
+    $ref: roleObject
     description: References the role that is served by the larger asset, which physically subsumes the asset serving this role.
 
   #=======================
   
   role class:
-    $ref: .IBM_Maximo_object/classifcationObject
+    $ref: roleClassObject
     description: The role class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
   #========================
 
-  inferred class names:
-    oneOf: [type: null, type: array]
+  inferred class name(s):
+    oneOf: 
+      - type: array
+        items:
+          type: string
+      - type: null
     items:
       type: string
+    updated by system: true
     description: Additional role class memberships inferred through a reasoning process.
-    TW_rule: |
-      #[]REQ 41Vru1Rrxe: This data field should be visible to the users, but should not be editable by the user
     $comment: |
       This field will be populated by a rule processor, either inside Maximo or operating outside with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification. It is only found in the ontology. 
       
   #========================
 
-  status:
+
+  #========================
+  role status:
     type: string
     enum:
       - specified
       - active
       - eliminated
-    description: This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
+    description: |
+      This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
+    
     TW_rule: |
       #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the decendents of the role in the hierarachy must also be eliminated. 
         $comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
@@ -84,46 +92,58 @@ properties:
   #========================
   
   located in space:
-    oneOf: [$ref: .objectDefs/space, type: null]
+    oneOf: [$ref: spaceObject, type: null]
     description: References the space in which the asset serving the role would be installed.
 
   #========================
   
   service address or coordinate:
-    oneOf: [$ref: .IBM_Maximo_object/serviceAddress, type: null]
+    oneOf: [$ref: serviceAddress, type: null]
     description: A geo-coordinate or the nearest street address of the asset.
 
   #========================
 
   operator group:
-    oneOf: [$ref: .objectDefs/group, type: null]
+    oneOf: [$ref: orgGroupObject, type: null]
     description: Group responsible for the operation of the asset serving in this role.
-    TW_rule: |
-      []RULE EJ6sBXhBlx: #process
-        name: Option to Apply Same Value to Decendent Roles
-        description: When a operator group value is specified in a role, the user must be given the option to replicate the same specification in the records of all decendents of the roles in hierarchy. 
+  
+  inherit maintenace group value:
+    type: boolean
+    default value: true
   
   #========================
 
   maintenance group:
-    oneOf: [$ref: .objectDefs/group, type: null]
+    oneOf: [$ref: orgGroupObject, type: null]
     description: >
       Group responsible for the preventive and reactive maintenance of the asset in the role. For example, a unit, work area, or crew. 
-    TW_rule: |  
-      See RULE N1dcgm2Bgx
-      []RULE NkqbmQnHgl: #process
-        name: Option to Apply Same Value to Decendent Roles
-        description: When a maintenance group value is specified in a role, the user must be given the option to replicate the same specification in the records of all decendents of the roles in hierarchy. 
+  
+  inherit maintenance group value:
+    type: boolean
+    default value: true
 
   #========================
 
   operational criticality:
-    oneOf: [$ref:'#/definitions/criticality rating definition', type: null] # see section 3. MINOR OBJECT DEFINITION 
+    oneOf: [$ref:'#/definitions/criticality rating definition', type: null] # see section 3. LOCAL OBJECT DEFINITION 
     description: A role bears high operational criticality if the loss of the asset in the role will either reduce throughput or product quality (but not product safety) of the larger system.
 
+  inherit operational criticality value:
+    type: boolean
+    default value: false
+
   protective function criticality:
-    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: null] # see section 3. MINOR OBJECT DEFINITION
+    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: null] # see section 3. LOCAL OBJECT DEFINITION
     description: A role bears protective function criticality if the loss of one of its protective functions (i.e., regulatory/control/protection or containment function) will either result in a consequential release of hazard or the loss of a capability to mitigate a greater level hazard.
+
+  inherit protective function criticality value:
+    type: boolean
+    default value: false
+  
+  #========================
+
+  allOf:
+    - $ref: genericEntityObject
 
   #========================
   # REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
@@ -131,43 +151,6 @@ properties:
   #   type: string
   #   description: This is the ID of the equivalent object (asset or role) in GIS. This value suggests the original record was created in GIS and copied to WMS through the data integration link.
 
-
-  #========================
-
-  ##### information of retired record #####
-
-  record retired:
-    type: Boolean
-    hidden: TRUE
-
-  #=======================
-
-  record retirement reason:
-    type: string
-    hidden: TRUE
-    enum:
-      - existing role eliminated
-      - planned role never realized
-      - record created by mistake
-    $comment: |
-      This field is updated through the record retirement procedure.
-
-  #========================
-
-  record created by mistake:
-    type: Boolean
-    hidden: true
-
-  record is a duplicate:
-    type: Boolean
-    hidden: true
-
-  duplicate record of:
-    oneOf: [$ref: .objectDefs/role, type: null]
-  
-  #==========================================================
-  #   Background Properties Populated Automatically
-  #==========================================================
 
 
 #############################################################
@@ -195,7 +178,7 @@ properties:
   # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned to role" property).
 
 #############################################################
-# 3. MINOR OBJECT DEFINITION
+# 3. LOCAL OBJECT DEFINITION
 #############################################################
 
 definitions:

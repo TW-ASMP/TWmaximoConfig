@@ -1,0 +1,41 @@
+title: generic class object
+$id: genericClassObject
+$schema: 'http://json-schema.org/draft-07/schema'
+type: object
+
+# This set of properties are used in all classification objects (e.g., asset, organization, etc.)
+
+properties:
+  class name:
+    type: string
+    sort order: 1-10
+
+  class name synonyms:
+    oneOf: 
+      - type: array
+        items:
+          type: string
+      - type: null
+    sort order: 1-20
+
+  class definition:
+    oneOf: [type: string, type: null]
+    sort order: 1-40
+
+  appliable to individual:
+    type: boolean
+    $comment: |
+      if appliable to individual = false, the class is meant to be a structural part of the classifcation tree only, and cannot be used to classify any entity.
+    sort order: 1-50
+
+  retired:
+    type: boolean
+    $comment: |
+    TW_rule: 
+      - name: rules on retire classes
+        id: Vy3qYEZ_ex
+        type:
+        specification: |
+          a retired class should not appear in the list of classes for user selection. Also, it's properties."appliable to individual" value must be false. 
+        status: draft
+    sort order: 4-10
