@@ -20,4 +20,4 @@ The schema portions of the data model is documented in JSON-Schema serialized in
 * [standardized syntax](https://json-schema.org/overview/what-is-jsonschema) for precise descriptions - useful for deep references to other parts of the schema and logical expressions - while preserving human readability
 * specification in a JSON document can be extracted as data - for example, business rules specified across the schema files
 * a direct foundation of test script development
-* **critically**, a direct foundation for data migration mapping scripts from the current WMS'
+* **critically**, a direct foundation for data migration mapping scripts from the current WMS. (Also note that a precise Maximo relational schema will not be available, until it is too late for data mapping.) 
