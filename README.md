@@ -2,13 +2,16 @@
 
 ## Introduction
 
-The data model in this repository is a comprehensive envisioning of the information structure pertaining to assets, roles, space, etc., and the relations between them.  We developed this data model in response to the need for a coherent framework - big picture view - of the future state of our WMS.  
+The data model in this repository represents a comprehensive WMS information structure, covering assets, roles, space, etc., and the relations between them.  We developed this data model in response to the need for a coherent framework - big picture view - of the future state of our WMS.  
 
-Beyond entity and relation definitions, we also incorporate a set of precise and internally consistent metadata fused into the model in the form of class and state values. This set of information has been developed and refined over the last couple of years to address asset and work management challenges (or "use-cases" in the context of solution implementation).
+Beyond the big pictre, a set of precisely formulated and internally consistent metadata is fused into the model, in the form of class definitions and dropdown values. This set of information has been developed and refined over the last couple of years to address actual asset and work management challenges (or "use-cases" in the context of solution implementation).
 
 ## Overview of Content
 
 The following diagram illustrates the key pieces of the data model definition as of July 2024. More pieces will be added to the data model progressively throughout 2024. 
+
+![Maximo Kanban   Workshop - Frame 3](https://github.com/user-attachments/assets/6207c1a8-ca7e-480d-918a-884759de172d)
+
 
 ## Comments on Information Format
 
@@ -17,4 +20,4 @@ The schema portions of the data model is documented in JSON-Schema serialized in
 * [standardized syntax](https://json-schema.org/overview/what-is-jsonschema) for precise descriptions - useful for deep references to other parts of the schema and logical expressions - while preserving human readability
 * specification in a JSON document can be extracted as data - for example, business rules specified across the schema files
 * a direct foundation of test script development
-* **critically**, a direct foundation for data migration mapping scripts from the current WMS'
+* **critically**, a direct foundation for data migration mapping scripts from the current WMS. (Also note that a precise Maximo relational schema will not be available, until it is too late for data mapping.) 
