@@ -1,12 +1,13 @@
 # TW Maximo Data Model 
-> [!NOTE]
-> Go to https://github.com/orgs/TW-ASMP/projects/3/views/1 for current project status
 
 ## Introduction
 
 The data model in this repository represents a comprehensive WMS information structure, covering assets, roles, space, etc., and the relations between them.  We developed this data model in response to the need for a coherent framework - big picture view - of the future state of our WMS.  
 
 Beyond the big pictre, a set of precisely formulated and internally consistent metadata is fused into the model, in the form of class definitions and dropdown values. This set of information has been developed and refined over the last couple of years to address actual asset and work management challenges (or "use-cases" in the context of solution implementation).
+
+> [!NOTE]
+> Go to https://github.com/orgs/TW-ASMP/projects/3/views/1 for current project status
 
 ## Overview of Content
 
