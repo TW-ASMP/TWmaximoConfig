@@ -9,6 +9,8 @@ Beyond entity and relation definitions, we also incorporate a set of precise and
 ## Overview of Content
 
 The following diagram illustrates the key pieces of the data model definition as of July 2024. More pieces will be added to the data model progressively throughout 2024. 
+![image](https://github.com/user-attachments/assets/841970a5-9e24-4f90-b220-a8ff433d260e)
+
 
 ## Comments on Information Format
 
