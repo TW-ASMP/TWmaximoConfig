@@ -1,4 +1,6 @@
 # TW Maximo Data Model 
+> [!NOTE]
+> Go to https://github.com/orgs/TW-ASMP/projects/3/views/1 for current project status
 
 ## Introduction
 
@@ -10,7 +12,7 @@ Beyond the big pictre, a set of precisely formulated and internally consistent m
 
 The following diagram illustrates the key pieces of the data model definition as of July 2024. More pieces will be added to the data model progressively throughout 2024. 
 
-![Maximo Kanban   Workshop - Frame 3](https://github.com/user-attachments/assets/6207c1a8-ca7e-480d-918a-884759de172d)
+![image](https://github.com/user-attachments/assets/84ad15b7-4f7d-45b5-a20e-bdf5810d21c7)
 
 
 ## Comments on Information Format
