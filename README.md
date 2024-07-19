@@ -6,15 +6,22 @@ The data model in this repository represents a comprehensive WMS information str
 
 Beyond the big pictre, a set of precisely formulated and internally consistent metadata is fused into the model, in the form of class definitions and dropdown values. This set of information has been developed and refined over the last couple of years to address actual asset and work management challenges (or "use-cases" in the context of solution implementation).
 
+<br/>
+
 > [!NOTE]
 > Go to https://github.com/orgs/TW-ASMP/projects/3/views/1 for current project status
+
+<br/>
 
 ## Overview of Content
 
 The following diagram illustrates the key pieces of the data model definition as of July 2024. More pieces will be added to the data model progressively throughout 2024. 
 
+<br/>
+
 ![image](https://github.com/user-attachments/assets/84ad15b7-4f7d-45b5-a20e-bdf5810d21c7)
 
+<br/>
 
 ## Comments on Information Format
 
