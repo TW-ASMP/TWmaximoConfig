@@ -3,14 +3,8 @@ title: asset
 $id: assetObject
 type: object
 
-#############################################################
-# 1. LOCAL OBJECT DEFINITION
-#############################################################
-
 properties:
-  #==========================================================
-  #   Properties Visible on the Record 
-  #==========================================================
+
   asset ID:
     type: string 
     description: 
@@ -44,15 +38,15 @@ properties:
       - name: Asset Naming
         id: 4ykh0m_Dle
         specification: | # In pseudo code: 
-          if assetX.properties."manufactured asset" = TRUE 
-            assetX.properties."asset name" is the semi-colon delimited concatenation of:
+          if self.properties."manufactured asset" = TRUE 
+            self.properties."asset name" is the semi-colon delimited concatenation of:
               - properties."asset class".properties."class name"
               - properties."commercial product item".properties."product manufacturer company" 
               - properties."commercial product item".properties."product model (and sub-model) description"
               - properties."commercial product item".properties."product configuration code"
               - properties."OEM serial"
-          elif assetX.properties."manufactured asset" = FALSE
-            assetX.properties."asset name" is the semi-colon delimited concatenation of:
+          elif self.properties."manufactured asset" = FALSE
+            self.properties."asset name" is the semi-colon delimited concatenation of:
               - properties."asset class".properties."class name"
               - properties."assigned to role".properties."role name"
           # NOTE: actual script should contain additional condition handle formatting of the name text when there is missing data in any concatenated property.
@@ -78,19 +72,24 @@ properties:
   asset owner organization:
     oneOf: [$ref: orgGroupObject, type: null]  #referring to an object
     description: Denotes the organization that owns the asset.
-    $comment: |
-      []RULE:
-       # IN COMMON LANGUAGE:
-        - Preface: the user must be able to view the organization hierarchy and select an entry from the hierarchy. 
-        - Rule Text: the user must see and be able to select organization entries on (a. the first level of the organization hierarchy) AND (b. down the third level of the hierarchy, under the first level entry "City of Toronto")
+    TW_rule: 
+      - name: Valid Entry for Asset Owner Organization
+        id: 410N2dr_xx
+        type:
+        specification: |
+          - The valid range of values for selection includes the first, second and third levels of the organizational hierarchy, specified in the \TWmaximoConfig\3-System_Hierarchies\04_org_hierarchy.md . 
+          - A check for the valid selection must be implemented with a validation script
+          - The UI must only present the valid range of values to the users for selection, and the valid range of values must be presented as a hierarchy.
+        status: specified
 
+ 
   #========================
 
   asset class:
     $ref: assetItemToolClassObject
     description: Indicates the primitive asset class to which this asset is an instance.
     TW_rule:
-    - name: Asset classification list does not include parts 
+    - name: Exclusion of "Parts" from Asset Classification 
       id: V15NNHZuxl
       specification: |
         Asset classification list include all class instances of assetItemToolClassObject, except ones whose properties."never a stand-alone asset" value is TRUE
@@ -105,48 +104,55 @@ properties:
           type: string
       - type: null
     updated by system: TRUE
-    description: Indicates the complex classes to which this asset is an instance. A complex class is defined with reference to a primitive class plus other attributes. An example of a complex class is the TSSA high-pressure boiler class.    
-    TW_rule:
-      specification:
-        DRAFT: This data field should be visible to the users, but should not be editable by the user
+    description: Indicates the complex classes to which this asset is an instance. A complex class is defined with reference to a primitive class plus other attributes. An example of a complex class is the TSSA high-pressure boiler class, which is made with reference to th primitive class boiler. 
     $comment: |
-      This field will be populated by a rule processor, either inside Maximo or operating outside with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification. It is only found in the ontology. 
+      This field will be populated by a rule processor, likely operation outside of Maximo and with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification.
 
   #========================
 
   manufactured asset:
     type: boolean # No null value allowed becuase this information is self-evident
     description: A manufacturered asset is one that is made under a commercial product of a commercial entity.
-    $comment: |
-      #PROCESS: SET DEFAULT VALUE:
-        At record creation, set default value to true.
-      #PROCESS: EVENT-DRIVEN VALUE CHANGE:
-        Upon the event of a properties."asset class" value change,  
-          if properties."asset class".properties."non-manufactured" = true;
-          then set the value to true;
-          else set the value to false.
-      --
-      Note:
-        This value drives the automatic name generation of properties."asset name".
+    TW_rule: |
+      - name: Setting the Value of Manufactured Asset Property
+        id: 4Jg2gYSOee
+        type: 
+        specification: |
+          - Upon record creation, set the value to TRUE.
+          - Upon a change to the value of properties."asset class",  
+              if properties."asset class".properties."non-manufactured" = TRUE;
+                set the value to TRUE;
+              else set the value to FALSE.  
+        status: specified
   
   #========================
   
-  tool:
+  rotating tool:
     type: boolean
-    description: An tool is used by a person to enable or enhance the performance of certain maintenance or repair work.
+    description: A person uses a tool to enable or enhance the performance of certain maintenance or repair work. The term rotating tool is a Maximo terminology for a tool represented as an asset, thereby enabling maintenance work to be specified and information such as condition to be tracked. 
     TW_rule:
-      - name: Inherit tool designation from asset classification
-        id: E13GAeWulg
-        specification: 
-        status: started
-      - name: If designated as tool, asset become rotating tool
-        id: EyXyDI-dxg
-        specification: 
-        status: started
-    
-  tool record:
+      - name: Inherit the Tool Designation from Asset Class
+        id: 41sz7KSdxe
+        specification: |
+          - Upon record creation, set the value to FALSE.          
+          - Upon a change to the value of properties."asset class",  
+              if properties."asset class".properties."tool" = TRUE;
+                set the value to TRUE;
+              else set the value to FALSE          
+        status: specified
+  
+  #------------
+
+  tool master record:
     oneOf: [type: toolObject, type: null]
-    description:
+    description: A rotating tool asset's necessary association to a tool master record.
+    TW_rule:
+      - name: A Rotating Tool Must be Associated with a Tool Master Record
+        id: 
+        specification: |
+        status: starting
+
+  #------------
 
   mobile tool: 
     type: boolean
@@ -348,7 +354,7 @@ properties:
       Note that this property is populated automatically, and not available for user to edit. Use-case: asset from the GIS will not be indexed on the hierarchy. The main use of this property is to provide a simple handle term, when one needs to summarize the collection of all assets imported from a certain layer(s) the GIS.
       
 #############################################################
-# 2. DATA INTEGRITY RULES
+# DATA INTEGRITY RULES
 #############################################################
 
 allOf: 
@@ -492,14 +498,6 @@ allOf:
   #PROCESS:  If the condition (C1), (C2) and (C3) are all true, run a process to realize condition (C4). 
 #==========================
 
-
-#############################################################
-# 3. SUPPORTING LOCAL OBJECT DEFINITION
-#############################################################
-
-
-$comment: |
-
   
   =========================================
 
@@ -507,10 +505,7 @@ $comment: |
 
     []  - add RULE: asset can be assigned to an asset collection and a group or a person at the same time (though it cannot be assigned to a discrete asset role and a group at the same time)
 
-
-
     [] - Need to have a different set of data entry (i.e. what is nullable) requirement for Linear assets
-    
     
     [] (April 26 Review) assigned to a vehicle is missing - this is a satellite storeroom
           ANS: May 6th: TH: I am covering this with the existing property "located in space"

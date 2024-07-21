@@ -57,9 +57,9 @@ properties:
     items:
       type: string
     updated by system: true
-    description: Additional role class memberships inferred through a reasoning process.
+    description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema\01_asset_schema.yml
     $comment: |
-      This field will be populated by a rule processor, either inside Maximo or operating outside with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification. It is only found in the ontology. 
+      See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema\01_asset_schema.yml
       
   #========================
 
