@@ -50,7 +50,7 @@ properties:
               - properties."asset class".properties."class name"
               - properties."assigned to role".properties."role name"
           # NOTE: actual script should contain additional condition handle formatting of the name text when there is missing data in any concatenated property.
-        status: false 
+        status: specified 
     $comment: |
         Assumption: anything non-manufactured as built on site for a specific purpose, and would permenantly occupy a role.
 
@@ -134,11 +134,11 @@ properties:
       - name: Inherit the Tool Designation from Asset Class
         id: 41sz7KSdxe
         specification: |
-          - Upon record creation, set the value to FALSE.          
+          - Upon record creation, set the default value to FALSE.          
           - Upon a change to the value of properties."asset class",  
               if properties."asset class".properties."tool" = TRUE;
                 set the value to TRUE;
-              else set the value to FALSE          
+              else set the value to FALSE.          
         status: specified
   
   #------------
@@ -148,23 +148,28 @@ properties:
     description: A rotating tool asset's necessary association to a tool master record.
     TW_rule:
       - name: A Rotating Tool Must be Associated with a Tool Master Record
-        id: 
+        id: EkGr5Yruex
+        type: validation
         specification: |
-        status: starting
+          Before an asset record creation or change can be committed, a rotating tool must be associated with a tool master record.
+        status: specified
 
   #------------
 
   mobile tool: 
     type: boolean
     description: An tool that is used beyond a permanent installation; instead, it is taken from place to place.
-    $comment: |
-      #PROCESS: SET DEFAULT VALUE:
-        At record creation, set value to false.
-      #PROCESS: EVENT-DRIVEN VALUE CHANGE:
-        Upon the event of a properties."asset class" value change;  
-          if properties."asset class".properties."mobile tool" = true;
-          then set the value to true;
-          else set the value to false.
+    TW_rule:
+      - name: Mobile Tool Designation
+        id: EJq2qFSuge
+        type: 
+        specification: |
+          - Upon record creation, set the default value to FALSE.          
+          - Upon a change to the value of properties."asset class",  
+              if properties."asset class".properties."mobile tool" = TRUE;
+                set the value to TRUE;
+              else set the value to FALSE.
+        status: specified
 
   #========================
 
@@ -205,16 +210,35 @@ properties:
       - to a user group
       - to a single user
       - not assigned
+    TW_UI:
+      - name: Rendering "assignment type" data field in the asset record.
+        screen: asset record and any other asset creation screen
+        id: 4yARRuvOex
+        description: |
+          the properties of .properties."assignment type" should be presented as radial button
+        status: specified
+      - name: Allow one of the assignment data fields to be editable, based on the value of "Assignment type"
+        id: NyrzGKwuel
+        screen: asset record and any other asset creation screen
+        description: |
+          If value = "to a role", then enable "assigned to role" property;
+          elif value = "to a user group", then enable "assigned to user group" property;
+          elif value = "to a single user", then enable "assigned to user" property;
+          elif value = or("not assigned", null), then enable none of the above.
+        status: specified
+    TW_rule:
+      - name: Asset assignment data consistency validation
+        id: N1E0LYD_gl
+        description: |
+          - Implement database validation rule, consistent with the UI rule NyrzGKwuel
+          - Additional note: only one of the following properties may be true at any time
+            - .properties."to a role"
+            - .properties."to a user group"
+            - .properties."to a user"
+        status: specfied
     $comment: |
-      #UI: render as radial buttons
-      #PROCESS, #UI:
-        If value = "to a role", then enable "assigned to role" property;
-        elif value = "to a user group", then enable "assigned to user group" property;
-        elif value = "to a single user", then enable "assigned to user" property;
-        elif value = or("not assigned", null), then enable none of the above.
-      --
-      [] out of date content, review before removal: Note for TW:
-        This property is added to assist with the interpretation of the NULL value in "assigned to role", "assigned to user group", or "assigned to user group" property. If the property matches the selected value, then null means no knowledge; if the property does not match, then null means not applicable.  
+      This property is added to assist with the interpretation of the NULL value in "assigned to role", "assigned to user group", or "assigned to user group" property. If the value here is "not assigned", then we know that the asset is not assigned to anything. If the value here is NULL, then we have no knowledge of whether this asset is assigned to anything or not. 
+  
     
   #------------
 
@@ -240,8 +264,13 @@ properties:
     oneOf: [$ref: orgGroupObject, type: null]
     description: >
       Group responsible for the overall maintenance of the asset. For example, a unit, work area, or crew. 
-    $comment: | 
-      []RULE N1dcgm2Bgx #inference: if the asset is assigned to a role (via properties."assigned to role"), then the value of the maintenance group should be copied from the role.
+    TW_rule:
+      - name: Asset assignment data consistency validation
+        id: 
+        description: |
+          - if the asset is assigned to a role_x (.properties."assigned to role" value is role_x)  
+              set the value here to the value of role_x.properties."maintenance group"
+        status: specified
  
 
   #Location Group of Properties
@@ -302,9 +331,7 @@ properties:
   commercial product item:
     oneOf: [$ref: itemObject, type: null]
     description: 
-    # [] should only accept the subset of items that define a commercial product 
-
-  # , it behaves just like a assets, you are simplying tracking its movement(transaction)
+    # [] should only accept the subset of items that define a commercial product, it behaves just like a assets, you are simplying tracking its movement(transaction)
   
 
   #========================
