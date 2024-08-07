@@ -1,0 +1,81 @@
+$schema: 'http://json-schema.org/draft-07/schema'
+title: PM
+$id: PM_Object
+type: object
+
+properties:
+
+  ID:
+
+  name: 
+
+  description:
+
+
+  type:
+    enum:
+      - work on the same asset
+      - same work on multiple assets
+      - different work on multiple assets
+    Question:
+      Can we 
+
+  site:
+    
+  PM hierarchy parent:
+  
+  work order class:
+
+  #==== Resources ====
+
+  tool:
+
+  material:
+
+
+  #==== Work order triggering =====
+  
+  trigger type:
+  
+  #---
+  
+
+  #---
+
+
+  #---
+
+
+  #======Legislative Designation=======
+  
+  discrete activity:
+
+  Highest known EHS or quality requirement level:
+    type: string
+    updated by system: true
+    enum:
+      - legislative
+      - corporate policy
+      - professional recommendation  
+
+  "service contract line item":
+
+  "EHS or quality requirement detail":
+    type: string
+    updated by system: true
+    $comment: |
+      The contents of this field can be update manually, it can also be populated by an external application through an API. The content will likely take the following shape:
+        "required action":
+        "source of requirement":
+        "risk type":
+  
+definitions:
+  discrete activity definition:
+    type: object
+    properties:
+      sequence: 
+      job plan:
+        $ref: jobPlanObject
+      role object:
+      asset object:
+      space object:

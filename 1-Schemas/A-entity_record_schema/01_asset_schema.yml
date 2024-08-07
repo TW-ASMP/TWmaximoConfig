@@ -38,6 +38,8 @@ properties:
   asset name:
     type: string 
     description: The human readable short description of the asset.
+    $comment: |
+        Assumption: anything non-manufactured as built on site for a specific purpose.
     TW_rule:
       - name: Asset Naming
         id: 4ykh0m_Dle
@@ -58,9 +60,7 @@ properties:
             - "built by: " + properties."delivered under project"
             - "built on: " + properties."year built"
             - properties."assigned to role".properties."role name"
-        status: false 
-    $comment: |
-        Assumption: anything non-manufactured as built on site for a specific purpose.
+
 
   #========================
 

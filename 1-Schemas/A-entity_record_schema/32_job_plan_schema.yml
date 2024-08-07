@@ -1,4 +1,27 @@
-# TBD
+$schema: 'http://json-schema.org/draft-07/schema'
+title: PM
+$id: jobPlanObject
+type: object
+
+## Reminder: don't forget how tools should be summed up . 
+
+
+$comment: 
+
+properties:
+
+  tool:
+
+  consumable material:
+
+  tasks:
+
+# the following does not need to be specifed at the job plan level work group:
+
+  supervisor:
+
+  
+
 
 Notes:
   # compliance requirement fragments

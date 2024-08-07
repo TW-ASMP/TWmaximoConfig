@@ -1,4 +1,11 @@
-# TBD
+$schema: 'http://json-schema.org/draft-07/schema'
+title: workOrder
+$id: workOrderProject
+type: object
+properties:
+  
+  failure report(s):
+  
 
 note: |
   WORK IN PROGRESS
