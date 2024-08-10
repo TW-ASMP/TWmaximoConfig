@@ -7,16 +7,9 @@ properties:
 
   record retired:
     type: Boolean
-    #[] cannot be on work order, should not show on hierarchy or search result
 
   reason for retirement:
     oneOf: [type: string, type: null]
     updated by system: true
     $comment: the value should be written by the system, from a asset or record retirement transaction. 
 
-  duplicate record of:
-    oneOf: 
-      - type: array
-        items:
-          type: object #either an assetObject, rollObject, spaceObject, ...
-      - type: null

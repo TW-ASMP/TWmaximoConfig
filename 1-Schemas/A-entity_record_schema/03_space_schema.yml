@@ -121,6 +121,14 @@ properties:
 
   #========================
 
+  duplicate record of:
+    oneOf: 
+      - type: array
+        items:
+          $ref: spaceObject
+      - type: null
+  
+  #========================
   allOf:
     - $ref: genericEntityObject
 

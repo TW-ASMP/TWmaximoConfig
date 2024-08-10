@@ -360,6 +360,15 @@ properties:
   
   #========================
 
+  duplicate record of:
+    oneOf: 
+      - type: array
+        items:
+          $ref: assetObject
+      - type: null
+  
+  #========================
+
   allOf:
     - $ref: genericEntityObject
 

@@ -118,6 +118,15 @@ properties:
     description: The manufacturer designator identifying the exact product item.
 
   #========================
+  
+  duplicate record of:
+    oneOf: 
+      - type: array
+        items:
+          $ref: toolObject
+      - type: null
+  
+  #========================
 
   allOf:
     - $ref: genericEntityObject

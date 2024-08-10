@@ -7,16 +7,19 @@ properties:
 
   organization ID:
     type: string
-    description:
+    description: 
     
   organization name:
     type: string
+    description:
 
   alias name(s):
-  
+    type: string
+    description:
 
   parent organization:
-  
+    type: string
+    description:
 
   leader:
     # do not need "track: true" as this information should be tracked in the metadata DB
@@ -26,5 +29,13 @@ properties:
 
   #========================
 
+  duplicate record of:
+    oneOf: 
+      - type: array
+        items:
+          $ref: orgGroupObject
+      - type: null
+  
+  #========================
   allOf:
     - $ref: genericEntityObject

@@ -164,6 +164,15 @@ properties:
 
   #========================
 
+  duplicate record of:
+    oneOf: 
+      - type: array
+        items:
+          $ref: itemObject
+      - type: null
+  
+  #========================
+  
   allOf:
     - $ref: genericEntityObject
 
