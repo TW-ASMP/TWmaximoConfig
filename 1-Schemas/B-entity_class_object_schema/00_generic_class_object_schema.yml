@@ -10,16 +10,16 @@ properties:
     type: string
     sort order: 1-10
 
-  class name synonyms:
+  class name with synonyms:
     oneOf: 
       - type: array
         items:
           type: string
-      - type: null
+      - type: NULL
     sort order: 1-20
 
   class definition:
-    oneOf: [type: string, type: null]
+    oneOf: [type: string, type: NULL]
     sort order: 1-40
 
   appliable to individual:

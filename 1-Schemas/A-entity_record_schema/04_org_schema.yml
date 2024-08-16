@@ -1,31 +1,27 @@
 title: organization
-$id: orgGroupObject
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/04_org_schema.yml
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
 
-  organization ID:
-    type: string
-    description: 
-    
-  organization name:
-    type: string
-    description:
+  organization or group name:
+    type: string 
 
-  alias name(s):
-    type: string
-    description:
+  #========================
 
   parent organization:
-    type: string
-    description:
+    oneOf:
+      - $ref: A-entity_record_schema/04_org_schema.yml
+      - type: NULL
+
+  #========================
 
   leader:
-    # do not need "track: true" as this information should be tracked in the metadata DB
-
-  location: #should this be service address
-    type: string
+    oneOf:
+      - $ref: A-entity_record_schema/07_person_schema.yml
+      - type: NULL
+    description:
 
   #========================
 
@@ -33,9 +29,10 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: orgGroupObject
-      - type: null
+          $ref: A-entity_record_schema/04_org_schema.yml
+      - type: NULL
   
   #========================
-  allOf:
-    - $ref: genericEntityObject
+
+  record retirement information:
+    $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/record retirement sub-schema"

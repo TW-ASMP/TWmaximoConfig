@@ -12,9 +12,3 @@ properties:
   parent class:
     $ref: orgGroupClassObject
     sort order: 1-30
-
-  group type:
-    type: string
-    enum: >
-      - operational
-      - support

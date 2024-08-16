@@ -1,5 +1,5 @@
 title: tool item master
-$id: toolObject
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/06_tool_master_schema.yml
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
@@ -28,7 +28,7 @@ properties:
             toolX.properties."tool name" value is the semi-colon ("; ") delimited concatenation of the following property values:
               - properties."tool class".properties."class name"
               - properties."generic tool application definition"
-          elif: toolX.properties."tool type" = "specific commercial product"
+          elif: toolX.properties."tool type" = "commercially available product"
           then: 
             toolX.properties."tool name" value is the semi-colon ("; ") delimited concatenation of the following property values:
               - properties."tool master class".properties."class name"
@@ -41,21 +41,19 @@ properties:
   #========================
 
   tool class:
-    $ref: assetObjectItemClassificationObject
+    $ref: A-entity_record_schema/01_asset_schema.ymlItemClassificationObject
     description: This is a value from the tool classification, which is a superset of the asset class.
     TW_rule:
     - name: Tool classification list does not include parts non tools
       id: V1ulHHWOgx
       specification: |
-        Tool classification list include all class instances of assetItemToolClassObject, except ones whose properties."tool" value is FALSE
+        Tool classification list include all class instances of B-entity_class_object_schema\01_asset_class_object_schema.yml, except ones whose properties."tool" value is FALSE
       status: specified
 
   #========================
 
   rotating:
-    type: boolean
-    description: checked with the tool is to be tracked as an individual asset
-    $comment: see comments for the "rotating item" property of item schema. 
+    $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/rotating item property"
 
   #========================
 
@@ -74,48 +72,11 @@ properties:
           if properties."asset class".properties."mobile tool" = true;
           then set the value to true;
           else set the value to false.
-      
   
   #========================
   
-  generic or specific:
-    type: string
-    description: indicate whether the tool is defined generically in terms of its function or specifically in term of its product detail.
-    enum:
-      - generic tool  # e.g., HV hotstick
-      - specific commercial product
-    $comment: |
-      A generic item appropriate for a certain application is a "defined application generic" item. 
-  
-  #========================
-  # description of generic or commodity item
-  
-  description of generic tool:
-    type: string
-    description: For example, "600 V, 2 MVA, mobile generator"
-  
-  #========================
-  
-  product manufacturer company:
-    oneOf: [type: null, $ref: companyObject]
-    description: For example, "Generac"
-
-  product model (and sub-model) description:
-    type: string
-    description: For example, "MMG45IF4"
-    $comment: 
-  
-  model year or product version designator:
-    oneOf: [type: null, type: string]
-    description: Identifies the specific version of the product model. For example "v2" or "2023".
-  
-  product configuration code:
-    oneOf: [type: null, type: string]
-    description: Denotes the exact exact configuration, made among the options provided by the manufacturer. For example, "P5-G1-S1-LO-A1-R-E-H". 
-
-  manufacturer part number:
-    oneOf: [type: null, type: string]
-    description: The manufacturer designator identifying the exact product item.
+  generic or specific production information:
+      $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/generic or specific product sub-schema"  
 
   #========================
   
@@ -123,10 +84,10 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: toolObject
-      - type: null
+          $ref: A-entity_record_schema/06_tool_master_schema.yml
+      - type: NULL
   
   #========================
 
-  allOf:
-    - $ref: genericEntityObject
+  record retirement information:
+    $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/record retirement sub-schema"

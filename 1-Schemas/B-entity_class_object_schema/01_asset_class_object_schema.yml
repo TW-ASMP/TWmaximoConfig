@@ -1,5 +1,5 @@
 title: asset item tool class object
-$id: assetItemToolClassObject
+$id: B-entity_class_object_schema\01_asset_class_object_schema.yml
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
@@ -12,41 +12,41 @@ properties:
   allOf:
     - $ref: genericClassObject
     #inherit the defintions and rules from th genericClassObject
-
+  
   parent class:
-    $ref: assetItemToolClassObject
+    $ref: B-entity_class_object_schema\01_asset_class_object_schema.yml
     sort order: 1-30
   
-  manufactured asset:
-    oneOf: [type: boolean, type: null]
+  is a commercially available product:
+    oneOf: [type: boolean, type: NULL]
     description: In the context of the classification object, a true value indicates that all instances of the class are made under a commercial product of a commercial entity.
     sort order: 2-10
     $comment: see comment in the asset scheme
 
   tool:
-    oneOf: [type: boolean, type: null]
+    oneOf: [type: boolean, type: NULL]
     description: In the context of the classification object, a true value inidcates that all instances of the class must be a tool.
+    $comment: A false value indicates that no instance of the class is ever a tool. A NULL value does not make about all instances of the class
     TW_rule:
       - id: 417mAx-Ogx
         name: If not a tool then don't include in tool class list
         status: TBS
     sort order: 2-20
-    $comment: A false value indicates that no instance of the class is ever a tool. A null value does not make about all instances of the class
 
   mobile tool:
-    oneOf: [type: boolean, type: null]
+    oneOf: [type: boolean, type: NULL]
     description: In the context of the classification object, a true value inidcates that all instances of the class must be mobile. 
     sort order: 2-30
 
   never a stand-alone asset:
-    oneOf: [type: boolean, type: null]
+    oneOf: [type: boolean, type: NULL]
     description: A true value indicates that all instances of this class is always used as a part of another asset, and would never be given an asset tag. E.g., bearing.
     sort order: 2-40
     TW_rule:
       - name: Do not include never a stand-alone in the asset classification  
         id: NJ1E1ZbOgg
         status: TBS
-    $comment: A false or null value materially mean the same thing. 
+    $comment: A false or NULL value materially mean the same thing. 
 
 
   

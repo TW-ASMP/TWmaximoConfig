@@ -17,18 +17,18 @@ properties:
     $ref: roleClassObject
     sort order: 1-30
 
-  a discrete asset role:
-    oneOf: [type: boolean, type: null]
+  discrete asset role:
+    oneOf: [type: boolean, type: NULL]
     updated by system: true
     description: a role that can be occupied by a single discrete asset.
 
-  a functional structure role: 
-    oneOf: [type: boolean, type: null]
+  functional structure role: 
+    oneOf: [type: boolean, type: NULL]
     updated by system: true
     description: a role that cannot be occupied any discrete asset, but can be the parent to other roles.
 
-  a defined set of roles:
-    oneOf: [type: boolean, type: null]
+  defined set of roles:
+    oneOf: [type: boolean, type: NULL]
     updated by system: true  
     description: a role that can be occupied by a collection of descrete assets. 
 
@@ -36,8 +36,8 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: assetObject
-      - type: null
+          $ref: A-entity_record_schema/01_asset_schema.yml
+      - type: NULL
     $comment: |
       []RULE NJQ6BwsVee: A asset must be an instance of one of classes listed in this field to be allowed to occupy a role under this class. 
 
