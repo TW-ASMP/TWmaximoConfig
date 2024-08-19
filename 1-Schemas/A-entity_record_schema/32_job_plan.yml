@@ -38,16 +38,15 @@ properties:
     $ref: /1-Schemas/B-entity_class_object_schema/32_discrete_activity_class.yml
 
 
-  # Trigger condition description
+### Trigger Condition Description Group
   #=====================
   
   recommended frequency numeral:
   
   recommended frequency literal:
   
-  trigger condition:
-
-
+  description of trigger condition:
+    
   # Resource Group
   #====================
   required tool:
@@ -58,37 +57,78 @@ properties:
 
   required trade:
     required skill or license:
-
-
-  # Concrete Job Plan Specification
+  
+### Concrete Job Plan Spec Group
   #====================
-
   executed by group:
     $comment: ?? may be supervisor does not need to be specified, if it always follow the crew.
 
   recommended triggering frequency:
 
 
-  # compliance requirement fragments
-  #=======================
-  Highest known level of EHS or quality requirement:
+### Environment Safety Or Quality (ESQ) Requirements Group
+  #====================
+  ESQ requirement(s):
+    oneOf: 
+      - type: NULL
+      - type: array
+        items:
+          - $ref: "#/definitions/ESQ requirement"
+    $comment: |
+      "[]ASMP: do we need to represent multiple ESQ requirements"
+          
+  highest ESQ requirement level:
+    oneOf: 
+      - type: NULL
+      - $ref: "#/definitions/ESQ requirement type"
+    
+
+######################################################################################
+# DEFINITIONS
+######################################################################################
+definitions:
+
+### ESQ Group ###  
+  #====================
+  ESQ requirement type:
     type: string
     enum:
       - legislative
-      - corporate policy
-      - professional recommendation  
+      - corporate safety policy
+      - professional recommendation
+  
+  #====================
+  ESQ requirement:
+    
+    #====================
+    requirement name:
+      type: string
+      $comment: "For example, 'ANSI Z358.1-2014 on weekly inspection of self-contained emergency wash equipment'."
+
+    #====================
+    requirement type:
+      $ref: "#/definitions/ESQ requirement type"
+
+    #====================
+    requirement description:
+      type: string
+      $comment: |
+        Example Text:
+        .6.3 Self-contained emergency showers shall be visually checked weekly to determine if flushing fluid needs to be changed or supplemented. Such inspection shall be conducted in accordance with manufacturer's instructions.
+        5.5.3 Self-contained eyewashes shall be visually checked weekly to determine if flushing fluid needs to be changed or supplemented. Such inspection shall be conducted in accordance with manufacturer's instructions.
+        6.5.3 Self-contained eye/face washes shall be visually checked weekly to determine if flushing fluid needs to be changed or supplemented. Such shall be conducted in accordance with manufacturer's instructions.
+        7.5.3 Self-contained combination units shall be visually checked weekly to determine if flushing fluid needs to be changed or supplemented. Such inspection shall be conducted in accordance with manufacturer's instructions.
+        8.1.3.2 All personal wash units shall be inspected and maintained in accordance with manufacturer's instructions and shall meet applicable regulatory requirements.
+        8.2.4.3 Self-contained drench hoses shall be visually checked weekly to determine if flushing fluid needs to be changed or supplemented. Such inspection shall be conducted in accordance with manufacturer's instructions.
+
+### Trigger Group ###
+  #====================
+  trigger condition description: 
+    preposition:
+    event description:
 
 
-  EHS or quality requirement detail:
-    type: array
-    type: string
-    $comment: |
-      The contents of this field can be update manually, it can also be populated by an external application through an API. The content will likely take the following shape:
-        "required action":
-        "source of requirement":
-        "risk type":
-
-
+      
 Notes:
 
 $comment: |
