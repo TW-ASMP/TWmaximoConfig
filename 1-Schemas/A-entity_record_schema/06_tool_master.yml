@@ -47,7 +47,7 @@ properties:
     - name: Tool classification list does not include parts non tools
       id: V1ulHHWOgx
       specification: |
-        Tool classification list include all class instances of B-entity_class_object_schema\01_asset_class_object_schema.yml, except ones whose properties."tool" value is FALSE
+        Tool classification list include all class instances of B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml, except ones whose properties."tool" value is FALSE
       status: specified
 
   #========================

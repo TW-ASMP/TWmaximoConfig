@@ -1,6 +1,6 @@
 $schema: 'http://json-schema.org/draft-07/schema'
 title: asset
-$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/01_asset_schema.yml
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/01_asset.yml
 type: object
 
 properties:
@@ -60,7 +60,7 @@ properties:
 
   TWAG asset:
     type: boolean
-    description: A true value indicates that this record represent an asset that is also represented by a record in TWAG. 
+    description: A true value indicates that this record represent an asset that is also represented by a record in TWAG.
     sort order: 1-50
 
   #========================
@@ -72,16 +72,16 @@ properties:
     type: assertion
     TW_rule:
       #....
-      - name: exclusion of parts ("never a stand-alone asset") from asset classification 
+      - name: exclusion of parts ("only used as a part asset") from asset classification 
         id: V15NNHZuxl
         type: [validation, UI]
         specification: |
           Assertion Part:
             For all assets "asset_x",
-              the value of (asset_x."asset class".properties."never a stand-alone asset") must be FALSE
+              the value of (asset_x."asset class".properties."only used as a part asset") must be FALSE
           UI Part:
             In all asset classification search or selection screens, eliminate or filter out all classses "class_y",
-              where (class_y.properties."never a stand-alone asset") is TRUE
+              where (class_y.properties."only used as a part asset") is TRUE
         checked on: 2024-08-15
 
   #-----------------
@@ -98,8 +98,7 @@ properties:
     $comment: |
       This field will be populated by a rule processor, likely operation outside of Maximo and with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification.
   
-  
-  # State and Status Group of Properties
+### State and Status Group of Properties
   #========================
 
   physical status:
@@ -129,7 +128,7 @@ properties:
       The "not applicable" value is being represented explicitly in the value list, because when we are reporting on equipment uptime, we need to know about the periods in which the operating state is not applicable. For example, if the asset is not assigned to any role, organization, or anyone.
 
   
-  # Ownership Property Group
+### Ownership Property Group
   #========================
 
   owned by the organization:
@@ -168,7 +167,8 @@ properties:
             then the value of (.properties."owned by the organization") property must be NULL         
         status: [specified, checked]
   
-  # Item and Tool Property Group
+  
+### Item and Tool Property Group
   #========================
 
   is a commercially available product:
@@ -207,6 +207,14 @@ properties:
               if .properties."asset class".properties."tool" = TRUE;
                 then set the value to TRUE;        
         status: [specified, checked]
+  
+    
+  #------------
+  
+  is mobile:
+    oneOf: 
+      - type: boolean
+      - type: NULL 
   
   #------------
 
@@ -270,7 +278,7 @@ properties:
             only accept a tool master record whose (.properties."generic or specific product") property value is "commercially available product"   
         status: [specified, checked]
 
-  # Assignment Group of Properties
+### Assignment Group of Properties
   #========================
 
   assignment type:
@@ -388,7 +396,7 @@ properties:
     $comment: |
       This field is commonly used when the asset is a part of a skid, structural tank, or switchgear cabinet, in which the asset parent in the system hierarchy should be the line entity. As such we will using this field to track that the asset is also a part of a phyical assembly. We would also be using this field to capture a serialized rotating component as a part of another discrete asset. This field can also be used to indicate an asset membership in a Defined Collection of Assets. 
 
-  # Date Property Group
+### Date Property Group
   #========================
   
   construction contract number:
@@ -461,7 +469,7 @@ properties:
     $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/record retirement sub-schema"
 
   
-  # Background Properties Populated Automatically
+### Background Properties Populated Automatically
   #==========================================================
 
   TW Asset Group:
@@ -486,8 +494,7 @@ properties:
 
 TW_rule:
 
-#------ 
-
+  #------ 
   - name: Asset must have a start of operation date info before we can indicate that it is operationally available.
     id: NyG2nzL5xg
     type: validation
@@ -497,8 +504,7 @@ TW_rule:
           - (asset_x.properties."warranty start date")
         then the value of (asset_x.properties."operating state") CANNOT be "available (up)"
 
-#--------
-
+  #--------
   - name: asset can be assigned exlcusively to either a role, user, or user group
     id: EkD-ZmIceg
     type: validation
@@ -509,8 +515,7 @@ TW_rule:
           - asset_x.properties."assigned to user group"
     errorMessage: "Between \"assigned to role\", \"assigned to user group\", \"installed\"assigned to user\", every asset may only have one type assignment."
 
-#--------
-
+  #--------
   - name: consistency between (.properties."operating state") and assignment values
     id: 41OFxr8ceg
     type: [validation, assertion]
@@ -522,8 +527,7 @@ TW_rule:
         then the value of (.properties."operating state") must be "not assigned work". The opposite must also be true.
     errorMessage: "An asset NOT assigned to a role, user, or user group should not be operating and therefore would not have an operating state"
 
-#-------- 
-
+  #-------- 
   - name: consistency between asset's phyiscal status and its operating state and assignments
     id: NyG2nzL5xg
     type: [assertion, validation]
@@ -538,8 +542,7 @@ TW_rule:
           .properties."assigned to user group" = NULL
     errorMessage: "If an asset is not \"installed \\ in possession\" (see the physical status), then it should not have an operating state value or any assignment." 
 
-#--------
-
+  #--------
   - name: an asset can only be assigned to a discrete asset role
     id: 4yBXuH8qle
     type: [validation]
@@ -548,8 +551,7 @@ TW_rule:
           then (asset_x.properties."assigned to role".properties."role class".properties."discrete asset role") = TRUE
     errorMessage: an asset can only be assigned to a discrete asset role
 
-#--------
-
+  #--------
   - name: inheriting the asset location information from its role
     id: NJdGTHLqeg
     type: [assertion]

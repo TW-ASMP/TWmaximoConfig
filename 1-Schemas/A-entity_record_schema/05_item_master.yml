@@ -39,14 +39,14 @@ properties:
   #========================
   
   item class:
-    $ref: B-entity_class_object_schema\01_asset_class_object_schema.yml
+    $ref: B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml
     TW_rule:
       - name: item classification list includes all classes
         id: EynXVZ-dxg
         specification: |
-          Maximo item classification list would include all class instances of B-entity_class_object_schema\01_asset_class_object_schema.yml, regardless of the values
+          Maximo item classification list would include all class instances of B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml, regardless of the values
             - properties."tool"
-            - properties."never a stand-alone asset"
+            - properties."only used as a part asset"
         status: specified
         checked on: 2024-08-15
     $comment: This is a value from the item classification, which is a superset of the asset class.
