@@ -1,6 +1,7 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: space
-$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/03_space_schema.yml
-$schema: 'http://json-schema.org/draft-07/schema'
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/03_space.yml
 type: object
 
 properties:
@@ -13,7 +14,7 @@ properties:
   #========================
 
   parent space:
-    $ref: A-entity_record_schema/03_space_schema.yml
+    $ref: "./03_space.yml"
     description: The larger space that completely contains this space.
 
   #========================
@@ -38,7 +39,7 @@ properties:
   #========================
 
   enclosed by the asset:
-    oneOf: [$ref: A-entity_record_schema/01_asset_schema.yml, type: NULL]
+    oneOf: [$ref: "./01_asset.yml", type: NULL]
     description: indicates that the space is what is enclosed by (and immediately surrounding) the asset, such as a 
       - building, 
       - structural tank, 
@@ -148,10 +149,10 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: A-entity_record_schema/03_space_schema.yml
+          $ref: "./03_space.yml"
       - type: NULL
   
   #========================
 
   record retirement information:
-    $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/record retirement sub-schema"
+    $ref: "A-entity_record_schema/101_common_definitions.yml#/definitions/record retirement definition"

@@ -1,16 +1,25 @@
-$schema: 'http://json-schema.org/draft-07/schema'
+---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: common properties of all entities
-$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_record_schema/101_common_reusable_sub-schemas.yml
-type: object
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_record_schema/101_common_definitions.yml
+  
 
 definitions:
 
   #===================
 
-  rotating item property:
-  
+  rotating_item_property: 
+    
     type: boolean
+    $comment: |
+      Used in Item and Tool.
+      A rotating item is a trackable item - each instance of the item being a rotating asset record. When the value of this field is true, we must serialize every instance of the item. This commitment is beyond what we can presently achieve at TW. The more pragmatic starting point considered in 2024 is as follows:
+        1) specify all items as non-rotating
+        2) associate each new asset_x to a non-rotating item (have properties."item master type" = "commercially available product item") through its "commercial product item" property.
+        3) if asset_x needs to be moved back into the storeroom in the future (with its full work, failure, and condition information). It would be moved into the spatial location of the storeroom as an asset, instead of being checked into the store as a rotating item.
+    
     TW_rule:
+    
       - name: TEMP - all items are non-rotating for intial implementation
         id: 4JKH1tw9gx
         type: validation
@@ -18,18 +27,14 @@ definitions:
           Validate that rotating flag is set to false before committing the data for record creation.
         $comment: 
         status: specified
-    $comment: |
-       A rotating item is a trackable item - each instance of the item being a rotating asset record. When the value of this field is true, we must serialize every instance of the item. This commitment is beyond what we can presently achieve at TW. The more pragmatic starting point considered in 2024 is as follows:
-        1) specify all items as non-rotating
-        2) associate each new asset_x to a non-rotating item (have properties."item master type" = "commercially available product item") through its "commercial product item" property.
-        3) if asset_x needs to be moved back into the storeroom in the future (with its full work, failure, and condition information). It would be moved into the spatial location of the storeroom as an asset, instead of being checked into the store as a rotating item.
 
   #===================
 
-  generic or specific product sub-schema:
-
-    type: object
+  generic or specific product definition:
+    
+    $comment: Used in Item and Tool.
     properties: 
+    # this is not defined as a object, just a set of properties
 
       #-----------
 
@@ -56,14 +61,14 @@ definitions:
       #-------------
       
       commercial product information:
-        $ref: "#/definitions/manufacturer model and configuration sub-schema"
+        $ref: "#/definitions/manufacturer model and configuration definition"
       
       #------------
       
       product is an instance of the generic(s):
         oneOf: 
           - type: NULL
-          - $ref: A-entity_record_schema/05_item_master_schema.yml
+          - $ref: "./06_tool_master.yml"
         description:
       
       #------------
@@ -72,11 +77,13 @@ definitions:
         oneOf: 
           - type: array
             items:
-              $ref: A-entity_record_schema/05_item_master_schema.yml
+              $ref: "./04_item_master.yml"
           - type: NULL
         description: |
           Identifies the same commercial product item made by the same manufacturer, but differing only in item unit format. For example, the 208-litre drum item and the 5-litre bottle item of Penzoil 5W30 Synthetic Lubricant. 
+        
         TW_rule:
+
           - name: Infer Symmetrical Equivalence between Product Items
             id: EJCnUukuex
             type: inference
@@ -86,7 +93,7 @@ definitions:
   
   #===================
 
-  manufacturer model and configuration sub-schema:
+  manufacturer model and configuration definition:
 
     type: object
     properties:      
@@ -131,10 +138,10 @@ definitions:
   
   #===================
 
-  record retirement sub-schema:
-    type: object
+  record retirement definition:
+    
     properties:
-
+    
       #-----------
 
       record retired:

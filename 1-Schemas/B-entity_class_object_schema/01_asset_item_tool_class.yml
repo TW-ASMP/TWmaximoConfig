@@ -1,6 +1,7 @@
-title: asset item tool class object
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: asset item tool class
 $id: B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml
-$schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 #############################################################
@@ -10,9 +11,9 @@ type: object
 properties:
   
   allOf:
-    - $ref: genericClassObject
-    #inherit the defintions and rules from th genericClassObject
-
+    - $ref: "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
+    #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
+    
   #====================
   parent class:
     $ref: B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml

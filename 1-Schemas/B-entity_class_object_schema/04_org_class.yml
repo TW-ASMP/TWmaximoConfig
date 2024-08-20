@@ -1,13 +1,14 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
 $id: orgGroupClassObject
-$schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
   
   allOf:
-    - $ref: genericClassObject
-  #inherit the defintions and rules from th genericClassObject
+    - $ref: "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
+  #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
   
   parent class:
     $ref: orgGroupClassObject

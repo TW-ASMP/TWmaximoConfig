@@ -1,6 +1,7 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
 $id: roleClassObject
-$schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 #############################################################
@@ -10,8 +11,8 @@ type: object
 properties:
 
   allOf:
-    - $ref: genericClassObject
-    #inherit the defintions and rules from th genericClassObject
+    - $ref: "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
+    #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
 
   parent class:
     $ref: roleClassObject
@@ -36,7 +37,7 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: A-entity_record_schema/01_asset_schema.yml
+          $ref: "./01_asset.yml"
       - type: NULL
     $comment: |
       []RULE NJQ6BwsVee: A asset must be an instance of one of classes listed in this field to be allowed to occupy a role under this class. 

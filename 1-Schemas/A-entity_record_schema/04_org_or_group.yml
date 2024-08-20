@@ -1,6 +1,7 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: organization
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/04_org_schema.yml
-$schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
@@ -12,14 +13,14 @@ properties:
 
   parent organization:
     oneOf:
-      - $ref: A-entity_record_schema/04_org_schema.yml
+      - $ref: "./04_org_or_group.yml"
       - type: NULL
 
   #========================
 
   leader:
     oneOf:
-      - $ref: A-entity_record_schema/07_person_schema.yml
+      - $ref: "./07_person.yml"
       - type: NULL
     description:
 
@@ -29,10 +30,10 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: A-entity_record_schema/04_org_schema.yml
+          $ref: "./04_org_or_group.yml"
       - type: NULL
   
   #========================
 
   record retirement information:
-    $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/record retirement sub-schema"
+    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"

@@ -1,14 +1,10 @@
 ---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: role
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/02_role_schema.yml
-$schema: 'http://json-schema.org/draft-07/schema'
 type: object
 
 properties:
-
-#==========================================================
-#   Properties Visible on the Record 
-#==========================================================
 
   role ID:
     type: string
@@ -37,7 +33,7 @@ properties:
   #========================
 
   parent:
-    $ref: A-entity_record_schema/02_role_schema.yml
+    $ref: "./02_role.yml"
     description: References the role that is served by the larger asset, which physically subsumes the asset serving this role.
 
   #=======================
@@ -89,7 +85,7 @@ properties:
   #========================
   
   asset installation location:
-    oneOf: [$ref: A-entity_record_schema/03_space_schema.yml, type: NULL]
+    oneOf: [$ref: "./03_space.yml", type: NULL]
     description: References the space in which the asset serving the role would be installed.
 
   #========================
@@ -101,7 +97,7 @@ properties:
   #========================
 
   operator group:
-    oneOf: [$ref: A-entity_record_schema/04_org_schema.yml, type: NULL]
+    oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
     description: Group responsible for the operation of the asset serving in this role.
   
   inherit maintenace group value:
@@ -111,7 +107,7 @@ properties:
   #========================
 
   maintenance group:
-    oneOf: [$ref: A-entity_record_schema/04_org_schema.yml, type: NULL]
+    oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
     description: >
       Group responsible for the preventive and reactive maintenance of the asset in the role. For example, a unit, work area, or crew. 
   
@@ -143,16 +139,16 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: A-entity_record_schema/02_role_schema.yml
+          $ref: "./02_role.yml"
       - type: NULL
   
   #========================
 
   record retirement information:
-    $ref: "A-entity_record_schema/101_common_reusable_sub-schemas.yml#/definitions/record retirement sub-schema"
+    $ref: "A-entity_record_schema/101_common_definitions.yml#/definitions/record retirement definition"
 
   #========================
-  # REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
+  # [] REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
   # GIS object ID:
   #   type: string
   #   description: This is the ID of the equivalent object (asset or role) in GIS. This value suggests the original record was created in GIS and copied to WMS through the data integration link.
