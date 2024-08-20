@@ -1,6 +1,5 @@
----
-title: discrete activity classification object
-$id: discreteActivityClassObject
+title: role classification object
+$id: spaceClassObject
 $schema: "http://json-schema.org/draft-07/schema#"
 type: object
 
@@ -9,7 +8,7 @@ properties:
   allOf:
     - $ref: "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
     #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
-    
+
   parent class:
-    $ref: discreteActivityClassObject
+    $ref: spaceClassObject
     sort order: 1-30

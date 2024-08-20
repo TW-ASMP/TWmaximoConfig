@@ -1,0 +1,56 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: generic class object
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml
+type: object
+
+# This set of properties are used in all classification objects (e.g., asset, organization, etc.)
+
+properties:
+
+  #====================
+
+  class name:
+    type: string
+    description: a noun or short noun-phrase name of the class
+    sort order: 1-10
+
+  #====================
+
+  class name with synonym(s):
+    oneOf: 
+      - type: NULL
+      - type: array
+        items:
+          type: string
+    description: other synonymous names that may be used by a user in search 
+    sort order: 1-20
+
+  #====================
+
+  class definition:
+    oneOf:
+      - type: NULL
+      - type: string
+    sort order: 1-40
+
+  #====================
+
+  appliable to individual:
+    type: boolean
+    $comment: |
+      a "FALSE" value indicates that the class is meant to be a structural part of the classifcation tree, and cannot be used to classify any entity (i.e. asset, role, space, etc).
+    sort order: 1-50
+
+  #====================
+  
+  retired:
+    type: boolean
+    TW_rule: 
+      - name: rules on retire classes
+        id: Vy3qYEZ_ex
+        type: [UI]
+        specification: |
+          a retired class should not appear in the list of classes for user selection. Also, the value of its properties."appliable to individual" must be FALSE. 
+        status: draft
+    sort order: 4-10

@@ -8,8 +8,10 @@
 * Province of Ontario
 * Metrolinx
 * TRCA
+* Envave Energy
 * City of Toronto
-    * TW
+    * Solid Waste
+    * Toronto Water
         * Distribution & Collection Section
             * DOS
             * WASP
@@ -21,6 +23,6 @@
             * Highland Creek Wastewater Treatment Plant
                 * Work Area 1
                 * Work Area 2
-            
+
 ## Notes
 * the portion of this hierarchy under TW is not complete; it will be completed before Phase 3 of implementation is complete. 

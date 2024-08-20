@@ -1,14 +1,10 @@
 ---
+$schema: "http://json-schema.org/draft-07/schema#"
 title: role
-$id: roleObject
-$schema: 'http://json-schema.org/draft-07/schema'
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/02_role_schema.yml
 type: object
 
 properties:
-
-#==========================================================
-#   Properties Visible on the Record 
-#==========================================================
 
   role ID:
     type: string
@@ -37,7 +33,7 @@ properties:
   #========================
 
   parent:
-    $ref: roleObject
+    $ref: "./02_role.yml"
     description: References the role that is served by the larger asset, which physically subsumes the asset serving this role.
 
   #=======================
@@ -53,18 +49,16 @@ properties:
       - type: array
         items:
           type: string
-      - type: null
+      - type: NULL
     items:
       type: string
     updated by system: true
-    description: Additional role class memberships inferred through a reasoning process.
+    description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
     $comment: |
-      This field will be populated by a rule processor, either inside Maximo or operating outside with integration to Maximo. An example of the inferred class is "high-pressure boiler".  The values are strings instead of classification objects because the inferred classes will not be in Maximo's asset classification. It is only found in the ontology. 
+      See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
       
   #========================
 
-
-  #========================
   role status:
     type: string
     enum:
@@ -73,7 +67,6 @@ properties:
       - eliminated
     description: |
       This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
-    
     TW_rule: |
       #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the decendents of the role in the hierarachy must also be eliminated. 
         $comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
@@ -91,20 +84,20 @@ properties:
 
   #========================
   
-  located in space:
-    oneOf: [$ref: spaceObject, type: null]
+  asset installation location:
+    oneOf: [$ref: "./03_space.yml", type: NULL]
     description: References the space in which the asset serving the role would be installed.
 
   #========================
   
   service address or coordinate:
-    oneOf: [$ref: serviceAddress, type: null]
+    oneOf: [$ref: MaximoServiceAddressObject, type: NULL]
     description: A geo-coordinate or the nearest street address of the asset.
 
   #========================
 
   operator group:
-    oneOf: [$ref: orgGroupObject, type: null]
+    oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
     description: Group responsible for the operation of the asset serving in this role.
   
   inherit maintenace group value:
@@ -114,7 +107,7 @@ properties:
   #========================
 
   maintenance group:
-    oneOf: [$ref: orgGroupObject, type: null]
+    oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
     description: >
       Group responsible for the preventive and reactive maintenance of the asset in the role. For example, a unit, work area, or crew. 
   
@@ -125,7 +118,7 @@ properties:
   #========================
 
   operational criticality:
-    oneOf: [$ref:'#/definitions/criticality rating definition', type: null] # see section 3. LOCAL OBJECT DEFINITION 
+    oneOf: [$ref:'#/definitions/criticality rating definition', type: NULL] # see section 3. LOCAL OBJECT DEFINITION 
     description: A role bears high operational criticality if the loss of the asset in the role will either reduce throughput or product quality (but not product safety) of the larger system.
 
   inherit operational criticality value:
@@ -133,7 +126,7 @@ properties:
     default value: false
 
   protective function criticality:
-    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: null] # see section 3. LOCAL OBJECT DEFINITION
+    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: NULL] # see section 3. LOCAL OBJECT DEFINITION
     description: A role bears protective function criticality if the loss of one of its protective functions (i.e., regulatory/control/protection or containment function) will either result in a consequential release of hazard or the loss of a capability to mitigate a greater level hazard.
 
   inherit protective function criticality value:
@@ -142,11 +135,20 @@ properties:
   
   #========================
 
-  allOf:
-    - $ref: genericEntityObject
+  duplicate record of:
+    oneOf: 
+      - type: array
+        items:
+          $ref: "./02_role.yml"
+      - type: NULL
+  
+  #========================
+
+  record retirement information:
+    $ref: "A-entity_record_schema/101_common_definitions.yml#/definitions/record retirement definition"
 
   #========================
-  # REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
+  # [] REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
   # GIS object ID:
   #   type: string
   #   description: This is the ID of the equivalent object (asset or role) in GIS. This value suggests the original record was created in GIS and copied to WMS through the data integration link.
@@ -204,10 +206,6 @@ definitions:
 $comment: |
   OPEN AND TODO ITEMS:
     [x] To have discussion on what we put in for criticality
-    [] explicitly specify an unoccupied asset
-
+    [] explicitly specify an unoccupied role
     [] expression of role equivalence
-  
-    [] expression of central role in a system
-
-    [] certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
+    [] RULE: certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
