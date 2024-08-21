@@ -27,7 +27,7 @@ properties:
 
   complete space name:
     type: string
-    updated by system: true
+    updated_by_system: true
     TW_rule:
       - $id: 
         name: complete space name generation
@@ -39,7 +39,7 @@ properties:
   #========================
 
   enclosed by the asset:
-    oneOf: [$ref: "./01_asset.yml", type: NULL]
+    oneOf: [$ref: "./01_asset.yml", type: null]
     description: indicates that the space is what is enclosed by (and immediately surrounding) the asset, such as a 
       - building, 
       - structural tank, 
@@ -49,7 +49,7 @@ properties:
   #========================
 
   space of storeroom:
-    oneOf: [$ref: MX_storeroomObject, type: NULL]
+    oneOf: [$ref: MX_storeroomObject, type: null]
     description: a value indicates that this space is the interior of a designated storage room or area, represented in Maximo by the storeroom object. 
 
   #========================
@@ -61,13 +61,13 @@ properties:
 
   #========================
 
-  inferred class name(s):
+  inferred_class_names:
     oneOf: 
       - type: array
         items:
           type: string
-      - type: NULL
-    updated by system: TRUE
+      - type: null
+    updated_by_system: TRUE
     description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
     $comment: |
       See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
@@ -76,8 +76,8 @@ properties:
 
   #========================
 
-  service address or coordinate: 
-    oneOf: [$ref: .IBM_Maximo_object/MaximoServiceAddressObject, type: NULL]
+  service_address_or_coordinate: 
+    oneOf: [$ref: .IBM_Maximo_object/MaximoServiceAddressObject, type: null]
     $comment: this is referencing Maximo's native service address object
 
   #========================
@@ -112,7 +112,7 @@ properties:
   
   inherit hazard location class value:
     type: boolean
-    default value: true
+    default_value: true
 
   #========================    
   
@@ -124,7 +124,7 @@ properties:
   
   inherit hazardous location division value:
     type: boolean
-    default value: true
+    default_value: true
 
   #========================
 
@@ -141,7 +141,7 @@ properties:
 
   inherit hazardous location group value:
     type: boolean
-    default value: true
+    default_value: true
 
   #========================
 
@@ -150,9 +150,10 @@ properties:
       - type: array
         items:
           $ref: "./03_space.yml"
-      - type: NULL
+      - type: null
   
   #========================
 
   record retirement information:
-    $ref: "A-entity_record_schema/101_common_definitions.yml#/definitions/record retirement definition"
+    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"
+  

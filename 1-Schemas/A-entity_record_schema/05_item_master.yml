@@ -6,7 +6,7 @@ type: object
 
 properties:
   
-  item ID:
+  item number:
 
     type: string
     description: 
@@ -27,18 +27,18 @@ properties:
         id: VkYgCtRPlx
         type: assertion
         specification: |
-          if (item_x.properties."generic or specific product") = "generic", then  
+          if (item_x.properties."generic_or_specific_product") = "generic", then  
             the value of (item_x.properties."item name") would be the semi-colon ("; ") delimited concatenation of the following property values:
               - properties."item class".properties."class name"
               - properties."description of generic"
-          elif: (item_x.properties."generic or specific product" = "commercially available product"), then: 
+          elif: (item_x.properties."generic_or_specific_product" = "commercially available product"), then: 
             the value of (item_x.properties."item name") would be the semi-colon ("; ") delimited concatenation of the following property values:
               - properties."item class".properties."class name"
               - properties."product manufacturer company".properties."company name"
-              - properties."product model (and sub-model) description"
+              - properties."product_model_and_sub-model"
               - properties."model year or product version designator"
               - properties."product configuration code"
-        checked on: 2024-08-15
+        checked_on: 2024-08-15
   
   #========================
   
@@ -56,20 +56,90 @@ properties:
             - properties."tool"
             - properties."only used as a part asset"
         status: specified
-        checked on: 2024-08-15
+        checked_on: 2024-08-15
 
+
+# INVENTORY MANAGEMENT FLAGS
   #========================
-  
+
+  stocked_at_TW:
+    
+    $ref: "./101_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
+          
   rotating:
+    
+    $ref: "./101_common_definitions.yml#/definitions/rotating_property_def" 
 
-    $ref: "./101_common_definitions.yml#/definitions/rotating_item_property" # A reference to a set of properties used in multiple places (item and tool master definition)
 
+# generic and specific definition
   #========================
 
-  generic or specific production information:
+  generic_or_specific_product:
+    type: string
+    description: indicate whether the item is defined generically in terms of its function or commodity specification or is defined or specifically in term of its product detail.
+    enum:
+      - generic
+      - commercially available product
+    $comment: |
+      A generic item appropriate for a certain application is a "defined application generic" item. 
+    TW_rule:
+      - name: Restrict Issuing a Generic Item
+        id: 4yDfkRcvlg
+        specification: ""
+        status: TBS
 
-    $ref: "./101_common_definitions.yml#/definitions/generic or specific product definition" # A reference to a set of properties used in multiple places (item and tool master definition)
+  #========================
   
+  description of generic:
+    type: string
+    description: For example, 14' 165/55R14 winter tire, or electrical feeder protection relay
+  
+# MANUFACTURER AND MODEL GROUP
+  #========================
+
+  manufacturer_model_configuration_information:
+    oneOf: [type: null, $ref:"$ref: "./101_common_definitions.yml#/definitions/manufacturer_and_model_definition"]
+    
+    # referend defintion contains 
+
+      # manufacturer:
+
+      # product_model_and_sub-model:
+
+      # model year or product version designator:
+
+      # product configuration code:
+      
+      # manufacturer part number:
+
+  #========================
+  
+  product is an instance of the generic(s):
+    
+    oneOf: 
+      - type: null
+      - $ref: "./06_tool_master.yml"
+    description:
+  
+  #========================
+  
+  exact same product as:
+    oneOf: 
+      - type: array
+        items:
+          $ref: "./04_item_master.yml"
+      - type: null
+    description: |
+      Identifies the same commercial product item made by the same manufacturer, but differing only in item unit format. For example, the 208-litre drum item and the 5-litre bottle item of Penzoil 5W30 Synthetic Lubricant. 
+    
+    TW_rule:
+
+      - name: Infer Symmetrical Equivalence between Product Items
+        id: EJCnUukuex
+        type: inference
+        specification: ""
+        status: to be specified
+
   #========================
   
   ordering information:
@@ -78,7 +148,7 @@ properties:
       - type: array  # array type indicates the possibility of multiple pieces of ordering information
         items:
           $ref: "#/definitions/vendor order detail"
-      - type: NULL
+      - type: null
 
   #========================
 
@@ -96,14 +166,9 @@ properties:
       - type: array
         items:
           $ref: "./05_item_master.yml"
-      - type: NULL
+      - type: null
 
-  #========================
 
-  record retirement information:
-
-    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"
-  
 
 #========================
 # DEFINITIONS
@@ -124,7 +189,7 @@ definitions:
       order unit format:
         
         oneOf:
-          - type: NULL
+          - type: null
           - type: string
         description: A description of each indivdual unit of order, such as a can or roll, of the product item, regardless of the ordering unit, such as a box of 24.  For example, "80 ml can" or "27 x 500in. roll".
         $comment: |
@@ -138,7 +203,7 @@ definitions:
         
         oneOf:
           - type: string
-          - type: NULL
+          - type: null
       
       #========================
       

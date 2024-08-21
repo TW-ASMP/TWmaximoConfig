@@ -16,21 +16,21 @@ properties:
 
   parent class:
     $ref: roleClassObject
-    sort order: 1-30
+    sort_order: 1-30
 
   discrete asset role:
-    oneOf: [type: boolean, type: NULL]
-    updated by system: true
+    oneOf: [type: boolean, type: null]
+    updated_by_system: true
     description: a role that can be occupied by a single discrete asset.
 
   functional structure role: 
-    oneOf: [type: boolean, type: NULL]
-    updated by system: true
+    oneOf: [type: boolean, type: null]
+    updated_by_system: true
     description: a role that cannot be occupied any discrete asset, but can be the parent to other roles.
 
   defined set of roles:
-    oneOf: [type: boolean, type: NULL]
-    updated by system: true  
+    oneOf: [type: boolean, type: null]
+    updated_by_system: true  
     description: a role that can be occupied by a collection of descrete assets. 
 
   compatible asset occupant class(s):
@@ -38,7 +38,7 @@ properties:
       - type: array
         items:
           $ref: "./01_asset.yml"
-      - type: NULL
+      - type: null
     $comment: |
       []RULE NJQ6BwsVee: A asset must be an instance of one of classes listed in this field to be allowed to occupy a role under this class. 
 

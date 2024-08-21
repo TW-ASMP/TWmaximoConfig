@@ -6,135 +6,101 @@ $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_reco
 
 definitions:
 
-  #===================
+  stocked_at_TW_property_def:
+    
+    type: boolean
+    description: a true value indicates that the item is a stocked item at the Toronto Water organization
 
-  rotating_item_property: 
+    TW_rule:
+
+      - name: default value of .properties.stocked_at_TW
+        id: EkxMAfT5ee
+        specification: |
+          For a given item_or_tool_x, 
+            the value of item_or_tool_x.properties.stocked_at_TW is set to false by default 
+      
+  #=====================
+      
+  rotating_property_def:
     
     type: boolean
     $comment: |
-      Used in Item and Tool.
-      A rotating item is a trackable item - each instance of the item being a rotating asset record. When the value of this field is true, we must serialize every instance of the item. This commitment is beyond what we can presently achieve at TW. The more pragmatic starting point considered in 2024 is as follows:
-        1) specify all items as non-rotating
-        2) associate each new asset_x to a non-rotating item (have properties."item master type" = "commercially available product item") through its "commercial product item" property.
-        3) if asset_x needs to be moved back into the storeroom in the future (with its full work, failure, and condition information). It would be moved into the spatial location of the storeroom as an asset, instead of being checked into the store as a rotating item.
+      For posterity: a rotating item is a trackable item - each instance of the item being a rotating asset record. When the value of this field is true, we must serialize every instance of the item. This commitment is beyond what we can presently achieve at TW. The more pragmatic starting point considered in 2024 is as follows:
+        1) for the initial implementation, specify all items as non-rotating
+        2) an non-rotating item definition, containing the mfr, model, and ordering information, can be associated with any asset, through the the asset's item_product_master_record property.
+        2) in the future, if we wish to convert the non-rotating item definition to a rotating item definition, we would serialize all the assets associated to the item definition, and convert them to rotating assets. 
     
     TW_rule:
     
-      - name: TEMP - all items are non-rotating for intial implementation
+      - name: value of .properties."rotating item"
         id: 4JKH1tw9gx
-        type: validation
+        type: [validation, assertion]
         specification: |
-          Validate that rotating flag is set to false before committing the data for record creation.
+          For a given item_x, 
+            the value of item_x.properties."rotating flag" is set to false, for all time 
         $comment: 
         status: specified
-
+      
   #===================
 
-  generic or specific product definition:
+  manufacturer_and_model_definition:
     
-    $comment: Used in Item and Tool.
-    properties: 
-    # this is not defined as a object, just a set of properties
+    type: object
+    properties:
 
-      #-----------
+      manufacturer:
+        oneOf: [type: null, $ref: MaximoCompanyObject]
+        description: For example, GE Vernova
+      
+    # this syntax effectively appends the properties defined in the referenced sub-schema
+    allOf: 
+      - $ref: "#/definitions/product_model_definition"
 
-      generic or specific product:
-        type: string
-        description: indicate whether the item is defined generically in terms of its function or commodity specification or is defined or specifically in term of its product detail.
-        enum:
-          - generic
-          - commercially available product
-        $comment: |
-          A generic item appropriate for a certain application is a "defined application generic" item. 
-        TW_rule:
-          - name: Restrict Issuing a Generic Item
-            id: 4yDfkRcvlg
-            specification: ""
-            status: to be specified
-
-      #------------
-      
-      description of generic:
-        type: string
-        description: For example, 14' 165/55R14 winter tire, or electrical feeder protection relay
-      
-      #-------------
-      
-      commercial product information:
-        $ref: "#/definitions/manufacturer model and configuration definition"
-      
-      #------------
-      
-      product is an instance of the generic(s):
-        oneOf: 
-          - type: NULL
-          - $ref: "./06_tool_master.yml"
-        description:
-      
-      #------------
-      
-      exact same product as:
-        oneOf: 
-          - type: array
-            items:
-              $ref: "./04_item_master.yml"
-          - type: NULL
-        description: |
-          Identifies the same commercial product item made by the same manufacturer, but differing only in item unit format. For example, the 208-litre drum item and the 5-litre bottle item of Penzoil 5W30 Synthetic Lubricant. 
         
-        TW_rule:
-
-          - name: Infer Symmetrical Equivalence between Product Items
-            id: EJCnUukuex
-            type: inference
-            specification: ""
-            status: to be specified
-
-  
   #===================
 
-  manufacturer model and configuration definition:
-
+  plain-text_manufacturer_and_model_definition:
+    
     type: object
-    properties:      
-      product manufacturer company:
-        oneOf: 
-          - type: NULL
-          - $ref: MaximoCompanyObject
+    properties:
+
+      manufacturer:
+        type: [null, string]
         description: For example, "GE Vernova"
       
-      #------------
-      
-      product model (and sub-model) description:
-        type: string
+    # this syntax effectively appends the properties defined in the referenced sub-schema
+    allOf: 
+      - $ref: "#/definitions/product_model_definition"
+
+  #===================
+ 
+  product_model_definition:
+    
+    type: object
+    properties:
+
+      product_model_and_sub-model:
+        type: [null, string]
         description: For example, "Multilin 869"
-        $comment: 
-      
+
       #------------
       
       model year or product version designator:
-        oneOf: [type: NULL, type: string]
+        type: [null, string]
         description: Identifies the specific version of the product model. For example "v2" or "2023".
       
       #------------
       
       product configuration code:
-        oneOf: [type: NULL, type: string]
+        type: [null, string]
         description: Denotes the exact exact configuration, made among the options provided by the manufacturer. For example, "P5-G1-S1-LO-A1-R-E-H". 
       
       #------------
       
       manufacturer part number:
-        oneOf: [type: NULL, type: string]
+        type: [null, string]
         description: The manufacturer designator identifying the exact product item.
       
-      #------------
-        
-      required: 
-        "model or commercial product name"
-      oneOf:
-        - required: "maker of model or commercial product"
-        - required: "parent model or commercial product"
   
   #===================
 
@@ -146,12 +112,12 @@ definitions:
 
       record retired:
         type: Boolean
-        sort order: 20-10
+        sort_order: 20-10
       
       #------------
       
       reason for retirement:
-        oneOf: [type: string, type: NULL]
-        updated by system: true
-        sort order: 20-20
+        oneOf: [type: string, type: null]
+        updated_by_system: true
+        sort_order: 20-20
         $comment: the value should be written by the system, from a asset or record retirement transaction. 

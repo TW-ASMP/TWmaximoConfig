@@ -14,14 +14,14 @@ properties:
   parent organization:
     oneOf:
       - $ref: "./04_org_or_group.yml"
-      - type: NULL
+      - type: null
 
   #========================
 
   leader:
     oneOf:
       - $ref: "./07_person.yml"
-      - type: NULL
+      - type: null
     description:
 
   #========================
@@ -31,7 +31,7 @@ properties:
       - type: array
         items:
           $ref: "./04_org_or_group.yml"
-      - type: NULL
+      - type: null
   
   #========================
 
