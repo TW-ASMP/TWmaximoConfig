@@ -138,6 +138,53 @@ definitions:
   
   #===================
 
+  
+  material or item requirement definition:
+  # used in job plan
+
+    properties:
+
+      item reference: # reference for both stocked and un-stocked item
+        $ref: "./05_item_master.yml"
+      
+      #------------
+      
+      number:
+        type: number
+      
+      #------------
+      
+      unit of measure:
+        $ref: "#/definitions/unit of measure definition"
+
+  #===================
+  
+  tool requirement definition:
+  # used in job plan
+
+    properties:
+
+      item reference: # reference for both stocked and un-stocked tool
+        $ref: "./06_tool_master.yml"
+      
+      #------------
+      
+      number:
+        type: number
+
+
+  #===================
+
+  unit of measure definition:
+
+    properties:
+
+      name:
+      
+      symbol:
+
+  #===================
+
   record retirement definition:
     
     properties:

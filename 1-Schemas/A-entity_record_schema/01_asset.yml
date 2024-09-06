@@ -42,7 +42,7 @@ properties:
     description: The human readable short description of the asset.
     sort order: 1-20
     $comment: |
-        Assumption: an non-is a commercially available product is always built on site for a specific purpose, and would permenantly occupy a role. An example is an aeration tank. 
+        Assumption: an non-is a commercially available product is always built on site for a specific purpose, and would permanently occupy a role. An example is an aeration tank. 
     
     TW_rule:
 
@@ -62,7 +62,8 @@ properties:
               - asset_x.properties."asset class".properties."class name"
               - asset_x.properties."assigned to role".properties."role name"
           # NOTE: actual script should contain additional condition handle formatting of the name text when there is missing data in any concatenated property.
-        status: [specified, checked] 
+        status: 
+          checked: 2024-08-15 
         
   
   #========================
@@ -92,7 +93,7 @@ properties:
             For all assets "asset_x",
               the value of (asset_x."asset class".properties."only used as a part asset") must be FALSE
           UI Part:
-            In all asset classification search or selection screens, eliminate or filter out all classses "class_y",
+            In all asset classification search or selection screens, eliminate or filter out all classes "class_y",
               where (class_y.properties."only used as a part asset") is TRUE
         checked on: 2024-08-15
 
@@ -127,7 +128,7 @@ properties:
       - missing 
       - lost
     $comment: |
-      This data field is not NULLable becauase the lack of knowledge is explicitly expressed as "missing" or "lost", and the non-existence is expressed as "planned" or "removed from possession".
+      This data field is not NULLable because the lack of knowledge is explicitly expressed as "missing" or "lost", and the non-existence is expressed as "planned" or "removed from possession".
 
   #========================
   
@@ -300,7 +301,7 @@ properties:
     oneOf: 
       - $ref: "./06_tool_master.yml"
       - type: NULL
-    description: A association with a master record designates the asset as a stocked tool, which allows the tool to be checked into a storeroom and tracked as a part of an inventory. Without an association, the tool would be a unstocked. 
+    description: A association with a master record designates the asset as a stocked tool, which allows the tool to be checked into a storeroom and tracked as a part of an inventory. Without an association, the tool would be a un-stocked. 
     sort order: 1-110
   
     TW_rule:
@@ -449,7 +450,7 @@ properties:
     description: >
       The value in this property denotes the larger discrete asset or defined collection of assets, to which this asset is a part of.  NOTE: this property is not meant to be used for specifying the system hierarchy parent. That property is found on the role record, not the asset record. 
     $comment: |
-      This field is commonly used when the asset is a part of a skid, structural tank, or switchgear cabinet, in which the asset parent in the system hierarchy should be the line entity. As such we will using this field to track that the asset is also a part of a phyical assembly. We would also be using this field to capture a serialized rotating component as a part of another discrete asset. This field can also be used to indicate an asset membership in a Defined Collection of Assets. 
+      This field is commonly used when the asset is a part of a skid, structural tank, or switchgear cabinet, in which the asset parent in the system hierarchy should be the line entity. As such we will using this field to track that the asset is also a part of a physical assembly. We would also be using this field to capture a serialized rotating component as a part of another discrete asset. This field can also be used to indicate an asset membership in a Defined Collection of Assets. 
 
 ## DATE PROPERTY GROUP
   #========================

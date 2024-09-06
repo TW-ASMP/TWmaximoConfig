@@ -1,81 +1,137 @@
-$schema: 'http://json-schema.org/draft-07/schema'
+---
+$schema: http://json-schema.org/draft-07/schema#
 title: Job Plan
-$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/32_job_plan.yml
+description: |
+  A job plan is the the lowest level of work description to contain the full planning specifications. 
 type: object 
 
 properties:
 
-  job plan ID:
-  
+  job_plan_id:
+
+    $comment: this is akin to the activity procedure ID, such as FISELS201, in Avantis.
+    
+
   #================
 
-  job plan name:
+  job_plan_name:
+
+    type: string
+    description: 
 
   #================
 
-  is based on:
+  job_plan_type:
+
+    type: string
+    enum:
+      - discrete
+      - composite
+    description: A composite job plan is made up of discrete job plans, its planning details are not directly specified. Instead, they are aggregated from its discrete job plan parts.
+    # [] rule planning detail of job plans are not to be directly specified
+
+  #================
+
+  is_based_on:
+
     oneOf:
-      - $ref: /A-entity_record_schema/32_job_plan.yml
+      - $ref: "./32_job_plan.yml"
       - type: NULL
 
   #================
 
-  description of steps:
-    $comment: If mobile is used, each step can be represented as a task.
+  description_of_steps:
+
+    $comment: if mobile is used, each step can be represented as a task.
 
   #================
   
   tasks:
-    $comment: No emphasis to fill in now, but more necessary when we are moving to mobile, and need to be reminded what steps to following
+
+    $comment: no emphasis to fill in now, but more necessary when we are moving to mobile, and need to be reminded what steps to following
 
   #================
 
-  estimated duration (hr):
+  estimated_wrench_time:
 
   #================
 
-  classification:
-    $ref: /1-Schemas/B-entity_class_object_schema/32_discrete_activity_class.yml
+  activity_class:
 
+    $ref: "../B-entity_class_object_schema/32_discrete_activity_class.yml"
 
-### Trigger Condition Description Group
-  #=====================
-  
-  recommended frequency numeral:
-  
-  recommended frequency literal:
-  
-  description of trigger condition:
     
-  # Resource Group
+# Resource Group
   #====================
-  required tool:
-
-  required material item:
-
-  service contract item:
-
-  required trade:
-    required skill or license:
   
-### Concrete Job Plan Spec Group
+  required_tool:
+  
+    oneOf:
+      - type: NULL
+      - type: array
+        items:
+          - $ref: "./101_common_definitions.yml#/definitions/tool quantity definition"
+
+  required_material_or_item:
+
+    oneOf:
+      - type: NULL
+      - type: array
+        items:
+          - $ref: "./101_common_definitions.yml#/definitions/material or item quantity definition"
+
+  service_contract_item:
+
+  required_trade:
+  
+  required_qualification_or_license:
+  
+# Concrete Job Plan Spec Group
   #====================
-  executed by group:
+
+  executed_by_group:
+
     $comment: ?? may be supervisor does not need to be specified, if it always follow the crew.
 
-  recommended triggering frequency:
+  recommended_triggering:
 
+# Trigger Condition Description Group
+  #=====================
+  
+  recommended_frequency_number:  
+  
+  #================
 
-### Environment Safety Or Quality (ESQ) Requirements Group
+  recommended_frequency_increment:
+  
+  #================
+
+  trigger_in_relation_to_event:
+
+    type: object
+    properties: 
+
+      preposition:
+        enum:
+          - after
+          - before
+          - during
+      
+      date:
+
+      event:
+
+# Environment Safety Or Quality (ESQ) Requirements Group
   #====================
   ESQ requirement(s):
+
     oneOf: 
       - type: NULL
       - type: array
         items:
           - $ref: "#/definitions/ESQ requirement"
     $comment: |
-      "[]ASMP: do we need to represent multiple ESQ requirements"
+      "[] ASMP do we need to represent multiple ESQ requirements"
           
   highest ESQ requirement level:
     oneOf: 
@@ -83,12 +139,12 @@ properties:
       - $ref: "#/definitions/ESQ requirement type"
     
 
-######################################################################################
+##########################################################
 # DEFINITIONS
-######################################################################################
+##########################################################
 definitions:
 
-### ESQ Group ###  
+## ESQ Group ##  
   #====================
   ESQ requirement type:
     type: string
@@ -121,7 +177,7 @@ definitions:
         8.1.3.2 All personal wash units shall be inspected and maintained in accordance with manufacturer's instructions and shall meet applicable regulatory requirements.
         8.2.4.3 Self-contained drench hoses shall be visually checked weekly to determine if flushing fluid needs to be changed or supplemented. Such inspection shall be conducted in accordance with manufacturer's instructions.
 
-### Trigger Group ###
+## Trigger Group ##
   #====================
   trigger condition description: 
     preposition:

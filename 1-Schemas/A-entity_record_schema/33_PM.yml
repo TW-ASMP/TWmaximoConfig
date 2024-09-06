@@ -1,6 +1,7 @@
-$schema: 'http://json-schema.org/draft-07/schema'
+---
+$schema: http://json-schema.org/draft-07/schema#
 title: PM
-$id: PM_Object
+#$id:
 type: object
 
 properties:
@@ -79,3 +80,5 @@ definitions:
       role object:
       asset object:
       space object:
+
+# [] Rules on the type objects (asset, role) that can be specified as an object in a work order.  

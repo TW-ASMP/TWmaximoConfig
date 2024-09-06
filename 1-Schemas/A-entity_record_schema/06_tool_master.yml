@@ -18,7 +18,7 @@ properties:
   
   #========================
   
-  tool name:
+  tool_name:
   
     type: string 
     description: The human readable short description of the tool.
