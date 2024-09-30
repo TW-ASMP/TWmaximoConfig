@@ -83,6 +83,12 @@ properties:
       Eventually, this information should be replaced by formalized properties associated with specific role classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
 
   #========================
+
+  serving_asset_in_role:
+    $ref: "./02_role.yml"
+    description: Identifies the asset this role is serving. For example, given a motor starter role, the value in this datafield identifes the role of the motor controlled by thet motor starter. 
+
+  #========================
   
   asset installation location:
     oneOf: [$ref: "./03_space.yml", type: null]
