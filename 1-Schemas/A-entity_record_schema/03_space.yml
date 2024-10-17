@@ -25,7 +25,7 @@ properties:
 
   #========================
 
-  complete space name:
+  complete hierarchal space name:
     type: string
     updated_by_system: true
     TW_rule:
@@ -100,6 +100,9 @@ properties:
     type: boolean
 
   #========================
+  inherit hazardous property values:
+    type: boolean
+    default_value: true
 
   hazardous location class:
     type: string
@@ -108,25 +111,13 @@ properties:
       - II
       - III
 
-  #========================
-  
-  inherit hazard location class value:
-    type: boolean
-    default_value: true
-
-  #========================    
   
   hazardous location division:
     type: string
     enum:
       - 1
       - 2
-  
-  inherit hazardous location division value:
-    type: boolean
-    default_value: true
 
-  #========================
 
   hazardous location group:
     type: string
@@ -139,9 +130,6 @@ properties:
       - F
       - G
 
-  inherit hazardous location group value:
-    type: boolean
-    default_value: true
 
   #========================
 
