@@ -8,7 +8,9 @@ type: object
 properties:
 
   job_plan_id:
-
+    
+    description:
+    type:
     $comment: this is akin to the activity procedure ID, such as FISELS201, in Avantis.
     
 
@@ -16,18 +18,19 @@ properties:
 
   job_plan_name:
 
-    type: string
     description: 
+    type: string
 
   #================
 
   job_plan_type:
-
+    
+    description: 
     type: string
     enum:
       - discrete
       - composite
-    description: A composite job plan is made up of discrete job plans, its planning details are not directly specified. Instead, they are aggregated from its discrete job plan parts.
+    $comment: A composite job plan is made up of discrete job plans, its planning details are not directly specified. Instead, they are aggregated from its discrete job plan parts.
     # [] rule planning detail of job plans are not to be directly specified
 
   #================
@@ -40,15 +43,12 @@ properties:
 
   #================
 
-  description_of_steps:
+  procedure_steps:
 
-    $comment: if mobile is used, each step can be represented as a task.
-
-  #================
-  
-  tasks:
-
-    $comment: no emphasis to fill in now, but more necessary when we are moving to mobile, and need to be reminded what steps to following
+    description: 
+    type: string
+    
+    $comment: In the future, each step can be represented as a task.
 
   #================
 
@@ -66,30 +66,41 @@ properties:
   
   required_tool:
   
+    description: Tool(s) needed to complete the work
     oneOf:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/tool quantity definition"
+          - $ref: "./101_common_definitions.yml#/definitions/tool_requirement_definition"
+    $comment: the tools can be stocked or unstocked. 
 
-  required_material_or_item:
+  required_item:
+    
+    description: Parts and material needed to complete the work
+    oneOf:
+      - type: NULL
+      - type: array
+        items:
+          - $ref: "./101_common_definitions.yml#/definitions/item_requirement_definition"
+
+  required_service_contract_item:
 
     oneOf:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/material or item quantity definition"
-
-  service_contract_item:
+          - $ref: "./101_common_definitions.yml#/definitions/service_contract_item_definition"
 
   required_trade:
   
-  required_qualification_or_license:
+  required_qualification:
+
+    description: the required qualification and license 
   
 # Concrete Job Plan Spec Group
   #====================
 
-  executed_by_group:
+  specific_to_site:
 
     $comment: ?? may be supervisor does not need to be specified, if it always follow the crew.
 
@@ -102,7 +113,10 @@ properties:
   
   #================
 
-  recommended_frequency_increment:
+  recommended_frequency_UOM:
+
+    description:
+    $comment:
   
   #================
 
@@ -123,7 +137,7 @@ properties:
 
 # Environment Safety Or Quality (ESQ) Requirements Group
   #====================
-  ESQ requirement(s):
+  ESQ_requirement:
 
     oneOf: 
       - type: NULL

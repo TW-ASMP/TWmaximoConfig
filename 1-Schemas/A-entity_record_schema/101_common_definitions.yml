@@ -139,43 +139,48 @@ definitions:
   #===================
 
   
-  material or item requirement definition:
+  item_requirement_definition:
   # used in job plan
 
     properties:
 
-      item reference: # reference for both stocked and un-stocked item
+      item_reference: # reference for both stocked and un-stocked item
         $ref: "./05_item_master.yml"
       
       #------------
       
-      number:
+      quantity:
         type: number
       
       #------------
       
-      unit of measure:
-        $ref: "#/definitions/unit of measure definition"
+      unit_of_measure:
+        $ref: "#/definitions/unit_of_measure_definition"
 
   #===================
   
-  tool requirement definition:
+  tool_requirement_definition:
   # used in job plan
 
     properties:
 
-      item reference: # reference for both stocked and un-stocked tool
+      item_reference: # reference for both stocked and un-stocked tool
         $ref: "./06_tool_master.yml"
       
       #------------
       
-      number:
+      quantity:
         type: number
-
 
   #===================
 
-  unit of measure definition:
+  service_contract_item_definition:
+
+    # to be defined
+
+  #===================
+
+  unit_of_measure_definition:
 
     properties:
 
