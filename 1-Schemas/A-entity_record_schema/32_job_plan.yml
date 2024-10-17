@@ -8,6 +8,7 @@ type: object
 properties:
 
   job_plan_id:
+<<<<<<< Updated upstream
     
     description:
     type:
@@ -61,6 +62,7 @@ properties:
 
   procedure_steps:
 
+<<<<<<< Updated upstream
     description: 
     type: string
     
