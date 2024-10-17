@@ -13,7 +13,22 @@ properties:
     type:
     $comment: this is akin to the activity procedure ID, such as FISELS201, in Avantis.
     
+=======
 
+    $comment: This is equivalent to activity procedure ID, such as FISELS201, in Avantis.
+  
+>>>>>>> Stashed changes
+
+  #================
+
+  failure_mode_codes:
+
+    oneOf:
+      - type: NULL
+      - type: array
+        items: string
+    $comment: This optional field contains one or more RCM failure mode
+  
   #================
 
   job_plan_name:
@@ -38,8 +53,9 @@ properties:
   is_based_on:
 
     oneOf:
-      - $ref: "./32_job_plan.yml"
       - type: NULL
+      - $ref: "./32_job_plan.yml"
+    $comment: This field is likely updated by an integrated solution that manages the job plan definitions and relations between generic and specific job plans.
 
   #================
 
@@ -49,6 +65,10 @@ properties:
     type: string
     
     $comment: In the future, each step can be represented as a task.
+=======
+    type: string
+    $comment: If mobile is used, each step may be represented as a job plan task.
+>>>>>>> Stashed changes
 
   #================
 
@@ -59,7 +79,6 @@ properties:
   activity_class:
 
     $ref: "../B-entity_class_object_schema/32_discrete_activity_class.yml"
-
     
 # Resource Group
   #====================
