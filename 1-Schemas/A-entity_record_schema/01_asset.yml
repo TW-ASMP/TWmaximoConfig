@@ -64,15 +64,6 @@ properties:
           # NOTE: actual script should contain additional condition handle formatting of the name text when there is missing data in any concatenated property.
         status: [specified, checked] 
         
-  
-  #========================
-  
-  TWAG_asset:
-  
-    type: boolean
-    integration: true
-    description: A true value indicates that this record represent an asset that is also represented by a record in TWAG.
-    sort_order: 1-50
 
   #========================
   
@@ -298,7 +289,7 @@ properties:
 ## LOCATION PROPERTY GROUP
   #========================
   
-  installation_or_storage_location:
+  installation_or_parking_location:
   
     oneOf: 
       - $ref: "./03_space.yml"
@@ -324,7 +315,7 @@ properties:
               - "in possession", or
               - "installed"
             then at least one of the following properties must NOT be null
-              - asset_x.properties.installation_or_storage_location
+              - asset_x.properties.installation_or_parking_location
               - asset_x.properties.service_address_or_coordinate
           check_on: 2024-08-20
 
@@ -336,7 +327,7 @@ properties:
       - $ref: "./01_asset.yml"
       - type: null
     description: >
-      The value in this property denotes the larger discrete asset or defined collection of assets, to which this asset is a part of.  NOTE: this property is not meant to be used for specifying the system hierarchy parent. That property is found on the role record, not the asset record. 
+      Indicates the larger discrete asset or defined collection of assets, to which this asset is a part of.  NOTE: this property is not meant to be used for specifying the system hierarchy parent. That property is found on the role record, not the asset record.
     $comment: |
       This field is commonly used when the asset is a part of a skid, structural tank, or switchgear cabinet, in which the asset parent in the system hierarchy should be the line entity. As such we will using this field to track that the asset is also a part of a phyical assembly. We would also be using this field to capture a serialized rotating component as a part of another discrete asset. This field can also be used to indicate an asset membership in a Defined Collection of Assets. 
 
@@ -686,7 +677,7 @@ TW_rule:
             - asset_x.properties."assigned_to_role".properties."asset installation location" is NOT null
             - asset_x.properties."assigned_to_role".properties."service_address_or_coordinate" is NOT null
         then
-            (asset_x.properties."installation_or_storage_location") would be set to the value of 
+            (asset_x.properties."installation_or_parking_location") would be set to the value of 
               (asset_x.properties."assigned_to_role".properties."asset installation location")
             (asset_x.properties."service_address_or_coordinate") would be set to the value of 
               (asset_x.properties."assigned_to_role".properties."service_address_or_coordinate")
@@ -718,4 +709,4 @@ OPEN AND TODO ITEMS: |
   [] - Need to have a different set of data entry (i.e. what is nullable) requirement for Linear assets
   
   [] (April 26 Review) the ability to assigned to a vehicle is missing - it should be considered as a satellite storeroom
-        ANS: May 6th: TH: I am covering this with the existing property "installation_or_storage_location"
+        ANS: May 6th: TH: I am covering this with the existing property "installation_or_parking_location"
