@@ -39,6 +39,7 @@ properties:
               - properties."model year or product version designator"
               - properties."product configuration code"
         checked on: 2024-08-15
+        Nov1st Review: [] remove the concatenation rule
   
   #========================
   
@@ -106,7 +107,7 @@ properties:
   
 
 #========================
-# DEFINITIONS
+# LOCAL OBJECT DEFINITIONS
 #========================
 
 definitions:

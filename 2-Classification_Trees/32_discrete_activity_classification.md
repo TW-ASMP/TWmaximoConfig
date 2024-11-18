@@ -12,7 +12,7 @@
   * asset part replacement 
   * asset part movement 
 * Move or Replace*
-  * new assset installation
+  * new asset installation
   * asset movement
   * asset part movement
   * asset replacement
@@ -23,7 +23,7 @@
   * asset hand-over 
   * final asset decommissioning 
 * Asset Modification*
-  * modify asset setpoint
+  * modify asset set-point
   * physical modification to asset
   * physical modification to building or structure [^2]
 * asset assignment

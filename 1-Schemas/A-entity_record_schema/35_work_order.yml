@@ -1,0 +1,3 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: Work Order
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/35_work_order.yml

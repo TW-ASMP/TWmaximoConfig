@@ -4,6 +4,9 @@ title: asset
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/01_asset.yml
 type: object
 
+
+$comment: >
+
 properties:
 
   asset ID:
@@ -13,7 +16,6 @@ properties:
     sort order: 1-10
     
     TW_rule:
-
       - name: vertical asset ID
         id: 41JeoQuvex 
         type: [assertion]
@@ -45,7 +47,6 @@ properties:
         Assumption: an non-is a commercially available product is always built on site for a specific purpose, and would permanently occupy a role. An example is an aeration tank. 
     
     TW_rule:
-
       - name: Asset Naming
         id: 4ykh0m_Dle
         type: assertion
@@ -648,12 +649,10 @@ TW_rule:
 
 
 OPEN AND TODO ITEMS: |
-  []  - add RULE: asset can be assigned to an asset collection and a group or a person at the same time (though it cannot be assigned to a discrete asset role and a group at the same time)
+
 
   [] - Need to have a different set of data entry (i.e. what is NULLable) requirement for Linear assets
   
-  [] (April 26 Review) the ability to assigned to a vehicle is missing - it should be considered as a satellite storeroom
-        ANS: May 6th: TH: I am covering this with the existing property "installation or storage location"
 
 
 

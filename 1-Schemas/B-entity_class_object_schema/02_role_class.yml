@@ -1,7 +1,7 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
-$id: roleClassObject
+$id: B-entity_class_object_schema/02_role_class.yml
 type: object
 
 #############################################################
@@ -15,7 +15,7 @@ properties:
     #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
 
   parent class:
-    $ref: roleClassObject
+    $ref: B-entity_class_object_schema/02_role_class.yml
     sort order: 1-30
 
   discrete asset role:

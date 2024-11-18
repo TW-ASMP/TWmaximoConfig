@@ -39,7 +39,7 @@ properties:
   #=======================
   
   role class:
-    $ref: roleClassObject
+    $ref: B-entity_class_object_schema/02_role_class.yml
     description: The role class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
   #========================
@@ -68,9 +68,9 @@ properties:
     description: |
       This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
     TW_rule: |
-      #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the decendents of the role in the hierarachy must also be eliminated. 
+      #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the descendants of the role in the hierarchy must also be eliminated. 
         $comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
-      #[]RULE VygDC0Frxl: When a role is "eliminated", it must no longer be visible in any view of the role hierarchy. (Its entire branch must not be available either, because all of its decendents would be eliminated as well.)
+      #[]RULE VygDC0Frxl: When a role is "eliminated", it must no longer be visible in any view of the role hierarchy. (Its entire branch must not be available either, because all of its descendants would be eliminated as well.)
         []Review with To ASMP: with this rule, we no longer need to have a hierarchy branched for retired roles.   
       #[]RULE EkP5qy5Sxl: If change auditing cannot be turned on, then when a role record status is "eliminated", all the specification in the record's datafields must be frozen.
 
@@ -100,7 +100,7 @@ properties:
     oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
     description: Group responsible for the operation of the asset serving in this role.
   
-  inherit maintenace group value:
+  inherit operator group value:
     type: boolean
     default value: true
   

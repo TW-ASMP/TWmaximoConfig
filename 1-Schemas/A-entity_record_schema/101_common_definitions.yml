@@ -154,8 +154,8 @@ definitions:
       
       #------------
       
-      unit_of_measure:
-        $ref: "#/definitions/unit_of_measure_definition"
+      unit_of_issue:
+        $ref: "#/definitions/unit_of_issue_definition"
 
   #===================
   
@@ -164,7 +164,7 @@ definitions:
 
     properties:
 
-      item_reference: # reference for both stocked and un-stocked tool
+      tool_reference: # reference for both stocked and un-stocked tool
         $ref: "./06_tool_master.yml"
       
       #------------
@@ -174,13 +174,50 @@ definitions:
 
   #===================
 
-  service_contract_item_definition:
+  service_requirement_definition:
 
-    # to be defined
+    properties:
+    
+      service_reference:
+        $ref: "./07_service_item_master.yml"
+      
+      #------------
+      
+      quantity:
+        type: number
+      
+      #------------
+
+      unit:
+        type: string
+        enum: >
+          - hour
+          - instance
 
   #===================
 
-  unit_of_measure_definition:
+  trade_requirement_definition:
+
+    properties:
+
+      trade_type:
+        #[] TO BE DEFINED
+      
+      #------------
+      
+      quantity:
+        type: number
+      
+      #------------
+
+      qualification_or_license_requirement:
+        #[] TO BE DEFINED
+      
+  
+  #===================
+
+  #[] TO BE DEFINED
+  unit_of_issue_definition:
 
     properties:
 
@@ -207,3 +244,37 @@ definitions:
         updated by system: true
         sort order: 20-20
         $comment: the value should be written by the system, from a asset or record retirement transaction. 
+  
+  #===================
+
+  interval_definition:
+
+      properties:
+
+        #-----------
+
+        quantity:
+          type: number
+        
+        #-----------
+
+        unit_of_time:
+          type: string
+          enum:
+            - minute
+            - hour
+            - day
+            - month
+            - year
+  
+
+  # =================== COMPLIANCE CLASS DEFINITION ===================
+
+  compliance_class:
+    
+    type: string
+    enum:
+      - legislative
+      - corporate policy
+      - professional recommendation
+      - N/A
