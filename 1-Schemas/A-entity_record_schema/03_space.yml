@@ -61,7 +61,7 @@ properties:
 
   #========================
 
-  inferred_class_names:
+  inferred_classes:
     oneOf: 
       - type: array
         items:
@@ -143,5 +143,5 @@ properties:
   #========================
 
   record retirement information:
-    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"
+    $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
   

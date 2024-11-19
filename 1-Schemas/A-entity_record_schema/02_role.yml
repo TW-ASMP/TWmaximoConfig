@@ -6,26 +6,26 @@ type: object
 
 properties:
 
-  role ID:
+  ID:
     type: string
     description: Also known as the "tag number" or "entity number" in Avantis's vocabulary. (Avantis is the a WMS).
-    #[] to do role ID for pumping stations an chambers will be from the GIS. 
+    #[] to do ID for pumping stations an chambers will be from the GIS. 
     TW_rule: 
       - name: ID of Linear Assets Represented as Role in Maximo
         id: Vku-67dDxx
         type: triggered action
         specification:
           trigger: replication creation of assetY record from the TWAG
-          action: apply Facility ID from TWAG as asset_ID 
+          action: apply Facility ID from TWAG as ID 
         status: false
 
   #========================
     
-  role name:
+  name:
     type: string
     description: A structured and ideally unique description of the role.
     const: > #[]
-      ${properties."role class".properties."class name"};
+      ${properties."class".properties."class name"};
       childOf: ${properties."parent entity".properties."role number"};
       serving: ${properties."client role served".properties."role number"};
     # MT []: would you like me to move this into individual roles?
@@ -38,13 +38,13 @@ properties:
 
   #=======================
   
-  role class:
+  class:
     $ref: B-entity_class_object_schema/02_role_class.yml
-    description: The role class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
+    description: The class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
   #========================
 
-  inferred_class_names:
+  inferred_classes:
     oneOf: 
       - type: array
         items:
@@ -80,7 +80,7 @@ properties:
     type: string
     description: A free text description of the role's performance requirements that must be satisfied by the asset. For example, the lifting capacity in kilograms for a crane.
     $comment: |
-      Eventually, this information should be replaced by formalized properties associated with specific role classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
+      Eventually, this information should be replaced by formalized properties associated with specific classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
 
   #========================
 
@@ -155,11 +155,11 @@ properties:
   #========================
 
   record retirement information:
-    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"
+    $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
   
 
   #========================
-  # [] REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
+  # [] REMOVE THE FOLLOWING AFTER RULE ABOUT ID IS REVISED
   # GIS object ID:
   #   type: string
   #   description: This is the ID of the equivalent object (asset or role) in GIS. This value suggests the original record was created in GIS and copied to WMS through the data integration link.

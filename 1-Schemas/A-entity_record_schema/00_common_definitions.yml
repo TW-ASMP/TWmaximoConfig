@@ -1,7 +1,7 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: common properties of all entities
-$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_record_schema/101_common_definitions.yml
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_record_schema/00_common_definitions.yml
   
 
 definitions:
@@ -102,12 +102,12 @@ definitions:
         description: The manufacturer designator identifying the exact product item.
       
   
-  #===================
+  #========================================
+  # Job Plan Resources Definition
+  #========================================
 
-  
   item_requirement_definition:
-  # used in job plan
-
+ 
     properties:
 
       item_reference: # reference for both stocked and un-stocked item
@@ -126,7 +126,6 @@ definitions:
   #===================
   
   tool_requirement_definition:
-  # used in job plan
 
     properties:
 
@@ -167,11 +166,13 @@ definitions:
     properties:
 
       trade_type:
-        #[] TO BE DEFINED
+        
+        $ref: "../B-entity_class_object_schema/08_trade_type.yml"
       
       #------------
       
       quantity:
+        
         type: number
       
       #------------

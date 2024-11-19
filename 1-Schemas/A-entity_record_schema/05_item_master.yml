@@ -65,11 +65,11 @@ properties:
 
   stocked_at_TW:
     
-    $ref: "./101_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
+    $ref: "./00_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
           
   rotating:
     
-    $ref: "./101_common_definitions.yml#/definitions/rotating_property_def" 
+    $ref: "./00_common_definitions.yml#/definitions/rotating_property_def" 
 
 
 # generic and specific definition
@@ -99,7 +99,7 @@ properties:
   #========================
 
   manufacturer_model_configuration_information:
-    oneOf: [type: null, $ref:"$ref: "./101_common_definitions.yml#/definitions/manufacturer_and_model_definition"]
+    oneOf: [type: null, $ref:"$ref: "./00_common_definitions.yml#/definitions/manufacturer_and_model_definition"]
     
     # referend defintion contains 
 

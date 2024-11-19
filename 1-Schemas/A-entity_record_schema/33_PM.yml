@@ -68,7 +68,7 @@ properties:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/tool_requirement_definition"
+          - $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
 
   #================
 
@@ -79,7 +79,7 @@ properties:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/item_requirement_definition"
+          - $ref: "./00_common_definitions.yml#/definitions/item_requirement_definition"
 
   #================
   
@@ -90,7 +90,7 @@ properties:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/service_requirement_definition"
+          - $ref: "./00_common_definitions.yml#/definitions/service_requirement_definition"
 
   #================
   
@@ -101,7 +101,7 @@ properties:
     - type: NULL
     - type: array
       items:
-        - $ref: "./101_common_definitions.yml#/definitions trade_requirement_definition"
+        - $ref: "./00_common_definitions.yml#/definitions trade_requirement_definition"
 
   #==== Work order triggering =====
   
@@ -131,7 +131,7 @@ properties:
   
   PM_compliance_class:
 
-    $ref: "./101_common_definitions.yml#/definitions/compliance_class"
+    $ref: "./00_common_definitions.yml#/definitions/compliance_class"
 
 
 ##########################################################
@@ -142,7 +142,7 @@ definitions:
 
   time-based_trigger_specification:
     
-    $ref: "./101_common_definitions.yml#/definitions/interval_definition"
+    $ref: "./00_common_definitions.yml#/definitions/interval_definition"
     
   calender-based_trigger_specification:
 

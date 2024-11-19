@@ -61,11 +61,11 @@ properties:
 
   stocked_at_TW:
     
-    $ref: "./101_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
+    $ref: "./00_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
           
   rotating:
     
-    $ref: "./101_common_definitions.yml#/definitions/rotating_property_def" 
+    $ref: "./00_common_definitions.yml#/definitions/rotating_property_def" 
 
   #========================
 
@@ -77,8 +77,8 @@ properties:
       #PROCESS: SET DEFAULT VALUE:
         At record creation, set value to false.
       #PROCESS: EVENT-DRIVEN VALUE CHANGE:
-        Upon the event of a properties."asset_class" value change;  
-          if properties."asset_class".properties."mobile tool" = true;
+        Upon the event of a properties."class" value change;  
+          if properties."class".properties."mobile tool" = true;
           then set the value to true;
           else set the value to false.
 

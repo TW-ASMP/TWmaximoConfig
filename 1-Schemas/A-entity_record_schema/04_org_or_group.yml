@@ -18,6 +18,11 @@ properties:
 
   #========================
 
+  class:
+    $ref: B-entity_class_object_schema/04_org_class.yml
+
+  #========================
+
   leader:
     oneOf:
       - $ref: "./07_person.yml"
@@ -36,4 +41,4 @@ properties:
   #========================
 
   record retirement information:
-    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"
+    $ref: "./00_common_definitions.yml#/definitions/record retirement definition"

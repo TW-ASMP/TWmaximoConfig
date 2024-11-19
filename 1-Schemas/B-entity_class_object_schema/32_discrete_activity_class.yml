@@ -7,8 +7,8 @@ type: object
 properties:
 
   allOf:
-    - $ref: "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
-    #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/101_common_class_definitions.yml"
+    - $ref: "/1-Schemas/B-entity_class_object_schema/00_common_class_definitions.yml"
+    #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/00_common_class_definitions.yml"
     
   parent class:
     $ref: discreteActivityClassObject

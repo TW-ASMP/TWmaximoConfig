@@ -15,17 +15,26 @@ properties:
 
   #================
 
-  title:
+  name:
 
     description: is a description of the activity specified in the job plan.
     type: string
-     
+
+
+  #================
+
+  activity_type:
+
+    description: indicates the type of activity that specified in the job plan
+    $ref: "../B-entity_class_object_schema/32_discrete_activity_class.yml"
+    $comment: this could also be called the activity classification
   
+     
   #================================
   # Job Plan Applicability Notes
   #================================
 
-  targets_asset_classes:
+  specific_to_asset_classes:
 
     description: identifies the asset classes on which the activity specified in this job plan can be done.
     type:
@@ -65,10 +74,13 @@ properties:
         TAB - Ashbridges Bay Wastewater Treatment Plants
         COL - Waste and Storm Water Collection
     TW_rule: >
-      - name: 
-        id: 
+      - name: job plan's specific_to_operational_units property must be an unit level organization
+        id: 01JD2V5X97J1Y45JWDW4SV1FJ4
         type: [validation]
-        specification: 
+        specification: |
+          Given an job plan, JP_x, all values of JP_x.specific_to_operational_units must be
+            - an organization, and
+            - whose .class = unit (a subclass of Group in the City)
        
   #================
 
@@ -94,23 +106,26 @@ properties:
         item:
           $ref: "../A-entity_record_schema/05_item_master.yml"
     TW_rule: >
-      - name: Valid Commercial Product Item
-        id: Ek3iYk5lbe
+      - name: Valid Commercial Product Item reference in a Job Plan
+        id: 01JD2V5X97J1Y45JWDW4SV1FJ4
         type: [validation]
-        description: |
-          [] only allow a reference to an item that represents a commercial product
+        specification: |
+           Given an job plan, JP_x, all values of JP_x.specific_to_commercial_products must be
+            - a item master record, and
+            - whose .generic_or_specific_product = "commercially available product"
           
-  #================
+  #================================
+  # Provenance
+  #================================
 
   is_derived_from:
 
+    description: identifies the job plan from which the present job plan specification was based on.
     oneOf:
       - type: NULL
       - $ref: "./32_job_plan.yml"
     integration: true
-    $comment: This field is likely updated by an integrated solution that manages the job plan definitions and relations between generic and specific job plans.
-    []have the option to assert this relation during in a JP copy process
-
+  
   #================
 
   RCM_failure_modes:
@@ -125,45 +140,33 @@ properties:
     $comment: >
       - For the 2026-27 implementation, this data field will start-out as a free-text. In the future, the value will come from a solution such as OnePM.
 
-  #================
+  #================================
+  # Procedure
+  #================================
 
-  activity_steps:
+  activity_procedure_steps:
 
     description: is a single body of text outlining the sequential steps to complete the activity
     type: string
     $comment: >
       Example: 
-        []
-      In the future, each step can be represented as a task.
+        1) Ensure you have operational approval before performing this task.
+        2) Follow Lock-out and Tag-out process before starting this task.
+        3) Drain the oil from the gearbox.
+        4) Install 25 Litres of UCON 220 ( food grade) oil.
+        5) Remove Lock-out and Tag-out and check operation.
+        6) Inform operations that the task as assigned is completed.
 
-  #================
 
-  activity_type:
-
-    description: indicates the type of activity that specified in the job plan
-    $ref: "../B-entity_class_object_schema/32_discrete_activity_class.yml"
-  
-  #================
+  #========================================
+  # Resource
+  #========================================
 
   estimated_wrench_time:
 
     description: is the estimated time to complete the activity in the job plan
-    $ref: "./101_common_definitions.yml#/definitions/interval_definition"
-
-#========================================
-# Resource
-#========================================
+    $ref: "./00_common_definitions.yml#/definitions/interval_definition"
   
-  tool_requirement:
-  
-    description: identifies the tools required to complete the work.
-    oneOf:
-      - type: NULL
-      - type: array
-        items:
-          - $ref: "./101_common_definitions.yml#/definitions/tool_requirement_definition"
-    $comment: the tools can be stocked or un-stocked. 
-
   #================
 
   parts_and_material_requirement:
@@ -173,7 +176,18 @@ properties:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/item_requirement_definition"
+          - $ref: "./00_common_definitions.yml#/definitions/item_requirement_definition"
+  
+  #================
+
+  tool_requirement:
+  
+    description: identifies the tools required to complete the work.
+    oneOf:
+      - type: NULL
+      - type: array
+        items:
+          - $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
 
   #================
   
@@ -184,7 +198,7 @@ properties:
       - type: NULL
       - type: array
         items:
-          - $ref: "./101_common_definitions.yml#/definitions/service_requirement_definition"
+          - $ref: "./00_common_definitions.yml#/definitions/service_requirement_definition"
 
   #================
   
@@ -194,7 +208,7 @@ properties:
     - type: NULL
     - type: array
       items:
-        - $ref: "./101_common_definitions.yml#/definitions/trade_requirement_definition"
+        - $ref: "./00_common_definitions.yml#/definitions/trade_requirement_definition"
     description: identifies the trade and qualifications needed to complete the work.
 
 #========================================
@@ -203,21 +217,21 @@ properties:
 
   must_be_preceded_by:
     
+    description: identifies activities (specified in other job plans) that must be performed in the same work order before the activity specified in this PM can be performed..
     oneOf:
     - type: NULL
     - type: array
       items:
         - $ref: "./32_job_plan.yml"
-    description: identifies activities (specified in other job plans) that must be performed in the same work order before the activity specified in this PM can be performed..
 
   must_be_followed_by:
     
+    description: identifies activities (specified in other job plans) that must be performed in the same work order after the activity specified in this PM can be performed.
     oneOf:
     - type: NULL
     - type: array
       items:
         - $ref: "./32_job_plan.yml"
-    description: identifies activities (specified in other job plans) that must be performed in the same work order after the activity specified in this PM can be performed.
 
 #========================================
 # Trigger Condition Group
@@ -225,10 +239,10 @@ properties:
   
   trigger_every:
 
+    description: indicate that the activity in the job plan must be performed at a frequency required by some authority. If theres is no binding requirement, this property should be left empty (NULL). 
     oneOf:
       - type: NULL
-      - $ref: "./101_common_definitions.yml#/definitions/interval_definition"
-    description: indicate that the activity in the job plan must be performed at a frequency required by some authority. If theres is no binding requirement, this property should be left empty (NULL). 
+      - $ref: "./00_common_definitions.yml#/definitions/interval_definition"
 
   #================
 
@@ -275,7 +289,7 @@ properties:
   job_plan_compliance_class:
     
     description: indicates the level of compliance, with legislative being the top 
-    $ref: "./101_common_definitions.yml#/definitions/compliance_class"
+    $ref: "./00_common_definitions.yml#/definitions/compliance_class"
 
   #====================
 
@@ -375,5 +389,5 @@ definitions:
 
     compliance_class:
       
-      $ref: "./101_common_definitions.yml#/definitions/compliance_class"
+      $ref: "./00_common_definitions.yml#/definitions/compliance_class"
       
