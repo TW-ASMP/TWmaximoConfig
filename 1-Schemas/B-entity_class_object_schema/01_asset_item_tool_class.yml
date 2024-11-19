@@ -17,20 +17,20 @@ properties:
   #====================
   parent class:
     $ref: B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml
-    sort order: 1-30
+    sort_order: 1-30
 
   #====================
   only used as a part:
     oneOf: 
       - type: boolean
-      - type: NULL
+      - type: null
     description: A true value indicates that all instances of this class is always used as a part of another asset, and would never be given an asset tag. E.g., bearing.
-    sort order: 2-40
+    sort_order: 2-40
     TW_rule:
       - name: Do not include only used as a part in the asset classification  
         id: NJ1E1ZbOgg
         status: TBS
-    $comment: A false or NULL value materially mean the same thing. 
+    $comment: A false or null value materially mean the same thing. 
 
 
   

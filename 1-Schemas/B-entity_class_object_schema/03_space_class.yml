@@ -11,4 +11,4 @@ properties:
 
   parent class:
     $ref: spaceClassObject
-    sort order: 1-30
+    sort_order: 1-30

@@ -16,7 +16,7 @@ properties:
         type: triggered action
         specification:
           trigger: replication creation of assetY record from the TWAG
-          action: apply Facility ID from TWAG as asset ID 
+          action: apply Facility ID from TWAG as asset_ID 
         status: false
 
   #========================
@@ -44,15 +44,15 @@ properties:
 
   #========================
 
-  inferred class name(s):
+  inferred_class_names:
     oneOf: 
       - type: array
         items:
           type: string
-      - type: NULL
+      - type: null
     items:
       type: string
-    updated by system: true
+    updated_by_system: true
     description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
     $comment: |
       See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
@@ -83,22 +83,26 @@ properties:
       Eventually, this information should be replaced by formalized properties associated with specific role classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
 
   #========================
+
+  serving_asset_in_role:
+    $ref: "./02_role.yml"
+    description: Identifies the asset this role is serving. For example, given a motor starter role, the value in this datafield identifes the role of the motor controlled by thet motor starter. 
+
+  #========================
   
   asset installation location:
-    oneOf: [$ref: "./03_space.yml", type: NULL]
+    oneOf: [$ref: "./03_space.yml", type: null]
     description: References the space in which the asset serving the role would be installed.
 
   #========================
   
-  service address or coordinate:
-    oneOf: [$ref: MaximoServiceAddressObject, type: NULL]
+  service_address_or_coordinate:
+    oneOf: [$ref: MaximoServiceAddressObject, type: null]
     description: A geo-coordinate or the nearest street address of the asset.
 
   #========================
 
-  operator group:
-    oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
-    description: Group responsible for the operation of the asset serving in this role.
+  operator_group:
   
   inherit operator group value:
     type: boolean
@@ -106,33 +110,39 @@ properties:
   
   #========================
 
-  maintenance group:
-    oneOf: [$ref: "./04_org_or_group.yml", type: NULL]
-    description: >
-      Group responsible for the preventive and reactive maintenance of the asset in the role. For example, a unit, work area, or crew. 
-  
-  inherit maintenance group value:
+  inherit_operator_group_from_parent:
+
     type: boolean
-    default value: true
+    default_value: true
+  
+  #========================
+
+  maintenance_group:
+
+    oneOf: [$ref: "./04_org_or_group.yml", type: null]
+    description: Group responsible for the preventive and reactive maintenance of the asset in the role. For example, a unit, work area, or crew. 
+  
+  #========================
+
+  inherit_maintenance_group_from_parent:
+
+    type: boolean
+    default_value: true
 
   #========================
 
   operational criticality:
-    oneOf: [$ref:'#/definitions/criticality rating definition', type: NULL] # see section 3. LOCAL OBJECT DEFINITION 
+
+    oneOf: [$ref:'#/definitions/criticality rating definition', type: null] # see section 3. LOCAL OBJECT DEFINITION 
     description: A role bears high operational criticality if the loss of the asset in the role will either reduce throughput or product quality (but not product safety) of the larger system.
 
-  inherit operational criticality value:
-    type: boolean
-    default value: false
+  #========================
 
   protective function criticality:
-    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: NULL] # see section 3. LOCAL OBJECT DEFINITION
+
+    oneOf: [$ref:'#/definitions/criticalityRatingDef', type: null] # see section 3. LOCAL OBJECT DEFINITION
     description: A role bears protective function criticality if the loss of one of its protective functions (i.e., regulatory/control/protection or containment function) will either result in a consequential release of hazard or the loss of a capability to mitigate a greater level hazard.
 
-  inherit protective function criticality value:
-    type: boolean
-    default value: false
-  
   #========================
 
   duplicate record of:
@@ -140,12 +150,13 @@ properties:
       - type: array
         items:
           $ref: "./02_role.yml"
-      - type: NULL
+      - type: null
   
   #========================
 
   record retirement information:
-    $ref: "A-entity_record_schema/101_common_definitions.yml#/definitions/record retirement definition"
+    $ref: "./101_common_definitions.yml#/definitions/record retirement definition"
+  
 
   #========================
   # [] REMOVE THE FOLLOWING AFTER RULE ABOUT ROLE ID IS REVISED
@@ -177,7 +188,7 @@ properties:
         required: GIS object ID
   
   #[]RULE:
-  # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned to role" property).
+  # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned_to_role" property).
 
 #############################################################
 # 3. LOCAL OBJECT DEFINITION
