@@ -102,7 +102,7 @@ properties:
         items:
           type: string
       - type: null
-    updated_by_system: true
+    read_only: true
     integration: true
     sort_order: 1-40
     description: Indicates the complex classes to which this asset is an instance. A complex class is defined with reference to a primitive class plus other attributes. An example of a complex class is the TSSA high-pressure boiler class, which is made with reference to th primitive class boiler. 
@@ -126,7 +126,7 @@ properties:
       - missing 
       - lost
     $comment: |
-      This data field is not NULLable because the lack of knowledge is explicitly expressed as "missing" or "lost", and the non-existence is expressed as "planned" or "removed from possession".
+      This data field is not nullable because the lack of knowledge is explicitly expressed as "missing" or "lost", and the non-existence is expressed as "planned" or "removed from possession".
 
   #========================
   
@@ -553,7 +553,7 @@ properties:
       - type: array # "array" indicates asset may have multiple photos
         items:
           allOf:
-            - type: string # a photo's data is converted to a string, when represented in JSON.
+            - type: string # photos are converted to a string in JSON
             - oneOf:
               - contentMediaType: image/png
               - contentMediaType: image/jpg
@@ -583,7 +583,7 @@ properties:
       - type: string
       - type: null
     invisible: true
-    updated_by_system: true
+    read_only: true
     enum:
       - Drinking Water Network
       - Drinking Water Treatment Plants

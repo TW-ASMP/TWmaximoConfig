@@ -27,7 +27,7 @@ properties:
 
   complete hierarchal space name:
     type: string
-    updated_by_system: true
+    read_only: true
     TW_rule:
       - $id: 
         name: complete space name generation
@@ -67,7 +67,7 @@ properties:
         items:
           type: string
       - type: null
-    updated_by_system: TRUE
+    read_only: TRUE
     description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
     $comment: |
       See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml

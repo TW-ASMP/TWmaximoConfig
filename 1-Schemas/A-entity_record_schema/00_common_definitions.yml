@@ -110,7 +110,7 @@ definitions:
  
     properties:
 
-      item_reference: # reference for both stocked and un-stocked item
+      item_reference:
         $ref: "./05_item_master.yml"
       
       #------------
@@ -120,8 +120,8 @@ definitions:
       
       #------------
       
-      unit_of_issue:
-        $ref: "#/definitions/unit_of_issue_definition"
+      unit:
+        $ref: "#/definitions/unit_of_measure"
 
   #===================
   
@@ -177,22 +177,41 @@ definitions:
       
       #------------
 
-      qualification_or_license_requirement:
-        #[] TO BE DEFINED
+      qualification_requirement:
+        
+        oneOf: 
+        - type: null
+        - type: array
+          items:
+            - $ref: "../B-entity_class_object_schema/09_qualification.yml"
       
   
-  #===================
+  #========================================
+  # Units of Measure
+  #========================================
 
-  #[] TO BE DEFINED
-  unit_of_issue_definition:
+  unit_of_measure:
 
+    description: Represents a unit of measure (UOM) used in inventory management to track quantities of items.
+    
     properties:
-
-      name:
       
-      symbol:
+      code:
+        
+        description: is the unique identifier or code for the unit of measure.
+        type: string
+        $comment: e.g., "EA", "kg"
+      
+      name:
+        
+        description: is the full name of the unit of measure.
+        type: string
+        $comment: e.g., "Each", "kilogram"
+      
 
-  #===================
+  #========================================
+  # Record Retirement Definitions
+  #========================================
 
   record retirement definition:
     
@@ -207,36 +226,111 @@ definitions:
       #------------
       
       reason for retirement:
-        oneOf: [type: string, type: NULL]
+        oneOf: [type: string, type: null]
         updated by system: true
         sort order: 20-20
         $comment: the value should be written by the system, from a asset or record retirement transaction. 
   
   #===================
 
-  interval_definition:
+  frequency_interval_definition:
 
-      properties:
+    properties:
 
-        #-----------
-
-        quantity:
-          type: number
+      frequency_quantity:
         
-        #-----------
+        type: number
+      
+      #-----------
 
-        unit_of_time:
-          type: string
-          enum:
-            - minute
-            - hour
-            - day
-            - month
-            - year
+      unit_of_time:
+        
+        type: string
+        enum:
+          - minute
+          - hour
+          - day
+          - month
+          - year
+
+  #========================================
+  # 
+  #========================================
+
+  meter_condition_definition:
+    
+    properties:
+
+      meter:
+
+        description: is a selection of a pre-defined meter.
+        $ref: default_WMS_meter_object
+
+      #-----------
+          
+      numeric_frequency_value:    
+        
+        oneOf:
+          - type: null
+          - type: number
+        
+      #-----------
+          
+      characteristic_trigger_value:    
+        
+        oneOf:
+          - type: null
+          - type: string
+
+
+  #========================================
+  # Compliance Requirement Definition
+  #========================================
+
+  compliance_requirement:
+    
+    properties:
+
+      name:
+        
+        type: string
+        $comment: |
+          For example, 'ANSI Z358.1-2014 on weekly inspection of self-contained emergency wash equipment'.
+
+      #------------
+
+      requirement_detail:
+        
+        description: provides all relevant descriptions
+        type: string
+        $comment: |
+          The following is an example of the requirement detail text for a compliance requirement.
+            
+            applicable_asset_class:
+              - emergency eye-wash
+
+            requirement_source(s):
+              - ANSI Z358.1-2014 / Emergency Eyewash & Shower Standard / 4 Emergency Showers / 4.6 Maintenance and Training
+                ...
+              - ANSI Z358.1-2014 / Emergency Eyewash & Shower Standard / 4 Emergency Showers / 4.5 Installation
+                ...
+            
+            source_content_guide:
+              - ANSI Z358.1-2014 4.6 states the requirement to check that shower still meets standards
+              - ANSI Z358.1-2014 4.5 states the standards to apply for ht check
+            
+            perform_every:
+              - year`
+
+        #------------
+        
+        requirement_compliance_class:
+          
+          description: indicates the level of compliance, with legislative being the top 
+          $ref: "#/compliance_class"
   
-
-  # =================== COMPLIANCE CLASS DEFINITION ===================
-
+  #====================
+  
   compliance_class:
     
     type: string
@@ -244,4 +338,7 @@ definitions:
       - legislative
       - corporate policy
       - professional recommendation
-      - N/A
+
+
+
+ 

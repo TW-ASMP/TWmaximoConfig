@@ -39,7 +39,7 @@ properties:
     description: identifies the asset classes on which the activity specified in this job plan can be done.
     type:
       oneOf:
-      - type: NULL
+      - type: null
       - type: array
         item:
           $ref: "../B-entity_class_object_schema/01_asset_item_tool_class.yml"
@@ -51,7 +51,7 @@ properties:
     description: identifies the role classes - more specifically, the assets installed in these roles - for which this job plan is customized.
     type:
       oneOf:
-      - type: NULL
+      - type: null
       - type: array
         item:
           $ref: "../B-entity_class_object_schema/02_role_class.yml"
@@ -65,7 +65,7 @@ properties:
     description: identifies the Toronto Water site(s), defined as a organization in this schema, for which the job plan is specifically customized.
     type:
       oneOf:
-      - type: NULL
+      - type: null
       - type: array
         item:
           $ref: "../A-entity_record_schema/04_org_class.yml"
@@ -89,7 +89,7 @@ properties:
     description: identifies the asset roles for which the job plan is specifically customized.
     type:
       oneOf:
-      - type: NULL
+      - type: null
       - type: array
         item:
           $ref: "../A-entity_record_schema/02_role.yml"
@@ -101,7 +101,7 @@ properties:
     description: identifies the the commercial products for which the job plan is specifically written/customized.
     type:
       oneOf:
-      - type: NULL
+      - type: null
       - type: array
         item:
           $ref: "../A-entity_record_schema/05_item_master.yml"
@@ -115,14 +115,14 @@ properties:
             - whose .generic_or_specific_product = "commercially available product"
           
   #================================
-  # Provenance
+  # Record Provenance
   #================================
 
   is_derived_from:
 
     description: identifies the job plan from which the present job plan specification was based on.
     oneOf:
-      - type: NULL
+      - type: null
       - $ref: "./32_job_plan.yml"
     integration: true
   
@@ -132,7 +132,7 @@ properties:
 
     description: identifies the functional failure mode ID, with respect to a specific asset role, mitigated by the work specified in this job plan.
     oneOf:
-      - type: NULL
+      - type: null
       - type: array
         item: 
           type: string
@@ -141,7 +141,7 @@ properties:
       - For the 2026-27 implementation, this data field will start-out as a free-text. In the future, the value will come from a solution such as OnePM.
 
   #================================
-  # Procedure
+  # Procedural Steps
   #================================
 
   activity_procedure_steps:
@@ -159,13 +159,13 @@ properties:
 
 
   #========================================
-  # Resource
+  # Resource Requirements
   #========================================
 
   estimated_wrench_time:
 
     description: is the estimated time to complete the activity in the job plan
-    $ref: "./00_common_definitions.yml#/definitions/interval_definition"
+    $ref: "./00_common_definitions.yml#/definitions/frequency_interval_definition"
   
   #================
 
@@ -173,7 +173,7 @@ properties:
     
     description: identifies the parts and material required to complete the work. 
     oneOf:
-      - type: NULL
+      - type: null
       - type: array
         items:
           - $ref: "./00_common_definitions.yml#/definitions/item_requirement_definition"
@@ -184,7 +184,7 @@ properties:
   
     description: identifies the tools required to complete the work.
     oneOf:
-      - type: NULL
+      - type: null
       - type: array
         items:
           - $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
@@ -195,7 +195,7 @@ properties:
 
     description: identifies (contracted) service needed to complete the work.
     oneOf:
-      - type: NULL
+      - type: null
       - type: array
         items:
           - $ref: "./00_common_definitions.yml#/definitions/service_requirement_definition"
@@ -204,12 +204,12 @@ properties:
   
   trades_requirement:
   
+    description: identifies the trade and qualifications needed to complete the work.
     oneOf:
-    - type: NULL
+    - type: null
     - type: array
       items:
         - $ref: "./00_common_definitions.yml#/definitions/trade_requirement_definition"
-    description: identifies the trade and qualifications needed to complete the work.
 
 #========================================
 # Related Activities
@@ -217,9 +217,9 @@ properties:
 
   must_be_preceded_by:
     
-    description: identifies activities (specified in other job plans) that must be performed in the same work order before the activity specified in this PM can be performed..
+    description: identifies activities (specified in other job plans) that must be performed in the same work order before the activity specified in this PM can be performed.
     oneOf:
-    - type: NULL
+    - type: null
     - type: array
       items:
         - $ref: "./32_job_plan.yml"
@@ -228,67 +228,81 @@ properties:
     
     description: identifies activities (specified in other job plans) that must be performed in the same work order after the activity specified in this PM can be performed.
     oneOf:
-    - type: NULL
+    - type: null
     - type: array
       items:
         - $ref: "./32_job_plan.yml"
 
 #========================================
-# Trigger Condition Group
+# Work Trigger Condition
 #========================================
   
-  trigger_every:
+  time-based_trigger:
 
-    description: indicate that the activity in the job plan must be performed at a frequency required by some authority. If theres is no binding requirement, this property should be left empty (NULL). 
     oneOf:
-      - type: NULL
-      - $ref: "./00_common_definitions.yml#/definitions/interval_definition"
+      - type: null
+      - $ref: "./00_common_definitions.yml#/definitions/frequency_interval_definition"
 
   #================
-
-  trigger_in_relation_to_event:
+  
+  meter-based_trigger:
 
     oneOf:
+      - type: null
+      - $ref: "./00_common_definitions.yml#/definitions/meter_condition_definition"
+  
+  #================
+
+  event-based_trigger:
+
+    oneOf:
+      - type: null
       - type: object
-      - type: NULL
-    
-    properties:
-    
-      relation_to_event:
+        properties:
+        
+          relation_to_event:
 
-        type: string
-        enum:
-          - before
-          - during
-          - after
-          - at the start of
-          - at the end of
-    
-      the_event:
+            type: string  
+            enum:
+              - before
+              - during
+              - after
+              - at the start of
+              - at the end of
+        
+          description_of_event:
 
-        description: a free-text description of a event or process, such as "an  elevator failure".
-        type: string
+            description: a free-text description of a event or process, such as "an  elevator failure".
+            type: string
     
+  #================
+
+  notes_on_trigger_condition:
+    
+    description: free-text description on the additional trigger conditions
+    oneOf:
+      - type: null
+      - type: string
 
 #========================================
-# Compliance Group
+# Compliance Information
 #========================================
   
   compliance_requirement:
     
     description: identifies the compliance object, 
-    integration: semantic layer
+    integration: true
     oneOf: 
-      - type: NULL
+      - type: null
       - type: array
         items:
-          - $ref: "#/definitions/compliance_requirement"
+        - $ref: "./00_common_definitions.yml#/definitions/compliance_requirement"
           
   #================
   
   job_plan_compliance_class:
     
-    description: indicates the level of compliance, with legislative being the top 
+    description: indicates the level of compliance, with legislative being the top class
     $ref: "./00_common_definitions.yml#/definitions/compliance_class"
 
   #====================
@@ -296,7 +310,7 @@ properties:
   mitigates_safety_risk_to_staff:
 
     oneOf: 
-    - type: NULL
+    - type: null
     - type: string
     enum:
       - yes
@@ -308,7 +322,7 @@ properties:
   mitigates_safety_or_health_risk_to_public:
 
     oneOf: 
-    - type: NULL
+    - type: null
     - type: string
     enum:
       - yes
@@ -320,7 +334,7 @@ properties:
   mitigates_environmental_risk:
 
     oneOf: 
-    - type: NULL
+    - type: null
     - type: string
     enum:
       - yes
@@ -333,7 +347,7 @@ properties:
 
     description: identifies a safety work plan by a permanent URL to the document (e.g., corporate Safe Procedure or Toronto Water Safe Operating Procedures)
     oneOf: 
-      - type: NULL
+      - type: null
       - type: array
         items:  #URL strings
           - type: string
@@ -343,51 +357,3 @@ properties:
 #========================================
 
   required_file_attachments: #this mus be an URL for controlled document
-  
-  required_system_forms:
-
-  required_meter_readings:
-
-##########################################################
-# LOCAL OBJECT DEFINITIONS
-##########################################################
-
-definitions:
-
-  compliance_requirement:
-    
-    requirement_name:
-    type: string
-    $comment: |
-      For example, 'ANSI Z358.1-2014 on weekly inspection of self-contained emergency wash equipment'.
-
-    #-------
-
-    requirement_detail:
-      type: string
-      description: provides all relevant descriptions
-      $comment: |
-        The following is an example of the requirement detail text for a compliance requirement.
-          
-          applicable_asset_class:
-            - emergency eye-wash
-
-          requirement_source(s):
-            - ANSI Z358.1-2014 / Emergency Eyewash & Shower Standard / 4 Emergency Showers / 4.6 Maintenance and Training
-              ...
-            - ANSI Z358.1-2014 / Emergency Eyewash & Shower Standard / 4 Emergency Showers / 4.5 Installation
-              ...
-          
-          source_content_guide:
-            - ANSI Z358.1-2014 4.6 states the requirement to check that shower still meets standards
-            - ANSI Z358.1-2014 4.5 states the standards to apply for ht check
-          
-          perform_every:
-            - year`
-          
-    #-------
-
-    compliance_class:
-      
-      $ref: "./00_common_definitions.yml#/definitions/compliance_class"
-      
