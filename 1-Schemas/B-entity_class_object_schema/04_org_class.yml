@@ -13,3 +13,4 @@ properties:
   parent class:
     $ref: orgGroupClassObject
     sort_order: 1-30
+

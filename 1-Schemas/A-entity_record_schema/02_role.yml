@@ -59,7 +59,7 @@ properties:
       
   #========================
 
-  role status:
+  role_status:
     type: string
     enum:
       - specified

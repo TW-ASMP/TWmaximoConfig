@@ -19,8 +19,6 @@ definitions:
           For a given item_or_tool_x, 
             the value of item_or_tool_x.properties.stocked_at_TW is set to false by default 
       
-  #=====================
-      
   rotating_property_def:
     
     type: boolean
@@ -40,8 +38,6 @@ definitions:
             the value of item_x.properties."rotating flag" is set to false, for all time 
         $comment: 
         status: specified
-      
-  #===================
 
   manufacturer_and_model_definition:
     
@@ -56,8 +52,6 @@ definitions:
     allOf: 
       - $ref: "#/definitions/product_model_definition"
 
-        
-  #===================
 
   plain-text_manufacturer_and_model_definition:
     
@@ -72,8 +66,6 @@ definitions:
     allOf: 
       - $ref: "#/definitions/product_model_definition"
 
-  #===================
- 
   product_model_definition:
     
     type: object
@@ -82,29 +74,20 @@ definitions:
       product_model_and_sub-model:
         type: [null, string]
         description: For example, "Multilin 869"
-
-      #------------
       
       model year or product version designator:
         type: [null, string]
         description: Identifies the specific version of the product model. For example "v2" or "2023".
       
-      #------------
-      
       product configuration code:
         type: [null, string]
         description: Denotes the exact exact configuration, made among the options provided by the manufacturer. For example, "P5-G1-S1-LO-A1-R-E-H". 
-      
-      #------------
       
       manufacturer part number:
         type: [null, string]
         description: The manufacturer designator identifying the exact product item.
       
-  
-  #========================================
-  # Job Plan Resources Definition
-  #========================================
+  # ===========Job Plan Resources Definition===========
 
   item_requirement_definition:
  
@@ -113,17 +96,11 @@ definitions:
       item_reference:
         $ref: "./05_item_master.yml"
       
-      #------------
-      
       quantity:
         type: number
       
-      #------------
-      
       unit:
         $ref: "#/definitions/unit_of_measure"
-
-  #===================
   
   tool_requirement_definition:
 
@@ -131,13 +108,10 @@ definitions:
 
       tool_reference: # reference for both stocked and un-stocked tool
         $ref: "./06_tool_master.yml"
-      
-      #------------
+
       
       quantity:
         type: number
-
-  #===================
 
   service_requirement_definition:
 
@@ -145,8 +119,6 @@ definitions:
     
       service_reference:
         $ref: "./07_service_item_master.yml"
-      
-      #------------
       
       quantity:
         type: number
@@ -159,8 +131,6 @@ definitions:
           - hour
           - instance
 
-  #===================
-
   trade_requirement_definition:
 
     properties:
@@ -169,13 +139,9 @@ definitions:
         
         $ref: "../B-entity_class_object_schema/08_trade_type.yml"
       
-      #------------
-      
       quantity:
         
         type: number
-      
-      #------------
 
       qualification_requirement:
         
@@ -186,9 +152,7 @@ definitions:
             - $ref: "../B-entity_class_object_schema/09_qualification.yml"
       
   
-  #========================================
-  # Units of Measure
-  #========================================
+  # =========== Units of Measure ===========
 
   unit_of_measure:
 
@@ -208,30 +172,23 @@ definitions:
         type: string
         $comment: e.g., "Each", "kilogram"
       
-
-  #========================================
-  # Record Retirement Definitions
-  #========================================
+  #========================
+  # Record Retirement
+  #========================
 
   record retirement definition:
     
     properties:
-    
-      #-----------
 
       record retired:
         type: Boolean
         sort_order: 20-10
-      
-      #------------
       
       reason for retirement:
         oneOf: [type: string, type: null]
         updated by system: true
         sort order: 20-20
         $comment: the value should be written by the system, from a asset or record retirement transaction. 
-  
-  #===================
 
   frequency_interval_definition:
 
@@ -240,8 +197,7 @@ definitions:
       frequency_quantity:
         
         type: number
-      
-      #-----------
+
 
       unit_of_time:
         
@@ -252,6 +208,23 @@ definitions:
           - day
           - month
           - year
+
+  #========================
+  # Record Duplication 
+  #========================
+  
+  duplicate record of:
+  
+    oneOf: 
+      - type: array
+        items:
+          $ref: "./01_asset.yml"
+      - type: null
+
+  #========================
+
+  record retirement information:
+    $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
 
   #========================================
   # 
@@ -265,16 +238,12 @@ definitions:
 
         description: is a selection of a pre-defined meter.
         $ref: default_WMS_meter_object
-
-      #-----------
           
       numeric_frequency_value:    
         
         oneOf:
           - type: null
           - type: number
-        
-      #-----------
           
       characteristic_trigger_value:    
         
@@ -297,8 +266,6 @@ definitions:
         $comment: |
           For example, 'ANSI Z358.1-2014 on weekly inspection of self-contained emergency wash equipment'.
 
-      #------------
-
       requirement_detail:
         
         description: provides all relevant descriptions
@@ -320,16 +287,12 @@ definitions:
               - ANSI Z358.1-2014 4.5 states the standards to apply for ht check
             
             perform_every:
-              - year`
-
-        #------------
+              - year
         
         requirement_compliance_class:
           
           description: indicates the level of compliance, with legislative being the top 
           $ref: "#/compliance_class"
-  
-  #====================
   
   compliance_class:
     

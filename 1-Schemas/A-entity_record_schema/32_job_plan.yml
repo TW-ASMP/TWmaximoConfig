@@ -234,7 +234,7 @@ properties:
         - $ref: "./32_job_plan.yml"
 
 #========================================
-# Work Trigger Condition
+# Work Trigger Condition Notes
 #========================================
   
   time-based_trigger:
@@ -290,7 +290,7 @@ properties:
   
   compliance_requirement:
     
-    description: identifies the compliance object, 
+    description: identifies the compliance requirement object
     integration: true
     oneOf: 
       - type: null

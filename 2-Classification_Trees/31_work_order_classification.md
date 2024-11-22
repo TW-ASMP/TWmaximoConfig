@@ -6,8 +6,9 @@
 * investigative
 * informational
 * project
-  * modification by staff
-  * contractor support 
+* project component
+  * asset modification
+  * contractor support
   * commissioning [^2]
 
 ## Requirements for Implementer

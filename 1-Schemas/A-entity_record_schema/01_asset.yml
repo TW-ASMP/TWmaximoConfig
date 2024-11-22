@@ -60,7 +60,7 @@ properties:
               - asset_x.properties."item_product_master_record".properties."product manufacturer company" 
               - asset_x.properties."item_product_master_record".properties."product_model_and_sub-model"
               - asset_x.properties."item_product_master_record".properties."product configuration code"
-              - asset_x.properties."OEM serial"
+              - asset_x.properties."OEM_serial"
           elif asset_x.properties."is_a_commercially_available_product" = FALSE
             asset_x.properties."name" is the semi-colon delimited concatenation of:
               - asset_x.properties."class".properties."class name"
@@ -207,7 +207,7 @@ properties:
 ## ASSIGNMENT GROUP OF PROPERTIES
   #========================
   
-  assignment type:
+  assignment_type:
   
     oneOf: 
       - type: string
@@ -223,7 +223,7 @@ properties:
   
     TW_rule:
   
-      - name: Rendering of (asset_x.properties."assignment type") data field.
+      - name: Rendering of (asset_x.properties."assignment_type") data field.
         id: 4yARRuvOex
         type: UI
         description: |
@@ -236,19 +236,19 @@ properties:
         id: NyrzGKwuel
         type: [validation, assertion, UI]
         description: |
-          If asset_x.properties."assignment type" = "to a role", then 
+          If asset_x.properties."assignment_type" = "to a role", then 
             - asset_x.properties."assigned_to_role" must NOT = null;
             - asset_x.properties."assigned_to_tool_user" must = null
             - asset_x.properties."assigned_to_tool_user_group" must = null
-          elif .properties."assignment type" = "to a user group", then
+          elif .properties."assignment_type" = "to a user group", then
             - asset_x.properties."assigned_to_tool_user_group" must NOT = null;
             - asset_x.properties."assigned_to_role" must = null
             - asset_x.properties."assigned_to_tool_user" must = null          
-          elif asset_x.properties."assignment type" = "to a single user", then
+          elif asset_x.properties."assignment_type" = "to a single user", then
             - asset_x.properties."assigned_to_tool_user" must NOT = null;
             - asset_x.properties."assigned_to_role" must = null
             - asset_x.properties."assigned_to_tool_user_group" must = null
-          elif asset_x.properties."assignment type" = null, then
+          elif asset_x.properties."assignment_type" = null, then
             - asset_x.properties."assigned_to_role" must = null
             - asset_x.properties."assigned_to_tool_user" must = null
             - asset_x.properties."assigned_to_tool_user_group" must = null
@@ -375,7 +375,7 @@ properties:
   
   #========================
 
-  is mobile:
+  is_mobile:
   
     oneOf: 
       - type: boolean
@@ -432,7 +432,7 @@ properties:
     oneOf: 
       - $ref: "./06_tool_master.yml"
       - type: null
-    description: A association with a master record designates the asset as a stocked tool, which allows the tool to be checked into a storeroom and tracked as a part of an inventory. Without an association, the tool would be a unstocked. 
+    description: A association with a master record designates the asset as a stocked tool, which allows the tool to be checked into a storeroom and tracked as a part of an inventory. Without an association, the tool would not be stocked. 
     sort_order: 1-110
   
     TW_rule:
@@ -475,7 +475,7 @@ properties:
   manufacturer_model_configuration_information:
     oneOf: [type: null, $ref:"./00_common_definitions.yml#/definitions/plain-text_manufacturer_and_model_definition"]
     
-    # referend defintion contains 
+    # referent definition contains 
 
       # manufacturer: (the plain and free text version)
 
@@ -491,16 +491,16 @@ properties:
 ## DATE PROPERTY GROUP
   #========================
   
-  construction contract number:
+  construction_contract_number:
   
     oneOf: 
       - type: string
       - type: null
-    description: The construction contract number (usually RFQ#) assigned by the City
+    description: The construction_contract_number (usually RFQ#) assigned by the City
   
   #========================
   
-  first day of City operation:
+  first_day_of_City_operation:
   
     oneOf: 
       - type: string
@@ -510,35 +510,22 @@ properties:
       This usually coincides with "warranty start date".  However, if the asset is not delivered through a project, "warranty start date" may be empty. 
 
   #========================
-  
-  warranty start date:
-  
-    oneOf: 
-      - type: string
-      - type: null
+
 
   #========================
   
-  warranty expiration date:
-  
-    oneOf: 
-      - type: string, 
-      - type: null
-
-  #========================
-  
-  OEM serial:
+  OEM_serial:
   
     oneOf: 
       - type: string
       - type: null
     description: The serial number, affixed on the asset, designated by the manufacturer.
     $comment: |
-      ASMP Discussion Log: The serial number is only populated when an asset experiences a movement (except for movement for removal), or when it is being check into a storeroom. Therefore, when the value of the OEM serial is null, it represents the fact that we do not know what the serial number is (and whether it has a serial number at all).
+      ASMP Discussion Log: The serial number is only populated when an asset experiences a movement (except for movement for removal), or when it is being check into a storeroom. Therefore, when the value of the OEM_serial is null, it represents the fact that we do not know what the serial number is (and whether it has a serial number at all).
     
   #========================
   
-  purchase cost (CAD):
+  purchase_cost_in_CAD:
   
     description: the original purchase cost of the asset (not necessary if the asset is associated with a item master record)
     oneOf: 
@@ -547,7 +534,7 @@ properties:
 
   #========================
   
-  asset photo(s):
+  asset_photos:
   
     oneOf: 
       - type: array # "array" indicates asset may have multiple photos
@@ -559,20 +546,6 @@ properties:
               - contentMediaType: image/jpg
       - type: null
   
-  #========================
-  
-  duplicate record of:
-  
-    oneOf: 
-      - type: array
-        items:
-          $ref: "./01_asset.yml"
-      - type: null
-
-  #========================
-
-  record retirement information:
-    $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
   
 ## BACKGROUND PROPERTIES POPULATED AUTOMATICALLY
   #========================

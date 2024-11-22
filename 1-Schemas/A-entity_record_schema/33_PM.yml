@@ -1,7 +1,7 @@
 ---
 $schema: http://json-schema.org/draft-07/schema#
 title: PM
-#$id:
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/33_PM.yml
 type: object
 
 properties:
@@ -12,33 +12,77 @@ properties:
     type: string
     $comment: This ID is useful for referencing, even when its name changes. 
 
+  # ==========
+
   name:
 
     description: a short name for the PM, given by the creator of the PM.
     type: string
 
-  maintainer_group:
+  # ==========
 
-    description: identifies the group/org, from the organizational hierarchy, directly responsible for performing the work order arising from the PM. 
-    $ref: "./04_org_or_group.yml"
-    
   operational_unit:
 
-    description: indicates Toronto Water's operational unit, such as Waste and Storm Water Pumping (symbol - WASP) or Humber Wastewater Treatment Plant (symbol - THR).
+    description: indicates Toronto Water's operational unit, on the organizational hierarchy, such as Waste and Storm Water Pumping (symbol - WASP) or Humber Wastewater Treatment Plant (symbol - THR).
     $ref: "./04_org_or_group.yml"
+  
+  # ==========
+
+  supervisor_group:
+
+    description: indicates a sub-group of the operational unit, that is led by a supervisor who is accountable for the performance of the specified work. 
+    $ref: "./04_org_or_group.yml"
+    
+  # ==========
+  
+  crew:
+
+    description: identifies a crew, under the supervisor group, that is always assigned to perform the specified work
+    
+    oneOf:
+      - type: null
+      - $ref: "./04_org_or_group.yml"
+    
     comment: This value will be determined by (and must be consistent with) the maintainer_organization value - situated at a lower level of the organization hierarchy
+
+  # ==========
 
   member_of_PM_set:
 
     description: indicates that this PM is a member of a set of related PMs. For example, the PMs for raw water pump 1, 2, 3 are all members of a PM set named Raw Water 5-year Disassembly Maintenance. 
-    $ref: "#/definitions/PM_set"
+    
+    oneOf:
+      - type: null
+      - $ref: "#/definitions/PM_set"
+
+  # ==========
+
+  parent_PM:
+
+    description: indicates the more comprehensive PM, usually a shut-down PM, that this PM is a part of.
+    
+    oneOf:
+      - type: null
+      - $ref: "../A-entity_record_schema/33_PM.yml"
+    
+    $comment: PMs should be organized into a PM-set when they are meant to be performed at different times.  For example the PMs for substation line 1 and line 2 maintenance are performed on alternating years. They can be organize into a PM-Set named Main Substation Maintenance. PMs should be organized under a parent PM if they are parts of the same larger continuous process - represented by the parent - such as the winter shutdown maintenance of island treatment plant. 
+  
+  # ==========
 
   Avantis_PM:
 
-    description: indicate the Avantis PM that this Maximo PM (equivalent to an Avantis PM task) was a part of.
+    description: indicate the Avantis PM (the legacy WMS) that this Maximo PM (equivalent to an Avantis PM task) was a part of.
+    
+    oneOf:
+      - type: null
+      - type: string
     read_only: TRUE
+
+    comment: This field can be eliminated in the future.
+
+  # ==========
   
-  processes_or_major_systems:
+  major_systems:
 
     description: a list of all major systems covered by the work specified in this PM.
     read_only: TRUE
@@ -52,24 +96,69 @@ properties:
           
           system_naming:
             type: string
-        
-  #========
-  
-  asset:
+
+  #========================================      
+  # Work Specification at a High-level
+  #========================================
 
   role:
 
-  top_level_job_plan:
+    description: specifies the role for the PM, if there is no further specification within the route.
+
+  # ========
   
-  sequence_of_work_specification:
+  asset:
+
+    description: specifies the job plan for the PM, if there is no further specification within the route.
+
+  TW_rule:
+    # [] if a route is specified, then only present the route level work order (The role/asset on the PM itself becomes irrelevant). 
+
+  # ==========
+
+  high-level_job_plan:
+  
+    description: specifies the job plan for the PM, if there is no further specification within the route.
     
-    description: a sequential list of job plan and asset/role pairings. 
+  #========================================
+  # Work Specification at the Route Level
+  #========================================
+
+  route:
+    
+    description: a sequential list of work, composed of job plans paired with an asset/role. 
     oneOf:
       - type: null
-      - $ref: "#/definitions/route"
+      - type: object
+        properties:
+           
+          sequence:
+            type: number
+          
+          asset:
+            oneOf:
+              - type: null
+              - $ref: "./01_asset.yml"
 
-  
-  #==== Resources ====
+          role:
+            oneOf: 
+              - type: null
+              - $ref: "./02_role.yml"
+
+          job_plan:
+            $ref: "./32_job_plan.yml"
+    
+    $comment: the implementation could be done with Maximo route object.    
+
+    TW_rule:
+      # [] the high_level_job_plan must not conflict with the job plan(s) specified in the route. 
+
+
+  #========================================
+  # Resources
+  #----------------------------------------
+  # Note: Travel time and preparation time are not being recorded explicitly on the PM. Instead they could be recorded as contributory work in the job plan route
+  #========================================
 
   tool_requirement:
   
@@ -112,8 +201,13 @@ properties:
     - type: array
       items:
         - $ref: "./00_common_definitions.yml#/definitions trade_requirement_definition"
+  
 
-  #==== Work order triggering =====
+  #========================================
+  # Work Triggering Specification
+  #---------------------------------------
+  # Note: the specification is not complete for data mapping purposes, it is complete for requirement gather
+  #========================================
 
   next_due_date_based_on:
   
@@ -122,7 +216,7 @@ properties:
       - work start date
       - work completion date
 
-  work_generation_condition:
+  trigger_condition:  # aka work generation condition
 
     oneOf:
     - type: null
@@ -130,7 +224,9 @@ properties:
     - $ref: "#/definitions/meter-based_trigger_specification"
 
 
-  #======Legislative Designation=======
+  #========================================
+  # Legislative Designation
+  #========================================
   
   PM_compliance_class:
 
@@ -146,28 +242,20 @@ definitions:
   time-based_trigger_specification:
     
     next_due_date:
-
       type: number
     
     frequency_interval:
-      
       $ref: "./00_common_definitions.yml#/definitions/frequency_interval_definition"
 
   #================
 
   meter-based_trigger_specification:
-  # [] 
     
     next_meter_reading:
-
         type: number
     
     meter_condition:
-
       oneOf:
         - type: null
         - $ref: "./00_common_definitions.yml#/definitions/meter_condition_definition"
   
-  #================
-
-  route:

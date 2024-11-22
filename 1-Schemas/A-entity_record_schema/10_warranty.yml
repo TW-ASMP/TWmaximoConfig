@@ -1,0 +1,24 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: Warranty
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/10_warranty.yml
+type: object
+
+properties:
+
+  warranty start date:
+  
+    oneOf: 
+      - type: string
+      - type: null
+
+  #========================
+  
+  warranty expiration date:
+  
+    oneOf: 
+      - type: string, 
+      - type: null
+
+  #========================
+
+  
