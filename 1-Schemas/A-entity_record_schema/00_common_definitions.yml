@@ -149,7 +149,7 @@ definitions:
         - type: null
         - type: array
           items:
-            - $ref: "../B-entity_class_object_schema/09_qualification.yml"
+            $ref: "../B-entity_class_object_schema/09_qualification.yml"
       
   
   # =========== Units of Measure ===========

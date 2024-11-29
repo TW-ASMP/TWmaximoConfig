@@ -20,7 +20,7 @@
   * asset hand-over
 * Life Event Process*
   * asset commissioning
-  * asset hand-over 
+  * asset hand-over [^3]
   * final asset decommissioning 
 * Asset Modification*
   * modify asset set-point
@@ -28,7 +28,8 @@
   * physical modification to building or structure [^2]
 * asset assignment
 * Contributory Work*
-  * work coordination and notification
+  * item procurement
+  * work coordination
   * safety preparation
   * setup
   * takedown of setup
@@ -36,21 +37,25 @@
 * design or redesign
   * creation of new role
   * removal of existing role
-* Informational*
-  * add or correct record info
+* Asset Data*
+  * add or correct record
   * record retirement
 
 
 
 ## Requirements for Implementer
 
-[]REQ Nyh7RPjEgl #IMP "classes names specified in camel-case and with an asterik symbol shall have the appliable to individual property, found in the class object, set to false"
+```yaml
+  TW_rule:
+  - name: Valid Assignment of an Asset
+    id: 01JDCNEFAED17CWF2K851ZAJKW
+    type: [assertion]
+    description: |
+      classes names specified with an asterisk symbol shall have the their .property.appliable_to_individual value set to false
+```
 
-
-## Notes
-
-TODO[] #TW "In the work specification stage, need specify at least one class of activity as a function, which take a certain state of the world S1 (for example, the property of a certain asset) and transforms to another state S2"
 
 ### Footnotes
 [^1]: more will be added before the final implementation. 
 [^2]: the physical modification of a building or a structure may result in the creation and removal of a space, hence it is singled out. 
+[^3]: the process by which a asset's ownership is transferred from a capital project to Toronto Water. 

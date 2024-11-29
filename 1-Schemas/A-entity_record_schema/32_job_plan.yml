@@ -23,7 +23,7 @@ properties:
 
   #================
 
-  activity_type:
+  discrete_activity_classification:
 
     description: indicates the type of activity that specified in the job plan
     $ref: "../B-entity_class_object_schema/32_discrete_activity_class.yml"
@@ -41,7 +41,7 @@ properties:
       oneOf:
       - type: null
       - type: array
-        item:
+        items:
           $ref: "../B-entity_class_object_schema/01_asset_item_tool_class.yml"
 
   #================
@@ -53,7 +53,7 @@ properties:
       oneOf:
       - type: null
       - type: array
-        item:
+        items:
           $ref: "../B-entity_class_object_schema/02_role_class.yml"
     $comment: >
       Examples of a role class include the tie-breaker and effluent turbidity meter role class. 
@@ -67,7 +67,7 @@ properties:
       oneOf:
       - type: null
       - type: array
-        item:
+        items:
           $ref: "../A-entity_record_schema/04_org_class.yml"
     $comment: >
       Examples of operational group include
@@ -91,7 +91,7 @@ properties:
       oneOf:
       - type: null
       - type: array
-        item:
+        items:
           $ref: "../A-entity_record_schema/02_role.yml"
 
   #================
@@ -103,7 +103,7 @@ properties:
       oneOf:
       - type: null
       - type: array
-        item:
+        items:
           $ref: "../A-entity_record_schema/05_item_master.yml"
     TW_rule: >
       - name: Valid Commercial Product Item reference in a Job Plan
@@ -134,14 +134,14 @@ properties:
     oneOf:
       - type: null
       - type: array
-        item: 
+        items: 
           type: string
     integration: true
     $comment: >
       - For the 2026-27 implementation, this data field will start-out as a free-text. In the future, the value will come from a solution such as OnePM.
 
   #================================
-  # Procedural Steps
+  # Procedure
   #================================
 
   activity_procedure_steps:
@@ -157,6 +157,12 @@ properties:
         5) Remove Lock-out and Tag-out and check operation.
         6) Inform operations that the task as assigned is completed.
 
+
+  # ==========
+
+  requires_shut_down !!:
+
+    description:
 
   #========================================
   # Resource Requirements
@@ -176,7 +182,7 @@ properties:
       - type: null
       - type: array
         items:
-          - $ref: "./00_common_definitions.yml#/definitions/item_requirement_definition"
+          $ref: "./00_common_definitions.yml#/definitions/item_requirement_definition"
   
   #================
 
@@ -187,18 +193,7 @@ properties:
       - type: null
       - type: array
         items:
-          - $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
-
-  #================
-  
-  services_requirement:
-
-    description: identifies (contracted) service needed to complete the work.
-    oneOf:
-      - type: null
-      - type: array
-        items:
-          - $ref: "./00_common_definitions.yml#/definitions/service_requirement_definition"
+          $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
 
   #================
   
@@ -209,7 +204,18 @@ properties:
     - type: null
     - type: array
       items:
-        - $ref: "./00_common_definitions.yml#/definitions/trade_requirement_definition"
+        $ref: "./00_common_definitions.yml#/definitions/trade_requirement_definition"
+
+  #================
+  
+  services_requirement:
+
+    description: identifies (contracted) service needed to complete the work.
+    oneOf:
+      - type: null
+      - type: array
+        items:
+          $ref: "./00_common_definitions.yml#/definitions/service_requirement_definition"
 
 #========================================
 # Related Activities
@@ -222,7 +228,7 @@ properties:
     - type: null
     - type: array
       items:
-        - $ref: "./32_job_plan.yml"
+        $ref: "./32_job_plan.yml"
 
   must_be_followed_by:
     
@@ -231,7 +237,7 @@ properties:
     - type: null
     - type: array
       items:
-        - $ref: "./32_job_plan.yml"
+        $ref: "./32_job_plan.yml"
 
 #========================================
 # Work Trigger Condition Notes
@@ -296,7 +302,7 @@ properties:
       - type: null
       - type: array
         items:
-        - $ref: "./00_common_definitions.yml#/definitions/compliance_requirement"
+          $ref: "./00_common_definitions.yml#/definitions/compliance_requirement"
           
   #================
   
@@ -350,7 +356,7 @@ properties:
       - type: null
       - type: array
         items:  #URL strings
-          - type: string
+          type: string
 
 #========================================
 # Require Information Data Submission Group

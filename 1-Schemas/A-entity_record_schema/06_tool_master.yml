@@ -93,7 +93,4 @@ properties:
       - type: null
 
 
-
-
-
 $comment: ASMP does not expect the tool item master to be widely used during the initial adoption of Maximo - we expect that most tools would initially be represented as un-stocked.  

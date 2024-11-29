@@ -337,7 +337,7 @@ properties:
     type: boolean
     description: An asset is made under as a product of a commercial entity, as opposed to an asset that is assembled on site.
     sort_order: 1-80
-    $comment: No null value allowed becuase this information is self-evident
+    $comment: No null value allowed because this information is self-evident
     
     TW_rule:
       
