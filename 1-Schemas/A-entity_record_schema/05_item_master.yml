@@ -6,7 +6,7 @@ type: object
 
 properties:
   
-  item number:
+  number:
 
     type: string
     description: 
@@ -16,115 +16,118 @@ properties:
   
   #========================
   
-  item name:
+  name:
 
     type: string
     description: The human readable short description of the item.
     
-    TW_rule:
+    rule_spec:
     
       - name: item master record naming
-        id: VkYgCtRPlx
+        form: long
+        spec_ID: VkYgCtRPlx
         type: assertion
         specification: |
-          if (item_x.properties."generic_or_specific_product") = "generic", then  
-            the value of (item_x.properties."item name") would be the semi-colon ("; ") delimited concatenation of the following property values:
-              - properties."item class".properties."class name"
-              - properties."description of generic"
-          elif: (item_x.properties."generic_or_specific_product" = "commercially available product"), then: 
-            the value of (item_x.properties."item name") would be the semi-colon ("; ") delimited concatenation of the following property values:
-              - properties."item class".properties."class name"
-              - properties."product manufacturer company".properties."company name"
-              - properties."product_model_and_sub-model"
-              - properties."model year or product version designator"
-              - properties."product configuration code"
+          if (item_x.properties.commodity_or_commercial_product) = "commodity", then  
+            the value of item_x.properties.name would be the semi-colon delimited concatenation of the following property values:
+              - properties.class.properties.name
+              - every non-empty class dependent specification values
+              - properties.supplementary_commodity_description
+          elif: (item_x.properties.commodity_or_commercial_product = "commercial product"), then: 
+            the value of item_x.properties.name would be the semi-colon delimited concatenation of the following property values:
+              - properties.class.properties.name
+              - properties.product manufacturer company.properties."company name"
+              - properties.model_and_sub-model
+              - properties.version_or_model_year
+              - properties.product configuration code
         checked on: 2024-08-15
-        Nov1st Review: [] remove the concatenation rule
   
   #========================
   
-  item class:
+  class:
 
     $ref: "../B-entity_class_object_schema/01_asset_item_tool_class.yml"
-    $comment: This is a value from the item classification, which is a superset of the asset class.
+    $comment: is a value from the item classification, which is a superset of the asset class.
 
-    TW_rule:
+    rule_spec:
     
       - name: item classification list includes all classes
-        id: EynXVZ-dxg
+        spec_ID: EynXVZ-dxg
         specification: |
           Maximo item classification list would include all class instances of B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml, regardless of the values
-            - properties."tool"
-            - properties."only used as a part asset"
+            - properties.tool
+            - properties.only used as a part asset
         status: specified
         checked_on: 2024-08-15
 
+
+  class_dependent_specifications:
+
+    type: object
+    description: is a set of properties applicable to the class value. 
 
 # INVENTORY MANAGEMENT FLAGS
   #========================
 
   stocked_at_TW:
     
-    $ref: "./00_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
+    $ref: "./00_common_definitions.yml#/definitions/stocked_at_TW_def" 
           
   rotating:
     
     $ref: "./00_common_definitions.yml#/definitions/rotating_property_def" 
-
-
-# generic and specific definition
-  #========================
-
-  generic_or_specific_product:
-    type: string
-    description: indicate whether the item is defined generically in terms of its function or commodity specification or is defined or specifically in term of its product detail.
-    enum:
-      - generic
-      - commercially available product
-    $comment: |
-      A generic item appropriate for a certain application is a "defined application generic" item. 
-    TW_rule:
-      - name: Restrict Issuing a Generic Item
-        id: 4yDfkRcvlg
-        specification: ""
-        status: TBS
-
-  #========================
-  
-  description of generic:
-    type: string
-    description: For example, 14' 165/55R14 winter tire, or electrical feeder protection relay
-  
-# MANUFACTURER AND MODEL GROUP
-  #========================
-
-  manufacturer_model_configuration_information:
-    oneOf: [type: null, $ref:"$ref: "./00_common_definitions.yml#/definitions/manufacturer_and_model_definition"]
-    
-    # referend defintion contains 
-
-      # manufacturer:
-
-      # product_model_and_sub-model:
-
-      # model year or product version designator:
-
-      # product configuration code:
       
-      # manufacturer part number:
+  #====================================
+  # generic and specific definition
+  #====================================
 
-  #========================
-  
-  product is an instance of the generic(s):
+  commodity_or_commercial_product:
+    
+    type: string
+    description: indicate whether the item master defines an unspecialized commodity or a specific commercial product.
+    enum:
+      - commodity
+      - commercial product
+
+  supplementary_commodity_description:
+    
+    type: string
+    description: supplementary description, in addition to the class value and and class-dependent specification values, necessary to differentiate a commodity.
+    
+  #====================================
+  # MANUFACTURER AND MODEL GROUP
+  #====================================
+
+  commercial_product:
     
     oneOf: 
       - type: null
-      - $ref: "./06_tool_master.yml"
-    description:
+      - $ref: "./00_common_definitions.yml#/definitions/manufacturer_and_model_def"
+  
+  commercial_product_description:
+
+    oneOf: 
+    - type: null
+    - type: string
+      $ref: "./00_common_definitions.yml#/definitions/plain-text_manufacturer_and_model_def"
+
+  #========================
+  
+  instant_of_commodities:
+    
+    oneOf: 
+      - type: null
+      - $ref: "./05_item_master.yml"
+    
+    rule_spec:
+      - description: range of the instant_of_commodities property must be  items whose TW_defined_commodity value is 'true'.
+        form: short
+        spec_ID: 01JF33GVB2DT7K5FJ3SA3P9EP4
   
   #========================
   
-  exact same product as:
+  same_item_as:
+    
     oneOf: 
       - type: array
         items:
@@ -133,43 +136,37 @@ properties:
     description: |
       Identifies the same commercial product item made by the same manufacturer, but differing only in item unit format. For example, the 208-litre drum item and the 5-litre bottle item of Penzoil 5W30 Synthetic Lubricant. 
     
-    TW_rule:
+    rule_spec:
 
       - name: Infer Symmetrical Equivalence between Product Items
-        id: EJCnUukuex
+        spec_ID: EJCnUukuex
         type: inference
         specification: ""
-        status: to be specified
+        status: []
+
+      - name: Range must be a commercial product as well
+        spec_ID: 01JF81079K178X9B4NSG23AA0Z
+        type: validation
+        specification: 
+        status: []
 
   #========================
   
-  ordering information:
+  ordering_information:
 
     oneOf:
-      - type: array  # array type indicates the possibility of multiple pieces of ordering information
-        items:
-          $ref: "#/definitions/vendor order detail"
-      - type: null
-
-  #========================
-
-  item issue unit:
-
-    type: string
-    description: A description of each indivdual unit issued for work, such as a can or roll, of the product item, regardless of the ordering unit, such as a box of 24.  For example, "80 ml can" or "27 x 500in. roll".
-    $comment: "To implemeneter: use the out of the box list from Maximo"
-
-  #========================
-
-  duplicate record of:
-
-    oneOf: 
       - type: array
         items:
-          $ref: "./05_item_master.yml"
+          $ref: "#/definitions/vendor_order_detail"
       - type: null
 
+  #========================
 
+  issue_unit:
+
+    type: string
+    description: A description of each individual unit issued for work, such as a can or roll, of the product item, regardless of the ordering unit, such as a box of 24.  For example, "80 ml can" or "27 x 500in. roll".
+    $comment: "To implementer: use the out of the box list from Maximo"
 
 #========================
 # LOCAL OBJECT DEFINITIONS
@@ -177,22 +174,22 @@ properties:
 
 definitions:
 
-  vendor order detail:
+  vendor_order_detail:
 
     properties:
       
-      vendor company:
+      vendor:
         
         $ref: MaximoCompanyObject
       
       #========================
       
-      order unit format:
+      order_unit:
         
         oneOf:
           - type: null
           - type: string
-        description: A description of each indivdual unit of order, such as a can or roll, of the product item, regardless of the ordering unit, such as a box of 24.  For example, "80 ml can" or "27 x 500in. roll".
+        description: A description of each individual unit of order, such as a can or roll, of the product item, regardless of the ordering unit, such as a box of 24.  For example, "80 ml can" or "27 x 500in. roll".
         $comment: |
           For a commercial product, if there are multiple item unit formats, one item should be create for each format.
           To Implementer,
@@ -200,7 +197,7 @@ definitions:
       
       #========================
       
-      vendor item or SKU number:
+      vendor_item_number:
         
         oneOf:
           - type: string
@@ -208,7 +205,7 @@ definitions:
       
       #========================
       
-      unit cost in CAD:
+      unit_cost_in_CAD:
         
         type: number
         description: The expected cost of a unit of the item. (This should not be the cost of a package of multiple units of the item.) 

@@ -6,32 +6,35 @@ $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_reco
 
 definitions:
 
-  stocked_at_TW_property_def:
+  #=================================
+  # INVENTORY
+  #=================================
+
+  stocked_at_TW_def:
     
     type: boolean
-    description: a true value indicates that the item is a stocked item at the Toronto Water organization
-
+    description: a true value indicates that the item is a stocked item at the Toronto Water
+    
     TW_rule:
-
       - name: default value of .properties.stocked_at_TW
-        id: EkxMAfT5ee
+        spec_ID: EkxMAfT5ee
         specification: |
           For a given item_or_tool_x, 
             the value of item_or_tool_x.properties.stocked_at_TW is set to false by default 
-      
+
   rotating_property_def:
     
     type: boolean
+    
     $comment: |
       For posterity: a rotating item is a trackable item - each instance of the item being a rotating asset record. When the value of this field is true, we must serialize every instance of the item. This commitment is beyond what we can presently achieve at TW. The more pragmatic starting point considered in 2024 is as follows:
         1) for the initial implementation, specify all items as non-rotating
-        2) an non-rotating item definition, containing the mfr, model, and ordering information, can be associated with any asset, through the the asset's item_product_master_record property.
+        2) an non-rotating item definition, containing the mfr, model, and ordering_information, can be associated with any asset, through the the asset's item_product_master_record property.
         2) in the future, if we wish to convert the non-rotating item definition to a rotating item definition, we would serialize all the assets associated to the item definition, and convert them to rotating assets. 
     
-    TW_rule:
-    
+    rule_spec:
       - name: value of .properties."rotating item"
-        id: 4JKH1tw9gx
+        spec_ID: 4JKH1tw9gx
         type: [validation, assertion]
         specification: |
           For a given item_x, 
@@ -39,91 +42,128 @@ definitions:
         $comment: 
         status: specified
 
-  manufacturer_and_model_definition:
+  manufacturer_and_model_def:
     
     type: object
     properties:
-
-      manufacturer:
-        oneOf: [type: null, $ref: MaximoCompanyObject]
-        description: For example, GE Vernova
       
-    # this syntax effectively appends the properties defined in the referenced sub-schema
-    allOf: 
-      - $ref: "#/definitions/product_model_definition"
-
-
-  plain-text_manufacturer_and_model_definition:
-    
-    type: object
-    properties:
-
       manufacturer:
-        type: [null, string]
-        description: For example, "GE Vernova"
+        $ref: MaximoCompanyObject
       
-    # this syntax effectively appends the properties defined in the referenced sub-schema
-    allOf: 
-      - $ref: "#/definitions/product_model_definition"
+      product_model:
+        $ref: "#/definitions/product_model_def"
 
-  product_model_definition:
+  product_model_def:
     
     type: object
     properties:
-
-      product_model_and_sub-model:
-        type: [null, string]
+      
+      model_and_sub-model:
+        oneOf:
+        - type: null
+        - type: string
         description: For example, "Multilin 869"
       
-      model year or product version designator:
-        type: [null, string]
+      version_or_model_year:
+        oneOf:
+        - type: null
+        - type: string
         description: Identifies the specific version of the product model. For example "v2" or "2023".
       
-      product configuration code:
-        type: [null, string]
-        description: Denotes the exact exact configuration, made among the options provided by the manufacturer. For example, "P5-G1-S1-LO-A1-R-E-H". 
-      
-      manufacturer part number:
-        type: [null, string]
+      manufacturer_PN:
+        oneOf:
+        - type: null
+        - type: string
         description: The manufacturer designator identifying the exact product item.
+
+  plain-text_manufacturer_and_model_def:
+    type: object
+    
+    $comment: |
+      The following is an example of the plain text manufacturer and model definition
+        manufacturer: General Electric
+        model_and_sub-model: Multilin 750
+        version_or_model_year: 2024
+
+  #=================================
+  # FAILURE
+  #=================================
+
+  failure_code:
+
+    type: object
+    properties:
       
-  # ===========Job Plan Resources Definition===========
+      code:
+        type: string
+      
+      name:        
+        type: string
+
+      description:        
+        type: string
+
+      failure_code_type:
+        type: string
+        enum:
+          - problem
+          - cause
+          - remedy
+      
+      site:
+        type: object
+        $ref: MaximoSiteObject
+      
+      failure_classes:
+        oneOf:
+          - type: null
+          - type: array
+            items:
+              type: object
+              $ref: MaximoFailureClass
+      
+      status:
+        type: string
+        enum:
+          - draft
+          - approved
+        
+  #=================================
+  # JOB PLAN RESOURCE
+  #=================================
 
   item_requirement_definition:
- 
+  #--------------------------
     properties:
 
       item_reference:
         $ref: "./05_item_master.yml"
       
-      quantity:
+      required_quantity:
         type: number
       
       unit:
         $ref: "#/definitions/unit_of_measure"
-  
-  tool_requirement_definition:
-
+      
+  tool_requirements_definition:
+  #----------------------------
     properties:
 
       tool_reference: # reference for both stocked and un-stocked tool
         $ref: "./06_tool_master.yml"
 
-      
-      quantity:
+      required_quantity:
         type: number
 
   service_requirement_definition:
-
+  #------------------------------
     properties:
     
       service_reference:
         $ref: "./07_service_item_master.yml"
       
-      quantity:
+      required_quantity:
         type: number
-      
-      #------------
 
       unit:
         type: string
@@ -132,27 +172,25 @@ definitions:
           - instance
 
   trade_requirement_definition:
-
+  #------------------------------
     properties:
 
       trade_type:
-        
         $ref: "../B-entity_class_object_schema/08_trade_type.yml"
       
-      quantity:
-        
+      required_quantity:
         type: number
 
       qualification_requirement:
-        
         oneOf: 
         - type: null
         - type: array
           items:
             $ref: "../B-entity_class_object_schema/09_qualification.yml"
       
-  
-  # =========== Units of Measure ===========
+  #=================================
+  # UNIT OF MEASURE
+  #=================================
 
   unit_of_measure:
 
@@ -252,6 +290,19 @@ definitions:
           - type: string
 
 
+  reference_attachment:
+    
+    properties:
+
+      document:
+      document_content_class:
+
+        type: string
+        enum:
+          - maintenance manual
+          - asset photograph
+          - 
+
   #========================================
   # Compliance Requirement Definition
   #========================================
@@ -300,8 +351,8 @@ definitions:
     enum:
       - legislative
       - corporate policy
-      - professional recommendation
 
 
-
- 
+  ###########################################
+  # Common Work Entity Definition
+  ###########################################

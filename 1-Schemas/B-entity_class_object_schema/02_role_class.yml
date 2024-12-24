@@ -1,7 +1,7 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
-$id: B-entity_class_object_schema/02_role_class.yml
+$spec_ID: B-entity_class_object_schema/02_role_class.yml
 type: object
 
 #############################################################
@@ -20,17 +20,17 @@ properties:
 
   discrete asset role:
     oneOf: [type: boolean, type: null]
-    read_only: true
+    read-only: true
     description: a role that can be occupied by a single discrete asset.
 
   functional structure role: 
     oneOf: [type: boolean, type: null]
-    read_only: true
+    read-only: true
     description: a role that cannot be occupied any discrete asset, but can be the parent to other roles.
 
   defined set of roles:
     oneOf: [type: boolean, type: null]
-    read_only: true  
+    read-only: true  
     description: a role that can be occupied by a collection of descrete assets. 
 
   compatible asset occupant class(s):
@@ -46,9 +46,9 @@ properties:
 # 2. High level rules
 #############################################################
 
-TW_rule:
+rule_spec:
   - name: Is an asset role, functional structure role, or defined set of roles       
-    id: NyD4XGbuex
+    spec_ID: NyD4XGbuex
     specification: |
       if roleClassX is a decendent of "Discrete Asset Role" in the role classification hierarchy:
         set roleClassX.properties."a discrete asset role" to TRUE

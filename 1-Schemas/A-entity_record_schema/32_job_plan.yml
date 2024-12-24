@@ -20,7 +20,6 @@ properties:
     description: is a description of the activity specified in the job plan.
     type: string
 
-
   #================
 
   discrete_activity_classification:
@@ -73,9 +72,9 @@ properties:
       Examples of operational group include
         TAB - Ashbridges Bay Wastewater Treatment Plants
         COL - Waste and Storm Water Collection
-    TW_rule: >
+    rule_spec: >
       - name: job plan's specific_to_operational_units property must be an unit level organization
-        id: 01JD2V5X97J1Y45JWDW4SV1FJ4
+        spec_ID: 01JD2V5X97J1Y45JWDW4SV1FJ4
         type: [validation]
         specification: |
           Given an job plan, JP_x, all values of JP_x.specific_to_operational_units must be
@@ -105,14 +104,14 @@ properties:
       - type: array
         items:
           $ref: "../A-entity_record_schema/05_item_master.yml"
-    TW_rule: >
+    rule_spec: >
       - name: Valid Commercial Product Item reference in a Job Plan
-        id: 01JD2V5X97J1Y45JWDW4SV1FJ4
+        spec_ID: 01JD2V5X97J1Y45JWDW4SV1FJ4
         type: [validation]
         specification: |
            Given an job plan, JP_x, all values of JP_x.specific_to_commercial_products must be
             - a item master record, and
-            - whose .generic_or_specific_product = "commercially available product"
+            - whose .generic_or_specific_product = "specific commercial product"
           
   #================================
   # Record Provenance
@@ -125,6 +124,17 @@ properties:
       - type: null
       - $ref: "./32_job_plan.yml"
     integration: true
+  
+  #================
+  
+  failure_codes:
+              
+      description: denotes a physical-based failure condition (e.g., shaft misalignment). 
+      oneOf:
+        - type: null
+        - type: array
+          items:
+            $ref: "./00_common_definitions.yml#/definitions/failure_code"
   
   #================
 
@@ -144,7 +154,7 @@ properties:
   # Procedure
   #================================
 
-  activity_procedure_steps:
+  work_description:
 
     description: is a single body of text outlining the sequential steps to complete the activity
     type: string
@@ -157,10 +167,9 @@ properties:
         5) Remove Lock-out and Tag-out and check operation.
         6) Inform operations that the task as assigned is completed.
 
-
   # ==========
 
-  requires_shut_down !!:
+  requires_shut_down:
 
     description:
 
@@ -168,14 +177,14 @@ properties:
   # Resource Requirements
   #========================================
 
-  estimated_wrench_time:
+  estimated_duration:
 
     description: is the estimated time to complete the activity in the job plan
     $ref: "./00_common_definitions.yml#/definitions/frequency_interval_definition"
   
   #================
 
-  parts_and_material_requirement:
+  parts_or_material_requirements:
     
     description: identifies the parts and material required to complete the work. 
     oneOf:
@@ -186,29 +195,29 @@ properties:
   
   #================
 
-  tool_requirement:
+  tool_requirements:
   
     description: identifies the tools required to complete the work.
     oneOf:
       - type: null
       - type: array
         items:
-          $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
+          $ref: "./00_common_definitions.yml#/definitions/tool_requirements_definition"
 
   #================
   
-  trades_requirement:
+  skill_and_trade_requirements:
   
-    description: identifies the trade and qualifications needed to complete the work.
+    description: identifies the trades and qualifications of each trade needed to complete the work.
     oneOf:
     - type: null
     - type: array
       items:
-        $ref: "./00_common_definitions.yml#/definitions/trade_requirement_definition"
+        $ref: "./00_common_definitions.yml#/definitions trade_requirement_definition"
 
   #================
   
-  services_requirement:
+  service_requirements:
 
     description: identifies (contracted) service needed to complete the work.
     oneOf:
@@ -243,7 +252,7 @@ properties:
 # Work Trigger Condition Notes
 #========================================
   
-  time-based_trigger:
+  time-based_frequency:
 
     oneOf:
       - type: null
@@ -251,7 +260,7 @@ properties:
 
   #================
   
-  meter-based_trigger:
+  meter-based_frequency:
 
     oneOf:
       - type: null
@@ -259,7 +268,7 @@ properties:
   
   #================
 
-  event-based_trigger:
+  description_of_event-based_trigger:
 
     oneOf:
       - type: null
@@ -306,7 +315,7 @@ properties:
           
   #================
   
-  job_plan_compliance_class:
+  compliance_class:
     
     description: indicates the level of compliance, with legislative being the top class
     $ref: "./00_common_definitions.yml#/definitions/compliance_class"
@@ -349,7 +358,7 @@ properties:
 
   #====================
   
-  safe_work_plan:
+  safe_work_plan_link:
 
     description: identifies a safety work plan by a permanent URL to the document (e.g., corporate Safe Procedure or Toronto Water Safe Operating Procedures)
     oneOf: 
@@ -361,5 +370,3 @@ properties:
 #========================================
 # Require Information Data Submission Group
 #========================================
-
-  required_file_attachments: #this mus be an URL for controlled document

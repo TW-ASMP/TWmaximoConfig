@@ -1,0 +1,14 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: Person
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/08_person.yml
+type: object
+
+properties:
+
+  
+  
+  contractor:
+    type: boolean
+
+  organization:
+  #NOTE to be able to assign an organization outside of the City (consider using vendor Co.)

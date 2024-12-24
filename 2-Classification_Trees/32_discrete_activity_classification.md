@@ -38,7 +38,7 @@
   * creation of new role
   * removal of existing role
 * Asset Data*
-  * add or correct record
+  * record information correction
   * record retirement
 
 
@@ -46,9 +46,9 @@
 ## Requirements for Implementer
 
 ```yaml
-  TW_rule:
+  rule_spec:
   - name: Valid Assignment of an Asset
-    id: 01JDCNEFAED17CWF2K851ZAJKW
+    spec_ID: 01JDCNEFAED17CWF2K851ZAJKW
     type: [assertion]
     description: |
       classes names specified with an asterisk symbol shall have the their .property.appliable_to_individual value set to false

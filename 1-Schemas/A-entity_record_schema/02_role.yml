@@ -10,9 +10,9 @@ properties:
     type: string
     description: Also known as the "tag number" or "entity number" in Avantis's vocabulary. (Avantis is the a WMS).
     #[] to do ID for pumping stations an chambers will be from the GIS. 
-    TW_rule: 
+    rule_spec: 
       - name: ID of Linear Assets Represented as Role in Maximo
-        id: Vku-67dDxx
+        spec_ID: Vku-67dDxx
         type: triggered action
         specification:
           trigger: replication creation of assetY record from the TWAG
@@ -25,7 +25,7 @@ properties:
     type: string
     description: A structured and ideally unique description of the role.
     const: > #[]
-      ${properties."class".properties."class name"};
+      ${properties.class.properties."class name"};
       childOf: ${properties."parent entity".properties."role number"};
       serving: ${properties."client role served".properties."role number"};
     # MT []: would you like me to move this into individual roles?
@@ -42,6 +42,11 @@ properties:
     $ref: B-entity_class_object_schema/02_role_class.yml
     description: The class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
+  class_dependent_specifications:
+
+    type: object
+    description: is a set of properties applicable to the class. 
+
   #========================
 
   inferred_classes:
@@ -52,7 +57,7 @@ properties:
       - type: null
     items:
       type: string
-    read_only: true
+    read-only: true
     description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
     $comment: |
       See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
@@ -67,7 +72,7 @@ properties:
       - eliminated
     description: |
       This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
-    TW_rule: |
+    rule_spec: |
       #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the descendants of the role in the hierarchy must also be eliminated. 
         $comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
       #[]RULE VygDC0Frxl: When a role is "eliminated", it must no longer be visible in any view of the role hierarchy. (Its entire branch must not be available either, because all of its descendants would be eliminated as well.)

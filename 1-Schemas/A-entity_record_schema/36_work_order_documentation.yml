@@ -7,14 +7,8 @@ properties:
   work_order_reference:
 
     description: identifies the work order, whose actual that is being documented.
-    read_only: true
+    read-only: true
     $ref: "../A-entity_record_schema/35_work_order.yml"
-
-  completed:
-  
-    description: indicates whether the specified work on the referenced work order is completed.
-    type: boolean
-    $comment: If a work order has children work orders, it can be indicated as completed if all of its children work order are complete.
 
 
   # OPERATIONAL STATUS INFORMATION 
@@ -42,6 +36,11 @@ properties:
     description: is a revised and more accurate description of the actual work performed on the asset.
     type: string
 
+  actual_start_time:
+
+
+  actual_completion_time:
+  
   #================
   
   actual_wrench_time:
@@ -69,7 +68,7 @@ properties:
       - type: null
       - type: array
         items:
-          $ref: "./00_common_definitions.yml#/definitions/tool_requirement_definition"
+          $ref: "./00_common_definitions.yml#/definitions/tool_requirements_definition"
 
   #================
   

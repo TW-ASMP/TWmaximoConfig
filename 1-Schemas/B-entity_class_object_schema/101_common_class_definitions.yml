@@ -46,9 +46,9 @@ properties:
   
   retired:
     type: boolean
-    TW_rule: 
+    rule_spec: 
       - name: rules on retire classes
-        id: Vy3qYEZ_ex
+        spec_ID: Vy3qYEZ_ex
         type: [UI]
         specification: |
           a retired class should not appear in the list of classes for user selection. Also, the value of its properties."appliable to individual" must be FALSE. 

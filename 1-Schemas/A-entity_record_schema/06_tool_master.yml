@@ -6,7 +6,7 @@ type: object
 
 properties: 
   
-  tool number:
+  number:
   
     type: string 
     description: 
@@ -16,52 +16,53 @@ properties:
   
   #========================
   
-  tool_name:
+  name:
   
     type: string 
     description: The human readable short description of the tool.
-    TW_rule:
+    rule_spec:
       - name: tool master name
-        id: VJpSzGxdxg
+        spec_ID: VJpSzGxdxg
         type: implication
         specification: |
           if: toolX.properties."tool master type" = "generic tool"
           then:  
             toolX.properties."tool name" value is the semi-colon ("; ") delimited concatenation of the following property values:
-              - properties."tool class".properties."class name"
+              - properties.class.properties."class name"
               - properties."generic tool application definition"
-          elif: toolX.properties."tool type" = "commercially available product"
+          elif: toolX.properties."tool type" = "specific commercial product"
           then: 
             toolX.properties."tool name" value is the semi-colon ("; ") delimited concatenation of the following property values:
               - properties."tool master class".properties."class name"
-              - properties."product manufacturer company".properties."company name"
-              - properties."product_model_and_sub-model"
-              - properties."model year or product version designator"
-              - properties."product configuration code"
+              - properties.product manufacturer company.properties."company name"
+              - properties.model_and_sub-model
+              - properties.version_or_model_year
+              - properties.product configuration code
         status: specified
 
   #========================
 
-  tool class:
+  class:
   
     $ref: "../B-entity_class_object_schema/01_asset_item_tool_class.yml"
-    description: This is a value from the tool classification, which is a superset of the asset class.
-  
-    TW_rule:
+    description: This is a value from the classification, which is a superset of the asset class.
+    x  
+    rule_spec:
   
       - name: Tool classification list does not include parts non tools
-        id: V1ulHHWOgx
+        spec_ID: V1ulHHWOgx
         specification: |
-          Tool classification list include all class instances of B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml, except ones whose .properties."tool" value is FALSE
+          Tool classification list include all class instances of B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml, except ones whose .properties.tool value is FALSE
         status: specified
+
+  class_dependent_specifications:
+
+    type: object
+    description: is a set of properties applicable to the class. 
 
 
 # INVENTORY MANAGEMENT FLAGS
   #========================
-
-  stocked_at_TW:
-    
-    $ref: "./00_common_definitions.yml#/definitions/stocked_at_TW_property_def" 
           
   rotating:
     
@@ -69,7 +70,7 @@ properties:
 
   #========================
 
-  mobile tool: 
+  mobile: 
 
     type: boolean
     description: An tool that is used beyond a permanent installation; instead, it is taken from place to place.
@@ -77,20 +78,11 @@ properties:
       #PROCESS: SET DEFAULT VALUE:
         At record creation, set value to false.
       #PROCESS: EVENT-DRIVEN VALUE CHANGE:
-        Upon the event of a properties."class" value change;  
-          if properties."class".properties."mobile tool" = true;
+        Upon the event of a properties.class value change;  
+          if properties.class.properties."mobile" = true;
           then set the value to true;
           else set the value to false.
 
-  #========================
-
-  duplicate record of:
-
-    oneOf: 
-      - type: array
-        items:
-          $ref: "./0t_tool_master.yml"
-      - type: null
 
 
 $comment: ASMP does not expect the tool item master to be widely used during the initial adoption of Maximo - we expect that most tools would initially be represented as un-stocked.  

@@ -1,7 +1,7 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
-title: asset item tool class
-$id: B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml
+title: asset item class
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/B-entity_class_object_schema/01_asset_item_tool_class.yml
 type: object
 
 #############################################################
@@ -26,9 +26,9 @@ properties:
       - type: null
     description: A true value indicates that all instances of this class is always used as a part of another asset, and would never be given an asset tag. E.g., bearing.
     sort_order: 2-40
-    TW_rule:
+    rule_spec:
       - name: Do not include only used as a part in the asset classification  
-        id: NJ1E1ZbOgg
+        spec_ID: NJ1E1ZbOgg
         status: TBS
     $comment: A false or null value materially mean the same thing. 
 
