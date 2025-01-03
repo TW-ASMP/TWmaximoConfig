@@ -1,0 +1,7 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: Meter
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_record_schema/41_meter.yml
+
+properties:
+
+  

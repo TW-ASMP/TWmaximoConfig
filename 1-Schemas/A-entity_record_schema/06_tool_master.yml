@@ -46,9 +46,8 @@ properties:
   
     $ref: "../B-entity_class_object_schema/01_asset_item_tool_class.yml"
     description: This is a value from the classification, which is a superset of the asset class.
-    x  
+
     rule_spec:
-  
       - name: Tool classification list does not include parts non tools
         spec_ID: V1ulHHWOgx
         specification: |
