@@ -17,7 +17,6 @@ properties:
   #====================
   parent class:
     $ref: B-entity_class_object_schema/01_asset_item_tool_class_object_schema.yml
-    sort_order: 1-30
 
   #====================
   only used as a part:
@@ -25,7 +24,6 @@ properties:
       - type: boolean
       - type: null
     description: A true value indicates that all instances of this class is always used as a part of another asset, and would never be given an asset tag. E.g., bearing.
-    sort_order: 2-40
     rule_spec:
       - name: Do not include only used as a part in the asset classification  
         spec_ID: NJ1E1ZbOgg

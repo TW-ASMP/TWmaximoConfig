@@ -2,64 +2,59 @@
 $schema: "http://json-schema.org/draft-07/schema#"
 title: organization
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/04_org_schema.yml
+type: object
+properties:
 
-definitions:
+  organization_or_group_name:
 
-  site:
+    type: string 
+
+  parent_organization:
+
+    oneOf:
+      - $ref: "./04_org_or_group.yml"
+      - type: null
+
+  class:
+
+    $ref: B-entity_class_object_schema/04_org_class.yml
+
+  class_dependent_specifications:
 
     type: object
-    properties:
+    description: is a set of properties applicable to the class. 
 
-      organization or group name:
-      #----------------------------      
-        type: string 
+  leader:
 
-      parent organization:
-      #----------------------------
-        oneOf:
-          - $ref: "./04_org_or_group.yml"
-          - type: null
+    oneOf:
+      - $ref: "./07_person.yml"
+      - type: null
+    description:
 
-      class:
-      #----------------------------
-        $ref: B-entity_class_object_schema/04_org_class.yml
+  equivalent_to_Maximo_site:
 
-      class_dependent_specifications:
-      #----------------------------
-        type: object
-        description: is a set of properties applicable to the class. 
+    description: indicates that this organization maps to a particular site (a native Maximo object)
+    $ref: MaximoSiteObject
 
-      leader:
-      #----------------------------
-        oneOf:
-          - $ref: "./07_person.yml"
-          - type: null
-        description:
+  equivalent_to_Maximo_org:
 
-      equivalent_to_Maximo_site:
-      #----------------------------
-        description: indicates that this organization maps to a particular site (a native Maximo object)
-        $ref: MaximoSiteObject
+    description: indicates that this organization maps to a particular organization (a native Maximo object)
+    $ref: MaximoOrgObject
 
-      equivalent_to_Maximo_org:
-      #----------------------------
-        description: indicates that this organization maps to a particular organization (a native Maximo object)
-        $ref: MaximoOrgObject
-      
-      duplicate record of:
-      #----------------------------
-        oneOf: 
-          - type: array
-            items:
-              $ref: "./04_org_or_group.yml"
-          - type: null
+  duplicate record of:
 
-      record retirement information:
-      #----------------------------
-        $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
+    oneOf: 
+      - type: array
+        items:
+          $ref: "./04_org_or_group.yml"
+      - type: null
 
-  supervisor_group:
+  record retirement information:
 
-  crew:
+    $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
+
+supervisor_group:
+
+crew:
 
   

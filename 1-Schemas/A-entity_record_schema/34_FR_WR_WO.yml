@@ -227,6 +227,8 @@ properties:
     implementation:
       WR_only: true  
 
+  bread_crumb:
+
   found_asset_offline_due_to_this_failure:
   #-----------------------------
     description: indicates whether the asset was offline, because of the failure 

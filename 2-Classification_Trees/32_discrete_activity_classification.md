@@ -18,7 +18,7 @@
   * asset replacement
   * asset part replacement
   * asset hand-over
-* Life Event Process*
+* Life Cycle Events*
   * asset commissioning
   * asset hand-over [^3]
   * final asset decommissioning 

@@ -7,6 +7,7 @@ type: object
 properties:
 
   ID:
+
     type: string
     description: Also known as the "tag number" or "entity number" in Avantis's vocabulary. (Avantis is the a WMS).
     #[] to do ID for pumping stations an chambers will be from the GIS. 
@@ -18,10 +19,9 @@ properties:
           trigger: replication creation of assetY record from the TWAG
           action: apply Facility ID from TWAG as ID 
         status: false
-
-  #========================
     
   name:
+
     type: string
     description: A structured and ideally unique description of the role.
     const: > #[]
@@ -30,15 +30,13 @@ properties:
       serving: ${properties."client role served".properties."role number"};
     # MT []: would you like me to move this into individual roles?
 
-  #========================
-
   parent:
+
     $ref: "./02_role.yml"
     description: References the role that is served by the larger asset, which physically subsumes the asset serving this role.
-
-  #=======================
   
   class:
+
     $ref: B-entity_class_object_schema/02_role_class.yml
     description: The class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
@@ -47,9 +45,8 @@ properties:
     type: object
     description: is a set of properties applicable to the class. 
 
-  #========================
-
   inferred_classes:
+
     oneOf: 
       - type: array
         items:
@@ -61,17 +58,18 @@ properties:
     description: See the description for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
     $comment: |
       See the comment for inferred classe names(s) made in the \TWmaximoConfig\1-Schemas\A-entity_record_schema/01_asset_schema.yml
-      
-  #========================
 
   role_status:
+
     type: string
     enum:
       - specified
       - active
       - eliminated
+    
     description: |
       This is the basic life-cycle status of a role. Specified means the role is conceived and exists in some specification or design documentation. Active means the necessary supports exist for an asset to serve in the role and function of the asset being utilized. Eliminated represents a negation of either or both conditions of the active status.
+    
     rule_spec: |
       #[]RULE VkiDyJcSxg: Before a role can be eliminated, all children, as well as the descendants of the role in the hierarchy must also be eliminated. 
         $comment: a procedure should to be created to allow the recursive elimination of a role and all of its children. 
@@ -79,27 +77,23 @@ properties:
         []Review with To ASMP: with this rule, we no longer need to have a hierarchy branched for retired roles.   
       #[]RULE EkP5qy5Sxl: If change auditing cannot be turned on, then when a role record status is "eliminated", all the specification in the record's datafields must be frozen.
 
-  #========================
-
   role technical requirement description:
+
     type: string
     description: A free text description of the role's performance requirements that must be satisfied by the asset. For example, the lifting capacity in kilograms for a crane.
     $comment: |
       Eventually, this information should be replaced by formalized properties associated with specific classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
 
-  #========================
-
   serving_asset_in_role:
-    $ref: "./02_role.yml"
-    description: Identifies the asset this role is serving. For example, given a motor starter role, the value in this datafield identifes the role of the motor controlled by thet motor starter. 
 
-  #========================
+    $ref: "./02_role.yml"
+    description: Identifies the asset this role is serving. For example, given a motor starter role, the value in this data field identifies the role of the motor controlled by that motor starter. 
   
   asset installation location:
-    oneOf: [$ref: "./03_space.yml", type: null]
+    oneOf: 
+      - $ref: "./03_space.yml"
+      - type: null
     description: References the space in which the asset serving the role would be installed.
-
-  #========================
   
   service_address_or_coordinate:
     oneOf: [$ref: MaximoServiceAddressObject, type: null]

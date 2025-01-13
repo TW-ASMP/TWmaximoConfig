@@ -12,4 +12,3 @@ properties:
     
   parent class:
     $ref: discreteActivityClassObject
-    sort_order: 1-30

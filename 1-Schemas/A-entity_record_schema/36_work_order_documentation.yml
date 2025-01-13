@@ -41,14 +41,12 @@ properties:
 
   actual_completion_time:
   
-  #================
   
   actual_wrench_time:
 
     description: is the actual time taken to complete the work order.
     $ref: "./00_common_definitions.yml#/definitions/frequency_interval_definition"
   
-  #================
 
   actual_parts_and_material_usage:
     
@@ -59,7 +57,6 @@ properties:
         items:
           $ref: "./00_common_definitions.yml#/definitions/item_requirement_definition"
   
-  #================
 
   actual_tool_usage:
   
@@ -70,7 +67,6 @@ properties:
         items:
           $ref: "./00_common_definitions.yml#/definitions/tool_requirements_definition"
 
-  #================
   
   actual_services_usage:
 
@@ -81,8 +77,7 @@ properties:
         items:
           $ref: "./00_common_definitions.yml#/definitions/service_requirement_definition"
 
-  #================
-  
+
   actual_trades_involvement:
   
     description: identifies the trade and qualifications needed to complete the work.
