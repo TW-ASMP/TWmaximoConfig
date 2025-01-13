@@ -220,7 +220,6 @@ definitions:
 
       record retired:
         type: Boolean
-        sort_order: 20-10
       
       reason for retirement:
         oneOf: [type: string, type: null]

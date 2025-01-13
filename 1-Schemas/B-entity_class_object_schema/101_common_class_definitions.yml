@@ -13,7 +13,6 @@ properties:
   class name:
     type: string
     description: a noun or short noun-phrase name of the class
-    sort_order: 1-10
 
   #====================
 
@@ -24,7 +23,6 @@ properties:
         items:
           type: string
     description: other synonymous names that may be used by a user in search 
-    sort_order: 1-20
 
   #====================
 
@@ -32,7 +30,6 @@ properties:
     oneOf:
       - type: null
       - type: string
-    sort_order: 1-40
 
   #====================
 
@@ -40,8 +37,6 @@ properties:
     type: boolean
     $comment: |
       a "FALSE" value indicates that the class is meant to be a structural part of the classifcation tree, and cannot be used to classify any entity (i.e. asset, role, space, etc).
-    sort_order: 1-50
-
   #====================
   
   retired:
@@ -53,4 +48,3 @@ properties:
         specification: |
           a retired class should not appear in the list of classes for user selection. Also, the value of its properties."appliable to individual" must be FALSE. 
         status: draft
-    sort_order: 4-10

@@ -5,10 +5,61 @@ type: object
 
 properties:
 
-  first
-  
-  contractor:
-    type: boolean
+  ID:
+    
+    type: string
+    description: Unique identifier for the person
 
-  organization:
-  #NOTE to be able to assign an organization outside of the City (consider using vendor Co.)
+  first_name:
+  
+    type: string
+    description: First name of the person
+  
+  last_name:
+  
+    type: string
+    description: Last name of the person
+  
+  display_name:
+    
+    type: string
+    description: Full name displayed (usually a combination of first and last names)
+
+  division:
+
+    type: string
+    description: indicates which City division that the person works for
+  
+  unit:
+    
+    type: string
+    description: indicates which business-unit that the person works for
+
+  primary_trade:
+    
+    type: string
+    description: Primary craft or skill associated with the person
+
+  external_contractor:
+    
+    type: boolean
+    description: indicates whether the person is not an employee of the City
+  
+  status:
+    
+    type: string
+    enum:
+      - ACTIVE
+      - INACTIVE
+    description: Status of the person
+  
+  email_address:
+    
+    type: string
+    format: email
+    description: Email address of the person
+
+  phone:
+    
+    type: string
+    description: Contact phone number of the person
