@@ -24,26 +24,43 @@ def create_markdown_with_code_chunks(directory, output_file):
             if os.path.isdir(entry_path):
                 # Write a header for the folder
                 qmd_file.write(f"{indent} Folder: {entry}\n\n")
+                entry_clean = entry.replace('_', r'\_')
+                qmd_file.write(f"\\lohead{{{entry_clean}}}\n\n")
 
                 # Process README.md if present
                 readme_path = os.path.join(entry_path, 'README.md')
                 if os.path.isfile(readme_path):
                     with open(readme_path, 'r') as readme_file:
+                        path_clean = readme_path.replace('\\', r'\textbackslash ')
+                        path_clean = path_clean.replace('_', r'\_')
+                        qmd_file.write(f"\\lohead{{{path_clean}}}\n\n")
                         qmd_file.write(f"{indent}# README.md\n\n")
-                        qmd_file.write("```md\n")
+                        qmd_file.write("````md\n")
                         qmd_file.write(readme_file.read())
-                        qmd_file.write("```\n\n")
+                        qmd_file.write("\n````\n")
 
                 # Process .yml files in the folder
                 for sub_entry in sorted(os.listdir(entry_path)):
                     sub_entry_path = os.path.join(entry_path, sub_entry)
+                    
+                    path_clean = sub_entry_path.replace('\\', r'\textbackslash ')
+                    path_clean = path_clean.replace('_', r'\_')
+
+                    if os.path.isfile(sub_entry_path) and sub_entry.endswith('.md') and sub_entry != "README.md":
+                        qmd_file.write(f"{indent}# {sub_entry}\n\n")
+                        with open(sub_entry_path, 'r') as md_file:
+                            qmd_file.write(f"\\lohead{{{path_clean}}}\n\n")
+                            qmd_file.write("````md\n")
+                            qmd_file.write(md_file.read())
+                            qmd_file.write("\n````\n")
 
                     if os.path.isfile(sub_entry_path) and sub_entry.endswith('.yml'):
                         qmd_file.write(f"{indent}# {sub_entry}\n\n")
                         with open(sub_entry_path, 'r') as yml_file:
-                            qmd_file.write("```yaml\n")
+                            qmd_file.write(f"\\lohead{{{path_clean}}}\n\n")
+                            qmd_file.write("````yaml\n")
                             qmd_file.write(yml_file.read())
-                            qmd_file.write("\n```\n")
+                            qmd_file.write("\n````\n")
 
                 # Recurse into subdirectories before moving to the next folder
                 process_directory(entry_path, depth + 1)
@@ -60,9 +77,11 @@ def create_markdown_with_code_chunks(directory, output_file):
             qmd_file.write("        header-includes:\n")
             qmd_file.write("            - |\n")
             qmd_file.write("                \\usepackage{fvextra}\n")
+            qmd_file.write("                \\usepackage{geometry}\n")
+            qmd_file.write("                \\geometry{a4paper, total={170mm,257mm}, left=20mm,top=20mm}\n")
             qmd_file.write("                \\usepackage[autooneside=false, automark]{scrlayer-scrpage}\n")
             qmd_file.write("                \\automark[subsection]{section}\n")
-            qmd_file.write("                \\lohead{/\\leftmark/}\n")
+            qmd_file.write("                \\lohead{}\n")
             qmd_file.write("                \\cohead{}\n")
             qmd_file.write("                \\cfoot{Toronto Water WMS Configuration Schema}\n")
             qmd_file.write("                \\rofoot{\\thepage}\n")

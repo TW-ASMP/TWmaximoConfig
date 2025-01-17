@@ -7,9 +7,11 @@ format:
         header-includes:
             - |
                 \usepackage{fvextra}
+                \usepackage{geometry}
+                \geometry{a4paper, total={170mm,257mm}, left=20mm,top=20mm}
                 \usepackage[autooneside=false, automark]{scrlayer-scrpage}
                 \automark[subsection]{section}
-                \lohead{/\leftmark/}
+                \lohead{}
                 \cohead{}
                 \cfoot{Toronto Water WMS Configuration Schema}
                 \rofoot{\thepage}
@@ -19,11 +21,17 @@ format:
 \pagebreak
 # Folder: 1-Schemas
 
+\lohead{1-Schemas}
+
 ## Folder: A-entity_record_schema
+
+\lohead{A-entity\_record\_schema}
 
 ### 00_common_definitions.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 00\_common\_definitions.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: common properties of all entities
@@ -381,10 +389,12 @@ definitions:
   ###########################################
   # Common Work Entity Definition
   ###########################################
-```
+````
 ### 01_asset.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 01\_asset.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -971,10 +981,12 @@ rule_spec:
           - asset_x.properties.item_product_master_record
           - asset_x.properties.manufacturer_name
           - asset_x.properties.product_model_information
-```
+````
 ### 02_role.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 02\_role.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role
@@ -1197,10 +1209,12 @@ $comment: |
     [] expression of role equivalence
     [] RULE: certain GIS assets, such as pumping stations, or treatment facilities must be mapped over as roles
 
-```
+````
 ### 03_space.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 03\_space.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: space
@@ -1335,10 +1349,12 @@ properties:
   record retirement information:
     $ref: "./00_common_definitions.yml#/definitions/record retirement definition"
   
-```
+````
 ### 04_org_objects_definitions.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 04\_org\_objects\_definitions.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: organization
@@ -1399,10 +1415,12 @@ supervisor_group:
 crew:
 
   
-```
+````
 ### 05_item_master.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 05\_item\_master.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: item master
@@ -1618,10 +1636,12 @@ definitions:
 
 
   # 6/25: [] we need to add another field for lead time. This will contribute to the dynamic calculation of criticality among other uses. 
-```
+````
 ### 06_tool_master.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 06\_tool\_master.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: tool item master
@@ -1709,15 +1729,19 @@ properties:
 
 
 $comment: ASMP does not expect the tool item master to be widely used during the initial adoption of Maximo - we expect that most tools would initially be represented as un-stocked.  
-```
+````
 ### 07_service_item_master.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 07\_service\_item\_master.yml}
 
-```
+````yaml
+
+````
 ### 08_person.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 08\_person.yml}
+
+````yaml
 $schema: http://json-schema.org/draft-07/schema#
 title: Person
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/08_person.yml
@@ -1784,10 +1808,12 @@ properties:
     type: string
     description: Contact phone number of the person
 
-```
+````
 ### 09_qualification.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 09\_qualification.yml}
+
+````yaml
 $schema: http://json-schema.org/draft-07/schema#
 title: Qualification
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/09_qualification.yml
@@ -1825,10 +1851,12 @@ properties:
       - type: null
       - $ref: "./04_org_or_group.yml"
     
-```
+````
 ### 10_warranty.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 10\_warranty.yml}
+
+````yaml
 $schema: http://json-schema.org/draft-07/schema#
 title: Warranty
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/10_warranty.yml
@@ -1929,10 +1957,12 @@ properties:
     $comment: note that any item converted by the warranty should be expressed as a rotating item (i.e. represented as an asset as well)
   
 
-```
+````
 ### 32_job_plan.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 32\_job\_plan.yml}
+
+````yaml
 ---
 $schema: http://json-schema.org/draft-07/schema#
 title: Job Plan
@@ -2306,10 +2336,12 @@ properties:
 # Require Information Data Submission Group
 #========================================
 
-```
+````
 ### 33_PM.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 33\_PM.yml}
+
+````yaml
 ---
 $schema: http://json-schema.org/draft-07/schema#
 title: PM
@@ -2588,10 +2620,12 @@ definitions:
         - type: null
         - $ref: "./00_common_definitions.yml#/definitions/meter_condition_definition"
   
-```
+````
 ### 34_FR_WR_WO.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 34\_FR\_WR\_WO.yml}
+
+````yaml
 $schema: http://json-schema.org/draft-07/schema#
 title: Failure Report, Work Request, Work Order
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/34_FR_WR_WO.yml
@@ -3250,10 +3284,12 @@ properties:
 
   
 
-```
+````
 ### 36_work_order_documentation.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 36\_work\_order\_documentation.yml}
+
+````yaml
 $schema: http://json-schema.org/draft-07/schema#
 title: Work Order Documentation
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/1-Schemas/A-entity_record_schema/36_work_documentation.yml
@@ -3362,10 +3398,12 @@ properties:
   #================================
   # Note: the failures are reported on follow-up work requests. The linkage between a followup work order and work order documentation is found on the work order schema
 
-```
+````
 ### 41_meter.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 41\_meter.yml}
+
+````yaml
 $schema: "http://json-schema.org/draft-07/schema#"
 title: Meter
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_record_schema/41_meter.yml
@@ -3373,12 +3411,16 @@ $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/A-entity_reco
 properties:
 
   
-```
+````
 ## Folder: B-entity_class_object_schema
+
+\lohead{B-entity\_class\_object\_schema}
 
 ### 01_asset_item_tool_class.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 01\_asset\_item\_tool\_class.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset item class
@@ -3414,10 +3456,12 @@ properties:
 
   
 
-```
+````
 ### 02_role_class.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 02\_role\_class.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
@@ -3483,10 +3527,12 @@ rule_spec:
         set roleClassX.properties."a functional structure role" to FALSE
         set roleClassX.properties."a defined ser of role" to TRUE        
     status: specified
-```
+````
 ### 03_space_class.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 03\_space\_class.yml}
+
+````yaml
 title: role classification object
 $id: spaceClassObject
 $schema: "http://json-schema.org/draft-07/schema#"
@@ -3500,10 +3546,12 @@ properties:
 
   parent class:
     $ref: spaceClassObject
-```
+````
 ### 04_org_class.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 04\_org\_class.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
@@ -3520,15 +3568,19 @@ properties:
     $ref: orgGroupClassObject
 
 
-```
+````
 ### 08_trade_type.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 08\_trade\_type.yml}
 
-```
+````yaml
+
+````
 ### 101_common_class_definitions.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 101\_common\_class\_definitions.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: generic class object
@@ -3579,10 +3631,12 @@ properties:
         specification: |
           a retired class should not appear in the list of classes for user selection. Also, the value of its properties."appliable to individual" must be FALSE. 
         status: draft
-```
+````
 ### 32_discrete_activity_class.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 32\_discrete\_activity\_class.yml}
+
+````yaml
 ---
 title: discrete activity classification object
 $id: discreteActivityClassObject
@@ -3597,24 +3651,335 @@ properties:
     
   parent class:
     $ref: discreteActivityClassObject
-```
+````
 ### 33_work_type.yml
 
-```yaml
+\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 33\_work\_type.yml}
+
+````yaml
 title: work type object
 $id: workOrderClassObject
 $schema: 'http://json-schema.org/draft-07/schema'
 type: object
-```
+````
 # Folder: 2-Classification_Trees
 
+\lohead{2-Classification\_Trees}
+
+## 01_asset_classification.md
+
+\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 01\_asset\_classification.md}
+
+````md
+>**Important Note:**
+> 
+>**This file is no longer being maintained**. The information had been ported to an ontology file for further development and editing. You can find the file at https://github.com/TW-ASMP/TWONTO/blob/main/OWL/TWONTO.ofn
+>
+> To view the hierarchy, save it to you computer, and open it with the desktop version of [Stanford Protege](https://protege.stanford.edu/software.php).
+
+
+````
+## 02_role_classification.md
+
+\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 02\_role\_classification.md}
+
+````md
+## Top-Level Role Classification
+
+* Discrete Asset Role*
+    * generator role
+        * backup generator role
+        * emergency generator role
+    * breaker role
+        * bus feeder breaker role
+        * line protection breaker role
+        * load breaker role
+        * tie-breaker role
+* Collection of Assets Role*
+    * functional structure role
+        * system block
+        * facility
+            * pumping station
+            * water treatment facility
+            * wastewater treatment facility
+            * lab
+            * yard
+        * process
+        * Linear Functional Structure Role*
+            * system train role 
+            * line role
+                * simple line role
+                * primary path line role
+            * junction role
+    * Defined Set of Roles*
+        * defined set of discrete assets
+        * defined set of functional structures
+
+
+## Requirements for Implementer
+
+* []REQ Nyh7RPjEgl #IMP "classes names specified in title-case and with an asterik symbol shall have the appliable to individual property, found in the class object, set to false"
+
+## Notes
+
+* []TODO #TW: the following should be moved to the asset classification. 
+    * system on a skid 
+    * system of standardized modular parts
+````
+## 03_space_classification.md
+
+\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 03\_space\_classification.md}
+
+````md
+## Top-Level Space Classification and Examples
+
+* Discrete Space*
+    * building or structure interior
+    * room interior
+    * corridor
+    * mezzanine
+    * stairwell
+    * stairwell segment
+    * tunnel interior
+    * equipment cabinet interior
+    * storage cabinet interior
+    * facility site space
+    * facility site section
+    * building or structure exterior
+    * vehicle interior
+* Collection of Spaces*
+    * spaces of a building or structure [^1]
+    * define set of spaces
+
+## Requirements for Implementer
+
+[]REQ Nyh7RPjEgl #IMP "classes names specified in camel-case and with an asterik symbol shall have the appliable to individual property, found in the class object, set to false"
+
+## Notes
+### Footnotes
+[^1]: a collection of indoor and outdoor spaces inside and around a structure. []TODO #TW "add to the TWONTO".  
+````
+## 04_org_classification.md
+
+\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 04\_org\_classification.md}
+
+````md
+## Top-Level Org/Group Classification
+
+* Level of Government*
+    * provincial government
+    * regional government
+    * municipal government
+* Group in the City*
+    * cluster
+    * division
+    * section
+    * unit
+    * Group in TW*
+        * work area
+        * crew
+* government agency
+* private business
+* non-governmental organization
+
+## Requirements for Implementer
+
+[]REQ Nyh7RPjEgl #IMP "classes names with an asterik symbol shall have the appliable to individual property, found in the class object, set to false"
+````
+## 31_work_type.md
+
+\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 31\_work\_type.md}
+
+````md
+## Work Type [^2]
+
+* corrective / repair
+* emergency [^1]
+* investigative
+* preventive
+* asset data
+* project
+  * contractor support
+
+## Notes
+[^1]: An emergency work order is technically a corrective work that must be done urgently; may also involve an investigative component (not unlike other corrective work orders).
+[^2]: The commissioning work type has been removed from this list but retained in the discrete activity classification.
+````
+## 32_discrete_activity_classification.md
+
+\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 32\_discrete\_activity\_classification.md}
+
+````md
+## Top-Level Discrete Activity Classification
+* Condition Evaluation*
+  * quick check
+  * inspection and evaluation
+  * test and analysis
+  * condition analysis
+* sample collection
+* cause investigation
+* repair or service [^1]
+  * calibration
+  * asset replacement
+  * asset part replacement 
+  * asset part movement 
+* Move or Replace*
+  * new asset installation
+  * asset movement
+  * asset part movement
+  * asset replacement
+  * asset part replacement
+  * asset hand-over
+* Life Cycle Events*
+  * asset commissioning
+  * asset hand-over [^3]
+  * final asset decommissioning 
+* Asset Modification*
+  * modify asset set-point
+  * physical modification to asset
+  * physical modification to building or structure [^2]
+* asset assignment
+* Contributory Work*
+  * item procurement
+  * work coordination
+  * safety preparation
+  * setup
+  * takedown of setup
+  * travel
+* design or redesign
+  * creation of new role
+  * removal of existing role
+* Asset Data*
+  * record information correction
+  * record retirement
+
+
+
+## Requirements for Implementer
+
+```yaml
+  rule_spec:
+  - name: Valid Assignment of an Asset
+    spec_ID: 01JDCNEFAED17CWF2K851ZAJKW
+    type: [assertion]
+    description: |
+      classes names specified with an asterisk symbol shall have the their .property.appliable_to_individual value set to false
+```
+
+
+### Footnotes
+[^1]: more will be added before the final implementation. 
+[^2]: the physical modification of a building or a structure may result in the creation and removal of a space, hence it is singled out. 
+[^3]: the process by which a asset's ownership is transferred from a capital project to Toronto Water. 
+
+````
 # Folder: 3-System_Hierarchies
 
+\lohead{3-System\_Hierarchies}
+
+## 02_role_hierarchy.md
+
+\lohead{.\textbackslash 3-System\_Hierarchies\textbackslash 02\_role\_hierarchy.md}
+
+````md
+# TW Highest Level Hierarchy
+
+## The Hierarchy
+- TW System
+	- Drinking Water Network
+		- Drinking Water Treatment Plants [^1]
+		- Distribution Pumping Stations [^2] 
+		- Storage Assets in Drinking Water Supply Network [^3]  
+	- Waste and Storm Water Network
+		- Collection Pumping Stations [^4]
+		- Chambers in Sewer Network
+		- Storages of Wet Whether Flow [^5]
+		- Wastewater Treatment Plants [^6]
+	- Yards
+	- Independent Buildings
+
+## The Significance in the Usage of Plurals
+Where a plural noun is used, for example: Drinking Water Treatment Plants, the entity represents a set of things. In the case of the example - the set of drinkin water treatment plants in TW. 
+
+## Notes
+
+  [^1]: i.e. {[FCL]}, {[FIS]}, {[FHO]}, {[FHA]}
+  [^2]: the set of 18 pumping stations
+  [^3]: the set of all reservoirs and elevated tanks
+  [^4]: pumping station for waste and storm water
+  [^5]: the set of all wet-whether storage, inline an offline.
+  [^6]: i.e. {[THC]}, {[THR]}, {[TAB]}, {[TNT]}
+````
+## 03_space_hierarchy.md
+
+\lohead{.\textbackslash 3-System\_Hierarchies\textbackslash 03\_space\_hierarchy.md}
+
+````md
+# TW Highest Level Spatial Hierarchy
+
+## The Hierarchy
+- Spaces in TW
+    - Spaces in Drinking Water System
+        - Spaces in Drinking Water Treatment
+        - Spaces in Distribution Pumping Stations
+        - Spaces in Storage of Drinking Water
+    - Spaces in Waste and Storm Water System
+        - Spaces in Collection Pumping Stations
+        - Spaces in Chambers in Sewer Network
+        - Spaces in Storages of Wet Whether Flow
+        - Spaces in Wastewater Treatment Plants
+    - Spaces in Yards
+    - Spaces in Independent Buildings
+
+## The Significance in the Usage of Plurals
+Where a plural noun is used, for example: Spaces in Drinking Water Treatment Plants, the entity represents a set of things. In the case of the example - the set spaces within the drinking water treatment plants in TW.
+
+## Notes
+
+````
+## 04_org_hierarchy.md
+
+\lohead{.\textbackslash 3-System\_Hierarchies\textbackslash 04\_org\_hierarchy.md}
+
+````md
+# Organizations in TW and Interact with TW
+
+## The Hierarchy
+
+* Region of Durham
+* York Region
+* Peel Region
+* Province of Ontario
+* Metrolinx
+* TRCA
+* Envave Energy
+* City of Toronto
+    * Solid Waste
+    * Toronto Water
+        * Distribution & Collection Section
+            * DOS
+            * WASP
+            * Central Services
+            * Program Maintenance
+        * Water Treatment & Supply Section
+        * Wastewater Treatment Section
+            * Ashbridge's Bay Wastewater Treatment Plant
+            * Highland Creek Wastewater Treatment Plant
+                * Work Area 1
+                * Work Area 2
+
+## Notes
+* the portion of this hierarchy under TW is not complete; it will be completed before Phase 3 of implementation is complete. 
+````
 # Folder: 4-Class_Dependent_Specifications
+
+\lohead{4-Class\_Dependent\_Specifications}
+
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash README.md}
 
 ## README.md
 
-```md
+````md
 ## Note
 
 The Excel file in this folder contains the attribute/property defintions, including data type and value list specs, for a list of asset_classes commonly encountered or bear legislative significance. 
@@ -3624,11 +3989,13 @@ To view the file, download it to your computer, using the marked option in the i
 <kbd>
   <img src="https://github.com/user-attachments/assets/e62ad9c8-c1fa-401d-8c89-bd4e807372d1">
 </kbd>
-```
 
+````
 ## 01_pump.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 01\_pump.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -3774,10 +4141,12 @@ properties:
     $comment: |
 
   #========================
-```
+````
 ## 02_motor.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 02\_motor.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -3954,10 +4323,12 @@ properties:
     $comment: |
 
   #========================
-```
+````
 ## 03_valve.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 03\_valve.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4264,10 +4635,12 @@ properties:
   #========================
 
   
-```
+````
 ## 04_breaker.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 04\_breaker.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4332,10 +4705,12 @@ properties:
 
   #========================
   
-```
+````
 ## 05_starter.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 05\_starter.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4407,10 +4782,12 @@ properties:
 
   #========================
   
-```
+````
 ## 06_transformer.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 06\_transformer.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4509,10 +4886,12 @@ properties:
 
   #========================
   
-```
+````
 ## 07_hvac.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 07\_hvac.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4599,10 +4978,12 @@ properties:
 
   #========================
   
-```
+````
 ## 08_blower_fan.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 08\_blower\_fan.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4664,10 +5045,12 @@ properties:
 
   #========================
 
-```
+````
 ## 09_compressor.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 09\_compressor.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4729,10 +5112,12 @@ properties:
 
   #========================
 
-```
+````
 ## 10_generator.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 10\_generator.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4842,10 +5227,12 @@ properties:
     $comment: 
 
   #========================
-```
+````
 ## 11_ups.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 11\_ups.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -4916,10 +5303,12 @@ properties:
     $comment: 
 
   #========================
-```
+````
 ## 12_boiler.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 12\_boiler.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -5027,10 +5416,12 @@ properties:
     $comment: 
 
   #========================
-```
+````
 ## 13_pressure_vessel.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 13\_pressure\_vessel.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -5092,10 +5483,12 @@ properties:
     $comment: 
 
   #========================
-```
+````
 ## 14_pressure_piping.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 14\_pressure\_piping.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -5186,10 +5579,12 @@ properties:
     $comment: 
 
   #========================
-```
+````
 ## 15_instrumentation.yml
 
-```yaml
+\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 15\_instrumentation.yml}
+
+````yaml
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: asset
@@ -5655,6 +6050,8 @@ allOf:
             - "Parts Per Million (ppm)"	
             - "Parts Per Billion (ppb)"
 
-```
+````
 # Folder: 5-Functions
+
+\lohead{5-Functions}
 
