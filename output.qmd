@@ -9,8 +9,7 @@ format:
                 \usepackage{fvextra}
                 \usepackage{geometry}
                 \geometry{a4paper, total={170mm,257mm}, left=20mm,top=20mm}
-                \usepackage[autooneside=false, automark]{scrlayer-scrpage}
-                \automark[subsection]{section}
+                \usepackage[autooneside=false]{scrlayer-scrpage}
                 \lohead{}
                 \cohead{}
                 \cfoot{Toronto Water WMS Configuration Schema}
@@ -21,15 +20,15 @@ format:
 \pagebreak
 # Folder: 1-Schemas
 
-\lohead{1-Schemas}
+\lohead{\hyperref[folder-1-schemas]{.\textbackslash 1-Schemas}}
 
 ## Folder: A-entity_record_schema
 
-\lohead{A-entity\_record\_schema}
+\lohead{\hyperref[folder-a-entity_record_schema]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema}}
 
 ### 00_common_definitions.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 00\_common\_definitions.yml}
+\lohead{\hyperref[common_definitions.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 00\_common\_definitions.yml}}
 
 ````yaml
 ---
@@ -392,7 +391,7 @@ definitions:
 ````
 ### 01_asset.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 01\_asset.yml}
+\lohead{\hyperref[asset.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 01\_asset.yml}}
 
 ````yaml
 ---
@@ -984,7 +983,7 @@ rule_spec:
 ````
 ### 02_role.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 02\_role.yml}
+\lohead{\hyperref[role.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 02\_role.yml}}
 
 ````yaml
 ---
@@ -1212,7 +1211,7 @@ $comment: |
 ````
 ### 03_space.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 03\_space.yml}
+\lohead{\hyperref[space.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 03\_space.yml}}
 
 ````yaml
 ---
@@ -1352,7 +1351,7 @@ properties:
 ````
 ### 04_org_objects_definitions.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 04\_org\_objects\_definitions.yml}
+\lohead{\hyperref[org_objects_definitions.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 04\_org\_objects\_definitions.yml}}
 
 ````yaml
 ---
@@ -1418,7 +1417,7 @@ crew:
 ````
 ### 05_item_master.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 05\_item\_master.yml}
+\lohead{\hyperref[item_master.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 05\_item\_master.yml}}
 
 ````yaml
 ---
@@ -1639,7 +1638,7 @@ definitions:
 ````
 ### 06_tool_master.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 06\_tool\_master.yml}
+\lohead{\hyperref[tool_master.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 06\_tool\_master.yml}}
 
 ````yaml
 ---
@@ -1732,14 +1731,14 @@ $comment: ASMP does not expect the tool item master to be widely used during the
 ````
 ### 07_service_item_master.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 07\_service\_item\_master.yml}
+\lohead{\hyperref[service_item_master.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 07\_service\_item\_master.yml}}
 
 ````yaml
 
 ````
 ### 08_person.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 08\_person.yml}
+\lohead{\hyperref[person.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 08\_person.yml}}
 
 ````yaml
 $schema: http://json-schema.org/draft-07/schema#
@@ -1811,7 +1810,7 @@ properties:
 ````
 ### 09_qualification.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 09\_qualification.yml}
+\lohead{\hyperref[qualification.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 09\_qualification.yml}}
 
 ````yaml
 $schema: http://json-schema.org/draft-07/schema#
@@ -1854,7 +1853,7 @@ properties:
 ````
 ### 10_warranty.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 10\_warranty.yml}
+\lohead{\hyperref[warranty.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 10\_warranty.yml}}
 
 ````yaml
 $schema: http://json-schema.org/draft-07/schema#
@@ -1960,7 +1959,7 @@ properties:
 ````
 ### 32_job_plan.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 32\_job\_plan.yml}
+\lohead{\hyperref[job_plan.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 32\_job\_plan.yml}}
 
 ````yaml
 ---
@@ -2339,7 +2338,7 @@ properties:
 ````
 ### 33_PM.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 33\_PM.yml}
+\lohead{\hyperref[pm.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 33\_PM.yml}}
 
 ````yaml
 ---
@@ -2623,7 +2622,7 @@ definitions:
 ````
 ### 34_FR_WR_WO.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 34\_FR\_WR\_WO.yml}
+\lohead{\hyperref[fr_wr_wo.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 34\_FR\_WR\_WO.yml}}
 
 ````yaml
 $schema: http://json-schema.org/draft-07/schema#
@@ -3287,7 +3286,7 @@ properties:
 ````
 ### 36_work_order_documentation.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 36\_work\_order\_documentation.yml}
+\lohead{\hyperref[work_order_documentation.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 36\_work\_order\_documentation.yml}}
 
 ````yaml
 $schema: http://json-schema.org/draft-07/schema#
@@ -3401,7 +3400,7 @@ properties:
 ````
 ### 41_meter.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 41\_meter.yml}
+\lohead{\hyperref[meter.yml]{.\textbackslash 1-Schemas\textbackslash A-entity\_record\_schema\textbackslash 41\_meter.yml}}
 
 ````yaml
 $schema: "http://json-schema.org/draft-07/schema#"
@@ -3414,11 +3413,11 @@ properties:
 ````
 ## Folder: B-entity_class_object_schema
 
-\lohead{B-entity\_class\_object\_schema}
+\lohead{\hyperref[folder-b-entity_class_object_schema]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema}}
 
 ### 01_asset_item_tool_class.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 01\_asset\_item\_tool\_class.yml}
+\lohead{\hyperref[asset_item_tool_class.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 01\_asset\_item\_tool\_class.yml}}
 
 ````yaml
 ---
@@ -3459,7 +3458,7 @@ properties:
 ````
 ### 02_role_class.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 02\_role\_class.yml}
+\lohead{\hyperref[role_class.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 02\_role\_class.yml}}
 
 ````yaml
 ---
@@ -3530,7 +3529,7 @@ rule_spec:
 ````
 ### 03_space_class.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 03\_space\_class.yml}
+\lohead{\hyperref[space_class.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 03\_space\_class.yml}}
 
 ````yaml
 title: role classification object
@@ -3549,7 +3548,7 @@ properties:
 ````
 ### 04_org_class.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 04\_org\_class.yml}
+\lohead{\hyperref[org_class.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 04\_org\_class.yml}}
 
 ````yaml
 ---
@@ -3571,14 +3570,14 @@ properties:
 ````
 ### 08_trade_type.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 08\_trade\_type.yml}
+\lohead{\hyperref[trade_type.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 08\_trade\_type.yml}}
 
 ````yaml
 
 ````
 ### 101_common_class_definitions.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 101\_common\_class\_definitions.yml}
+\lohead{\hyperref[common_class_definitions.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 101\_common\_class\_definitions.yml}}
 
 ````yaml
 ---
@@ -3634,7 +3633,7 @@ properties:
 ````
 ### 32_discrete_activity_class.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 32\_discrete\_activity\_class.yml}
+\lohead{\hyperref[discrete_activity_class.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 32\_discrete\_activity\_class.yml}}
 
 ````yaml
 ---
@@ -3654,7 +3653,7 @@ properties:
 ````
 ### 33_work_type.yml
 
-\lohead{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 33\_work\_type.yml}
+\lohead{\hyperref[work_type.yml]{.\textbackslash 1-Schemas\textbackslash B-entity\_class\_object\_schema\textbackslash 33\_work\_type.yml}}
 
 ````yaml
 title: work type object
@@ -3664,11 +3663,11 @@ type: object
 ````
 # Folder: 2-Classification_Trees
 
-\lohead{2-Classification\_Trees}
+\lohead{\hyperref[folder-2-classification_trees]{.\textbackslash 2-Classification\_Trees}}
 
 ## 01_asset_classification.md
 
-\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 01\_asset\_classification.md}
+\lohead{\hyperref[asset_classification.md]{.\textbackslash 2-Classification\_Trees\textbackslash 01\_asset\_classification.md}}
 
 ````md
 >**Important Note:**
@@ -3681,7 +3680,7 @@ type: object
 ````
 ## 02_role_classification.md
 
-\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 02\_role\_classification.md}
+\lohead{\hyperref[role_classification.md]{.\textbackslash 2-Classification\_Trees\textbackslash 02\_role\_classification.md}}
 
 ````md
 ## Top-Level Role Classification
@@ -3728,7 +3727,7 @@ type: object
 ````
 ## 03_space_classification.md
 
-\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 03\_space\_classification.md}
+\lohead{\hyperref[space_classification.md]{.\textbackslash 2-Classification\_Trees\textbackslash 03\_space\_classification.md}}
 
 ````md
 ## Top-Level Space Classification and Examples
@@ -3761,7 +3760,7 @@ type: object
 ````
 ## 04_org_classification.md
 
-\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 04\_org\_classification.md}
+\lohead{\hyperref[org_classification.md]{.\textbackslash 2-Classification\_Trees\textbackslash 04\_org\_classification.md}}
 
 ````md
 ## Top-Level Org/Group Classification
@@ -3788,7 +3787,7 @@ type: object
 ````
 ## 31_work_type.md
 
-\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 31\_work\_type.md}
+\lohead{\hyperref[work_type.md]{.\textbackslash 2-Classification\_Trees\textbackslash 31\_work\_type.md}}
 
 ````md
 ## Work Type [^2]
@@ -3807,7 +3806,7 @@ type: object
 ````
 ## 32_discrete_activity_classification.md
 
-\lohead{.\textbackslash 2-Classification\_Trees\textbackslash 32\_discrete\_activity\_classification.md}
+\lohead{\hyperref[discrete_activity_classification.md]{.\textbackslash 2-Classification\_Trees\textbackslash 32\_discrete\_activity\_classification.md}}
 
 ````md
 ## Top-Level Discrete Activity Classification
@@ -3875,11 +3874,11 @@ type: object
 ````
 # Folder: 3-System_Hierarchies
 
-\lohead{3-System\_Hierarchies}
+\lohead{\hyperref[folder-3-system_hierarchies]{.\textbackslash 3-System\_Hierarchies}}
 
 ## 02_role_hierarchy.md
 
-\lohead{.\textbackslash 3-System\_Hierarchies\textbackslash 02\_role\_hierarchy.md}
+\lohead{\hyperref[role_hierarchy.md]{.\textbackslash 3-System\_Hierarchies\textbackslash 02\_role\_hierarchy.md}}
 
 ````md
 # TW Highest Level Hierarchy
@@ -3912,7 +3911,7 @@ Where a plural noun is used, for example: Drinking Water Treatment Plants, the e
 ````
 ## 03_space_hierarchy.md
 
-\lohead{.\textbackslash 3-System\_Hierarchies\textbackslash 03\_space\_hierarchy.md}
+\lohead{\hyperref[space_hierarchy.md]{.\textbackslash 3-System\_Hierarchies\textbackslash 03\_space\_hierarchy.md}}
 
 ````md
 # TW Highest Level Spatial Hierarchy
@@ -3939,7 +3938,7 @@ Where a plural noun is used, for example: Spaces in Drinking Water Treatment Pla
 ````
 ## 04_org_hierarchy.md
 
-\lohead{.\textbackslash 3-System\_Hierarchies\textbackslash 04\_org\_hierarchy.md}
+\lohead{\hyperref[org_hierarchy.md]{.\textbackslash 3-System\_Hierarchies\textbackslash 04\_org\_hierarchy.md}}
 
 ````md
 # Organizations in TW and Interact with TW
@@ -3973,7 +3972,7 @@ Where a plural noun is used, for example: Spaces in Drinking Water Treatment Pla
 ````
 # Folder: 4-Class_Dependent_Specifications
 
-\lohead{4-Class\_Dependent\_Specifications}
+\lohead{\hyperref[folder-4-class_dependent_specifications]{.\textbackslash 4-Class\_Dependent\_Specifications}}
 
 \lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash README.md}
 
@@ -3993,7 +3992,7 @@ To view the file, download it to your computer, using the marked option in the i
 ````
 ## 01_pump.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 01\_pump.yml}
+\lohead{\hyperref[pump.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 01\_pump.yml}}
 
 ````yaml
 ---
@@ -4144,7 +4143,7 @@ properties:
 ````
 ## 02_motor.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 02\_motor.yml}
+\lohead{\hyperref[motor.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 02\_motor.yml}}
 
 ````yaml
 ---
@@ -4326,7 +4325,7 @@ properties:
 ````
 ## 03_valve.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 03\_valve.yml}
+\lohead{\hyperref[valve.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 03\_valve.yml}}
 
 ````yaml
 ---
@@ -4638,7 +4637,7 @@ properties:
 ````
 ## 04_breaker.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 04\_breaker.yml}
+\lohead{\hyperref[breaker.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 04\_breaker.yml}}
 
 ````yaml
 ---
@@ -4708,7 +4707,7 @@ properties:
 ````
 ## 05_starter.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 05\_starter.yml}
+\lohead{\hyperref[starter.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 05\_starter.yml}}
 
 ````yaml
 ---
@@ -4785,7 +4784,7 @@ properties:
 ````
 ## 06_transformer.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 06\_transformer.yml}
+\lohead{\hyperref[transformer.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 06\_transformer.yml}}
 
 ````yaml
 ---
@@ -4889,7 +4888,7 @@ properties:
 ````
 ## 07_hvac.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 07\_hvac.yml}
+\lohead{\hyperref[hvac.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 07\_hvac.yml}}
 
 ````yaml
 ---
@@ -4981,7 +4980,7 @@ properties:
 ````
 ## 08_blower_fan.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 08\_blower\_fan.yml}
+\lohead{\hyperref[blower_fan.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 08\_blower\_fan.yml}}
 
 ````yaml
 ---
@@ -5048,7 +5047,7 @@ properties:
 ````
 ## 09_compressor.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 09\_compressor.yml}
+\lohead{\hyperref[compressor.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 09\_compressor.yml}}
 
 ````yaml
 ---
@@ -5115,7 +5114,7 @@ properties:
 ````
 ## 10_generator.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 10\_generator.yml}
+\lohead{\hyperref[generator.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 10\_generator.yml}}
 
 ````yaml
 ---
@@ -5230,7 +5229,7 @@ properties:
 ````
 ## 11_ups.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 11\_ups.yml}
+\lohead{\hyperref[ups.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 11\_ups.yml}}
 
 ````yaml
 ---
@@ -5306,7 +5305,7 @@ properties:
 ````
 ## 12_boiler.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 12\_boiler.yml}
+\lohead{\hyperref[boiler.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 12\_boiler.yml}}
 
 ````yaml
 ---
@@ -5419,7 +5418,7 @@ properties:
 ````
 ## 13_pressure_vessel.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 13\_pressure\_vessel.yml}
+\lohead{\hyperref[pressure_vessel.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 13\_pressure\_vessel.yml}}
 
 ````yaml
 ---
@@ -5486,7 +5485,7 @@ properties:
 ````
 ## 14_pressure_piping.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 14\_pressure\_piping.yml}
+\lohead{\hyperref[pressure_piping.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 14\_pressure\_piping.yml}}
 
 ````yaml
 ---
@@ -5582,7 +5581,7 @@ properties:
 ````
 ## 15_instrumentation.yml
 
-\lohead{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 15\_instrumentation.yml}
+\lohead{\hyperref[instrumentation.yml]{.\textbackslash 4-Class\_Dependent\_Specifications\textbackslash 15\_instrumentation.yml}}
 
 ````yaml
 ---
@@ -6053,5 +6052,5 @@ allOf:
 ````
 # Folder: 5-Functions
 
-\lohead{5-Functions}
+\lohead{\hyperref[folder-5-functions]{.\textbackslash 5-Functions}}
 
