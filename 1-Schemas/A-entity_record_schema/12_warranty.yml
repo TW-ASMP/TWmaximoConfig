@@ -1,0 +1,72 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: Warranty
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/12_warranty.yml
+type: object
+
+properties:
+  
+  ID:
+  #---------------------------------------
+    description: the unique identifier for the warranty contract
+    type: string  
+
+  description:
+  #---------------------------------------
+    description: a brief summary of the warranty contract
+    type: string
+
+  vendor:
+  #---------------------------------------
+    description: identifies the vendor or provider of the warranty
+    $ref: MaximoCompanyObject
+
+  warranty_start_date:
+  #---------------------------------------
+    description: the first effective day of the warranty
+    oneOf: 
+      - type: null
+      - type: number
+  
+  warranty_expiration_date:
+  #---------------------------------------
+    description: the last effective date of the warranty
+    oneOf: 
+      - type: null
+      - type: number
+
+  covers_labour:
+  #---------------------------------------
+    description: indicates that the vendor is responsible for providing and/or covering the cost of labour
+    type: boolean
+
+  covers_parts:
+  #---------------------------------------
+    description: indicates that the vendor is responsible for providing and/or covering the cost of parts
+    type: boolean
+
+  covers_asset_roles:
+  #---------------------------------------
+    description: the list of roles or more specifically the assets installed in the roles covered by the warranty
+    oneOf: 
+      - type: null
+      - type: array
+        items:
+          $ref: "./02_asset_role.yml"
+  
+  covers_assets:
+  #---------------------------------------
+    description: the list of assets covered by the warranty (any parts in the inventory covered by the warranty must be associated with an asset record)
+    oneOf: 
+      - type: null
+      - type: array
+        items:
+          $ref: "./01_asset.yml"
+
+  warranty_contract_attachment:
+  #---------------------------------------
+    description: the warranty contract document
+    oneOf: 
+      - type: null
+      - type: array
+        items:
+          $ref: Maximo_DOCLINKS

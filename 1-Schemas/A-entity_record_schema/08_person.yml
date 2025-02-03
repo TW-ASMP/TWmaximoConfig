@@ -6,60 +6,93 @@ type: object
 properties:
 
   ID:
-    
-    type: string
+  #---------------------------------
     description: Unique identifier for the person
+    type: string
 
   first_name:
-  
-    type: string
+  #---------------------------------
     description: First name of the person
+    type: string
   
   last_name:
-  
-    type: string
+  #---------------------------------
     description: Last name of the person
+    type: string
+
+  employee_number:
+  #-----------------------------------------------
+    type: string
   
   display_name:
-    
-    type: string
+  #---------------------------------
     description: Full name displayed (usually a combination of first and last names)
+    type: string
 
   division:
-
+  #---------------------------------
+    description: Indicates which City division that the person works for
     type: string
-    description: indicates which City division that the person works for
-  
+
+  section:
+  #---------------------------------
+    description: Indicates which section within a division that the person works for
+    type: string
+
   unit:
-    
+  #---------------------------------
+    description: Indicates which business-unit within a section that the person works for
     type: string
-    description: indicates which business-unit that the person works for
-
+  
+  person_role_in_system:
+  #---------------------------------
+    description: the role(s), associated with a certain type of system access, that the person plays in the system. 
+    type: array
+    items: 
+      $ref: "./11_person_role.yml"
+    
   primary_trade:
-    
-    type: string
+  #---------------------------------
     description: Primary craft or skill associated with the person
+    type: string
+
+  qualification:
+  #---------------------------------
+    description: 
+    type: string
 
   external_contractor:
-    
+  #---------------------------------
+    description: Indicates whether the person is not an employee of the City
     type: boolean
-    description: indicates whether the person is not an employee of the City
-  
+
   status:
-    
+  #---------------------------------
     type: string
     enum:
       - ACTIVE
       - INACTIVE
     description: Status of the person
   
-  email_address:
-    
-    type: string
-    format: email
-    description: Email address of the person
+  qualifications:
+  #-----------------------------------------------
+    description:
+    oneOf:
+      - type: null
+      - type: array
+        items:
+          $ref: "./09_qualification.yml"
 
-  phone:
-    
-    type: string
-    description: Contact phone number of the person
+  contact:
+  #-----------------------------------------------
+    properties:
+      email_address:
+        
+        description: Email address of the person
+        type: string
+        format: email
+
+      phone:
+        
+        description: Contact phone number of the person
+        type: string

@@ -1,7 +1,7 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role classification object
-$spec_ID: B-entity_class_object_schema/02_role_class.yml
+$spec_ID: B-entity_class_object_schema/02_asset_role_class.yml
 type: object
 
 #############################################################
@@ -15,7 +15,7 @@ properties:
     #inherit the defintions and rules from th "/1-Schemas/B-entity_class_object_schema/00_common_class_definitions.yml"
 
   parent class:
-    $ref: B-entity_class_object_schema/02_role_class.yml
+    $ref: B-entity_class_object_schema/02_asset_role_class.yml
     sort order: 1-30
 
   discrete asset role:
@@ -47,7 +47,7 @@ properties:
 #############################################################
 
 rule_spec:
-  - name: Is an asset role, functional structure role, or defined set of roles       
+  - name: Is an role, functional structure role, or defined set of roles       
     spec_ID: NyD4XGbuex
     specification: |
       if roleClassX is a decendent of "Discrete Asset Role" in the role classification hierarchy:

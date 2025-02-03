@@ -83,7 +83,7 @@ properties:
     description: indicates role at which the specified work is to be performed.
     oneOf:
       - type: null
-      - $ref: "../A-entity_record_schema/02_role.yml"
+      - $ref: "../A-entity_record_schema/02_asset_role.yml"
       [] should have name and description, like asset_to_work_on
     
     rule_spec:
@@ -114,7 +114,7 @@ properties:
       $comment: |
         multiple fields may need to represented.  
   
-  asset_or_role_criticality:
+  asset_or_asset_role_criticality:
   #---------------------------
     description: is the criticality values inherited from the asset or role being worked on.
     read-only: true
@@ -156,7 +156,7 @@ properties:
           role:
             oneOf: 
               - type: null
-              - $ref: "./02_role.yml"
+              - $ref: "./02_asset_role.yml"
 
           job_plan:
             $ref: "./32_job_plan.yml"
@@ -267,7 +267,7 @@ properties:
 
   work_priority:
   #-----------------------------
-    description: a synthetic number derived from the condition of the asset function being maintained (i.e., how close is it to failure), and the importance (or criticality) of the asset function to the organization's goals.
+    description: a synthetic number derived from the condition of the asset function being maintained (i.e., how close is it to failure), and the importance (or criticality) of the asset function to the functional group's goals.
 
     implementation:
       MX_mapping: INTERNALPRIORITY
@@ -306,7 +306,7 @@ properties:
 
   site:
   #-----------------------------
-    description: indicates Toronto Water's operational unit, on the organizational hierarchy, such as Waste and Storm Water Pumping (symbol - WASP) or Humber Wastewater Treatment Plant (symbol - THR).
+    description: indicates Toronto Water's operational unit, on the functional group hierarchy, such as Waste and Storm Water Pumping (symbol - WASP) or Humber Wastewater Treatment Plant (symbol - THR).
     $ref: "./04_org_or_group.yml"
     
     implementation:
@@ -352,7 +352,7 @@ properties:
 
     WO_only: true
     
-    comment: This value will be determined by (and must be consistent with) the maintainer_organization value - situated at a lower level of the organization hierarchy
+    comment: This value will be determined by (and must be consistent with) the maintainer_functional_group value - situated at a lower level of the functional group hierarchy
 
   trades_assignment:
   #-----------------------------
@@ -644,7 +644,7 @@ properties:
     description: documents or photographs that provide further supplementary information.
     oneOf:
       - type: null
-      - $ref: "../A-entity_record_schema/35_work_order.yml"
+      - type: Maximo_DOCLINKS
     
     implementation:
       MX_mapping: 

@@ -23,7 +23,7 @@ properties:
 
   operational_unit:
 
-    description: indicates Toronto Water's operational unit, on the organizational hierarchy, such as Waste and Storm Water Pumping (symbol - WASP) or Humber Wastewater Treatment Plant (symbol - THR).
+    description: indicates Toronto Water's operational unit, on the functional group hierarchy, such as Waste and Storm Water Pumping (symbol - WASP) or Humber Wastewater Treatment Plant (symbol - THR).
     $ref: "./04_org_or_group.yml"
   
   # ==========
@@ -43,7 +43,7 @@ properties:
       - type: null
       - $ref: "./04_org_or_group.yml"
     
-    comment: This value will be determined by (and must be consistent with) the maintainer_organization value - situated at a lower level of the organization hierarchy
+    comment: This value will be determined by (and must be consistent with) the maintainer_functional_group value - situated at a lower level of the functional group hierarchy
 
   # ==========
 
@@ -100,7 +100,7 @@ properties:
     description: indicates role at which the specified must be performed.
     oneOf:
       - type: null
-      - $ref: "../A-entity_record_schema/02_role.yml"
+      - $ref: "../A-entity_record_schema/02_asset_role.yml"
 
   #================
   
@@ -153,7 +153,7 @@ properties:
           role:
             oneOf: 
               - type: null
-              - $ref: "./02_role.yml"
+              - $ref: "./02_asset_role.yml"
 
           job_plan:
             oneOf:

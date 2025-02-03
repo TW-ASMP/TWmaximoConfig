@@ -1,0 +1,6 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: tool item master
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/07_service_item_master.yml.yml
+type: object
+
+# To be specified in the future

@@ -1,7 +1,7 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
 title: role
-$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/02_role_schema.yml
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/02_asset_role_schema.yml
 type: object
 
 properties:
@@ -32,12 +32,12 @@ properties:
 
   parent:
 
-    $ref: "./02_role.yml"
+    $ref: "./02_asset_role.yml"
     description: References the role that is served by the larger asset, which physically subsumes the asset serving this role.
   
   class:
 
-    $ref: B-entity_class_object_schema/02_role_class.yml
+    $ref: B-entity_class_object_schema/02_asset_role_class.yml
     description: The class denote the broad types of asset that may play the role (e.g., "breaker role"), and sometimes, more specifically, it also denotes the useful function provided by that asset in the role to the larger system (e.g., the "tie-breaker role" provides tie-breaking function to the electrical distribution system).
 
   class_dependent_specifications:
@@ -84,9 +84,9 @@ properties:
     $comment: |
       Eventually, this information should be replaced by formalized properties associated with specific classes. For example, for the motor role class, there would be a requirement for a minimum amount of horsepower or torque. 
 
-  serving_asset_in_role:
+  serving_asset_in_asset_role:
 
-    $ref: "./02_role.yml"
+    $ref: "./02_asset_role.yml"
     description: Identifies the asset this role is serving. For example, given a motor starter role, the value in this data field identifies the role of the motor controlled by that motor starter. 
   
   asset installation location:
@@ -148,7 +148,7 @@ properties:
     oneOf: 
       - type: array
         items:
-          $ref: "./02_role.yml"
+          $ref: "./02_asset_role.yml"
       - type: null
   
   #========================
@@ -171,15 +171,15 @@ properties:
   allOf:
     - if:
       oneOf:
-        - roleClass:
+        - assetRoleClass:
             properties:
                 className:
                   const: pumping station
-        - roleClass:
+        - assetRoleClass:
             properties:
                 className:
                   const: water treatment plant
-        - roleClass:
+        - assetRoleClass:
             properties:
                 className:
                   const: large chamber
@@ -187,7 +187,7 @@ properties:
         required: GIS object ID
   
   #[]RULE:
-  # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned_to_role" property).
+  # IN COMMON LANGUAGE: At any given time, each role may only have a single asset assigned to it (i.e., associated with the role via the asset's "assigned_to_asset_role" property).
 
 #############################################################
 # 3. LOCAL OBJECT DEFINITION

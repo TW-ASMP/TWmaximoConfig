@@ -4,7 +4,7 @@ title: generic class object
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/B-entity_class_object_schema/00_common_class_definitions.yml
 type: object
 
-# This set of properties are used in all classification objects (e.g., asset, organization, etc.)
+# This set of properties are used in all classification objects (e.g., asset, functional group, etc.)
 
 properties:
 

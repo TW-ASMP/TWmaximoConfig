@@ -1,15 +1,17 @@
 ---
 $schema: "http://json-schema.org/draft-07/schema#"
-title: organization
+title: functional group
 $id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/1-Schemas/A-entity_record_schema/04_org_schema.yml
 type: object
 properties:
 
-  organization_or_group_name:
+  ID:
+  
+  functional_group_name:
 
     type: string 
 
-  parent_organization:
+  parent_functional_group:
 
     oneOf:
       - $ref: "./04_org_or_group.yml"
@@ -33,12 +35,12 @@ properties:
 
   equivalent_to_Maximo_site:
 
-    description: indicates that this organization maps to a particular site (a native Maximo object)
+    description: indicates that this functional group maps to a particular site (a native Maximo object)
     $ref: MaximoSiteObject
 
   equivalent_to_Maximo_org:
 
-    description: indicates that this organization maps to a particular organization (a native Maximo object)
+    description: indicates that this functional group maps to a particular functional group (a native Maximo object)
     $ref: MaximoOrgObject
 
   duplicate record of:
