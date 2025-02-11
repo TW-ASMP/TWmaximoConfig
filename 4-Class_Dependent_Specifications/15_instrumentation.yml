@@ -1,0 +1,476 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: instrumentation
+$id: "https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/15_instrumentation.yml"
+type: object
+
+properties:
+
+  parameter:
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the parameter that is being measured
+    enum:
+      - "Density"
+      - "Flow Rate"
+      - "Humidity"
+      - "Level"
+      - "Current"
+      - "Power"
+      - "Position"
+      - "Pressure"
+      - "Speed"
+      - "Temperature"
+      - "Torque"
+      - "UV"
+      - "Vibration"
+      - "Weight"
+      - "Specific Gravity"
+      - "Ammonia"
+      - "Carbon Monoxide"
+      - "Chloramination"
+      - "Chlorine"
+      - "Dissolved Oxygen"
+      - "Fluoride"
+      - "Methane/LEL"
+      - "Total Hydrocarbon"
+      - "ORP"
+      - "Ozone"
+      - "Particulate"
+      - "PH"
+      - "Sulphite"
+      - "Sulphur Dioxide"
+      - "Suspended Solids"
+      - "Turbidity"
+
+  uom:
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the unit of measurement that the instrumentation is reporting values in
+  
+  lower_bound:
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the lower bound for the parameter of the instrument in the UOM
+
+  upper_bound:
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the upper bound for the parameter of the instrument in the UOM  
+
+allOf:
+  - if:
+      properties:
+        parameter:
+          const: "Density"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Kilograms Per Cubic Meter (kg/m³)"
+            - "Grams Per Cubic Centimeter (g/cm³)"
+            - "Grams Per Milliliter (g/mL)"
+            - "Pounds Per Cubic Foot (lb/ft³)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Flow Rate"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Liters Per Second (L/s)"
+            - "Cubic Meters Per Second (m³/s)"
+            - "Gallons Per Minute (GPM)"
+            - "Cubic Feet Per Minute (CFM)"
+            - "Liters Per Hour (L/h)"
+            - "Standard Cubic Feet Per Minute (SCFM)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Humidity"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Percentage (%)"	
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Level"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Centimeters (cm)"	
+            - "Meters (m)"	
+            - "Inch (in)"
+            - "Percentage (%)"
+            - "Feet (ft)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Current"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Ampere (A)"	
+            - "Milliampere (mA)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Power"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Watt (W)"
+            - "kilowatt (kW)"
+            - "Megawatt (MW)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Position"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Centimeters (cm)"	
+            - "Meters (m)"	
+            - "Inch (in)"	
+            - "Millimeter (mm)"	
+            - "Feet (ft)"	
+            - "Degree (°)"	
+            - "Randians (rad)"	
+            - "Unitless"
+
+  - if:
+      properties:
+        parameter:
+          const: "Pressure"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Pascal (Pa)"	
+            - "Kilopascal (kPa)"	
+            - "Bar"	
+            - "Atmosphere (atm)"	
+            - "Pounds Per Square Inch (PSI)"	
+            - "Millimeter of Mercury (mmHg)"	
+            - "Millimeter of Water (mmH20)"	
+            - "Inch of Water (\"WC)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Speed"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Meters Per Second (m/s)"	
+            - "Kilometers Per Hour (km/h)"	
+            - "Feet Per Second (ft/s)"	
+            - "Mile Per Hour (mph)"	
+            - "Revolutions Per Minute (RPM)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Temperature"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Degree Celsius (°C)"
+            - "Degree Fahrenheit (°F)"
+
+
+  - if:
+      properties:
+        parameter:
+          const: "Torque"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Newton-meters (N·m)"	
+            - "Foot-pounds (ft·lb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "UV"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Watts Per Square Meter (W/m²)"	
+            - "Percentage (%)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Vibration"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Meters Per Second (m/s)"	
+            - "Centimeters Per Second (cm/s)"	
+            - "Feet Per Seconf (ft/s)"	
+            - "Inch Per Second (in/s)"	
+            - "Meters Per Second Square (m/s2)"	
+            - "Centimeters Per Second Square (cm/s2)"	
+            - "Feet Per Second Square (ft/s2)"	
+            - "Inch Per Second Square (in/s2)"	
+            - "Hertz (Hz)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Weight"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams (g)"	
+            - "Kilograms (kg)"	
+            - "Pounds (lb)"	
+            - "Metric Tons (tonne)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Specific Gravity"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Unitless"	
+
+  - if:
+      properties:
+        parameter:
+          const: "Ammonia"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"	
+            - "Milligrams Per Cubic Meter (mg/m³)"	
+            - "Percentage (%)"	
+            - "Micrograms Per Cubic Meter (µg/m³)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Carbon Monoxide"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"	
+            - "Milligrams Per Cubic Meter (mg/m³)"	
+            - "Percentage (%)"	
+            - "Micrograms Per Cubic Meter (µg/m³)"	
+
+  - if:
+      properties:
+        parameter:
+          const: "Chloramination"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+
+  - if:
+      properties:
+        parameter:
+          const: "Chlorine"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Dissolved Oxygen"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Fluride"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Methane/LEL"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"	
+            - "Milligrams Per Cubic Meter (mg/m³)"	
+            - "Percentage (%)"	
+            - "Micrograms Per Cubic Meter (µg/m³)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Total Hydrocarbon"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "ORP"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Ozone"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Particulate"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "PH"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Unitless"
+
+  - if:
+      properties:
+        parameter:
+          const: "Sulphite"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Sulphur Dioxide"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"	
+            - "Milligrams Per Cubic Meter (mg/m³)"	
+            - "Percentage (%)"	
+            - "Micrograms Per Cubic Meter (µg/m³)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Suspended Solids"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"
+
+  - if:
+      properties:
+        parameter:
+          const: "Turbity"
+    then:
+      properties:
+        uom:
+          enum:
+            - "Grams Per Milliliter (g/mL)"	
+            - "Milligrams Per Liter (mg/L)"	
+            - "Parts Per Million (ppm)"	
+            - "Parts Per Billion (ppb)"

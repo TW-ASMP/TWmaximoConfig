@@ -1,0 +1,90 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: pressure_piping
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/14_pressure_piping.yml
+type: object
+
+$comment: >
+
+properties:
+
+  max_size:
+
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum pipe size in inches
+
+    $comment:
+
+  #========================
+
+  max_pressure:
+
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum working pressure within the pressure piping in kPa
+
+    $comment:
+
+  #========================
+
+  max_temperature:
+
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum medium temperature within the pressure piping in degrees celsius
+
+    $comment:
+
+  #========================
+
+  contained_medium:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the medium within the pressure piping
+    enum:
+      - "Water"
+      - "Steam"
+      - "Glycol"
+      - "Refrigerant"
+      - "Compressed Air"
+      - "Digester Gas"
+      - "Ozone"
+
+    $comment: 
+
+  #========================
+
+  special_application:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the speical application required for pressure piping
+    enum:
+      - "piping in fire protection system"
+      - "piping in heating system"
+      - "piping in refrigeration system"
+      - "compressed air piping"
+      - "hot oil piping"
+      - "buried water piping"
+
+    $comment: 
+
+  #========================
+
+  tssa_crn:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the CRN number issued by the TSSA
+
+    $comment: 
+
+  #========================

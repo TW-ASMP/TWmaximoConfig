@@ -1,0 +1,109 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: generator
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/10_generator.yml
+type: object
+
+$comment: >
+
+properties:
+
+
+  mobile:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates if the generator is mobile
+
+    $comment: 
+
+  #========================
+
+  power_rated:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the power rating in kilo watts
+
+    $comment: 
+
+  #========================
+
+  voltage_rating:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the capacity rating for the generator in Volts
+
+    $comment: 
+
+  #========================
+
+  drive_type:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the type of drive 
+    enum:
+      - "Engine, Diesel or Bio-diesel"
+      - "Engine, Natural Gas"
+      - "Turbine"
+
+    $comment: 
+
+  #========================
+
+  brushless:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of brushes within the generator
+
+    $comment: 
+
+  #========================
+
+  test_load:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of an electrical connection to attach a test load
+
+    $comment: 
+
+  #========================
+
+  drive_coupling:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the type of drive coupling
+    enum:
+      - "Direct Drive"
+      - "Belt Drive"
+      - "Gear Drive"
+      - "Flexible"
+      - "Chain Drive"
+      - "Hydraulic"
+
+    $comment: 
+
+  #========================
+
+  sealed_bearings:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of sealed of shielded bearings
+
+    $comment: 
+
+  #========================

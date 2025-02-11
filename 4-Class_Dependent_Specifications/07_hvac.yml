@@ -1,0 +1,86 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: hvac
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/07_hvac.yml
+type: object
+
+$comment: >
+
+properties:
+
+  cfm_rating:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the capacity rating for the hvac unit in CFM
+
+    $comment: 
+
+  #========================
+
+  static_pressure:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the static pressure for the hvac unit in inch water column 
+
+    $comment: 
+
+  #========================
+
+  heating:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a heating function in the hvac unit such as heating coil or gasburner
+
+    $comment: 
+
+  #========================
+
+  cooling:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a cooling function in the hvac unit such as cooling coil
+
+    $comment: 
+
+  #========================
+
+  dehumidifier:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a dehumidifier
+
+    $comment: 
+
+  #========================
+
+  maintainable_damper:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a maintainable damper
+    $comment: 
+
+  #========================
+
+  belts_present:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of replacable belts
+
+    $comment: 
+
+  #========================
+  

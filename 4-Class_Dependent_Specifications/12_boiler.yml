@@ -1,0 +1,107 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: boiler
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/12_boiler.yml
+type: object
+
+$comment: >
+
+properties:
+
+  energy_source:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the fuel source for the boiler
+    enum:
+      - "Natural Gas"
+      - "Biogas / Digester Gas"
+      - "Propane"
+      - "Electric"
+      - "Fuel Oil"
+
+    $comment: 
+
+  #========================
+
+  boiled_medium:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the boiled/heated medium within the boiler
+    enum:
+      - Water
+      - Steam
+      - Glycol
+
+    $comment: 
+
+  #========================
+
+  heat_rate:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the rated heat rate in the boiler in kilo Watts
+
+    $comment: 
+
+  #========================
+
+  max_pressure:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum operating pressure for the boiler in psi
+
+    $comment: 
+
+  #========================
+
+  max_temperature:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum operating temperature for the boiler in degrees celsius
+
+    $comment: 
+
+  #========================
+
+  heated_surface:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the heating surface area of the boiler in meters squared
+
+    $comment: 
+
+  #========================
+
+  capacity:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the size capacity of the boiler in Litres
+
+    $comment: 
+
+  #========================
+
+  tssa_crn:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the CRN number issued by the TSSA
+
+    $comment: 
+
+  #========================

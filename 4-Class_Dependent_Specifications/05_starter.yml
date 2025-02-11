@@ -1,0 +1,71 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: starter
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/05_starter.yml
+type: object
+
+$comment: >
+
+properties:
+
+  voltage_rating:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the continuous voltage rating for the starter in Volts
+
+    $comment: 
+
+  #========================
+
+  current_rating:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the continuous current rating for the starter in Amps
+
+    $comment: 
+
+  #========================
+
+  vfd_present:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a variable frequency drive within the starter
+
+    $comment: 
+
+  #========================
+
+  soft_start_present:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the function of a soft starter in  the starter
+
+    $comment: 
+
+  #========================
+
+  main_contactor:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the ansi type for the valve
+    enum:
+      - "Air Insulated"
+      - "Air Insulated, Air Blast"
+      - "Vacuum Insulated"
+      - "Oil Insultated"
+      - "Gas Insultated"
+
+    $comment: 
+
+  #========================
+  

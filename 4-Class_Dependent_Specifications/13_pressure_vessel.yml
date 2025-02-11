@@ -1,0 +1,61 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: pressure_vessel
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/13_pressure_vessel.yml
+type: object
+
+$comment: >
+
+properties:
+
+  contained_medium:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the medium within the pressure vessel
+    enum:
+      - "Water"
+      - "Steam"
+      - "Glycol"
+      - "Refrigerant"
+      - "Compressed Air"
+      - "Digester Gas"
+      - "Ozone"
+
+    $comment: 
+
+  #========================
+
+  capacity:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the size capacity of the pressure vessel in Litres
+
+    $comment: 
+
+  #========================
+
+  max_pressure:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum operating pressure for the pressure vessel in psi
+
+    $comment: 
+
+  #========================
+
+  tssa_crn:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the CRN number issued by the TSSA
+
+    $comment: 
+
+  #========================

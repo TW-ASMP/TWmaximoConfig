@@ -1,0 +1,145 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: pump
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/01_pump.yml
+type: object
+
+$comment: >
+
+properties:
+
+  orientation:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates how the pump is oriented in 3D space
+    enum:
+      - Horizontal
+      - Vertical
+      - Angled
+      - Inverted
+
+    $comment: |
+
+  #========================
+
+  variable_speed:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the if the pump has varialbe speed control 
+
+    $comment: |
+
+  #========================
+
+  pump_type:
+  
+    oneOf:
+      - type: null
+      - type: string  
+    description: Indicates the pump type
+    enum:
+      - "Dynamic, Centrifugal"
+      - "Dynamic, Axial"
+      - "Reciprocating, Piston or Plunger"
+      - "Reciprocating, Diaphram"
+      - "Rotary, Vane"
+      - "Rotary, Piston"
+      - "Screw Pump"
+      - "Gear Pump"
+
+    $comment: |
+
+  #========================
+  
+  max_rpm:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum RPM for the pump
+
+    $comment: |
+
+  #========================
+    
+  max_flow:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the maximum flow rate at the maximum RPM for the pump in L/s
+
+    $comment: |
+
+  #========================
+
+  
+  pump_head:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the pressure head for the pump in metres
+
+    $comment: |
+
+  #========================  
+
+  submersible:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates if the pump is submersible
+
+    $comment: |
+
+  #========================
+
+  
+  drive_coupling:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates how the drive and pump are coupled together
+    enum:
+      - "Direct Drive"
+      - "Belt Drive"
+      - "Gear Drive"
+      - "Flexible"
+      - "Chain Drive"
+      - "Hydraulic"
+
+    $comment: |
+
+  #========================
+
+  drive:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates what the mechanicly drives the pump
+    enum:
+      - "Electric Motor"
+      - "Engine"
+
+    $comment: |
+
+  #========================
+
+  sealed_bearings:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates if the pump has sealed bearings
+
+    $comment: |
+
+  #========================

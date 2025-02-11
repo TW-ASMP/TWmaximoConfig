@@ -1,0 +1,98 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: transformer
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/06_transformer.yml
+type: object
+
+$comment: >
+
+properties:
+
+  voltage_primary:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the primary voltage rating for the transformer in Volts
+
+    $comment: 
+
+  #========================
+
+  voltage_secondary:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the secondary voltage rating for the transformer in Volts
+
+    $comment: 
+
+  #========================
+
+  power_rating:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the power rating for the transformer in kVA
+
+    $comment: 
+
+  #========================
+
+  oil_filled:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the requirement for oil cooling for the transformer
+
+    $comment: 
+
+  #========================
+
+  pressure_relay:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a sudden pressure relay
+
+    $comment: 
+
+  #========================
+
+  cooling_air_fan:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a cooling air fan(s)
+
+    $comment: 
+
+  #========================
+
+  coolant_pump:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a coolant pump
+
+    $comment: 
+
+  #========================
+
+  gas_monitor:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates the presence of a gas monitor 
+
+    $comment: 
+
+  #========================
+  

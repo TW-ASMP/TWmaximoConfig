@@ -1,0 +1,176 @@
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: motor
+$id: https://raw.githubusercontent.com/TW-ASMP/TWmaximoConfig/main/4-Class_Dependent_Specifications/02_motor.yml
+type: object
+
+$comment: >
+
+properties:
+
+  type:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the motor type
+    enum:
+      - "AC"
+      - "AC, Squirrel Cage Induction"
+      - "AC, Wound Rotor Induction"
+      - "AC, Synchronous"
+      - "DC"
+      - "DC, Separately Excited"
+      - "DC, Self Excited"
+      - "DC, Permanent Magnet"
+
+
+    $comment: |
+
+  #========================
+
+    
+  voltage:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the voltage of the motor in Volts
+
+    $comment: |
+
+  #========================
+
+  horse_power:
+  
+    oneOf:
+      - type: null
+      - type: number
+    description: Indicates the horse power of the motor
+
+    $comment: |
+
+  #========================
+  
+  nema_frame:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates the NEMA frame type for the motor
+    enum:
+      - "42"
+      - "48"
+      - "56"
+      - "66"
+      - "182"
+      - "184"
+      - "213"
+      - "215"
+      - "1412AT"
+      - "143T"
+      - "145T"
+      - "146AT"
+      - "148AT"
+      - "149AT"
+      - "182AT"
+      - "182T"
+      - "184T"
+      - "186ACY"
+      - "186AT"
+      - "189AT"
+      - "203#"
+      - "204#"
+      - "2110AT"
+      - "213T"
+      - "215T"
+      - "219AT"
+      - "224#"
+      - "225#"
+      - "254#"
+      - "254T"
+      - "254U"
+      - "256T"
+      - "256U"
+      - "284#"
+      - "284T"
+      - "284TS"
+      - "284U"
+      - "286T"
+      - "286TS"
+      - "286U"
+      - "324#"
+      - "324T"
+      - "324TS"
+      - "324U"
+      - "326#"
+      - "326T"
+      - "326TS"
+      - "326U"
+      - "364#"
+      - "364S#"
+      - "364T"
+      - "364TS"
+      - "364U"
+      - "365#"
+      - "365T"
+      - "365TS"
+      - "365U"
+      - "404T"
+      - "404TS"
+      - "404U"
+      - "405T"
+      - "405TS"
+      - "405U"
+      - "444T"
+      - "444TS"
+      - "444U"
+      - "445T"
+      - "445TS"
+      - "445U"
+      - "447T&&"
+      - "447TS&&"
+      - "449T"
+      - "449TS"
+      - "48H"
+      - "56H"
+      - "56HZ"
+      - "L182ACY"
+      - "L186AT"
+
+
+    $comment: |
+
+  #========================
+
+
+  nema_enclosure:
+  
+    oneOf:
+      - type: null
+      - type: string
+    description: Indicates what the NEMA enclosure type for the motor
+    enum:
+      - ODP
+      - TEFC
+      - TENV
+      - TEAO
+      - TEWD
+      - EXPL
+      - HAZ
+
+
+    $comment: |
+
+  #========================
+
+  sealed_bearings:
+  
+    oneOf:
+      - type: null
+      - type: boolean
+    description: Indicates if the motor has sealed bearings
+
+    $comment: |
+
+  #========================
